@@ -68,7 +68,6 @@ export default function Home() {
             <div className="mt-6 grid gap-5 md:grid-cols-3">
               {["The whole process felt organized, clear, and remarkably easy.", "Every detail was handled with care, from prep through clean-up.", "Our space feels completely renewed—and the schedule stayed on track."].map((quote) => (
                 <figure key={quote} className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-                  <div aria-hidden="true" className="text-lg tracking-widest text-[#0F766E]">★★★★★</div>
                   <blockquote className="mt-6 text-lg leading-8 text-slate-700">“{quote}”</blockquote>
                   <figcaption className="mt-7 border-t border-slate-100 pt-5 text-sm font-semibold text-slate-500">Placeholder customer</figcaption>
                 </figure>
@@ -87,7 +86,7 @@ export default function Home() {
         <section id="contact" className="scroll-mt-24 px-5 pb-20 sm:px-8 lg:pb-28">
           <div className="mx-auto flex max-w-7xl flex-col items-center rounded-3xl bg-[#2DD4BF] px-6 py-16 text-center sm:px-12 sm:py-20">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#0F5F59]">Your fresh start</p><h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-[#0F172A] sm:text-5xl">Ready to transform your home?</h2><p className="mt-5 max-w-xl text-lg text-[#134E4A]">A more beautiful space starts with one simple conversation.</p>
-            <PrimaryButton href="mailto:hello@paintswitch.com?subject=Free%20Estimate%20Request" className="mt-8 !bg-[#0F172A] !text-white hover:!bg-slate-800">Request My Estimate <span aria-hidden="true">→</span></PrimaryButton>
+            <PrimaryButton href="#contact" className="mt-8 !bg-[#0F172A] !text-white hover:!bg-slate-800">Request My Estimate <span aria-hidden="true">→</span></PrimaryButton>
           </div>
         </section>
       </main>
