@@ -1,6 +1,6 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-07-31
+Last repository inspection: 2026-08-01
 
 Last documentation-completeness audit: 2026-08-01
 
@@ -52,15 +52,15 @@ This document separates facts verified directly from the current repository from
 - No automated tests or tracked CI workflow are present.
 - No tracked Vercel project configuration or other deployment configuration is present. `.vercel` is ignored.
 
-### Current documentation/code conflicts requiring direction
+### Current documentation/code conflicts and implementation gaps
 
-- **TBD:** The current site presents Drywall Repair as a service card. Canonical business decisions confirm four marketed painting categories and do not yet confirm drywall repair as a standalone marketed service.
+- The current site presents Drywall Repair as a service card, but decision D-018 excludes standalone Drywall Repair from the approved lead-generation beta.
 - The current universal “How It Works” sequence includes “Schedule Consultation,” while the confirmed operational V1 must allow qualifying standard-interior sales to close online without a required pre-sale call or consultation.
 - The footer's Services group lists Interior, Exterior, and Commercial but omits the confirmed Cabinet category, while the main page includes Cabinet Painting.
-- The current site's estimate calls to action and four-step process suggest an estimate/consultation experience, but no supporting workflow exists.
+- The current site's estimate calls to action conflict with the approved beta “Request a Quote” action and no supporting workflow exists.
 - A customer-facing chatbot is **Confirmed**, but the repository has no chatbot implementation. Provider, model, architecture, exact interface, and release phasing remain **TBD**.
 - GoHighLevel and its intended CRM/SMS/email/AI-chat/automation/calendar/pipeline/reviews/payment-workflow functions are **Confirmed**, but no configuration or active module is verified.
-- The seven confirmed end-state outcomes are not all implemented, and their release order remains **TBD**. They must not be treated as automatic blockers for an earlier lead-generation beta without an explicit phasing decision.
+- The lead-generation beta is now the confirmed first release; the seven end-state outcomes are not all implemented and post-beta sequencing remains **TBD**.
 - Website copy remains implementation content and is not evidence that any unrecorded policy is approved.
 
 ## Historical reports
@@ -84,12 +84,15 @@ This document separates facts verified directly from the current repository from
 - **Status:** Historical/Needs verification
 - A deployment was reported at [https://paintswitch-web.vercel.app](https://paintswitch-web.vercel.app).
 - GitHub-to-Vercel automatic deployment was reported.
-- Current deployment health, project ownership, active branch, environment settings, and automatic-deployment behavior need verification.
+- A read-only HTTP health check on 2026-08-01 returned `200 OK` from Vercel for the reported URL.
+- Project ownership, active production branch, environment settings, custom-domain state, and automatic-deployment behavior still need verification.
 - The repository itself does not contain tracked Vercel configuration proving the reported deployment connection.
 
 ## Current development assessment
 
 - The repository is at a marketing-landing-page stage, not an operational quoting or booking product stage.
+- Decision D-018 confirms a lead-generation beta before instant quote and checkout. The beta scope is documented but not implemented.
+- Directional beta readiness is **25%**: canonical scope and the static/live-site foundation exist, while connected lead capture, verified GoHighLevel delivery, legal/consent readiness, operating ownership, attribution, security, and end-to-end QA remain incomplete.
 - The approved quote, routing, checkout, and booking model is documented but not implemented.
 - The flat $125 fuel/materials adjustment is **Confirmed**, but critical base pricing, eligibility, checkout, and policy decisions remain **TBD**, so a safe firm-pricing implementation is still blocked on product decisions.
 - A customer-facing chatbot is **Confirmed** but not implemented. Its provider, model, architecture, exact interface, and release phasing remain **TBD**.

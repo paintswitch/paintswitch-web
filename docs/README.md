@@ -55,6 +55,7 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 - Use ISO dates (`YYYY-MM-DD`) and distinguish the date of a decision from the date it was documented.
 - Never publish an unapproved price, fee, deposit, multiplier, allowance, package, or eligibility policy as current customer policy.
 - Keep confirmed end-state outcomes separate from release phasing. Do not infer that every confirmed outcome blocks an earlier beta when sequencing remains **TBD**.
+- Treat decision D-018 as the current release boundary: the lead-generation beta is first, and instant pricing, checkout, chatbot, payments, photo-review automation, and automated proposals are deferred from that beta.
 - Treat a confirmed platform selection separately from its account configuration, credentials, workflows, APIs, field mappings, payment-processor setup, and exact enabled modules.
 
 ## Review process

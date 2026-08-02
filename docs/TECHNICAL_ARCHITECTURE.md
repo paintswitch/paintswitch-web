@@ -130,6 +130,8 @@ The absence of chatbot code is an implementation gap against a **Confirmed** cus
 
 GoHighLevel is a **Confirmed** business/platform selection, but the repository contains no verified GoHighLevel account configuration, dependency, client, API call, field mapping, workflow, credential reference, payment-processor setup, or enabled-module evidence. The platform decision must not be documented here as implemented architecture until repository or environment evidence verifies it.
 
+Decision D-018 confirms a lead-generation beta that will require lead intake and verified GoHighLevel CRM delivery. That release decision does not establish an implementation architecture: the repository still contains no form handler, API route, server action, webhook, GoHighLevel client, or verified external configuration.
+
 ## Deployment configuration
 
 - The Git remote points to `paintswitch/paintswitch-web` on GitHub.

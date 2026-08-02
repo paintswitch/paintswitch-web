@@ -55,7 +55,7 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Status:** Confirmed
 - **Decision:** Residential interior painting is the operational V1 for instant firm pricing and checkout. Market interior, exterior, cabinet, and commercial painting at launch; restrict instant firm pricing and checkout to qualifying standard residential interiors; require photo review for complex interiors and custom consultation for exterior, cabinet, and commercial work.
 - **Reason:** Maintains broad market visibility while limiting automated firm pricing to the project class approved for safe standardization.
-- **Consequences:** Product eligibility must route customers by service and complexity before a firm price is shown. The current standalone Drywall Repair service card is not approval of an additional marketed category and requires clarification.
+- **Consequences:** Product eligibility must route customers by service and complexity before a firm price is shown. Decision D-018 later excluded standalone Drywall Repair from the lead-generation beta; its post-beta status remains TBD.
 - **Supersedes:** Any working assumption that every marketed service can receive instant firm pricing. No prior decision ID is documented.
 
 ## D-007 — Room-by-room pricing
@@ -127,7 +127,7 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Status:** Confirmed
 - **Decision:** Use GoHighLevel as PaintSwitch's launch backbone or operating engine. Its intended functions include CRM, SMS, email, AI chat, automations, calendar booking, pipelines, reviews, and payment workflows.
 - **Reason:** Establishes the owner-selected operating platform and intended capability categories for launch execution.
-- **Consequences:** CRM integration is a Confirmed platform outcome rather than a merely Proposed integration. Account configuration, credentials, workflows, APIs, field mappings, payment-processor configuration, exact enabled modules, and public-release phasing remain TBD until approved and verified. Selection of GoHighLevel does not prove that any module is configured or live.
+- **Consequences:** CRM integration is a Confirmed platform outcome rather than a merely Proposed integration. Decision D-018 later requires verified CRM/pipeline delivery for the lead-generation beta. Account configuration, credentials, workflows, APIs, field mappings, payment-processor configuration, exact enabled modules, and post-beta phasing remain TBD until approved and verified. Selection of GoHighLevel does not prove that any module is configured or live.
 - **Supersedes:** The 2026-07-31 documentation classification that treated CRM integration itself as merely Proposed. It does not confirm previously Proposed detailed automation, follow-up, chatbot-interface, conversion-event, or human-handoff behavior.
 
 ## D-015 — PaintSwitch confirmed end-state outcomes
@@ -136,7 +136,7 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Status:** Confirmed
 - **Decision:** The confirmed end state includes: a professional standalone PaintSwitch website live; customers able to request quotes; an AI assistant qualifying leads; working proposals and bookings; collectible payments; marketing driving traffic and measurable leads; and operations capable of completing the first PaintSwitch projects.
 - **Reason:** Defines the owner-approved business and product outcomes the launch program must ultimately deliver.
-- **Consequences:** Each outcome requires implementation and acceptance evidence. Their order, dependencies, beta scope, and public-release phasing remain TBD; this decision does not make every outcome a blocker for an earlier lead-generation beta.
+- **Consequences:** Each outcome requires implementation and acceptance evidence. Decision D-018 later confirms the lead-generation beta as the first release and identifies its blocker scope; post-beta order and dependencies remain TBD.
 - **Supersedes:** None documented.
 
 ## D-016 — Paint-roller logo direction
@@ -157,12 +157,21 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Consequences:** Any launch stand-up agenda or recurring meeting should be timeboxed to 10 minutes. Participants, frequency, owner, and scheduling remain TBD.
 - **Supersedes:** Any prior working assumption that launch stand-ups should last 30 minutes. No prior decision ID is documented.
 
+## D-018 — Lead-generation beta before instant quote and checkout
+
+- **Date:** 2026-08-01
+- **Status:** Confirmed
+- **Decision:** Launch a focused lead-generation beta before instant pricing and self-service checkout. The beta markets the four confirmed painting services—interior, exterior, cabinet, and commercial—and does not market Drywall Repair as a standalone service. Its primary action is “Request a Quote.” It accepts quote requests throughout the DMV for manual service-availability review; collects name, phone, email, project ZIP or address, service type, project description, and contact preference; sends each lead to a verified GoHighLevel CRM pipeline; notifies the responsible operator; shows an on-page submission confirmation; and records basic lead-source and campaign attribution.
+- **Reason:** Establishes the shortest approved release capable of generating measurable PaintSwitch leads while pricing, checkout, scheduling, chatbot, and other end-state workflows are still unresolved or unimplemented.
+- **Consequences:** The beta must not display instant prices, collect deposits or payments, enable checkout, promise customer-selected scheduling, or imply that an address or price is approved before review. It may state that PaintSwitch serves the DMV while disclosing that service availability and pricing are confirmed after review. The confirmed customer-facing chatbot, instant quote, checkout, payments, photo-review automation, and automated proposals are deferred from this beta rather than rejected. Exact GoHighLevel configuration, pipeline fields beyond the approved intake data, lead owner, response-time target, customer email/SMS acknowledgment, consent and legal wording, custom domain, anti-spam implementation, detailed conversion-event definitions, and later-release sequencing remain TBD until approved or verified.
+- **Supersedes:** The prior TBD status of whether a lead-generation beta could precede instant quote and checkout; the prior TBD status of standalone Drywall Repair for this beta; and the prior Proposed status of basic conversion/source tracking for this beta. It does not resolve Drywall Repair scope for later releases or approve broader analytics behavior.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:
 
 - **Proposed:** Use the confirmed customer-facing chatbot to guide quoting.
 - **Proposed:** Photo uploads during quoting.
-- **Proposed:** Customer scheduling mechanics, deposits, automated follow-up, conversion tracking, and human handoff. GoHighLevel and CRM integration are Confirmed under D-014, but detailed configuration and workflows remain TBD or Proposed as labeled.
+- **Proposed:** Customer scheduling mechanics, deposits, automated follow-up, detailed conversion behavior beyond the approved beta source attribution, and human handoff. GoHighLevel and CRM integration are Confirmed under D-014, but detailed configuration and workflows remain TBD or Proposed as labeled.
 - **Proposed:** Homepage calls to action such as “Get My Price” and “No phone call required.”
 - **Proposed:** Unapproved pricing figures and policies tracked only in `OPEN_QUESTIONS.md`.

@@ -20,7 +20,7 @@ Last updated: 2026-08-01
 
 ## Confirmed end-state outcomes
 
-The following business/product outcomes were confirmed on 2026-07-18. Their order, dependencies, beta scope, and public-release phasing remain **TBD**.
+The following business/product outcomes were confirmed on 2026-07-18. Decision D-018 now confirms the lead-generation beta as the first release milestone; sequencing after that beta remains **TBD**.
 
 - **ER-001 — Confirmed:** A professional standalone PaintSwitch website must be live.
 - **ER-002 — Confirmed:** Customers must be able to request quotes.
@@ -29,7 +29,23 @@ The following business/product outcomes were confirmed on 2026-07-18. Their orde
 - **ER-005 — Confirmed:** Payments must be collectible.
 - **ER-006 — Confirmed:** Marketing must drive traffic and measurable leads.
 - **ER-007 — Confirmed:** Operations must be capable of completing the first PaintSwitch projects.
-- **ER-008 — TBD:** Decide the implementation order and which outcomes are required for each beta or public release. Do not treat every end-state outcome as a blocker for an earlier lead-generation beta without an explicit phasing decision.
+- **ER-008 — Confirmed:** Launch the lead-generation beta before instant pricing and self-service checkout. The beta must deliver a professional standalone site, quote-request capture, GoHighLevel CRM delivery, operator notification, on-page confirmation, and basic measurable source attribution.
+- **ER-009 — TBD:** Decide the implementation order and release assignment of the remaining end-state outcomes after the lead-generation beta.
+
+## Approved lead-generation beta requirements
+
+- **LB-001 — Confirmed:** The lead-generation beta is the first release milestone and precedes instant pricing and self-service checkout.
+- **LB-002 — Confirmed:** Market interior, exterior, cabinet, and commercial painting in the beta; do not market Drywall Repair as a standalone beta service.
+- **LB-003 — Confirmed:** Use “Request a Quote” as the primary customer action.
+- **LB-004 — Confirmed:** Accept quote requests throughout the DMV for manual service-availability review without promising exact coverage.
+- **LB-005 — Confirmed:** Collect name, phone, email, project ZIP or address, service type, project description, and contact preference.
+- **LB-006 — Confirmed:** Deliver each lead to a verified GoHighLevel CRM pipeline and notify the responsible operator.
+- **LB-007 — Confirmed:** Display a clear on-page success state after a submission and a recoverable failure state when delivery fails.
+- **LB-008 — Confirmed:** Record basic lead-source and campaign attribution for measurable beta leads.
+- **LB-009 — Confirmed:** Disclose that service availability and pricing are confirmed after review.
+- **LB-010 — Confirmed:** Do not display instant prices, collect deposits or payments, enable checkout, or promise customer-selected scheduling in the beta.
+- **LB-011 — Confirmed:** The chatbot, instant quote, checkout, payments, photo-review automation, and automated proposals are deferred from the beta, not rejected from the confirmed end state.
+- **LB-012 — TBD:** Approve or verify the exact GoHighLevel account and pipeline configuration, field mappings, responsible lead owner, response-time target, customer email/SMS acknowledgment, consent and legal wording, custom domain, anti-spam method, detailed event definitions, and later-release sequence.
 
 ## Launch operating platform
 
@@ -88,6 +104,17 @@ The following personas are **Proposed** interpretations of the confirmed product
 - **Proposed:** A business or organizational decision-maker seeking commercial painting.
 - Needs: consultation-based scoping and a path that does not misrepresent an automated price as firm.
 
+## Lead-generation beta journey
+
+1. **Confirmed:** The customer sees PaintSwitch as a standalone DMV painting brand offering interior, exterior, cabinet, and commercial painting.
+2. **Confirmed:** The customer selects “Request a Quote.”
+3. **Confirmed:** The form collects the LB-005 fields and discloses that service availability and pricing are confirmed after review.
+4. **Confirmed:** Valid input is delivered exactly once to the verified GoHighLevel CRM pipeline with basic source/campaign attribution.
+5. **Confirmed:** The responsible operator receives the approved internal notification.
+6. **Confirmed:** The customer sees an accurate on-page confirmation; a failed delivery produces an approved recoverable next step.
+7. **Confirmed:** The beta does not display an instant price, collect payment, enable checkout, promise customer-selected scheduling, or require the deferred chatbot.
+8. **TBD:** Named operator, response-time target, customer email/SMS acknowledgment, final consent/legal wording, and exact GoHighLevel configuration.
+
 ## Standard-interior instant-quote journey
 
 1. **Confirmed:** The customer identifies the project as residential interior painting.
@@ -116,7 +143,7 @@ The following personas are **Proposed** interpretations of the confirmed product
 2. **Confirmed:** The product sets the expectation that custom consultation is required.
 3. **TBD:** Consultation intake fields, consultation format, availability, ownership, service-level expectation, and follow-up process.
 4. **Confirmed:** GoHighLevel provides the intended CRM and pipeline functions for the consultation path; exact configuration and field mapping remain **TBD**.
-5. **Proposed:** Detailed customer-scheduling mechanics, automated follow-up, conversion tracking, and human handoff support the consultation path.
+5. **Proposed:** Detailed customer-scheduling mechanics, automated follow-up, conversion behavior beyond approved beta attribution, and human handoff support the consultation path.
 6. **Confirmed:** These project types must not proceed through standard-interior firm instant checkout without a later explicit decision changing eligibility.
 7. **Confirmed:** Any final project price includes one flat $125 fuel/materials adjustment exactly once.
 
@@ -158,6 +185,7 @@ The chatbot must observe these **Confirmed** policy boundaries regardless of imp
 - **FR-013 — Confirmed:** Provide a customer-facing chatbot while leaving provider, model, architecture, and exact interface unselected until approved.
 - **FR-014 — Confirmed:** Add one flat $125 fuel/materials adjustment exactly once to every project price.
 - **FR-015 — Confirmed:** Use GoHighLevel as the launch backbone and CRM operating engine while requiring verification before treating configuration as live.
+- **FR-016 — Confirmed:** Provide the approved lead-generation beta intake, GoHighLevel delivery, operator notification, on-page result states, and basic source attribution defined by LB-001 through LB-012.
 
 ### Proposed capabilities
 
@@ -166,7 +194,7 @@ The chatbot must observe these **Confirmed** policy boundaries regardless of imp
 - **FR-P03 — Proposed:** Let customers select scheduling options directly.
 - **FR-P04 — Proposed:** Collect a deposit during checkout.
 - **FR-P05 — Proposed:** Send automated follow-up.
-- **FR-P07 — Proposed:** Track conversion events.
+- **FR-P07 — Proposed:** Track detailed conversion events beyond the basic beta lead-source and campaign attribution confirmed by D-018.
 - **FR-P08 — Proposed:** Provide a context-preserving human handoff.
 
 ## Nonfunctional requirements
@@ -205,34 +233,43 @@ These requirements carry individual statuses; safety requirements already implie
 - **AC-019 — Confirmed:** Approved marketing activity can be attributed to measurable test traffic and leads under approved privacy and consent rules.
 - **AC-020 — Confirmed:** Operations can accept, schedule, staff, supply, execute, quality-check, and close a rehearsed first-project scenario.
 - **AC-021 — Confirmed:** Any implementation claiming GoHighLevel integration identifies the verified account, enabled module, workflow, field mapping, owner, and test evidence without exposing credentials.
+- **AC-022 — Confirmed:** A beta test lead containing every LB-005 field is accepted exactly once, reaches the verified GoHighLevel pipeline, notifies the responsible operator, preserves approved source attribution, and produces an on-page confirmation.
+- **AC-023 — Confirmed:** A failed or rejected beta submission does not falsely claim success and gives the customer an approved recoverable next step without exposing sensitive implementation details.
+- **AC-024 — Confirmed:** Beta copy uses “Request a Quote,” identifies the four approved painting categories, treats availability and pricing as pending review, and contains no instant-price, payment, checkout, customer-selected-scheduling, or standalone-Drywall promises.
 
 Acceptance criteria that depend on unapproved pricing values, checkout terms, scheduling behavior, or integration choices remain **TBD**.
 
 ## Launch priorities
 
-### Confirmed outcomes with release phasing still TBD
+### Confirmed lead-generation beta first
 
-These outcomes govern the end state. They do not all automatically block an earlier lead-generation beta; release assignment requires an explicit phasing decision.
+Decision D-018 confirms the beta as the first release. The remaining end-state outcomes still govern later releases but do not block this beta unless listed in LB-001 through LB-012.
 
 - **Confirmed:** Market all four approved painting categories.
-- **Confirmed:** Provide safe instant firm pricing and checkout only for qualifying standard residential interiors.
-- **Confirmed:** Route complex interiors to photo review.
-- **Confirmed:** Route exterior, cabinet, and commercial projects to consultation.
-- **Confirmed:** Support online booking as part of the launch model.
+- **Confirmed:** Capture quote requests without instant firm pricing or checkout in the beta.
+- **Confirmed:** Route all beta leads to manual operational review through GoHighLevel.
 - **Confirmed:** Preserve the standalone PaintSwitch brand.
-- **Confirmed:** Deliver a customer-facing chatbot according to approved launch phasing.
+- **Confirmed:** Defer the customer-facing chatbot from the beta to a later approved release.
 - **Confirmed:** Deliver the seven end-state outcomes in `ER-001` through `ER-007`.
-- **Confirmed:** Use GoHighLevel as the launch operating engine with its intended functions.
-- **TBD:** Decide which outcomes and GoHighLevel functions are required for the lead-generation beta, instant-quote release, self-service checkout release, and later phases.
-- **TBD:** Assign the customer-facing chatbot to an approved release.
+- **Confirmed:** Use the verified GoHighLevel CRM/pipeline capability required for beta lead capture.
+- **TBD:** Assign the chatbot and other deferred outcomes to specific post-beta releases.
 
-### Proposed implementation sequence
+### Approved beta implementation sequence
 
-1. **Proposed:** Resolve eligibility, pricing, checkout, scheduling, and service-area questions that block a safe quote launch.
+1. **Confirmed:** Merge the canonical documentation into `main` and preserve D-018 as the beta scope authority.
+2. **Confirmed:** Resolve the beta-blocking items in LB-012, including verified GoHighLevel configuration, lead ownership/SLA, legal/consent text, attribution details, and anti-spam controls.
+3. **Confirmed:** Correct beta services and copy, then implement the approved form, disclosures, validation, and result states.
+4. **Confirmed:** Connect GoHighLevel delivery, internal notification, and basic source attribution.
+5. **Confirmed:** Remove or replace placeholder trust content and publish approved Privacy and Terms content.
+6. **Confirmed:** Complete beta build, security, responsive/accessibility, deployment, and production lead-path QA before traffic is sent.
+
+### Proposed post-beta implementation sequence
+
+1. **Proposed:** Resolve eligibility, pricing, checkout, scheduling, and service-area questions that block a safe instant-quote launch.
 2. **Proposed:** Implement room-by-room intake, tier classification, eligibility gating, and non-instant routing.
 3. **Proposed:** Implement approved price calculation, checkout, and booking behavior with automated tests.
 4. **Proposed:** Add the approved photo-review intake and operational workflow.
-5. **Proposed:** Verify and configure GoHighLevel for the approved release phase, implement the confirmed chatbot's approved provider/model/architecture/interface, and then add any approved detailed follow-up, conversion, and human-handoff workflows.
+5. **Proposed:** Assign and implement the confirmed chatbot, then add any approved detailed follow-up, broader conversion, and human-handoff workflows.
 
 ## Explicit exclusions and boundaries
 
@@ -245,7 +282,8 @@ These outcomes govern the end state. They do not all automatically block an earl
 - **TBD:** Live price amounts and detailed pricing policies.
 - **Confirmed:** A customer-facing chatbot is approved; provider, model, architecture, exact interface, detailed responsibilities, and release phasing remain **TBD** or **Proposed** as labeled.
 - **Confirmed:** GoHighLevel and its intended CRM function are approved; exact configuration, enabled modules, workflows, APIs, mappings, credentials, payment-processor setup, and phasing remain **TBD**.
-- **Proposed:** In-flow photo upload, direct customer scheduling mechanics, deposits, detailed automated follow-up, conversion tracking, and human handoff are not approved implementation scope yet.
+- **Confirmed:** Basic lead-source and campaign attribution is approved for the beta; provider, detailed event definitions, consent implementation, and broader analytics behavior remain **TBD**.
+- **Proposed:** In-flow photo upload, direct customer scheduling mechanics, deposits, detailed automated follow-up, broader conversion tracking, and human handoff are not approved implementation scope yet.
 
 ## Unsupported-firm-price safety rules
 

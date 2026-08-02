@@ -73,12 +73,14 @@ Additional unresolved questions:
 
 - **Confirmed:** Provide quick quotes and close qualifying sales online before anyone must call the customer, stated on 2026-07-11.
 - **Confirmed:** PaintSwitch includes a customer-facing chatbot, approved on 2026-07-11.
+- **Confirmed:** Use “Request a Quote” as the primary action for the lead-generation beta, approved on 2026-08-01.
 - **Proposed:** Use the confirmed chatbot to guide the quote flow.
 - **Proposed:** Use homepage calls to action such as “Get My Price” and “No phone call required.”
 - **Proposed:** Provide automated follow-up and a context-preserving human handoff.
 - **TBD:** Chatbot provider, model, architecture, exact interface, knowledge source, escalation criteria, conversation retention, disclosure language, and operating ownership. GoHighLevel has an intended AI-chat function, but that does not resolve these implementation choices.
-- **TBD:** Which approved release first requires the chatbot.
-- **TBD:** Final approved homepage and funnel copy.
+- **Confirmed:** The chatbot is not required for the lead-generation beta and is deferred to a later approved release.
+- **TBD:** Which post-beta release first requires the chatbot.
+- **TBD:** Final approved homepage and funnel copy beyond the approved beta CTA and availability/pricing disclosure.
 
 ## Booking, customer operations, and integrations
 
@@ -87,7 +89,8 @@ Additional unresolved questions:
 - **Confirmed:** Other intended GoHighLevel functions are SMS, email, AI chat, automations, calendar booking, pipelines, reviews, and payment workflows.
 - **Proposed:** Let customers select schedule availability directly.
 - **Proposed:** Collect deposits.
-- **Proposed:** Track conversion events.
+- **Confirmed:** Record basic lead-source and campaign attribution for the lead-generation beta.
+- **Proposed:** Track detailed conversion events beyond the approved beta attribution.
 - **TBD:** Exact booking flow, availability rules, crew-capacity model, confirmation behavior, rescheduling, cancellation, and exception handling.
 - **TBD:** GoHighLevel account configuration, credentials, workflows, APIs, field mappings, payment-processor configuration, exact enabled modules, operating owner, and release phasing.
 - **TBD:** Any external payment processor, analytics tool, messaging service, scheduling provider, or other integration required beyond the confirmed GoHighLevel platform decision.
@@ -95,9 +98,23 @@ Additional unresolved questions:
 ## End-state release phasing
 
 - **Confirmed:** The end state requires a professional standalone website, quote requests, AI lead qualification, working proposals and bookings, collectible payments, measurable marketing-driven traffic/leads, and operations capable of completing the first PaintSwitch projects, approved on 2026-07-18.
-- **TBD:** Which outcomes belong to the lead-generation beta, instant-quote release, self-service checkout release, or later release.
-- **TBD:** The order, dependencies, success gates, and public-release dates for the confirmed outcomes.
-- **TBD:** Which intended GoHighLevel functions must be enabled and verified in each release.
+- **Confirmed:** A lead-generation beta precedes instant quote and self-service checkout. It includes quote-request capture, verified GoHighLevel CRM delivery, operator notification, on-page confirmation, and basic source attribution.
+- **Confirmed:** Instant pricing, checkout, payments, customer-selected scheduling, the chatbot, photo-review automation, and automated proposals are deferred from the beta rather than rejected.
+- **TBD:** The order, dependencies, success gates, and public-release dates after the lead-generation beta.
+- **TBD:** Which intended GoHighLevel functions beyond beta CRM/pipeline delivery must be enabled and verified in each later release.
+
+## Lead-generation beta implementation details
+
+- **Confirmed:** Beta lead fields are name, phone, email, project ZIP or address, service type, project description, and contact preference.
+- **Confirmed:** Accept leads throughout the DMV for manual service-availability review and disclose that availability and pricing are confirmed after review.
+- **Confirmed:** Route each lead to a verified GoHighLevel CRM pipeline, notify the responsible operator, show an on-page confirmation, and retain basic source/campaign attribution.
+- **TBD:** Exact GoHighLevel account, pipeline, stage, field mappings, workflow, environment, and secure connection method.
+- **TBD:** Named lead owner and response-time target.
+- **TBD:** Whether and how to send customer email or SMS acknowledgment.
+- **TBD:** Final consent language, privacy/terms text, retention/deletion rules, and legal approval.
+- **TBD:** Custom production domain.
+- **TBD:** Anti-spam and abuse controls.
+- **TBD:** Detailed source/event definitions, analytics provider, attribution window, and consent behavior beyond minimum beta attribution.
 
 ## Visual identity
 
@@ -106,7 +123,8 @@ Additional unresolved questions:
 
 ## Service and operating policy
 
-- **TBD:** Whether drywall repair is a standalone marketed service or only supporting scope within painting projects. The current site displays it as a service card, but this is not approval.
+- **Confirmed:** Drywall Repair is not a standalone marketed service in the lead-generation beta. Remove the current service card and do not route it as a beta service.
+- **TBD:** Whether Drywall Repair becomes a standalone marketed service in a later release or remains supporting scope only.
 - **TBD:** Paint manufacturers, product grades, finishes, color-selection rules, and material allowances.
 - **TBD:** Employee-versus-subcontractor crew assignment rules and what, if anything, is disclosed to customers.
 - **TBD:** Preparation standards, cleanup standards, quality-control steps, warranties, change orders, damage handling, and customer support policies.

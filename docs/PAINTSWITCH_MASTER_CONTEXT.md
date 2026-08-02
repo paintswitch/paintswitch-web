@@ -38,7 +38,8 @@ The platform selection and intended function categories are approved. They do no
 ## Marketed services
 
 - **Confirmed:** PaintSwitch markets interior painting, exterior painting, cabinet painting, and commercial painting.
-- **TBD:** Whether drywall repair is marketed as a standalone service. The current website displays a Drywall Repair service card, while repair needs are also a confirmed quote input. This code/documentation difference requires user direction before changing customer-facing work.
+- **Confirmed:** Drywall Repair is not marketed as a standalone service in the lead-generation beta. The current website service card must be removed for beta.
+- **TBD:** Whether Drywall Repair becomes a standalone marketed service after beta or remains supporting scope only.
 
 ## Approved sales model
 
@@ -82,7 +83,7 @@ The chatbot's existence is approved; its technical implementation and exact resp
 ## Other product capabilities under consideration
 
 - **Proposed:** Photo uploads during quoting. Complex interiors still require photo review; the intake mechanism is **TBD** until approved.
-- **Proposed:** Customer scheduling mechanics, deposits, automated follow-up, conversion tracking, and human handoff. GoHighLevel and CRM integration are Confirmed, but their exact configuration and workflows remain TBD.
+- **Proposed:** Customer scheduling mechanics, deposits, automated follow-up, detailed conversion behavior beyond approved beta source attribution, and human handoff. GoHighLevel and CRM integration are Confirmed, but their exact configuration and workflows remain TBD.
 - **Proposed:** Homepage calls to action such as “Get My Price” and “No phone call required.”
 
 These items may be explored or specified, but they may not be implemented as approved scope without explicit user approval.
@@ -99,7 +100,19 @@ The owner confirmed the following outcomes on 2026-07-18:
 - **Confirmed:** Marketing must drive traffic and measurable leads.
 - **Confirmed:** Operations must be capable of completing the first PaintSwitch projects.
 
-- **TBD:** The order, dependencies, beta scope, and public-release phasing of these outcomes. Confirmation of the end state does not imply that every outcome blocks an earlier lead-generation beta.
+- **Confirmed:** A lead-generation beta precedes instant pricing and self-service checkout under decision D-018 dated 2026-08-01.
+- **TBD:** The order, dependencies, and release assignment of the remaining end-state outcomes after the lead-generation beta.
+
+## Approved lead-generation beta
+
+- **Confirmed:** The lead-generation beta is the first release milestone and may launch before instant pricing, checkout, payments, online scheduling, the customer-facing chatbot, photo-review automation, or automated proposals.
+- **Confirmed:** The beta markets interior, exterior, cabinet, and commercial painting. Drywall Repair is not a standalone marketed beta service.
+- **Confirmed:** The primary customer action is “Request a Quote.”
+- **Confirmed:** The beta accepts quote requests throughout the DMV and manually confirms service availability; this does not establish final cities, counties, ZIP codes, travel zones, or permanent service boundaries.
+- **Confirmed:** Lead intake collects name, phone, email, project ZIP or address, service type, project description, and contact preference.
+- **Confirmed:** Each submission goes to a verified GoHighLevel CRM pipeline, notifies the responsible operator, presents an on-page confirmation, and records basic source/campaign attribution.
+- **Confirmed:** Beta messaging must disclose that service availability and pricing are confirmed after review. It must not display an instant price, collect a deposit or payment, enable checkout, or promise customer-selected scheduling.
+- **TBD:** Exact GoHighLevel configuration and field mappings, lead owner, response-time target, customer email/SMS acknowledgment, consent and legal wording, custom domain, anti-spam implementation, detailed event definitions, and later-release sequencing.
 
 ## Launch governance
 
