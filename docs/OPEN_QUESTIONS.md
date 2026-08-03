@@ -1,6 +1,6 @@
 # PaintSwitch open questions
 
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 
 This document records unresolved choices and working assumptions. An item is approved only when it is explicitly labeled **Confirmed** and supported by the decision log. Do not present **Proposed** or **TBD** pricing as live customer pricing.
 
@@ -87,32 +87,57 @@ Additional unresolved questions:
 - **Confirmed:** Online booking is part of the launch model.
 - **Confirmed:** GoHighLevel is the selected launch backbone or operating engine, and CRM is an intended GoHighLevel function, approved on 2026-07-18.
 - **Confirmed:** Other intended GoHighLevel functions are SMS, email, AI chat, automations, calendar booking, pipelines, reviews, and payment workflows.
+- **Confirmed:** Use `PaintSwitch Lead Intake` with exactly one `New Quote Request` stage; retain the D-022 fields; add Opportunity fields `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`; leave sample/demo data untouched; and keep SMS and Voice AI disabled until separately ready. The additional fields were approved on 2026-08-03 under D-026.
+- **Confirmed:** Use the D-022 field objects, types, and option values, and use `hello@paintswitch.com` as the primary PaintSwitch domain mailbox.
+- **Confirmed:** Create a GoHighLevel private integration and store its token only as a secure server-side Vercel environment secret. Use free Upstash Redis for durable duplicate/idempotency protection. Approved on 2026-08-03 under D-024 and D-025.
 - **Proposed:** Let customers select schedule availability directly.
 - **Proposed:** Collect deposits.
 - **Confirmed:** Record basic lead-source and campaign attribution for the lead-generation beta.
 - **Proposed:** Track detailed conversion events beyond the approved beta attribution.
 - **TBD:** Exact booking flow, availability rules, crew-capacity model, confirmation behavior, rescheduling, cancellation, and exception handling.
-- **TBD:** GoHighLevel account configuration, credentials, workflows, APIs, field mappings, payment-processor configuration, exact enabled modules, operating owner, and release phasing.
+- **Verified implementation fact — 2026-08-03:** The private integration, least-required beta permissions, Sensitive Vercel token for Production and Preview, location/pipeline/stage identifiers, seven custom-field identifiers, four additional Opportunity fields, and local native/source mappings are configured. The uncommitted local code includes GoHighLevel and Upstash REST clients, durable phases, reconciliation, and failure recovery. Upstash provisioning/secrets, deployment, owner notification, and real provider end-to-end evidence remain pending implementation work within D-024 through D-026.
+- **TBD:** Notification destination, payment-processor configuration, post-beta enabled modules, production ownership not already assigned, customer-facing sender identity/authentication, and release phasing.
 - **TBD:** Any external payment processor, analytics tool, messaging service, scheduling provider, or other integration required beyond the confirmed GoHighLevel platform decision.
 
 ## End-state release phasing
 
 - **Confirmed:** The end state requires a professional standalone website, quote requests, AI lead qualification, working proposals and bookings, collectible payments, measurable marketing-driven traffic/leads, and operations capable of completing the first PaintSwitch projects, approved on 2026-07-18.
-- **Confirmed:** A lead-generation beta precedes instant quote and self-service checkout. It includes quote-request capture, verified GoHighLevel CRM delivery, operator notification, on-page confirmation, and basic source attribution.
+- **Confirmed:** A lead-generation beta precedes instant quote and self-service checkout. It includes quote-request capture, the product outcome that each accepted lead reaches GoHighLevel once, owner notification, on-page confirmation for every accepted lead, basic source attribution, and automatic SMS only for explicit optional opt-ins when SMS is enabled. Implementation evidence must be described accurately as at-most-one automatic Opportunity creation plus durable reconciliation; it is not a strict cross-provider exactly-once guarantee.
 - **Confirmed:** Instant pricing, checkout, payments, customer-selected scheduling, the chatbot, photo-review automation, and automated proposals are deferred from the beta rather than rejected.
 - **TBD:** The order, dependencies, success gates, and public-release dates after the lead-generation beta.
 - **TBD:** Which intended GoHighLevel functions beyond beta CRM/pipeline delivery must be enabled and verified in each later release.
 
 ## Lead-generation beta implementation details
 
+- **Confirmed:** Target the lead-generation beta for Saturday, 2026-08-08. This is a delivery goal and does not waive any confirmed safety, legal, privacy, consent, security, messaging, or acceptance requirement.
+- **Confirmed:** Required owner participation must be limited to at most one hour per day during beta delivery.
 - **Confirmed:** Beta lead fields are name, phone, email, project ZIP or address, service type, project description, and contact preference.
 - **Confirmed:** Accept leads throughout the DMV for manual service-availability review and disclose that availability and pricing are confirmed after review.
-- **Confirmed:** Route each lead to a verified GoHighLevel CRM pipeline, notify the responsible operator, show an on-page confirmation, and retain basic source/campaign attribution.
-- **TBD:** Exact GoHighLevel account, pipeline, stage, field mappings, workflow, environment, and secure connection method.
-- **TBD:** Named lead owner and response-time target.
-- **TBD:** Whether and how to send customer email or SMS acknowledgment.
-- **TBD:** Final consent language, privacy/terms text, retention/deletion rules, and legal approval.
-- **TBD:** Custom production domain.
+- **Confirmed:** The PaintSwitch owner is the primary owner of every beta lead and should perform human outreach immediately when possible.
+- **Confirmed:** Route each accepted lead to the verified GoHighLevel CRM pipeline once as the product outcome, notify the owner, show an immediate on-page confirmation, and retain basic source/campaign attribution. The current local implementation provides at-most-one automatic Opportunity create plus durable reconciliation rather than a strict cross-provider exactly-once guarantee. Send automatic non-marketing SMS only to explicit opt-ins when SMS is legally and operationally enabled.
+- **Confirmed:** Keep Vercel as the beta website host; custom-domain work does not block beta.
+- **Confirmed:** Use `paintswitch.com` as the primary customer-facing domain and permanently redirect `www.paintswitch.com` to it.
+- **Verified external fact — 2026-08-03:** Vercel shows the apex, `www`, and production domain with Valid Configuration; public checks returned apex `200` and `www` `308` to the apex.
+- **Verified external fact — 2026-08-03:** A signed-in Paint Switch GoHighLevel sub-account, the dedicated `PaintSwitch Lead Intake` pipeline with one `New Quote Request` stage, all seven approved custom fields, the private integration, and the server-side identifier configuration exist. Existing sample/demo data remained untouched.
+- **Confirmed:** SMS and Voice AI remain intentionally disabled until separately ready.
+- **Confirmed:** Use a custom branded PaintSwitch quote-request form connected to GoHighLevel through a secure server-side integration. Do not expose GoHighLevel credentials or secrets to customer-delivered code.
+- **Confirmed:** Create the GoHighLevel private integration, keep its token in a server-side Vercel secret, and use free Upstash Redis for durable submission idempotency.
+- **Verified implementation fact — 2026-08-03:** The integration/token configuration and local implementation/tests exist. Upstash provisioning, deployment, owner notification, and real-provider acceptance evidence remain incomplete.
+- **Confirmed:** Remove placeholder reviews for the beta and do not restore reviews until verified, permissioned reviews exist.
+- **Verified implementation fact — 2026-08-03:** Native name/phone/email and approved Opportunity-field mappings, private-integration/token creation, Vercel GHL configuration, durable state/locking, provider-failure reconciliation, explicit rejected-create recovery, sanitized submission-ID error reporting, and local acceptance tests exist. Pending work is explicit Upstash marketplace-terms acceptance, database/secret provisioning, commit/deployment, notification, production-safe provider testing, and final operating acceptance within D-024 through D-026.
+- **Verified production contradiction — 2026-08-03:** The live prior build still shows standalone Drywall Repair, three explicitly labeled placeholder testimonials, nonfunctional Privacy/Terms links, estimate/contact CTAs without a working form, and universal-consultation copy. The corrected local candidate is undeployed; live copy is not owner approval.
+- **TBD:** Approve a commercially compliant Vercel plan before commercial lead generation. Vercel currently shows Hobby, whose current official guidance restricts that plan to personal, non-commercial use. No purchase or plan change is approved.
+- **TBD:** The owner notification destination remains unresolved because no destination value was supplied. Any staff ownership beyond the confirmed PaintSwitch owner role also requires clarification.
+- **TBD:** Backup lead owner, measurable human-response target, and operating hours.
+- **TBD:** Final SMS wording, consent and opt-out language, sender/number, workflow conditions, delivery-failure handling, retention, and legal approval.
+- **TBD:** Verify the A2P sender's exact legal business name and structure, whether PaintSwitch is the legal entity or a registered DBA/trade name, tax/EIN and registration information, registered street address, and authorized representative's name, title, mobile number, and email. These facts must remain consistent across registration, website, policies, and GoHighLevel and must not be inferred from another brand.
+- **Confirmed:** D-027 resolves LB-024: use a separate optional SMS opt-in that is unchecked by default; `Text` preference is not consent; every accepted lead receives on-page confirmation; only explicit opt-ins receive automatic non-marketing SMS when enabled; and an unchecked control never blocks form submission. Exact wording and legal approval remain TBD. Provider or carrier validation is not legal approval. Official guidance: [HighLevel custom web form consent requirements](https://help.gohighlevel.com/support/solutions/articles/155000007237) and [CTIA Messaging Principles and Best Practices](https://api.ctia.org/wp-content/uploads/2023/05/230523-CTIA-Messaging-Principles-and-Best-Practices-FINAL.pdf).
+- **Confirmed:** External A2P registration or approval remains a schedule risk, but the beta may launch with SMS disabled while A2P is pending. This does not waive any other applicable launch gate.
+- **TBD:** Final consent language, privacy/terms text, retention/deletion rules, and legal approval for the overall lead flow.
+- **Confirmed:** Replace the Jen Contracting-domain business email with `hello@paintswitch.com` before customer-facing PaintSwitch communication.
+- **TBD:** The owner accepted the Microsoft Customer Agreement on 2026-08-02 and the GoDaddy Email & Office form was prepared for `hello@paintswitch.com` as a standalone organization using `Do not share`. After private password entry, the owner reported that GoDaddy displayed “Sorry, we can't create this user” and chose to pause. Diagnose the account entitlement/domain association or Microsoft 365 organization issue before retrying. Provisioning, credentials/recovery verification, sender authentication, GoHighLevel configuration, and inbound/outbound testing remain incomplete.
+- **TBD:** GoHighLevel Voice AI is available but is not approved for the beta. Whether to use AI phone intake, its release phase, human-first or AI-first routing, disclosure and consent, phone number, recording/transcription, intake script, operating hours, transfer rules, retention, cost, and fallback behavior remain unresolved.
+- **Historical/Needs verification:** Payment setup and any external behavior not covered by the 2026-08-03 private-integration, Vercel-secret, identifier, and field verification remain unverified. The configured token value remains confidential and must not enter documentation.
 - **TBD:** Anti-spam and abuse controls.
 - **TBD:** Detailed source/event definitions, analytics provider, attribution window, and consent behavior beyond minimum beta attribution.
 
@@ -132,8 +157,11 @@ Additional unresolved questions:
 
 ## Product success and governance
 
-- **TBD:** Launch date and release milestones.
+- **Confirmed:** Target the lead-generation beta for Saturday, 2026-08-08; the target remains conditional on all applicable launch gates.
+- **TBD:** Actual public-release timing if a required gate other than pending A2P/SMS activation is not ready by the target date; later release milestones also remain TBD.
 - **TBD:** Quote completion, conversion, booking, revenue, margin, response-time, quality, and customer-satisfaction targets.
 - **TBD:** Documentation owner, product owner, pricing approver, operational approver, and recurring review cadence.
 - **Confirmed:** Launch stand-ups should last 10 minutes, not 30 minutes, approved on 2026-07-18.
+- **Confirmed:** Owner-required beta work must not exceed one hour on any day, approved on 2026-08-02.
 - **TBD:** Stand-up frequency, participants, facilitator, schedule, agenda, and escalation format.
+- **Confirmed:** The owner accepted the documented low-reachability residual dependency risk for this beta on 2026-08-03 while requiring monitoring for a compatible upstream Next.js patch. Reassess if architecture changes increase reachability. Do not use `npm audit fix --force`, an incompatible dependency override, or a Next.js downgrade automatically.

@@ -1,6 +1,6 @@
 # PaintSwitch technical architecture
 
-Last repository inspection: 2026-07-31
+Last repository inspection: 2026-08-03
 
 This document records only facts verified from the repository. It does not treat planned or proposed systems as implemented.
 
@@ -8,22 +8,31 @@ This document records only facts verified from the repository. It does not treat
 
 ```text
 paintswitch-web/
+├── .github/workflows/ci.yml
 ├── public/                 Five SVG assets
 ├── src/
 │   ├── app/
+│   │   ├── api/leads/route.ts
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
-│   └── components/
-│       ├── buttons.tsx
-│       ├── footer.tsx
-│       ├── header.tsx
-│       ├── hero.tsx
-│       ├── how-it-works.tsx
-│       ├── section-heading.tsx
-│       ├── service-card.tsx
-│       └── trust-bar.tsx
+│   ├── components/
+│   │   ├── buttons.tsx
+│   │   ├── footer.tsx
+│   │   ├── header.tsx
+│   │   ├── hero.tsx
+│   │   ├── how-it-works.tsx
+│   │   ├── quote-request-form.tsx
+│   │   ├── section-heading.tsx
+│   │   ├── service-card.tsx
+│   │   └── trust-bar.tsx
+│   └── lib/
+│       ├── ghl-client.ts
+│       ├── lead-delivery.ts
+│       ├── lead-intake.ts
+│       └── upstash-idempotency.ts
+├── tests/                  Node intake, route, and mocked delivery tests
 ├── eslint.config.mjs
 ├── next.config.ts
 ├── package.json
@@ -38,48 +47,54 @@ Generated `.next` output and installed `node_modules` are present in the inspect
 
 | Package | Manifest declaration | Lockfile-resolved version |
 | --- | --- | --- |
-| Next.js | `16.2.10` | `16.2.10` |
+| Next.js | `16.2.12` | `16.2.12` |
 | React | `19.2.4` | `19.2.4` |
 | React DOM | `19.2.4` | `19.2.4` |
 | TypeScript | `^5` | `5.9.3` |
 | Tailwind CSS | `^4` | `4.3.3` |
 | Tailwind PostCSS plugin | `^4` | `4.3.3` |
 | ESLint | `^9` | `9.39.5` |
-| eslint-config-next | `16.2.10` | `16.2.10` |
+| eslint-config-next | `16.2.12` | `16.2.12` |
 | Node type definitions | `^20` | `20.19.43` |
 | React type definitions | `^19` | `19.2.17` |
 | React DOM type definitions | `^19` | `19.2.3` |
 
 The repository does not declare a Node.js runtime version through an `engines` field or a checked-in runtime-version file.
 
+Next.js currently resolves its own PostCSS `8.4.31` and optional Sharp `0.34.5` dependencies. The application has no user-controlled CSS-processing path, `next/image` import, direct Sharp call, photo upload, or user-image processing path. Current audit findings and the scoped reachability assessment are recorded in `DEVELOPMENT_STATUS.md`; no incompatible override or force fix is present.
+
 ## Application model
 
 - The application uses the Next.js App Router under `src/app`.
 - `src/app/layout.tsx` provides the root HTML layout and static PaintSwitch metadata.
-- `src/app/page.tsx` composes the single authored page at `/` from reusable presentational components.
-- No component contains a `use client` directive. The inspected components render without application-defined client state or effects.
-- Mobile menu behavior uses the native HTML `<details>` element.
-- Navigation and calls to action use plain anchor links, primarily to sections on the same page.
-- No authored dynamic routes, API routes, route handlers, middleware, server actions, or background jobs are present.
+- `src/app/page.tsx` is a Server Component that composes the single authored page at `/` from reusable components.
+- `src/components/header.tsx` and `src/components/quote-request-form.tsx` are Client Components. The header uses a click handler to close its native HTML `<details>` mobile menu after navigation.
+- Navigation and calls to action use plain in-page anchor links. Primary actions target the `#quote` section.
+- `QuoteRequestForm` owns client-side submission state. It collects the seven approved beta fields, validates through the shared `lead-intake.ts` parser, exposes field-specific accessible errors and focuses the first invalid control, creates a browser UUID for an unchanged submission attempt, captures bounded `utm_source` and `utm_campaign` values, applies a 50-second `AbortController` timeout, and sends normalized JSON to `/api/leads`. It retains the submission ID for unchanged retries but clears it after a server `409` payload-conflict response. An explicit native `POST` action prevents PII from becoming a query string before hydration; the JSON-only route rejects that fallback encoding rather than accepting an unvalidated lead.
+- `src/app/api/leads/route.ts` implements the dynamic `/api/leads` POST boundary with a 55-second maximum duration. It requires an exact same-origin approved production host (`paintswitch.com` or `paintswitch-web.vercel.app`), a permitted local-development origin, or a Vercel preview same-origin request; verifies the exact JSON media type; validates content length; reads at most 16 KiB with a five-second deadline; parses through `lead-intake.ts`; and exposes only generic no-store/nosniff responses. It delegates accepted leads to `lead-delivery.ts`, returns `200` only for a completed/replayed delivery, `409` for submission-ID payload conflict, and retryable `503` responses for busy or unavailable delivery.
+- `src/lib/lead-intake.ts` rejects unexpected keys, control characters, malformed UUIDs, invalid enum values, and malformed email local parts or DNS labels before any future CRM delivery is attempted.
+- `next.config.ts` disables `X-Powered-By` and applies a static-compatible CSP plus frame, MIME-sniffing, referrer, permissions, and cross-domain-policy response headers. The current source has no external browser resource allowlist. Production retains the minimal `'unsafe-inline'` script/style allowances required by Next.js hydration and built-in error-page output; development alone adds `'unsafe-eval'` and WebSocket connections.
+- No other authored dynamic route, API route, middleware, server action, or background job is present.
 
 ## Rendering and routes
 
 - The repository source defines the `/` page plus the favicon resource.
-- Existing ignored build output contains manifests for `/`, `/favicon.ico`, and framework-generated global-error/not-found pages. Generated output is not treated as lasting architecture documentation.
+- A production build run on 2026-08-02 reported static routes `/` and `/_not-found` plus dynamic route `/api/leads`. Generated output is not treated as lasting architecture documentation.
 - No dynamic route parameters or runtime data-fetching code are present in the tracked source.
 
 ## Component organization
 
-- `Header` contains brand identity, primary navigation, a desktop call to action, and native mobile navigation.
+- `Header` contains text brand identity, a skip link, primary navigation, a desktop call to action, and client-enhanced native mobile navigation.
 - `Hero` contains the primary positioning copy and a CSS-built room illustration.
 - `TrustBar` displays four static commitments.
 - `ServiceCard` renders static service descriptions and text-symbol icons.
 - `HowItWorks` displays four static process steps.
 - `SectionHeading` provides shared section-heading presentation.
 - `PrimaryButton` and `SecondaryButton` are styled anchor components, not form buttons.
-- `Footer` contains static navigation, contact text, legal placeholders, and the current year.
-- `page.tsx` contains the service list, benefits, page sections, placeholder reviews, service-area copy, and contact call to action.
-- The current header brand mark is rendered from text and a styled “P”; no repository asset is verified as a final production logo following the owner-preferred paint-roller-with-paint-behind direction.
+- `QuoteRequestForm` renders the beta intake fields and client-side pending, success, and failure states. These states are not evidence of successful delivery because the server route intentionally remains fail-closed until CRM delivery is safe and configured.
+- `Footer` contains static navigation and the current year. Privacy and Terms documents or links are not implemented.
+- `page.tsx` contains the four approved service categories, benefits, manual-review copy, service-area copy, and the branded quote-request section. The prior Drywall Repair card and placeholder reviews are absent.
+- The current header brand mark is rendered from text; no repository asset is verified as a final production logo following the owner-preferred paint-roller-with-paint-behind direction.
 
 ## Styling
 
@@ -93,6 +108,7 @@ The repository does not declare a Node.js runtime version through an `engines` f
 ## TypeScript and module configuration
 
 - TypeScript runs in strict mode with `noEmit` and bundler module resolution.
+- TypeScript permits explicit `.ts` import extensions so the no-dependency Node tests can directly exercise the same route and parser source used by the application.
 - JSX uses the `react-jsx` transform.
 - The `@/*` path alias maps to `src/*`.
 - JavaScript files are allowed by configuration, though the authored application source inspected is TypeScript/TSX.
@@ -104,47 +120,55 @@ The repository does not declare a Node.js runtime version through an `engines` f
 - `npm run build` runs `next build`.
 - `npm run start` runs `next start`.
 - `npm run lint` runs `eslint`.
+- `npm test` runs thirty-nine tests—twelve intake, thirteen route, and fourteen mocked delivery tests—through Node's built-in test runner and TypeScript type stripping.
+- `npm run typecheck` runs TypeScript with no emitted files.
 - ESLint uses Next.js Core Web Vitals and TypeScript configurations.
-- No test command, test framework, coverage configuration, or tracked automated test files are present.
+- `.github/workflows/ci.yml` uses Node.js 24 and runs `npm ci`, tests, lint, type checking, and the production build for pull requests and pushes to `main`. The workflow is present locally but has not yet run on GitHub.
+- No coverage configuration is present.
+- Thirty-nine automated tests, lint, TypeScript type checking, and the Next.js production build passed on 2026-08-03. The fourteen delivery tests use in-memory fake Upstash and GoHighLevel responses to cover exact field mapping, completed replay, changed-payload conflict, concurrency, Redis failure, acquired-lock release when initial state retrieval fails, ambiguous-create reconciliation, explicit rejected-create recovery, failed `creating`-state write, ambiguous failure before any create, completion-write failure reconciliation, a new submission for an existing Contact, invalid configuration, and generic error sanitization. Earlier built-app HTTP and Chrome smoke evidence covers the page, fail-closed route, headers, validation, focus, value retention, CSP console, and 404 behavior. No test has exercised real Upstash or GoHighLevel delivery.
 
 ## Data and integrations
 
-The tracked repository contains no implementation of:
+The uncommitted local working tree contains:
 
-- a database or persistence layer;
-- API endpoints or external API clients;
-- authentication or customer accounts;
-- quote storage or pricing services;
-- file/photo upload;
-- checkout, payments, or deposits;
-- booking, scheduling, or calendar integration;
-- chatbot or AI provider;
-- CRM integration;
-- analytics or conversion tracking;
-- email, SMS, or automated follow-up;
-- human-handoff tooling.
+- the client-side quote-request form and bounded browser-side UTM capture;
+- the fail-closed `/api/leads` validation and delivery boundary;
+- `ghl-client.ts`, which validates server-only configuration and uses native `fetch` for GoHighLevel Contact upsert, Opportunity search, and Opportunity create operations;
+- `upstash-idempotency.ts`, which uses native `fetch` for a Redis REST state store, token-checked 60-second lock, atomic guarded writes/completion, and guarded release, including release of an acquired lock if the initial state read fails;
+- `lead-delivery.ts`, which coordinates durable `contacting`, `contacted`, `creating`, `ambiguous`, `rejected`, and `completed` phases.
 
-No provider for any of these capabilities can be inferred from the repository.
+The GHL client maps name, phone, and email to Contact fields, Contact Preference to its approved Contact custom field, and service, description, project location, submission ID, campaign source, and campaign name to the approved Opportunity fields. It uses the fixed LeadConnector API host and validates the token, location, pipeline, stage, and field-ID configuration before any request.
+
+The state store retains a SHA-256 payload hash, delivery phase, provider record IDs, generic error category, and timestamp; it does not store the submitted name, phone, email, project description, or provider tokens. GHL responses are streamed with a 1,000,000-byte cap and five-second timeout. Upstash responses are streamed with a 64,000-byte cap and 2.5-second timeout.
+
+Before creating an Opportunity, the coordinator searches the Contact's pipeline Opportunities for the Website Submission ID. Ambiguous create outcomes remain durable and are reconciled rather than blindly re-posted. An explicit non-retryable rejected create is reconciled once and may be retried after configuration correction. Delivery events report only a generic category and the validated submission UUID. These controls target at-most-one automatic Opportunity creation plus reconciliation; they cannot provide a strict transactionally guaranteed exactly-once result across Redis and GoHighLevel.
+
+The local architecture still contains no provisioned database/runtime persistence, authentication or customer accounts, quote/pricing storage, file/photo upload, checkout/payment/deposit path, booking/calendar integration, chatbot/AI provider, email/SMS/follow-up, owner notification, or human-handoff tooling. No successful real-provider delivery has occurred.
 
 The absence of chatbot code is an implementation gap against a **Confirmed** customer-facing chatbot requirement; it does not establish or imply a provider, model, architecture, or interface.
 
-GoHighLevel is a **Confirmed** business/platform selection, but the repository contains no verified GoHighLevel account configuration, dependency, client, API call, field mapping, workflow, credential reference, payment-processor setup, or enabled-module evidence. The platform decision must not be documented here as implemented architecture until repository or environment evidence verifies it.
+GoHighLevel is a **Confirmed** business/platform selection. The uncommitted local source references only server-side environment-variable names, never confidential values, and adds no provider package dependency. External private-integration, pipeline, field, and Vercel-variable verification is recorded in `DEVELOPMENT_STATUS.md`; external configuration is not tracked repository architecture.
 
-Decision D-018 confirms a lead-generation beta that will require lead intake and verified GoHighLevel CRM delivery. That release decision does not establish an implementation architecture: the repository still contains no form handler, API route, server action, webhook, GoHighLevel client, or verified external configuration.
+Decision D-018 confirms a lead-generation beta that requires verified CRM delivery. The local clients and mocked tests are implementation evidence, not production acceptance. `LEAD_DELIVERY_ENABLED` remains `false`, the Upstash database/secrets are absent, the code is uncommitted and undeployed, and owner notification and real-provider end-to-end evidence remain missing.
 
 ## Deployment configuration
 
 - The Git remote points to `paintswitch/paintswitch-web` on GitHub.
-- The repository contains no tracked GitHub Actions workflows.
+- The repository contains one GitHub Actions verification workflow; no successful remote run is yet recorded.
 - The repository contains no tracked Vercel project configuration; `.vercel` is ignored.
-- `next.config.ts` exports an otherwise empty `NextConfig` object.
+- `next.config.ts` disables `X-Powered-By` and configures the verified static-page security-header baseline.
 - A historical deployment report is recorded in `DEVELOPMENT_STATUS.md`; it is not verified architecture evidence.
 
 ## Security and operational posture visible in the repository
 
-- No application authentication, authorization, secrets-handling code, data-retention controls, rate limiting, or application logging is present.
+- No application authentication, authorization, approved data-retention/deletion control, rate limiting, or anti-spam control is present.
+- Server-only configuration validation, fixed provider hosts, provider timeouts, streamed response caps, generic public errors, durable state logic, and reconciliation exist locally. Confidential values are not present in source.
+- The browser generates and reuses a UUID when an unchanged failed submission is retried and clears it after a `409` conflict. The server hashes the full normalized payload to detect submission-ID reuse with changed content.
+- The 60-second lock and durable phases support at-most-one automatic create plus reconciliation. No actual persistence exists until Upstash is provisioned, and no cross-provider exactly-once guarantee is claimed.
+- Sanitized delivery reporting emits only a generic event category and validated submission UUID. No monitoring destination, alerting workflow, operator dashboard, or full observability path is present.
+- Server validation, strict request-shape and email checking, a 16 KiB bounded stream, a five-second body-read deadline, exact same-origin production/local/preview checks, generic errors, and security response headers remain in place.
 - Environment files are ignored by Git.
-- A historical dependency-install report identified untriaged vulnerabilities; see `DEVELOPMENT_STATUS.md`.
+- The historical dependency report has been re-audited and partially remediated. Three transitive production package findings remain under the scoped exposure assessment in `DEVELOPMENT_STATUS.md`; owner risk disposition and upstream monitoring remain required.
 - No operational runbook, monitoring configuration, incident process, or backup configuration is present.
 
 ## Architecture boundaries

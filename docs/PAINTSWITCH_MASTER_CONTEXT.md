@@ -1,6 +1,6 @@
 # PaintSwitch master context
 
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 
 This document is the governing summary of PaintSwitch's approved business and product direction. Current website copy is implementation evidence only and must not be treated as proof of approval.
 
@@ -31,9 +31,14 @@ This document is the governing summary of PaintSwitch's approved business and pr
 
 - **Confirmed:** On 2026-07-18, the owner selected GoHighLevel as PaintSwitch's launch backbone or operating engine.
 - **Confirmed:** Intended GoHighLevel functions include CRM, SMS, email, AI chat, automations, calendar booking, pipelines, reviews, and payment workflows.
-- **TBD:** Account configuration, credentials, workflows, APIs, field mappings, payment-processor configuration, exact enabled modules, owners, and release phasing.
+- **Confirmed:** On 2026-08-02, the owner approved a dedicated `PaintSwitch Lead Intake` pipeline with one `New Quote Request` stage and field names `Service Type`, `Project Description`, and `Contact Preference`.
+- **Confirmed:** `Service Type` is an Opportunity single-select dropdown with Interior, Exterior, Cabinet, and Commercial; `Project Description` is an Opportunity multi-line field; and `Contact Preference` is a Contact single-select dropdown with Call, Text, and Email.
+- **Confirmed:** Use `hello@paintswitch.com` as PaintSwitch's primary domain mailbox. The address is approved but is not operational until account creation and send/receive testing complete.
+- **Confirmed:** Existing GoHighLevel sample/demo data must remain untouched. SMS and Voice AI must remain disabled until each is separately approved and operationally ready.
+- **Verified implementation fact — 2026-08-03:** The approved GoHighLevel private integration, required beta permissions, Sensitive Vercel token for Production and Preview, location/pipeline/stage identifiers, and all seven approved custom-field identifiers were configured. The four D-026 Opportunity fields were created. The uncommitted local working tree contains the secure GoHighLevel mapping and delivery client.
+- **TBD:** Production staff ownership beyond the confirmed owner role, notification destination, customer-facing sender authentication, payment-processor configuration, remaining enabled modules, and release phasing. Account credentials and configured identifiers are implementation facts, not additional owner-approved product policy.
 
-The platform selection and intended function categories are approved. They do not prove that any GoHighLevel account, module, workflow, integration, or payment path is configured or live.
+The platform selection, account/sub-account, pipeline/stage, private integration, Vercel server-only configuration, and seven custom-field destinations are verified. Local mapping and delivery code exists, but it is uncommitted and undeployed. `LEAD_DELIVERY_ENABLED` is `false`; no Upstash database or secrets exist; no real provider delivery or owner notification has passed; and messaging, AI, and payment paths are not live.
 
 ## Marketed services
 
@@ -106,17 +111,34 @@ The owner confirmed the following outcomes on 2026-07-18:
 ## Approved lead-generation beta
 
 - **Confirmed:** The lead-generation beta is the first release milestone and may launch before instant pricing, checkout, payments, online scheduling, the customer-facing chatbot, photo-review automation, or automated proposals.
+- **Confirmed:** Target the beta for launch on Saturday, 2026-08-08. This is a delivery goal, not permission to bypass any confirmed safety, legal, privacy, consent, security, messaging, or acceptance requirement.
 - **Confirmed:** The beta markets interior, exterior, cabinet, and commercial painting. Drywall Repair is not a standalone marketed beta service.
 - **Confirmed:** The primary customer action is “Request a Quote.”
+- **Confirmed:** Use a custom branded PaintSwitch quote-request form and connect it securely to GoHighLevel through a server-side integration. Customer-delivered code must not expose GoHighLevel credentials or secrets.
 - **Confirmed:** The beta accepts quote requests throughout the DMV and manually confirms service availability; this does not establish final cities, counties, ZIP codes, travel zones, or permanent service boundaries.
 - **Confirmed:** Lead intake collects name, phone, email, project ZIP or address, service type, project description, and contact preference.
-- **Confirmed:** Each submission goes to a verified GoHighLevel CRM pipeline, notifies the responsible operator, presents an on-page confirmation, and records basic source/campaign attribution.
+- **Confirmed:** The PaintSwitch owner is the primary owner of all beta leads.
+- **Confirmed:** Each accepted submission goes to a verified GoHighLevel CRM pipeline, notifies the owner, presents an immediate on-page confirmation, and records basic source/campaign attribution. Automatic non-marketing SMS is sent only to customers who explicitly use the separate optional, unchecked SMS opt-in and only after SMS is legally and operationally enabled.
+- **Confirmed:** Human outreach should occur immediately when possible.
+- **Confirmed:** Vercel remains the beta website host, and custom-domain work does not block beta.
+- **Confirmed:** `paintswitch.com` is the primary customer-facing domain. `www.paintswitch.com` permanently redirects to `paintswitch.com`. Approved on 2026-08-02 under decision D-020.
 - **Confirmed:** Beta messaging must disclose that service availability and pricing are confirmed after review. It must not display an instant price, collect a deposit or payment, enable checkout, or promise customer-selected scheduling.
-- **TBD:** Exact GoHighLevel configuration and field mappings, lead owner, response-time target, customer email/SMS acknowledgment, consent and legal wording, custom domain, anti-spam implementation, detailed event definitions, and later-release sequencing.
+- **Confirmed:** The beta CRM foundation uses `PaintSwitch Lead Intake` with one `New Quote Request` stage. Approved existing field names are `Service Type`, `Project Description`, and `Contact Preference`; add Opportunity fields named `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`. Sample/demo data remains untouched.
+- **Confirmed:** Create a GoHighLevel private integration and store its token only as a secure server-side Vercel environment secret. Use free Upstash Redis for durable server-side duplicate/idempotency protection. Approved on 2026-08-03 under D-024 and D-025.
+- **Verified implementation fact — 2026-08-03:** The private integration, least-required permissions, Sensitive Vercel token, identifiers, and local delivery implementation exist; the Upstash database/secrets and provider end-to-end verification do not.
+- **Confirmed:** SMS and Voice AI remain disabled during foundation setup. Voice AI remains outside the beta. The beta may launch with SMS disabled if A2P registration is pending.
+- **Confirmed:** The three approved HighLevel fields use the object, type, and options defined in D-022. `hello@paintswitch.com` is the approved PaintSwitch mailbox address.
+- **Confirmed:** Remove placeholder reviews for the beta. Do not publish reviews again until each review and its use are verified and permissioned.
+- **Confirmed:** Every accepted submission receives on-page confirmation. SMS consent is a separate optional control that is unchecked by default; `Text` contact preference is not consent. Only explicit opt-ins may receive the automatic non-marketing SMS, and declining SMS must not block submission. If A2P remains pending, the beta may launch with SMS disabled. Approved on 2026-08-03 under D-027; this supersedes the earlier every-lead-SMS rule.
+- **Confirmed:** Accept the documented low-reachability residual PostCSS/Sharp dependency risk for this beta while monitoring for a compatible upstream Next.js patch. Reassess if the reachable architecture changes; never apply a force fix, incompatible override, or automatic downgrade. Approved on 2026-08-03 under D-028.
+- **Verified implementation fact — 2026-08-03:** The approved private integration, least-required beta permissions, server-only Vercel token, location/pipeline/stage configuration, four additional Opportunity fields, native/contact and Opportunity mappings, durable delivery phases, token-checked 60-second lock, streamed response caps, reconciliation, explicit rejected-create recovery, and local automated tests exist. These are implementation details within D-024 through D-026, not new owner decisions. The code remains uncommitted and undeployed; `LEAD_DELIVERY_ENABLED` is `false`; Upstash provisioning awaits explicit marketplace-terms acceptance; and real provider delivery, notification, and production end-to-end evidence remain incomplete.
+- **Verified production contradiction — 2026-08-03:** The live prior build still shows standalone Drywall Repair, three explicitly labeled placeholder testimonials, nonfunctional Privacy/Terms links, estimate/contact actions without a working form, and universal-consultation copy. The corrected local candidate is undeployed, and live copy is not approval evidence.
+- **TBD:** Notification destination, mailbox activation/testing, backup lead owner, measurable human-response target and operating hours, exact SMS and consent wording, opt-out behavior, sender identity/A2P workflow, legal wording and approval, anti-spam policy, retention/deletion policy, detailed event definitions, commercially compliant Vercel plan, and later-release sequencing. Vercel currently shows Hobby, whose current guidance restricts commercial use; no plan purchase or change is approved. A2P registration also requires verification of the exact legal business name and structure, whether PaintSwitch is the legal entity or a registered DBA/trade name, tax/EIN and registration information, registered street address, and authorized-representative contact details; none may be inferred from website copy or another brand. Provider or carrier approval is not legal approval.
 
 ## Launch governance
 
 - **Confirmed:** Launch stand-ups should be 10 minutes, not 30 minutes. Approved on 2026-07-18.
+- **Confirmed:** Required owner participation for the beta delivery effort must be limited to at most one hour per day. Approved on 2026-08-02.
 - **TBD:** Stand-up frequency, participants, facilitator, scheduling, and decision/escalation format.
 
 ## Governing product principles

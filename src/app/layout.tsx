@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PaintSwitch | Painting. Simplified.",
-  description: "Professional residential and commercial painting made simple with clear estimates, reliable scheduling, and quality crews.",
+  title: "Request a Painting Quote | PaintSwitch",
+  description: "Request an interior, exterior, cabinet, or commercial painting quote in the DMV. Service availability and pricing are confirmed after review.",
   keywords: ["painting services", "residential painting", "commercial painting", "DMV painters"],
 };
 

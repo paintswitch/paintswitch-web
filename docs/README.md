@@ -1,6 +1,6 @@
 # PaintSwitch canonical documentation
 
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 
 This directory is the permanent source of truth for PaintSwitch business, product, technical, and development decisions. Website copy and application behavior show what is implemented; they do not prove that a business decision was approved.
 
@@ -56,6 +56,12 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 - Never publish an unapproved price, fee, deposit, multiplier, allowance, package, or eligibility policy as current customer policy.
 - Keep confirmed end-state outcomes separate from release phasing. Do not infer that every confirmed outcome blocks an earlier beta when sequencing remains **TBD**.
 - Treat decision D-018 as the current release boundary: the lead-generation beta is first, and instant pricing, checkout, chatbot, payments, photo-review automation, and automated proposals are deferred from that beta.
+- Treat decision D-023 as the current beta delivery constraint: target Saturday, 2026-08-08; require no more than one hour of owner participation per day; use a custom branded PaintSwitch quote-request form with a secure server-side GoHighLevel connection; and remove placeholder reviews until verified, permissioned reviews exist.
+- Treat decisions D-024 through D-026 as the current beta integration choices: a GoHighLevel private integration with its token in a server-side Vercel secret, free Upstash Redis for durable idempotency, and four additional Opportunity fields named `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`.
+- Treat decision D-027 as the current messaging rule: every accepted lead receives on-page confirmation; SMS consent is separate, optional, and unchecked; only explicit opt-ins receive automatic SMS when enabled; and the beta may launch with SMS disabled while A2P is pending. This supersedes the older every-lead-SMS rule.
+- Treat decision D-028 as scoped acceptance of the currently documented low-reachability dependency risk with monitoring and architecture-triggered reassessment, not as proof of zero risk or a waiver of other security gates.
+- Treat release dates as goals, not authority to bypass safety, legal, privacy, consent, security, messaging, or acceptance requirements. External-provider delays such as A2P approval must be recorded as schedule risks, and any fallback that changes a confirmed requirement needs explicit owner approval and a canonical decision update.
+- Treat provider or carrier guidance, validation, registration, or approval as operational evidence only, not legal approval. Track final legal review and jurisdiction-specific obligations separately.
 - Treat a confirmed platform selection separately from its account configuration, credentials, workflows, APIs, field mappings, payment-processor setup, and exact enabled modules.
 
 ## Review process

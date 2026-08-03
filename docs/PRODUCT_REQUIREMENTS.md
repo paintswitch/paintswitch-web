@@ -1,6 +1,6 @@
 # PaintSwitch product requirements
 
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 
 ## Product objective
 
@@ -29,7 +29,7 @@ The following business/product outcomes were confirmed on 2026-07-18. Decision D
 - **ER-005 — Confirmed:** Payments must be collectible.
 - **ER-006 — Confirmed:** Marketing must drive traffic and measurable leads.
 - **ER-007 — Confirmed:** Operations must be capable of completing the first PaintSwitch projects.
-- **ER-008 — Confirmed:** Launch the lead-generation beta before instant pricing and self-service checkout. The beta must deliver a professional standalone site, quote-request capture, GoHighLevel CRM delivery, operator notification, on-page confirmation, and basic measurable source attribution.
+- **ER-008 — Confirmed:** Launch the lead-generation beta before instant pricing and self-service checkout. The beta must deliver a professional standalone site, quote-request capture, durably controlled GoHighLevel CRM delivery with at-most-one automatic Opportunity creation plus reconciliation toward the one-record business outcome, owner notification, on-page confirmation for every accepted lead, and basic measurable source attribution. Automatic SMS is limited to explicit optional opt-ins and does not block launch while A2P is pending.
 - **ER-009 — TBD:** Decide the implementation order and release assignment of the remaining end-state outcomes after the lead-generation beta.
 
 ## Approved lead-generation beta requirements
@@ -39,13 +39,28 @@ The following business/product outcomes were confirmed on 2026-07-18. Decision D
 - **LB-003 — Confirmed:** Use “Request a Quote” as the primary customer action.
 - **LB-004 — Confirmed:** Accept quote requests throughout the DMV for manual service-availability review without promising exact coverage.
 - **LB-005 — Confirmed:** Collect name, phone, email, project ZIP or address, service type, project description, and contact preference.
-- **LB-006 — Confirmed:** Deliver each lead to a verified GoHighLevel CRM pipeline and notify the responsible operator.
+- **LB-006 — Confirmed:** Deliver each lead to a verified GoHighLevel CRM pipeline and notify the PaintSwitch owner as primary lead owner.
 - **LB-007 — Confirmed:** Display a clear on-page success state after a submission and a recoverable failure state when delivery fails.
 - **LB-008 — Confirmed:** Record basic lead-source and campaign attribution for measurable beta leads.
 - **LB-009 — Confirmed:** Disclose that service availability and pricing are confirmed after review.
 - **LB-010 — Confirmed:** Do not display instant prices, collect deposits or payments, enable checkout, or promise customer-selected scheduling in the beta.
 - **LB-011 — Confirmed:** The chatbot, instant quote, checkout, payments, photo-review automation, and automated proposals are deferred from the beta, not rejected from the confirmed end state.
-- **LB-012 — TBD:** Approve or verify the exact GoHighLevel account and pipeline configuration, field mappings, responsible lead owner, response-time target, customer email/SMS acknowledgment, consent and legal wording, custom domain, anti-spam method, detailed event definitions, and later-release sequence.
+- **LB-012 — TBD:** Supply or approve the notification destination, backup lead owner, measurable human-response target and operating hours, exact SMS/consent/opt-out wording, sender identity, legal wording and approval, anti-spam/rate policy, retention/deletion policy, detailed event definitions, commercially compliant Vercel plan, and later-release sequence. Vercel currently shows Hobby, whose current official guidance restricts commercial use; no plan purchase or change is approved. Verify the A2P sender's exact legal business name and structure, PaintSwitch legal-entity or DBA/trade-name status, tax/EIN and registration information, registered street address, and authorized-representative contact details without inferring them from website copy or another brand. Approved beta integration configuration and mappings are implementation/verification work under `PL-018` through `PL-020`, not new owner decisions.
+- **LB-013 — Confirmed:** The PaintSwitch owner is the primary owner of every beta lead and should perform human outreach immediately when possible.
+- **LB-014 — Superseded:** The former rule requiring automatic SMS for every accepted beta submission was superseded by D-027 and `LB-025`. The on-page-confirmation portion remains current through `LB-007` and `LB-025`.
+- **LB-015 — Confirmed:** Keep Vercel as the beta website host; custom-domain work does not block beta.
+- **LB-016 — Confirmed:** Use `paintswitch.com` as the primary customer-facing domain and permanently redirect `www.paintswitch.com` to `paintswitch.com`.
+- **LB-017 — Confirmed:** Target the lead-generation beta for launch on Saturday, 2026-08-08. This is a delivery goal rather than a waiver of any launch requirement.
+- **LB-018 — Confirmed:** Limit owner-required participation in beta delivery to at most one hour per day.
+- **LB-019 — Confirmed:** Use a custom branded PaintSwitch quote-request form rather than an externally branded customer-facing intake.
+- **LB-020 — Confirmed:** Connect the custom form to GoHighLevel through a secure server-side integration; do not expose GoHighLevel credentials or secrets to customer-delivered code.
+- **LB-021 — Confirmed:** Remove placeholder reviews and keep reviews unpublished until verified, permissioned reviews exist.
+- **LB-022 — Confirmed:** The 2026-08-08 target does not authorize bypassing confirmed safety, legal, privacy, consent, security, messaging, or acceptance requirements.
+- **LB-023 — Superseded:** D-027 supersedes the former rule that an A2P delay could not result in beta launch with SMS disabled. A2P remains an operational risk, but `LB-025` governs the approved fallback.
+- **LB-024 — Superseded:** D-027 resolved the former SMS-consent conflict. `LB-025` is the current requirement.
+- **LB-025 — Confirmed:** Use a separate SMS opt-in that is optional and unchecked by default; do not treat `Text` contact preference as consent; show on-page confirmation for every accepted lead; send automatic non-marketing SMS only to explicit opt-ins when SMS is legally and operationally enabled; and permit beta launch with SMS disabled while A2P is pending. Exact legal text and approval remain TBD.
+
+The beta CRM foundation is governed by `PL-012` through `PL-016`. Its external configuration does not satisfy `LB-006` until the custom form's secure server-side delivery and owner notification are tested.
 
 ## Launch operating platform
 
@@ -59,9 +74,18 @@ The following business/product outcomes were confirmed on 2026-07-18. Decision D
 - **PL-008 — Confirmed:** Use GoHighLevel for the intended pipeline function.
 - **PL-009 — Confirmed:** Use GoHighLevel for the intended reviews function.
 - **PL-010 — Confirmed:** Use GoHighLevel for the intended payment-workflow function.
-- **PL-011 — TBD:** Verify and approve account configuration, credentials, workflows, APIs, field mappings, payment-processor configuration, exact enabled modules, operating ownership, and release phasing.
+- **PL-011 — TBD:** Approve or supply the notification destination, payment-processor configuration, post-beta enabled modules, operating ownership not already assigned, sender identity/authentication, A2P legal-business/DBA and authorized-representative facts, commercially compliant Vercel plan, and release phasing. The private integration, server-only GHL secret/identifier handling, field creation, APIs, and local mappings are verified implementation work under `LB-020` and `PL-018` through `PL-020`; Upstash provisioning, notification, deployment, and provider acceptance remain incomplete.
+- **PL-012 — Confirmed:** Use a dedicated GoHighLevel pipeline named `PaintSwitch Lead Intake`. Approved on 2026-08-02.
+- **PL-013 — Confirmed:** Give the `PaintSwitch Lead Intake` pipeline exactly one stage named `New Quote Request`. Approved on 2026-08-02.
+- **PL-014 — Confirmed:** Configure `Service Type` as an Opportunity single-select dropdown with Interior, Exterior, Cabinet, and Commercial; `Project Description` as an Opportunity multi-line field; and `Contact Preference` as a Contact single-select dropdown with Call, Text, and Email. Approved on 2026-08-02.
+- **PL-015 — Confirmed:** Leave existing GoHighLevel sample/demo data untouched. Approved on 2026-08-02.
+- **PL-016 — Confirmed:** Keep SMS and Voice AI disabled until each is separately approved and operationally ready. Under D-027, the beta may launch with SMS disabled while A2P is pending; Voice AI remains outside the beta unless separately approved.
+- **PL-017 — Confirmed:** Use `hello@paintswitch.com` as the primary PaintSwitch domain mailbox. Do not treat it as operational until mailbox creation and send/receive testing pass.
+- **PL-018 — Confirmed:** Create a GoHighLevel private integration for the Paint Switch location and store its token only as a secure server-side Vercel environment secret. Configure least-required beta permissions, secret naming, rotation, mappings, and verification within this approved boundary.
+- **PL-019 — Confirmed:** Use free Upstash Redis as the durable server-side duplicate/idempotency store for beta lead delivery. Implement and verify key, TTL, atomicity, failure, reconciliation, limits, and monitoring behavior within this approved boundary.
+- **PL-020 — Confirmed:** Add GoHighLevel Opportunity fields named `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`. Select and verify field types, settings, normalization, and mappings consistent with each approved field purpose.
 
-The confirmed GoHighLevel selection does not prove that any account, module, workflow, API, field mapping, credential, payment processor, or production connection exists. GoHighLevel's intended AI-chat function also does not resolve the customer-facing chatbot's model, architecture, exact interface, or phasing.
+The confirmed GoHighLevel selection, CRM foundation, and server-side connection boundary do not by themselves prove production operation. As of 2026-08-03, the private integration, required permissions, Sensitive Vercel token, location/pipeline/stage identifiers, seven field identifiers, four additional Opportunity fields, and uncommitted local API/mapping code are verified. `LEAD_DELIVERY_ENABLED` remains `false`; Upstash is not provisioned; and no provider end-to-end delivery, owner notification, payment processor, or production messaging path is verified. GoHighLevel's intended AI-chat function also does not resolve the customer-facing chatbot's model, architecture, exact interface, or phasing.
 
 ## Brand, visual, and governance requirements
 
@@ -107,13 +131,14 @@ The following personas are **Proposed** interpretations of the confirmed product
 ## Lead-generation beta journey
 
 1. **Confirmed:** The customer sees PaintSwitch as a standalone DMV painting brand offering interior, exterior, cabinet, and commercial painting.
-2. **Confirmed:** The customer selects “Request a Quote.”
+2. **Confirmed:** The customer selects “Request a Quote” and reaches a custom branded PaintSwitch intake.
 3. **Confirmed:** The form collects the LB-005 fields and discloses that service availability and pricing are confirmed after review.
-4. **Confirmed:** Valid input is delivered exactly once to the verified GoHighLevel CRM pipeline with basic source/campaign attribution.
-5. **Confirmed:** The responsible operator receives the approved internal notification.
-6. **Confirmed:** The customer sees an accurate on-page confirmation; a failed delivery produces an approved recoverable next step.
-7. **Confirmed:** The beta does not display an instant price, collect payment, enable checkout, promise customer-selected scheduling, or require the deferred chatbot.
-8. **TBD:** Named operator, response-time target, customer email/SMS acknowledgment, final consent/legal wording, and exact GoHighLevel configuration.
+4. **Confirmed:** Valid input reaches the verified GoHighLevel CRM pipeline once as the business outcome, with basic source/campaign attribution through a secure server-side connection. The implementation must use at-most-one automatic Opportunity creation plus durable reconciliation and must not claim a strict cross-provider exactly-once guarantee.
+5. **Confirmed:** The owner receives the approved internal notification as primary lead owner.
+6. **Confirmed:** The customer sees an immediate accurate on-page confirmation. If the separate optional SMS control was explicitly selected and SMS is enabled, the customer receives one automatic non-marketing acknowledgment; if SMS is disabled pending A2P, no SMS is attempted or promised. A failed lead delivery produces an approved recoverable next step.
+7. **Confirmed:** The owner performs human outreach immediately when possible.
+8. **Confirmed:** The beta does not display an instant price, collect payment, enable checkout, promise customer-selected scheduling, or require the deferred chatbot.
+9. **TBD:** Notification destination, backup owner, measurable human-response target and operating hours, exact SMS and consent wording/workflow details, final legal approval, Upstash provisioning, and provider end-to-end verification. The private integration, GHL identifiers/fields, and local mapping code are now verified.
 
 ## Standard-interior instant-quote journey
 
@@ -185,7 +210,8 @@ The chatbot must observe these **Confirmed** policy boundaries regardless of imp
 - **FR-013 — Confirmed:** Provide a customer-facing chatbot while leaving provider, model, architecture, and exact interface unselected until approved.
 - **FR-014 — Confirmed:** Add one flat $125 fuel/materials adjustment exactly once to every project price.
 - **FR-015 — Confirmed:** Use GoHighLevel as the launch backbone and CRM operating engine while requiring verification before treating configuration as live.
-- **FR-016 — Confirmed:** Provide the approved lead-generation beta intake, GoHighLevel delivery, operator notification, on-page result states, and basic source attribution defined by LB-001 through LB-012.
+- **FR-016 — Confirmed:** Provide the approved lead-generation beta intake, durably controlled GoHighLevel delivery using at-most-one automatic Opportunity creation plus reconciliation, operator notification, on-page result states, basic source attribution, public-domain behavior, delivery target, owner-time constraint, form/integration boundary, review-content rule, and consent-based SMS behavior defined by LB-001 through LB-025 and PL-018 through PL-020.
+- **FR-017 — Superseded:** The former every-accepted-lead automatic-SMS requirement is replaced by `LB-025`; owner notification and on-page confirmation remain required.
 
 ### Proposed capabilities
 
@@ -209,6 +235,7 @@ These requirements carry individual statuses; safety requirements already implie
 - **NFR-006 — Confirmed:** The product must clearly distinguish a firm price from an estimate, pending review, or consultation request.
 - **NFR-007 — Proposed:** Quote, checkout, and booking failures should preserve customer-entered information where safely possible and present a recoverable next step.
 - **NFR-008 — Proposed:** Operational events needed for conversion measurement should avoid exposing sensitive customer data.
+- **NFR-009 — Confirmed:** Accept the currently documented low-reachability PostCSS/Sharp residual dependency risk for the beta with upstream monitoring and architecture-triggered reassessment; never use an automatic force fix, incompatible override, or downgrade.
 
 ## Acceptance criteria
 
@@ -226,16 +253,32 @@ These requirements carry individual statuses; safety requirements already implie
 - **AC-012 — Confirmed:** A production customer-facing chatbot is available according to approved launch phasing and cannot violate confirmed brand, pricing, eligibility, review, or consultation rules.
 - **AC-013 — Confirmed:** Every project price includes one—and only one—flat $125 fuel/materials adjustment; it is not substituted for or combined with an unapproved travel-zone adjustment.
 - **AC-014 — Confirmed:** A professional standalone PaintSwitch website is reachable at its approved production location and passes launch QA for the release in which it is phased.
-- **AC-015 — Confirmed:** A customer can submit a quote request and receive an approved acknowledgment; the request reaches the accountable operating destination exactly once.
+- **AC-015 — Confirmed:** A customer can submit a quote request and receive an approved acknowledgment; delivery uses at-most-one automatic Opportunity creation plus reconciliation so retries do not create duplicate Opportunities and recoverable ambiguity is not silently discarded.
 - **AC-016 — Confirmed:** An approved AI assistant can qualify a test lead without inventing policy or bypassing required review, consultation, or human escalation.
 - **AC-017 — Confirmed:** A test proposal can be issued and a test booking can be completed under approved workflows.
 - **AC-018 — Confirmed:** An approved test payment can be collected, confirmed, reconciled, and handled through approved failure/refund rules.
 - **AC-019 — Confirmed:** Approved marketing activity can be attributed to measurable test traffic and leads under approved privacy and consent rules.
 - **AC-020 — Confirmed:** Operations can accept, schedule, staff, supply, execute, quality-check, and close a rehearsed first-project scenario.
 - **AC-021 — Confirmed:** Any implementation claiming GoHighLevel integration identifies the verified account, enabled module, workflow, field mapping, owner, and test evidence without exposing credentials.
-- **AC-022 — Confirmed:** A beta test lead containing every LB-005 field is accepted exactly once, reaches the verified GoHighLevel pipeline, notifies the responsible operator, preserves approved source attribution, and produces an on-page confirmation.
+- **AC-022 — Confirmed:** A beta test lead containing every LB-005 field reaches the verified GoHighLevel pipeline through the at-most-one automatic-create and reconciliation path, notifies the owner, preserves approved source attribution, and produces an on-page confirmation.
 - **AC-023 — Confirmed:** A failed or rejected beta submission does not falsely claim success and gives the customer an approved recoverable next step without exposing sensitive implementation details.
 - **AC-024 — Confirmed:** Beta copy uses “Request a Quote,” identifies the four approved painting categories, treats availability and pricing as pending review, and contains no instant-price, payment, checkout, customer-selected-scheduling, or standalone-Drywall promises.
+- **AC-025 — Superseded:** The former every-lead automatic-SMS acceptance rule was superseded by D-027 and `AC-039`.
+- **AC-026 — Confirmed:** The production beta remains reachable at the verified Vercel location; absence of a custom domain does not fail beta acceptance.
+- **AC-027 — Confirmed:** The production site is reachable over HTTPS at `paintswitch.com`, `www.paintswitch.com` permanently redirects to the apex domain, and the site remains hosted by the approved Vercel project.
+- **AC-028 — Confirmed:** The signed-in Paint Switch GoHighLevel sub-account contains exactly one dedicated `PaintSwitch Lead Intake` pipeline with one `New Quote Request` stage; all three fields exist with the D-022 objects, types, and option values; sample/demo data remains untouched; and SMS plus Voice AI remain disabled until separately ready.
+- **AC-029 — Confirmed:** `hello@paintswitch.com` is created under the PaintSwitch domain, uses an approved standalone PaintSwitch identity, and passes inbound and outbound message tests before customer-facing use.
+- **AC-030 — Confirmed:** The beta is managed toward Saturday, 2026-08-08, but is released on that date only if every applicable launch gate passes; otherwise the unmet gate and revised plan are reported without weakening the requirement.
+- **AC-031 — Confirmed:** The delivery record shows that required owner participation does not exceed 60 minutes on any calendar day.
+- **AC-032 — Confirmed:** Every public “Request a Quote” action reaches a custom branded PaintSwitch form that contains the approved fields, disclosures, validation, and result states.
+- **AC-033 — Confirmed:** Browser inspection and a production-safe delivery test show that the form reaches GoHighLevel through a server-side path with at-most-one automatic Opportunity creation plus reconciliation and exposes no GoHighLevel credential or secret in customer-delivered code.
+- **AC-034 — Confirmed:** No placeholder, fabricated, or unpermissioned review is present in the beta; any restored review has retained verification and permission evidence.
+- **AC-035 — Superseded:** D-027 approved beta launch with SMS disabled while A2P is pending; `AC-039` is current.
+- **AC-036 — Confirmed:** A production-safe test proves the server uses the approved GoHighLevel private integration through a Vercel server-side secret and exposes no token in tracked source, browser-delivered code, responses, or public logs.
+- **AC-037 — Confirmed:** Retry and concurrency tests prove the approved Upstash-backed submission ID creates at most one GoHighLevel opportunity while recoverable provider failures do not silently discard a legitimate accepted lead.
+- **AC-038 — Confirmed:** The GoHighLevel Opportunity contains `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`, and a production-safe test populates each field from the approved input or attribution source.
+- **AC-039 — Confirmed:** The SMS opt-in is separate, optional, and unchecked by default; declining it does not block submission; every accepted lead sees one accurate on-page confirmation; only explicit opt-ins receive automatic SMS when enabled; and the beta sends no SMS without claiming otherwise when SMS is disabled pending A2P.
+- **AC-040 — Confirmed:** The beta launch record notes the scoped residual dependency-risk acceptance, retains current audit and reachability evidence, monitors for a compatible upstream patch, and requires reassessment if architecture changes increase exposure.
 
 Acceptance criteria that depend on unapproved pricing values, checkout terms, scheduling behavior, or integration choices remain **TBD**.
 
@@ -243,7 +286,7 @@ Acceptance criteria that depend on unapproved pricing values, checkout terms, sc
 
 ### Confirmed lead-generation beta first
 
-Decision D-018 confirms the beta as the first release. The remaining end-state outcomes still govern later releases but do not block this beta unless listed in LB-001 through LB-012.
+Decisions D-018 through D-028 confirm the beta as the first release and define its ownership, consent-based acknowledgment, hosting, public domain, CRM foundation, private-integration/token boundary, Upstash idempotency, additional Opportunity fields, target date, owner-time limit, custom-form/server-side integration boundary, review-content rule, and scoped dependency-risk acceptance. The remaining end-state outcomes still govern later releases but do not block this beta unless listed in the approved beta requirements. The 2026-08-08 date is a target and never overrides an applicable launch gate.
 
 - **Confirmed:** Market all four approved painting categories.
 - **Confirmed:** Capture quote requests without instant firm pricing or checkout in the beta.
@@ -252,15 +295,16 @@ Decision D-018 confirms the beta as the first release. The remaining end-state o
 - **Confirmed:** Defer the customer-facing chatbot from the beta to a later approved release.
 - **Confirmed:** Deliver the seven end-state outcomes in `ER-001` through `ER-007`.
 - **Confirmed:** Use the verified GoHighLevel CRM/pipeline capability required for beta lead capture.
+- **Confirmed:** Preserve the verified CRM foundation, private integration, four additional Opportunity fields, Sensitive Vercel token, configured identifiers, and local native mappings while completing Upstash provisioning, staff ownership, notification, consent/legal requirements, deployment, and provider end-to-end evidence.
 - **TBD:** Assign the chatbot and other deferred outcomes to specific post-beta releases.
 
 ### Approved beta implementation sequence
 
 1. **Confirmed:** Merge the canonical documentation into `main` and preserve D-018 as the beta scope authority.
 2. **Confirmed:** Resolve the beta-blocking items in LB-012, including verified GoHighLevel configuration, lead ownership/SLA, legal/consent text, attribution details, and anti-spam controls.
-3. **Confirmed:** Correct beta services and copy, then implement the approved form, disclosures, validation, and result states.
-4. **Confirmed:** Connect GoHighLevel delivery, internal notification, and basic source attribution.
-5. **Confirmed:** Remove or replace placeholder trust content and publish approved Privacy and Terms content.
+3. **Confirmed:** Correct beta services and copy, then implement the approved custom branded PaintSwitch form, disclosures, validation, and result states.
+4. **Confirmed:** Preserve the created private integration and four Opportunity fields, keep provider credentials server-only, provision Upstash after explicit terms acceptance, deploy and verify the at-most-one automatic-create plus reconciliation path, then implement internal notification and verify basic source attribution.
+5. **Confirmed:** Remove placeholder reviews until verified, permissioned reviews exist, and publish approved Privacy and Terms content.
 6. **Confirmed:** Complete beta build, security, responsive/accessibility, deployment, and production lead-path QA before traffic is sent.
 
 ### Proposed post-beta implementation sequence
@@ -281,7 +325,7 @@ Decision D-018 confirms the beta as the first release. The remaining end-state o
 - **TBD:** Exact standard-interior eligibility beyond room-size rules.
 - **TBD:** Live price amounts and detailed pricing policies.
 - **Confirmed:** A customer-facing chatbot is approved; provider, model, architecture, exact interface, detailed responsibilities, and release phasing remain **TBD** or **Proposed** as labeled.
-- **Confirmed:** GoHighLevel and its intended CRM function are approved; exact configuration, enabled modules, workflows, APIs, mappings, credentials, payment-processor setup, and phasing remain **TBD**.
+- **Confirmed:** GoHighLevel and its intended CRM function are approved. The private-integration method, server-side Vercel token location, free Upstash Redis idempotency provider, and four D-026 Opportunity field names/objects are also approved. Beta permissions, GHL secret/identifier names, field creation, APIs, and mappings are configured and locally tested; the code remains uncommitted/undeployed, `LEAD_DELIVERY_ENABLED` is `false`, and Upstash is not provisioned. Payment-processor setup, post-beta modules, notification destination, sender identity, and phasing remain **TBD**.
 - **Confirmed:** Basic lead-source and campaign attribution is approved for the beta; provider, detailed event definitions, consent implementation, and broader analytics behavior remain **TBD**.
 - **Proposed:** In-flow photo upload, direct customer scheduling mechanics, deposits, detailed automated follow-up, broader conversion tracking, and human handoff are not approved implementation scope yet.
 
