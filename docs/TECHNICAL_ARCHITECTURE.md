@@ -129,7 +129,7 @@ Next.js currently resolves its own PostCSS `8.4.31` and optional Sharp `0.34.5` 
 
 ## Data and integrations
 
-The uncommitted local working tree contains:
+Pushed commit `efb96b9`, also available in a fail-closed Vercel Preview, contains:
 
 - the client-side quote-request form and bounded browser-side UTM capture;
 - the fail-closed `/api/leads` validation and delivery boundary;
@@ -147,9 +147,9 @@ The local architecture still contains no provisioned database/runtime persistenc
 
 The absence of chatbot code is an implementation gap against a **Confirmed** customer-facing chatbot requirement; it does not establish or imply a provider, model, architecture, or interface.
 
-GoHighLevel is a **Confirmed** business/platform selection. The uncommitted local source references only server-side environment-variable names, never confidential values, and adds no provider package dependency. External private-integration, pipeline, field, and Vercel-variable verification is recorded in `DEVELOPMENT_STATUS.md`; external configuration is not tracked repository architecture.
+GoHighLevel is a **Confirmed** business/platform selection. The pushed source references only server-side environment-variable names, never confidential values, and adds no provider package dependency. External private-integration, pipeline, field, and Vercel-variable verification is recorded in `DEVELOPMENT_STATUS.md`; external configuration is not tracked repository architecture.
 
-Decision D-018 confirms a lead-generation beta that requires verified CRM delivery. The local clients and mocked tests are implementation evidence, not production acceptance. `LEAD_DELIVERY_ENABLED` remains `false`, the Upstash database/secrets are absent, the code is uncommitted and undeployed, and owner notification and real-provider end-to-end evidence remain missing.
+Decision D-018 confirms a lead-generation beta that requires verified CRM delivery. The pushed clients, mocked tests, and fail-closed Preview are implementation evidence, not production acceptance. `LEAD_DELIVERY_ENABLED` remains `false`, the Upstash database/secrets are absent, production still serves the prior `main` build, and owner notification and real-provider end-to-end evidence remain missing.
 
 ## Deployment configuration
 
