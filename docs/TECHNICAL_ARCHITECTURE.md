@@ -120,12 +120,12 @@ Next.js currently resolves its own PostCSS `8.4.31` and optional Sharp `0.34.5` 
 - `npm run build` runs `next build`.
 - `npm run start` runs `next start`.
 - `npm run lint` runs `eslint`.
-- `npm test` runs thirty-nine tests—twelve intake, thirteen route, and fourteen mocked delivery tests—through Node's built-in test runner and TypeScript type stripping.
+- `npm test` runs forty-one tests—twelve intake, thirteen route, and sixteen mocked delivery tests—through Node's built-in test runner and TypeScript type stripping.
 - `npm run typecheck` runs TypeScript with no emitted files.
 - ESLint uses Next.js Core Web Vitals and TypeScript configurations.
-- `.github/workflows/ci.yml` uses Node.js 24 and runs `npm ci`, tests, lint, type checking, and the production build for pull requests and pushes to `main`. The workflow is present locally but has not yet run on GitHub.
+- `.github/workflows/ci.yml` uses Node.js 24 and runs `npm ci`, tests, lint, type checking, and the production build for pull requests and pushes to `main`. The workflow is tracked in pushed commit `efb96b9` but has not yet run on GitHub; that non-PR branch push produced only two Vercel-related checks.
 - No coverage configuration is present.
-- Thirty-nine automated tests, lint, TypeScript type checking, and the Next.js production build passed on 2026-08-03. The fourteen delivery tests use in-memory fake Upstash and GoHighLevel responses to cover exact field mapping, completed replay, changed-payload conflict, concurrency, Redis failure, acquired-lock release when initial state retrieval fails, ambiguous-create reconciliation, explicit rejected-create recovery, failed `creating`-state write, ambiguous failure before any create, completion-write failure reconciliation, a new submission for an existing Contact, invalid configuration, and generic error sanitization. Earlier built-app HTTP and Chrome smoke evidence covers the page, fail-closed route, headers, validation, focus, value retention, CSP console, and 404 behavior. No test has exercised real Upstash or GoHighLevel delivery.
+- Forty-one automated tests, lint, TypeScript type checking, and the Next.js production build passed on 2026-08-03. The sixteen delivery tests use in-memory fake Upstash and GoHighLevel responses to cover exact field mapping, completed replay, changed-payload conflict, concurrency, Redis failure, acquired-lock release when initial state retrieval fails, ambiguous-create reconciliation, explicit rejected-create recovery, failed `creating`-state write, ambiguous failure before any create, completion-write failure reconciliation, a new submission for an existing Contact, Marketplace and legacy Upstash configuration, invalid/partial Marketplace-pair fail-closed behavior, other invalid configuration, and generic error sanitization. Earlier built-app HTTP and Chrome smoke evidence covers the page, fail-closed route, headers, validation, focus, value retention, CSP console, and 404 behavior. No test has exercised real Upstash or GoHighLevel delivery.
 
 ## Data and integrations
 
@@ -137,19 +137,21 @@ Pushed commit `efb96b9`, also available in a fail-closed Vercel Preview, contain
 - `upstash-idempotency.ts`, which uses native `fetch` for a Redis REST state store, token-checked 60-second lock, atomic guarded writes/completion, and guarded release, including release of an acquired lock if the initial state read fails;
 - `lead-delivery.ts`, which coordinates durable `contacting`, `contacted`, `creating`, `ambiguous`, `rejected`, and `completed` phases.
 
+`lead-delivery.ts` prefers the Marketplace URL/token pair `UPSTASH_REDIS_REST_KV_REST_API_URL` and `UPSTASH_REDIS_REST_KV_REST_API_TOKEN`, supports the legacy `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` pair only when the Marketplace pair is absent, and fails closed for a partial or invalid Marketplace pair.
+
 The GHL client maps name, phone, and email to Contact fields, Contact Preference to its approved Contact custom field, and service, description, project location, submission ID, campaign source, and campaign name to the approved Opportunity fields. It uses the fixed LeadConnector API host and validates the token, location, pipeline, stage, and field-ID configuration before any request.
 
 The state store retains a SHA-256 payload hash, delivery phase, provider record IDs, generic error category, and timestamp; it does not store the submitted name, phone, email, project description, or provider tokens. GHL responses are streamed with a 1,000,000-byte cap and five-second timeout. Upstash responses are streamed with a 64,000-byte cap and 2.5-second timeout.
 
 Before creating an Opportunity, the coordinator searches the Contact's pipeline Opportunities for the Website Submission ID. Ambiguous create outcomes remain durable and are reconciled rather than blindly re-posted. An explicit non-retryable rejected create is reconciled once and may be retried after configuration correction. Delivery events report only a generic category and the validated submission UUID. These controls target at-most-one automatic Opportunity creation plus reconciliation; they cannot provide a strict transactionally guaranteed exactly-once result across Redis and GoHighLevel.
 
-The local architecture still contains no provisioned database/runtime persistence, authentication or customer accounts, quote/pricing storage, file/photo upload, checkout/payment/deposit path, booking/calendar integration, chatbot/AI provider, email/SMS/follow-up, owner notification, or human-handoff tooling. No successful real-provider delivery has occurred.
+The external Upstash database and Vercel variables are provisioned, but application persistence has not been exercised and the source applies no explicit TTL to durable state. The architecture still contains no authentication or customer accounts, quote/pricing storage, file/photo upload, checkout/payment/deposit path, booking/calendar integration, chatbot/AI provider, email/SMS/follow-up, owner notification, or human-handoff tooling. No successful real-provider delivery has occurred.
 
 The absence of chatbot code is an implementation gap against a **Confirmed** customer-facing chatbot requirement; it does not establish or imply a provider, model, architecture, or interface.
 
 GoHighLevel is a **Confirmed** business/platform selection. The pushed source references only server-side environment-variable names, never confidential values, and adds no provider package dependency. External private-integration, pipeline, field, and Vercel-variable verification is recorded in `DEVELOPMENT_STATUS.md`; external configuration is not tracked repository architecture.
 
-Decision D-018 confirms a lead-generation beta that requires verified CRM delivery. The pushed clients, mocked tests, and fail-closed Preview are implementation evidence, not production acceptance. `LEAD_DELIVERY_ENABLED` remains `false`, the Upstash database/secrets are absent, production still serves the prior `main` build, and owner notification and real-provider end-to-end evidence remain missing.
+Decision D-018 confirms a lead-generation beta that requires verified CRM delivery. The pushed clients, mocked tests, provisioned Upstash connection, and fail-closed Preview are implementation evidence, not production acceptance. `LEAD_DELIVERY_ENABLED` remains `false`, production still serves the prior `main` build, and retention/TTL approval, owner notification, and real-provider end-to-end evidence remain missing.
 
 ## Deployment configuration
 
@@ -157,14 +159,15 @@ Decision D-018 confirms a lead-generation beta that requires verified CRM delive
 - The repository contains one GitHub Actions verification workflow; no successful remote run is yet recorded.
 - The repository contains no tracked Vercel project configuration; `.vercel` is ignored.
 - `next.config.ts` disables `X-Powered-By` and configures the verified static-page security-header baseline.
-- A historical deployment report is recorded in `DEVELOPMENT_STATUS.md`; it is not verified architecture evidence.
+- Pushing commit `efb96b9` on `codex/lead-generation-beta` automatically created a Ready Vercel Preview in 21 seconds. Production promotion/release and rollback remain unverified, and the apex still serves the prior `main` build.
+- The external database `paintswitch-lead-idempotency` is connected to Vercel with five Sensitive Production-and-Preview variables. No value is recorded in the repository or documentation.
 
 ## Security and operational posture visible in the repository
 
 - No application authentication, authorization, approved data-retention/deletion control, rate limiting, or anti-spam control is present.
 - Server-only configuration validation, fixed provider hosts, provider timeouts, streamed response caps, generic public errors, durable state logic, and reconciliation exist locally. Confidential values are not present in source.
 - The browser generates and reuses a UUID when an unchanged failed submission is retried and clears it after a `409` conflict. The server hashes the full normalized payload to detect submission-ID reuse with changed content.
-- The 60-second lock and durable phases support at-most-one automatic create plus reconciliation. No actual persistence exists until Upstash is provisioned, and no cross-provider exactly-once guarantee is claimed.
+- The 60-second lock and durable phases support at-most-one automatic create plus reconciliation. Upstash is provisioned, but no real state write has been verified and the source sets no explicit TTL; no cross-provider exactly-once guarantee is claimed.
 - Sanitized delivery reporting emits only a generic event category and validated submission UUID. No monitoring destination, alerting workflow, operator dashboard, or full observability path is present.
 - Server validation, strict request-shape and email checking, a 16 KiB bounded stream, a five-second body-read deadline, exact same-origin production/local/preview checks, generic errors, and security response headers remain in place.
 - Environment files are ignored by Git.

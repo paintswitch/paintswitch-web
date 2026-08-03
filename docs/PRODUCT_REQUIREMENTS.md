@@ -74,7 +74,7 @@ The beta CRM foundation is governed by `PL-012` through `PL-016`. Its external c
 - **PL-008 — Confirmed:** Use GoHighLevel for the intended pipeline function.
 - **PL-009 — Confirmed:** Use GoHighLevel for the intended reviews function.
 - **PL-010 — Confirmed:** Use GoHighLevel for the intended payment-workflow function.
-- **PL-011 — TBD:** Approve or supply the notification destination, payment-processor configuration, post-beta enabled modules, operating ownership not already assigned, sender identity/authentication, A2P legal-business/DBA and authorized-representative facts, commercially compliant Vercel plan, and release phasing. The private integration, server-only GHL secret/identifier handling, field creation, APIs, and local mappings are verified implementation work under `LB-020` and `PL-018` through `PL-020`; Upstash provisioning, notification, deployment, and provider acceptance remain incomplete.
+- **PL-011 — TBD:** Approve or supply the notification destination, payment-processor configuration, post-beta enabled modules, operating ownership not already assigned, sender identity/authentication, A2P legal-business/DBA and authorized-representative facts, commercially compliant Vercel plan, and release phasing. The private integration, server-only GHL and Upstash configuration, field creation, APIs, and mappings are verified implementation work under `LB-020` and `PL-018` through `PL-020`; retention/TTL, notification, production promotion, and provider acceptance remain incomplete.
 - **PL-012 — Confirmed:** Use a dedicated GoHighLevel pipeline named `PaintSwitch Lead Intake`. Approved on 2026-08-02.
 - **PL-013 — Confirmed:** Give the `PaintSwitch Lead Intake` pipeline exactly one stage named `New Quote Request`. Approved on 2026-08-02.
 - **PL-014 — Confirmed:** Configure `Service Type` as an Opportunity single-select dropdown with Interior, Exterior, Cabinet, and Commercial; `Project Description` as an Opportunity multi-line field; and `Contact Preference` as a Contact single-select dropdown with Call, Text, and Email. Approved on 2026-08-02.
@@ -85,7 +85,7 @@ The beta CRM foundation is governed by `PL-012` through `PL-016`. Its external c
 - **PL-019 — Confirmed:** Use free Upstash Redis as the durable server-side duplicate/idempotency store for beta lead delivery. Implement and verify key, TTL, atomicity, failure, reconciliation, limits, and monitoring behavior within this approved boundary.
 - **PL-020 — Confirmed:** Add GoHighLevel Opportunity fields named `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`. Select and verify field types, settings, normalization, and mappings consistent with each approved field purpose.
 
-The confirmed GoHighLevel selection, CRM foundation, and server-side connection boundary do not by themselves prove production operation. As of 2026-08-03, the private integration, required permissions, Sensitive Vercel token, location/pipeline/stage identifiers, seven field identifiers, four additional Opportunity fields, and API/mapping code at pushed commit `efb96b9` are verified. The commit is available in a fail-closed Vercel Preview. `LEAD_DELIVERY_ENABLED` remains `false`; Upstash is not provisioned; and no provider end-to-end delivery, owner notification, payment processor, or production messaging path is verified. GoHighLevel's intended AI-chat function also does not resolve the customer-facing chatbot's model, architecture, exact interface, or phasing.
+The confirmed GoHighLevel selection, CRM foundation, and server-side connection boundary do not by themselves prove production operation. As of 2026-08-03, the private integration, required permissions, Sensitive Vercel GHL configuration, location/pipeline/stage identifiers, seven field identifiers, four additional Opportunity fields, API/mapping code, free Upstash database, and five Sensitive Upstash variables are verified. The candidate is available in a fail-closed Vercel Preview. `LEAD_DELIVERY_ENABLED` remains `false`; retention/TTL is unresolved; and no provider end-to-end delivery, owner notification, payment processor, or production messaging path is verified. GoHighLevel's intended AI-chat function also does not resolve the customer-facing chatbot's model, architecture, exact interface, or phasing.
 
 ## Brand, visual, and governance requirements
 
@@ -138,7 +138,7 @@ The following personas are **Proposed** interpretations of the confirmed product
 6. **Confirmed:** The customer sees an immediate accurate on-page confirmation. If the separate optional SMS control was explicitly selected and SMS is enabled, the customer receives one automatic non-marketing acknowledgment; if SMS is disabled pending A2P, no SMS is attempted or promised. A failed lead delivery produces an approved recoverable next step.
 7. **Confirmed:** The owner performs human outreach immediately when possible.
 8. **Confirmed:** The beta does not display an instant price, collect payment, enable checkout, promise customer-selected scheduling, or require the deferred chatbot.
-9. **TBD:** Notification destination, backup owner, measurable human-response target and operating hours, exact SMS and consent wording/workflow details, final legal approval, Upstash provisioning, and provider end-to-end verification. The private integration, GHL identifiers/fields, and local mapping code are now verified.
+9. **TBD:** Notification destination, backup owner, measurable human-response target and operating hours, exact SMS and consent wording/workflow details, final legal approval, retention/TTL, and provider end-to-end verification. The private integration, GHL identifiers/fields, Upstash database/variables, and mapping code are now verified.
 
 ## Standard-interior instant-quote journey
 
@@ -295,7 +295,7 @@ Decisions D-018 through D-028 confirm the beta as the first release and define i
 - **Confirmed:** Defer the customer-facing chatbot from the beta to a later approved release.
 - **Confirmed:** Deliver the seven end-state outcomes in `ER-001` through `ER-007`.
 - **Confirmed:** Use the verified GoHighLevel CRM/pipeline capability required for beta lead capture.
-- **Confirmed:** Preserve the verified CRM foundation, private integration, four additional Opportunity fields, Sensitive Vercel token, configured identifiers, and local native mappings while completing Upstash provisioning, staff ownership, notification, consent/legal requirements, deployment, and provider end-to-end evidence.
+- **Confirmed:** Preserve the verified CRM foundation, private integration, four additional Opportunity fields, Sensitive Vercel GHL and Upstash configuration, configured identifiers, and native mappings while completing retention/TTL, staff ownership, notification, consent/legal requirements, production promotion, and provider end-to-end evidence.
 - **TBD:** Assign the chatbot and other deferred outcomes to specific post-beta releases.
 
 ### Approved beta implementation sequence
@@ -303,7 +303,7 @@ Decisions D-018 through D-028 confirm the beta as the first release and define i
 1. **Confirmed:** Merge the canonical documentation into `main` and preserve D-018 as the beta scope authority.
 2. **Confirmed:** Resolve the beta-blocking items in LB-012, including verified GoHighLevel configuration, lead ownership/SLA, legal/consent text, attribution details, and anti-spam controls.
 3. **Confirmed:** Correct beta services and copy, then implement the approved custom branded PaintSwitch form, disclosures, validation, and result states.
-4. **Confirmed:** Preserve the created private integration and four Opportunity fields, keep provider credentials server-only, provision Upstash after explicit terms acceptance, deploy and verify the at-most-one automatic-create plus reconciliation path, then implement internal notification and verify basic source attribution.
+4. **Confirmed:** Preserve the created private integration and four Opportunity fields, keep provider credentials server-only, preserve the provisioned Upstash connection, approve and implement retention/TTL, verify the at-most-one automatic-create plus reconciliation path, then implement internal notification and verify basic source attribution.
 5. **Confirmed:** Remove placeholder reviews until verified, permissioned reviews exist, and publish approved Privacy and Terms content.
 6. **Confirmed:** Complete beta build, security, responsive/accessibility, deployment, and production lead-path QA before traffic is sent.
 
@@ -325,7 +325,7 @@ Decisions D-018 through D-028 confirm the beta as the first release and define i
 - **TBD:** Exact standard-interior eligibility beyond room-size rules.
 - **TBD:** Live price amounts and detailed pricing policies.
 - **Confirmed:** A customer-facing chatbot is approved; provider, model, architecture, exact interface, detailed responsibilities, and release phasing remain **TBD** or **Proposed** as labeled.
-- **Confirmed:** GoHighLevel and its intended CRM function are approved. The private-integration method, server-side Vercel token location, free Upstash Redis idempotency provider, and four D-026 Opportunity field names/objects are also approved. Beta permissions, GHL secret/identifier names, field creation, APIs, and mappings are configured and locally tested at pushed commit `efb96b9`; the code is available in a fail-closed Vercel Preview, `LEAD_DELIVERY_ENABLED` is `false`, and Upstash is not provisioned. Payment-processor setup, post-beta modules, notification destination, sender identity, and phasing remain **TBD**.
+- **Confirmed:** GoHighLevel and its intended CRM function are approved. The private-integration method, server-side Vercel token location, free Upstash Redis idempotency provider, and four D-026 Opportunity field names/objects are also approved. Beta permissions, GHL and Upstash variable names, field creation, APIs, and mappings are configured and locally tested; the code is available in a fail-closed Vercel Preview, `LEAD_DELIVERY_ENABLED` is `false`, and retention/TTL remains unresolved. Payment-processor setup, post-beta modules, notification destination, sender identity, and phasing remain **TBD**.
 - **Confirmed:** Basic lead-source and campaign attribution is approved for the beta; provider, detailed event definitions, consent implementation, and broader analytics behavior remain **TBD**.
 - **Proposed:** In-flow photo upload, direct customer scheduling mechanics, deposits, detailed automated follow-up, broader conversion tracking, and human handoff are not approved implementation scope yet.
 

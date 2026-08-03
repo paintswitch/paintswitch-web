@@ -32,8 +32,8 @@ const validEnvironment = {
   GHL_PIPELINE_ID: "pipeline-0001",
   GHL_PIPELINE_STAGE_ID: "stage-000001",
   GHL_CUSTOM_FIELD_IDS: JSON.stringify(fieldIds),
-  UPSTASH_REDIS_REST_URL: "https://paintswitch-test.upstash.io",
-  UPSTASH_REDIS_REST_TOKEN: "upstash-test-token-with-safe-length",
+  UPSTASH_REDIS_REST_KV_REST_API_URL: "https://paintswitch-test.upstash.io",
+  UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "upstash-test-token-with-safe-length",
 };
 
 function deferred() {
@@ -502,6 +502,39 @@ test("creates a second opportunity for the same contact when the submission ID i
   );
 });
 
+test("prefers the Marketplace Upstash variables when both naming schemes exist", async () => {
+  const harness = createHarness();
+  const environment = {
+    ...validEnvironment,
+    UPSTASH_REDIS_REST_URL: "https://redis.example.com",
+    UPSTASH_REDIS_REST_TOKEN: "too-short",
+  };
+
+  const result = await deliverLead(validLead, { environment, dependencies: harness.dependencies });
+
+  assert.deepEqual(result, { opportunityId: "opportunity-000001", replayed: false });
+  assert.equal(harness.opportunities.length, 1);
+});
+
+test("supports the legacy Upstash variables when Marketplace variables are absent", async () => {
+  const {
+    UPSTASH_REDIS_REST_KV_REST_API_URL: legacyUrl,
+    UPSTASH_REDIS_REST_KV_REST_API_TOKEN: legacyToken,
+    ...baseEnvironment
+  } = validEnvironment;
+  const harness = createHarness();
+  const environment = {
+    ...baseEnvironment,
+    UPSTASH_REDIS_REST_URL: legacyUrl,
+    UPSTASH_REDIS_REST_TOKEN: legacyToken,
+  };
+
+  const result = await deliverLead(validLead, { environment, dependencies: harness.dependencies });
+
+  assert.deepEqual(result, { opportunityId: "opportunity-000001", replayed: false });
+  assert.equal(harness.opportunities.length, 1);
+});
+
 test("rejects missing or invalid delivery configuration before any network call", async () => {
   const configurations = [
     ["disabled", { ...validEnvironment, LEAD_DELIVERY_ENABLED: "false" }],
@@ -517,13 +550,36 @@ test("rejects missing or invalid delivery configuration before any network call"
       ...validEnvironment,
       GHL_CUSTOM_FIELD_IDS: JSON.stringify({ ...fieldIds, extra: "field-extra-value" }),
     }],
-    ["insecure Redis URL", { ...validEnvironment, UPSTASH_REDIS_REST_URL: "http://paintswitch-test.upstash.io" }],
-    ["non-Upstash Redis URL", { ...validEnvironment, UPSTASH_REDIS_REST_URL: "https://redis.example.com" }],
+    ["insecure Redis URL", {
+      ...validEnvironment,
+      UPSTASH_REDIS_REST_KV_REST_API_URL: "http://paintswitch-test.upstash.io",
+    }],
+    ["non-Upstash Redis URL", {
+      ...validEnvironment,
+      UPSTASH_REDIS_REST_KV_REST_API_URL: "https://redis.example.com",
+    }],
     ["Redis URL with credentials", {
       ...validEnvironment,
-      UPSTASH_REDIS_REST_URL: "https://user:password@paintswitch-test.upstash.io",
+      UPSTASH_REDIS_REST_KV_REST_API_URL: "https://user:password@paintswitch-test.upstash.io",
     }],
-    ["short Redis token", { ...validEnvironment, UPSTASH_REDIS_REST_TOKEN: "too-short" }],
+    ["short Redis token", {
+      ...validEnvironment,
+      UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "too-short",
+    }],
+    ["missing Marketplace Redis URL", {
+      ...validEnvironment,
+      UPSTASH_REDIS_REST_KV_REST_API_URL: undefined,
+    }],
+    ["missing Marketplace Redis token", {
+      ...validEnvironment,
+      UPSTASH_REDIS_REST_KV_REST_API_TOKEN: undefined,
+    }],
+    ["invalid Marketplace pair with valid legacy fallback", {
+      ...validEnvironment,
+      UPSTASH_REDIS_REST_KV_REST_API_URL: "https://redis.example.com",
+      UPSTASH_REDIS_REST_URL: "https://paintswitch-legacy.upstash.io",
+      UPSTASH_REDIS_REST_TOKEN: "upstash-legacy-token-with-safe-length",
+    }],
   ];
 
   for (const [label, environment] of configurations) {

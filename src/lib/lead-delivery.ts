@@ -45,8 +45,11 @@ export class LeadDeliveryError extends Error {
 }
 
 function loadUpstashConfig(environment: NodeJS.ProcessEnv): UpstashConfig | null {
-  const rawUrl = environment.UPSTASH_REDIS_REST_URL;
-  const token = environment.UPSTASH_REDIS_REST_TOKEN;
+  const marketplaceUrl = environment.UPSTASH_REDIS_REST_KV_REST_API_URL;
+  const marketplaceToken = environment.UPSTASH_REDIS_REST_KV_REST_API_TOKEN;
+  const marketplaceConfigured = marketplaceUrl !== undefined || marketplaceToken !== undefined;
+  const rawUrl = marketplaceConfigured ? marketplaceUrl : environment.UPSTASH_REDIS_REST_URL;
+  const token = marketplaceConfigured ? marketplaceToken : environment.UPSTASH_REDIS_REST_TOKEN;
   if (typeof rawUrl !== "string" || typeof token !== "string" || token.length < 20 || token.length > 2_000) {
     return null;
   }
