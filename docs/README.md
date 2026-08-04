@@ -40,6 +40,8 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 4. If code or customer-facing copy conflicts with canonical documentation, stop and ask the user which state should prevail. Do not silently change either side.
 5. If two canonical documents conflict, use the most recent applicable confirmed decision, flag the inconsistency, and repair the documentation after user review.
 6. Never infer a PaintSwitch relationship to Jen Contracting from history, shared personnel, tooling, or operational convenience.
+7. Treat a separately sent test email as evidence only for the exact mailbox and message tested. It does not prove that a Draft workflow, website submission, CRM delivery, or end-to-end notification path works.
+8. Treat any integration sender identity containing a Jen Contracting name or domain as an implementation conflict. It must be corrected to a PaintSwitch-only identity before workflow publication or customer-facing use; its presence is not owner approval.
 
 ## Update rules
 
@@ -60,7 +62,7 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 - Treat decisions D-024 through D-026 as the current beta integration choices: a GoHighLevel private integration with its token in a server-side Vercel secret, free Upstash Redis for durable idempotency, and four additional Opportunity fields named `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`.
 - Treat decision D-027 as the current messaging rule: every accepted lead receives on-page confirmation; SMS consent is separate, optional, and unchecked; only explicit opt-ins receive automatic SMS when enabled; and the beta may launch with SMS disabled while A2P is pending. This supersedes the older every-lead-SMS rule.
 - Treat decision D-028 as scoped acceptance of the currently documented low-reachability dependency risk with monitoring and architecture-triggered reassessment, not as proof of zero risk or a waiver of other security gates.
-- Treat decision D-029 as the current owner-notification destination rule: use `hello@paintswitch.com`, never the `hell@paintswitch.com` typo, and do not treat destination approval as proof that the notification workflow is operational.
+- Treat decision D-029 as the current owner-notification destination rule: use `hello@paintswitch.com`, never the `hell@paintswitch.com` typo, and do not treat destination approval or receipt of a separately sent test email as proof that the notification workflow is operational.
 - Treat decision D-030 as the current beta safeguard rule: apply a 30-day TTL to Upstash technical idempotency/delivery-state records and limit valid lead submissions to five per client IP per ten-minute window. Broader CRM/business/customer-data retention and any additional abuse controls remain unresolved unless separately confirmed.
 - Treat release dates as goals, not authority to bypass safety, legal, privacy, consent, security, messaging, or acceptance requirements. External-provider delays such as A2P approval must be recorded as schedule risks, and any fallback that changes a confirmed requirement needs explicit owner approval and a canonical decision update.
 - Treat provider or carrier guidance, validation, registration, or approval as operational evidence only, not legal approval. Track final legal review and jurisdiction-specific obligations separately.
