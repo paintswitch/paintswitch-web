@@ -1,6 +1,6 @@
 # PaintSwitch canonical documentation
 
-Last updated: 2026-08-03
+Last updated: 2026-08-04
 
 This directory is the permanent source of truth for PaintSwitch business, product, technical, and development decisions. Website copy and application behavior show what is implemented; they do not prove that a business decision was approved.
 
@@ -40,7 +40,7 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 4. If code or customer-facing copy conflicts with canonical documentation, stop and ask the user which state should prevail. Do not silently change either side.
 5. If two canonical documents conflict, use the most recent applicable confirmed decision, flag the inconsistency, and repair the documentation after user review.
 6. Never infer a PaintSwitch relationship to Jen Contracting from history, shared personnel, tooling, or operational convenience.
-7. Treat a separately sent test email as evidence only for the exact mailbox and message tested. It does not prove that a Draft workflow, website submission, CRM delivery, or end-to-end notification path works.
+7. Treat a controlled test email as evidence only for the exact mailbox, visible sender, routing address, subject, and body observed. It does not prove branded-domain authentication, workflow-trigger operation, website submission, CRM delivery, failure handling, or end-to-end notification.
 8. Treat any integration sender identity containing a Jen Contracting name or domain as an implementation conflict. It must be corrected to a PaintSwitch-only identity before workflow publication or customer-facing use; its presence is not owner approval.
 
 ## Update rules
@@ -64,7 +64,8 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 - Treat decision D-028 as scoped acceptance of the currently documented low-reachability dependency risk with monitoring and architecture-triggered reassessment, not as proof of zero risk or a waiver of other security gates.
 - Treat decision D-029 as the current owner-notification destination rule: use `hello@paintswitch.com`, never the `hell@paintswitch.com` typo, and do not treat destination approval or receipt of a separately sent test email as proof that the notification workflow is operational.
 - Treat decision D-030 as the current beta safeguard rule: apply a 30-day TTL to Upstash technical idempotency/delivery-state records and limit valid lead submissions to five per client IP per ten-minute window. Broader CRM/business/customer-data retention and any additional abuse controls remain unresolved unless separately confirmed.
-- Treat decision D-031 as the current internal owner-notification sender rule: use From name `PaintSwitch` and From email `hello@paintswitch.com`. Sender authentication, deliverability, the actual inbox sender line, customer-facing sender scope, workflow publication, failure handling, and end-to-end operation remain unresolved or unverified until separately approved or tested.
+- Treat decision D-031 as the current internal owner-notification sender rule: use From name `PaintSwitch` and From email `hello@paintswitch.com`. AC-044's no-Jen visible-sender evidence is satisfied; branded-domain authentication and operational behavior remain unverified.
+- Treat decision D-032 as approval to publish only the exact verified `PaintSwitch Website Lead - Owner Notification` workflow. Published/Saved state is verified, but trigger operation, failure handling, staff ownership, authentication, and end-to-end operation remain unverified.
 - Treat release dates as goals, not authority to bypass safety, legal, privacy, consent, security, messaging, or acceptance requirements. External-provider delays such as A2P approval must be recorded as schedule risks, and any fallback that changes a confirmed requirement needs explicit owner approval and a canonical decision update.
 - Treat provider or carrier guidance, validation, registration, or approval as operational evidence only, not legal approval. Track final legal review and jurisdiction-specific obligations separately.
 - Treat a confirmed platform selection separately from its account configuration, credentials, workflows, APIs, field mappings, payment-processor setup, and exact enabled modules.
