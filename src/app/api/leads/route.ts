@@ -1,5 +1,6 @@
 import { parseLeadSubmission, type LeadSubmission } from "../../../lib/lead-intake.ts";
 import { deliverLead, LeadDeliveryError } from "../../../lib/lead-delivery.ts";
+import { enforceLeadRateLimit, type LeadRateLimitDecision } from "../../../lib/lead-rate-limit.ts";
 
 export const runtime = "nodejs";
 export const maxDuration = 55;
@@ -91,6 +92,7 @@ export async function POST(request: Request) {
 export async function handleLeadRequest(
   request: Request,
   delivery: (lead: LeadSubmission) => Promise<unknown>,
+  rateLimit: (request: Request) => Promise<LeadRateLimitDecision> = enforceLeadRateLimit,
 ) {
   if (!hasAllowedOrigin(request)) return errorResponse(403, "REQUEST_REJECTED");
 
@@ -130,6 +132,18 @@ export async function handleLeadRequest(
 
   const parsed = parseLeadSubmission(body);
   if (!parsed.ok) return errorResponse(400, "INVALID_REQUEST");
+
+  let rateLimitDecision: LeadRateLimitDecision;
+  try {
+    rateLimitDecision = await rateLimit(request);
+  } catch {
+    return errorResponse(503, "LEAD_DELIVERY_UNAVAILABLE", { "Retry-After": "60" });
+  }
+  if (!rateLimitDecision.allowed) {
+    return errorResponse(429, "TOO_MANY_REQUESTS", {
+      "Retry-After": String(rateLimitDecision.retryAfterSeconds),
+    });
+  }
 
   try {
     await delivery(parsed.value);

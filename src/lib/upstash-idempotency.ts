@@ -21,8 +21,11 @@ export type UpstashConfig = {
   token: string;
 };
 
-export type UpstashDependencies = {
+export type UpstashFetchDependencies = {
   fetch: typeof fetch;
+};
+
+export type UpstashDependencies = UpstashFetchDependencies & {
   now: () => number;
   randomUUID: () => string;
 };
@@ -35,6 +38,9 @@ export type LeadStateClaim =
 // token-checked writes still prevent a stale worker from mutating state after a
 // newer worker takes over.
 const LOCK_SECONDS = 60;
+export const LEAD_STATE_TTL_SECONDS = 30 * 24 * 60 * 60;
+export const LEAD_RATE_LIMIT_MAX_SUBMISSIONS = 5;
+export const LEAD_RATE_LIMIT_WINDOW_SECONDS = 10 * 60;
 const RESPONSE_LIMIT_BYTES = 64_000;
 const REDIS_TIMEOUT_MS = 2_500;
 const phases = new Set<LeadDeliveryPhase>([
@@ -50,7 +56,7 @@ const writeIfLockedScript = [
   "if redis.call('GET', KEYS[1]) ~= ARGV[1] then",
   "  return 0",
   "end",
-  "redis.call('SET', KEYS[2], ARGV[2])",
+  "redis.call('SET', KEYS[2], ARGV[2], 'EX', ARGV[3])",
   "return 1",
 ].join("\n");
 
@@ -58,7 +64,7 @@ const completeIfLockedScript = [
   "if redis.call('GET', KEYS[1]) ~= ARGV[1] then",
   "  return 0",
   "end",
-  "redis.call('SET', KEYS[2], ARGV[2])",
+  "redis.call('SET', KEYS[2], ARGV[2], 'EX', ARGV[3])",
   "redis.call('DEL', KEYS[1])",
   "return 1",
 ].join("\n");
@@ -68,6 +74,27 @@ const releaseIfLockedScript = [
   "  return 0",
   "end",
   "return redis.call('DEL', KEYS[1])",
+].join("\n");
+
+const consumeRateLimitScript = [
+  "local limit = tonumber(ARGV[1])",
+  "local window = tonumber(ARGV[2])",
+  "local current = tonumber(redis.call('GET', KEYS[1]) or '0')",
+  "if not limit or not window or not current then",
+  "  return {0, -1, -1}",
+  "end",
+  "local ttl = redis.call('PTTL', KEYS[1])",
+  "if current >= limit then",
+  "  return {0, current, ttl}",
+  "end",
+  "current = redis.call('INCR', KEYS[1])",
+  "if current == 1 then",
+  "  redis.call('PEXPIRE', KEYS[1], window)",
+  "  ttl = window",
+  "else",
+  "  ttl = redis.call('PTTL', KEYS[1])",
+  "end",
+  "return {1, current, ttl}",
 ].join("\n");
 
 export class UpstashUnavailableError extends Error {
@@ -148,7 +175,7 @@ async function readLimitedResponse(response: Response) {
 
 async function command(
   config: UpstashConfig,
-  dependencies: UpstashDependencies,
+  dependencies: UpstashFetchDependencies,
   parts: Array<string | number>,
 ) {
   const controller = new AbortController();
@@ -178,6 +205,53 @@ async function command(
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function rateLimitKey(namespace: string, digest: string) {
+  if (!/^(?:local|preview|production)$/u.test(namespace) || !/^[0-9a-f]{64}$/u.test(digest)) {
+    throw new UpstashUnavailableError();
+  }
+  return `ps:lead-rate:v1:${namespace}:${digest}`;
+}
+
+export async function consumeLeadRateLimit(
+  config: UpstashConfig,
+  dependencies: UpstashFetchDependencies,
+  namespace: string,
+  digest: string,
+) {
+  const result = await command(config, dependencies, [
+    "EVAL",
+    consumeRateLimitScript,
+    1,
+    rateLimitKey(namespace, digest),
+    LEAD_RATE_LIMIT_MAX_SUBMISSIONS,
+    LEAD_RATE_LIMIT_WINDOW_SECONDS * 1_000,
+  ]);
+
+  if (
+    !Array.isArray(result) ||
+    result.length !== 3 ||
+    (result[0] !== 0 && result[0] !== 1) ||
+    !Number.isSafeInteger(result[1]) ||
+    result[1] < 1 ||
+    !Number.isSafeInteger(result[2]) ||
+    result[2] < 1 ||
+    result[2] > LEAD_RATE_LIMIT_WINDOW_SECONDS * 1_000
+  ) {
+    throw new UpstashUnavailableError();
+  }
+  if (
+    (result[0] === 1 && result[1] > LEAD_RATE_LIMIT_MAX_SUBMISSIONS) ||
+    (result[0] === 0 && result[1] < LEAD_RATE_LIMIT_MAX_SUBMISSIONS)
+  ) {
+    throw new UpstashUnavailableError();
+  }
+
+  return {
+    allowed: result[0] === 1,
+    retryAfterSeconds: result[0] === 1 ? 0 : Math.max(1, Math.ceil(result[2] / 1_000)),
+  };
 }
 
 export function createLeadStateStore(config: UpstashConfig, dependencies: UpstashDependencies) {
@@ -225,6 +299,7 @@ export function createLeadStateStore(config: UpstashConfig, dependencies: Upstas
       stateKey(submissionId),
       token,
       JSON.stringify(state),
+      LEAD_STATE_TTL_SECONDS,
     ]);
     if (result !== 1) throw new UpstashUnavailableError();
   }
@@ -238,6 +313,7 @@ export function createLeadStateStore(config: UpstashConfig, dependencies: Upstas
       stateKey(submissionId),
       token,
       JSON.stringify(state),
+      LEAD_STATE_TTL_SECONDS,
     ]);
     if (result !== 1) throw new UpstashUnavailableError();
   }

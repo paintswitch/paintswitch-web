@@ -16,6 +16,8 @@ const validSubmission = {
   attribution: { source: "PaintSwitch website", campaign: "" },
 };
 
+const allowRateLimit = async () => ({ allowed: true, retryAfterSeconds: 0 });
+
 function request(body, headers = {}) {
   return new Request("https://paintswitch.com/api/leads", {
     method: "POST",
@@ -232,6 +234,7 @@ test("returns only generic delivery results and errors without leaking secrets o
       opportunityId: privateDetails[4],
       diagnostic: privateDetails.join(" "),
     }),
+    allowRateLimit,
   );
   assert.equal(success.status, 200);
   assert.deepEqual(await success.json(), { success: true });
@@ -266,6 +269,7 @@ test("returns only generic delivery results and errors without leaking secrets o
         error.cause = new Error(privateDetails.join(" "));
         throw error;
       },
+      allowRateLimit,
     );
     const body = await response.text();
     const exposedResponse = `${body}\n${JSON.stringify(Object.fromEntries(response.headers))}`;
@@ -277,4 +281,51 @@ test("returns only generic delivery results and errors without leaking secrets o
       assert.equal(exposedResponse.includes(privateDetail), false);
     }
   }
+});
+
+test("rate limits the sixth valid submission before delivery", async () => {
+  let deliveryCalls = 0;
+  const response = await handleLeadRequest(
+    request(JSON.stringify(validSubmission)),
+    async () => {
+      deliveryCalls += 1;
+    },
+    async () => ({ allowed: false, retryAfterSeconds: 417 }),
+  );
+
+  await assertGenericError(response, 429, "TOO_MANY_REQUESTS");
+  assert.equal(response.headers.get("retry-after"), "417");
+  assert.equal(deliveryCalls, 0);
+});
+
+test("fails closed when rate limiting is unavailable", async () => {
+  let deliveryCalls = 0;
+  const response = await handleLeadRequest(
+    request(JSON.stringify(validSubmission)),
+    async () => {
+      deliveryCalls += 1;
+    },
+    async () => {
+      throw new Error("private rate-limit detail");
+    },
+  );
+
+  await assertGenericError(response, 503, "LEAD_DELIVERY_UNAVAILABLE");
+  assert.equal(response.headers.get("retry-after"), "60");
+  assert.equal(deliveryCalls, 0);
+});
+
+test("does not consume rate-limit capacity for invalid submissions", async () => {
+  let rateLimitCalls = 0;
+  const response = await handleLeadRequest(
+    request(JSON.stringify({ ...validSubmission, serviceType: "Drywall" })),
+    async () => assert.fail("invalid leads must not reach delivery"),
+    async () => {
+      rateLimitCalls += 1;
+      return { allowed: true, retryAfterSeconds: 0 };
+    },
+  );
+
+  await assertGenericError(response, 400, "INVALID_REQUEST");
+  assert.equal(rateLimitCalls, 0);
 });

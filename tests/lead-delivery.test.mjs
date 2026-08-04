@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { deliverLead, LeadDeliveryError } from "../src/lib/lead-delivery.ts";
+import { LEAD_STATE_TTL_SECONDS } from "../src/lib/upstash-idempotency.ts";
 
 const validLead = {
   submissionId: "2ba160d6-84e0-4dd7-bc1e-6fe46b87a271",
@@ -110,7 +111,9 @@ function createHarness(options = {}) {
       }
 
       assert.equal(keyCount, 2);
-      const [, , , lockKey, stateKey, token, serializedState] = command;
+      const [, , , lockKey, stateKey, token, serializedState, stateTtl] = command;
+      assert.equal(stateTtl, LEAD_STATE_TTL_SECONDS);
+      assert.match(script, /ARGV\[3\]/u);
       if (redisLocks.get(lockKey) !== token) return jsonResponse({ result: 0 });
       const nextState = JSON.parse(serializedState);
       if (
@@ -282,6 +285,15 @@ test("delivers a first lead with the exact approved GoHighLevel field mapping", 
   const completedState = [...harness.redisStates.values()].find((value) => value.includes('"phase":"completed"'));
   assert.ok(completedState);
   assert.doesNotMatch(completedState, /Jordan|jordan@example\.com|2025550142/u);
+
+  const stateWrites = harness.redisRequests
+    .map((request) => requestBody(request.init))
+    .filter((command) => command[0] === "EVAL" && command[2] === 2);
+  assert.ok(stateWrites.length >= 4);
+  for (const command of stateWrites) {
+    assert.equal(command[7], LEAD_STATE_TTL_SECONDS);
+    assert.match(command[1], /redis\.call\('SET', KEYS\[2\], ARGV\[2\], 'EX', ARGV\[3\]\)/u);
+  }
 });
 
 test("returns a completed submission as a replay without another GoHighLevel call", async () => {
