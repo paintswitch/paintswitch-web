@@ -430,6 +430,15 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Consequences:** The exact stable packages were installed without changing React. `npm audit --omit=dev --json` now reports zero vulnerabilities. Fifty-seven tests, lint, TypeScript type checking, and the Next.js `16.3.0` production build pass locally with routes `/`, `/privacy`, `/terms`, `/_not-found`, and `/api/leads`. The local production server returns `200` for all three authored pages with CSP and frame-denial headers and no `X-Powered-By`; the fail-closed form retains its values and shows the approved recoverable failure message; the built public output contains no Jen Contracting, private-address, MHIC, or DMV references. **Hosted verification — 2026-08-05:** Application commit `beb6781` passed the GitHub `Verify` workflow and its Vercel Preview reached `Ready`. Production promotion and Production acceptance remain separate release gates.
 - **Supersedes:** D-028 only as the active disposition for the three dependency findings resolved by this upgrade. D-028 remains historical evidence of the earlier scoped risk decision and continues to prohibit automatic force fixes or incompatible overrides.
 
+## D-048 — Alex receives backup/escalation-only internal alerts
+
+- **Date:** 2026-08-05
+- **Status:** Confirmed
+- **Decision:** Keep `hello@paintswitch.com` as the immediate primary internal notification destination for every accepted beta lead. Alex must not receive every lead. After the D-046 routing-activation conditions pass, Alex may receive internal alerts only for backup or escalation conditions. Automated customer SMS remains off.
+- **Reason:** Preserves one clear primary operating owner while giving the beta a controlled backup/escalation path without duplicating every routine lead notification.
+- **Consequences:** Exact escalation triggers, timing, GoHighLevel routing configuration, and the escalation acknowledgment mechanism remain **TBD** or unverified and must be approved and tested before activation. Adding a second internal pipeline stage named `Contact Attempted` is **Proposed** as one possible implementation aid; it is not approved. D-021's current confirmed pipeline with exactly one `New Quote Request` stage remains controlling, so no stage may be added without explicit owner approval. D-046's routed-notification and response-rehearsal gates also remain controlling.
+- **Supersedes:** The prior **TBD** choice between every-lead Alex routing and backup/escalation-only routing. It does not supersede D-019's primary-owner assignment, D-021's one-stage pipeline, D-029's `hello@paintswitch.com` destination, D-042's automated-SMS-off rule, or D-046's activation conditions.
+
 ### Controlled Preview website-to-workflow-action success-path evidence — 2026-08-04
 
 This evidence records implementation verification only and creates no new decision. Safeguarded commit `3bac3ba` ran behind Vercel Require Log In / Standard Protection. `LEAD_DELIVERY_ENABLED` was temporarily `true` for Preview only while Production remained explicitly `false`. Enabled deployment `CrJA8ve4qzNHneVLwEtkr5N15gJu` (`paintswitch-pp6wvxmih-paint-switch.vercel.app`) was Ready at 1:18:57 PM EDT. One browser submission ran from 1:19:53 through 1:19:57 PM EDT with all seven approved fields and UTM values `controlled_preview_test` / `website_e2e_2026_08_04`. The page displayed exactly: “Your request was sent. A PaintSwitch team member will review the details and follow up.”
@@ -451,5 +460,6 @@ The following are not decisions. They remain **Proposed** and are tracked in `OP
 - **Proposed:** Use the confirmed customer-facing chatbot to guide quoting.
 - **Proposed:** Photo uploads during quoting.
 - **Proposed:** Customer scheduling mechanics, deposits, automated follow-up, detailed conversion behavior beyond the approved beta source attribution, and human handoff. GoHighLevel and CRM integration are Confirmed under D-014, but detailed configuration and workflows remain TBD or Proposed as labeled.
+- **Proposed:** Add a second internal `PaintSwitch Lead Intake` pipeline stage named `Contact Attempted` to support backup/escalation handling. The current Confirmed pipeline has exactly one `New Quote Request` stage under D-021; do not add the proposed stage without explicit owner approval.
 - **Proposed:** Homepage calls to action such as “Get My Price” and “No phone call required.”
 - **Proposed:** Unapproved pricing figures and policies tracked only in `OPEN_QUESTIONS.md`.
