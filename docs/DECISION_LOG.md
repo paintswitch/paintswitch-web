@@ -418,8 +418,17 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Status:** Confirmed
 - **Decision:** Use Alex as the beta backup lead-notification recipient only after `alex@paintswitch.com` is created and a controlled receipt test passes.
 - **Reason:** Provides conditional backup coverage without routing lead data to an unverified mailbox.
-- **Consequences:** The PaintSwitch owner remains the primary lead owner. Until the exact PaintSwitch-domain mailbox exists, access is assigned, GoHighLevel routing is configured, and a controlled notification is received, Alex is not an operationally verified backup and no lead notification may be routed there. Backup handling, escalation, and response rehearsal remain incomplete.
+- **Consequences:** The PaintSwitch owner remains the primary lead owner. The owner reported on 2026-08-04 that `alex@paintswitch.com` was created, but receipt, access, routing, and a controlled notification remain unverified. Alex is not an operationally verified backup and no customer lead notification may be routed there until the remaining conditions pass. Backup handling, escalation, and response rehearsal remain incomplete.
 - **Supersedes:** The prior **TBD** choice of backup person, subject to the stated creation-and-test condition. It does not prove implementation or approve any other address.
+
+## D-047 — Upgrade the beta candidate to stable Next.js 16.3.0
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Upgrade Next.js and `eslint-config-next` together from exact version `16.2.12` to exact stable version `16.3.0`, then run the complete dependency audit and regression suite. Do not use a Preview/Canary package or `npm audit fix --force`.
+- **Reason:** The production audit identified `16.3.0` as the bounded direct remediation for the remaining Next.js, PostCSS, and Sharp findings, and the owner explicitly approved that update.
+- **Consequences:** The exact stable packages were installed without changing React. `npm audit --omit=dev --json` now reports zero vulnerabilities. Fifty-seven tests, lint, TypeScript type checking, and the Next.js `16.3.0` production build pass locally with routes `/`, `/privacy`, `/terms`, `/_not-found`, and `/api/leads`. The local production server returns `200` for all three authored pages with CSP and frame-denial headers and no `X-Powered-By`; the fail-closed form retains its values and shows the approved recoverable failure message; the built public output contains no Jen Contracting, private-address, MHIC, or DMV references. Hosted Preview, CI, and Production verification remain separate release gates.
+- **Supersedes:** D-028 only as the active disposition for the three dependency findings resolved by this upgrade. D-028 remains historical evidence of the earlier scoped risk decision and continues to prohibit automatic force fixes or incompatible overrides.
 
 ### Controlled Preview website-to-workflow-action success-path evidence — 2026-08-04
 

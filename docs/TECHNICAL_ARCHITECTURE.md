@@ -54,21 +54,21 @@ Generated `.next` output and installed `node_modules` are present in the inspect
 
 | Package | Manifest declaration | Lockfile-resolved version |
 | --- | --- | --- |
-| Next.js | `16.2.12` | `16.2.12` |
+| Next.js | `16.3.0` | `16.3.0` |
 | React | `19.2.4` | `19.2.4` |
 | React DOM | `19.2.4` | `19.2.4` |
 | TypeScript | `^5` | `5.9.3` |
 | Tailwind CSS | `^4` | `4.3.3` |
 | Tailwind PostCSS plugin | `^4` | `4.3.3` |
 | ESLint | `^9` | `9.39.5` |
-| eslint-config-next | `16.2.12` | `16.2.12` |
+| eslint-config-next | `16.3.0` | `16.3.0` |
 | Node type definitions | `^20` | `20.19.43` |
 | React type definitions | `^19` | `19.2.17` |
 | React DOM type definitions | `^19` | `19.2.3` |
 
 The repository does not declare a Node.js runtime version through an `engines` field or a checked-in runtime-version file.
 
-Next.js currently resolves its own PostCSS `8.4.31` and optional Sharp `0.34.5` dependencies. The application has no user-controlled CSS-processing path, `next/image` import, direct Sharp call, photo upload, or user-image processing path. Current audit findings and the scoped reachability assessment are recorded in `DEVELOPMENT_STATUS.md`; no incompatible override or force fix is present.
+Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The bounded framework update was installed without a force fix or incompatible override. `npm audit --omit=dev --json` reports zero vulnerabilities. The application still has no user-controlled CSS-processing path, `next/image` import, direct Sharp call, photo upload, or user-image processing path.
 
 ## Application model
 
@@ -133,7 +133,7 @@ Next.js currently resolves its own PostCSS `8.4.31` and optional Sharp `0.34.5` 
 - ESLint uses Next.js Core Web Vitals and TypeScript configurations.
 - `.github/workflows/ci.yml` uses Node.js 24 and runs `npm ci`, tests, lint, type checking, and the production build for pull requests and pushes to `main`. The workflow is tracked in pushed commit `efb96b9` but has not yet run on GitHub; that non-PR branch push produced only two Vercel-related checks.
 - No coverage configuration is present.
-- Fifty-seven automated tests, lint, TypeScript type checking, and the Next.js 16.2.12 production build passed on 2026-08-04. The build reported `/`, `/privacy`, `/terms`, `/_not-found`, and `/api/leads`. Tests use in-memory fake Upstash and GoHighLevel responses to cover exact field mapping, completed replay, changed-payload conflict, concurrency, Redis failure, acquired-lock release when initial state retrieval fails, ambiguous-create reconciliation, explicit rejected-create recovery, failed `creating`-state write, ambiguous failure before any create, completion-write failure reconciliation, a new submission for an existing Contact, Marketplace and legacy Upstash configuration, invalid/partial Marketplace-pair fail-closed behavior, 30-day state TTL, atomic limiter behavior, namespace and client-identity handling, blocked-window non-extension, forged-forwarded-header rejection outside Vercel, other invalid configuration, generic error sanitization, and the approved legal/form/footer content boundary. Built-app HTTP and Chrome checks cover the homepage and legal routes, legal-link navigation, mobile overflow, security headers, no framework-identifying header, and styled 404 behavior. A separate controlled protected-Preview run exercised one successful real Upstash and GoHighLevel path; it is external runtime evidence, not automated-test coverage.
+- Fifty-seven automated tests, lint, TypeScript type checking, and the Next.js 16.3.0 production build passed on 2026-08-04. The build reported `/`, `/privacy`, `/terms`, `/_not-found`, and `/api/leads`. Tests use in-memory fake Upstash and GoHighLevel responses to cover exact field mapping, completed replay, changed-payload conflict, concurrency, Redis failure, acquired-lock release when initial state retrieval fails, ambiguous-create reconciliation, explicit rejected-create recovery, failed `creating`-state write, ambiguous failure before any create, completion-write failure reconciliation, a new submission for an existing Contact, Marketplace and legacy Upstash configuration, invalid/partial Marketplace-pair fail-closed behavior, 30-day state TTL, atomic limiter behavior, namespace and client-identity handling, blocked-window non-extension, forged-forwarded-header rejection outside Vercel, other invalid configuration, generic error sanitization, and the approved legal/form/footer content boundary. Built-app HTTP and Chrome checks cover the homepage and legal routes, legal-link navigation, mobile overflow, security headers, no framework-identifying header, and styled 404 behavior. A separate controlled protected-Preview run exercised one successful real Upstash and GoHighLevel path; it is external runtime evidence, not automated-test coverage.
 
 ## Data and integrations
 
@@ -192,8 +192,8 @@ After the test, the Preview environment setting and latest branch Preview were r
 - Sanitized delivery reporting emits only a generic event category and validated submission UUID. No monitoring destination, alerting workflow, operator dashboard, or full observability path is present.
 - Server validation, strict request-shape and email checking, a 16 KiB bounded stream, a five-second body-read deadline, exact same-origin production/local/preview checks, generic errors, and security response headers remain in place.
 - Environment files are ignored by Git.
-- A 2026-08-04 production audit reports three high-severity findings and zero critical findings: direct `next` plus transitive `postcss` and `sharp`. npm reports a fix through a direct Next.js upgrade from `16.2.12` to `16.3.0`. No dependency change or force fix was run; explicit upgrade approval and regression verification remain a deployment/security launch blocker as recorded in `DEVELOPMENT_STATUS.md`.
-- No operational runbook, monitoring configuration, incident process, or backup configuration is present.
+- After the owner-approved D-047 upgrade to exact stable `next@16.3.0` and `eslint-config-next@16.3.0`, `npm audit --omit=dev --json` reports zero vulnerabilities. The dependency regression suite and local production smoke pass; no Preview/Canary package, React change, or force fix was used. Hosted Preview/CI evidence remains a separate release gate.
+- `BETA_OPERATIONS_RUNBOOK.md` documents manual lead-response, delivery-failure, privacy-request, unconverted-lead-retention, conditional-backup, release, and rollback procedures. No repository-tracked monitoring/alert configuration, automated incident process, automated CRM-retention job, or active backup-routing configuration exists.
 
 ## Architecture boundaries
 

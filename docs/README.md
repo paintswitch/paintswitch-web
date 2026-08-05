@@ -29,6 +29,7 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 | [TECHNICAL_ARCHITECTURE.md](./TECHNICAL_ARCHITECTURE.md) | Architecture and technology facts verified directly from the repository. |
 | [REQUIREMENTS_TRACEABILITY.md](./REQUIREMENTS_TRACEABILITY.md) | Unique-ID inventory connecting decisions and requirements to implementation, evidence, and launch impact. |
 | [LAUNCH_CHECKLIST.md](./LAUNCH_CHECKLIST.md) | Prioritized launch work, dependencies, acceptance tests, and blocker status. |
+| [BETA_OPERATIONS_RUNBOOK.md](./BETA_OPERATIONS_RUNBOOK.md) | Confirmed beta lead-response, failure, privacy-request, retention, backup-activation, release, and rollback procedures. |
 
 `AGENTS.md` contains repository-working rules. It points future agents to this documentation but is not a substitute for the canonical documents above.
 
@@ -74,6 +75,8 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 - Treat D-044 as the beta Terms direction: Maryland governing law, no mandatory arbitration, and no class-action waiver. This is an owner-approved policy, not professional legal verification or a decision about venue, licensing, or mandatory local protections.
 - Treat D-045 as the response-operation rule: operate 8:00 AM through 8:00 PM Eastern daily, attempt human contact within five minutes during those hours, and contact after-hours leads by 9:00 AM Eastern the next day.
 - Treat D-046 as a conditional backup rule only: Alex must not receive backup routing until `alex@paintswitch.com` is created and a controlled receipt test passes.
+- Use `BETA_OPERATIONS_RUNBOOK.md` for beta execution and evidence capture. The owner's 2026-08-04 report confirms mailbox creation only; it does not verify `alex@paintswitch.com` receipt, access, routing, or response operation.
+- Treat D-047 as the approved bounded dependency remediation: keep Next.js and `eslint-config-next` together at exact stable `16.3.0`; do not substitute Preview/Canary packages or run `npm audit fix --force`. The local production audit and regression suite pass, while hosted and Production checks remain separate gates.
 - Treat release dates as goals, not authority to bypass safety, legal, privacy, consent, security, messaging, or acceptance requirements. External-provider delays such as A2P approval must be recorded as schedule risks, and any fallback that changes a confirmed requirement needs explicit owner approval and a canonical decision update.
 - Treat provider or carrier guidance, validation, registration, or approval as operational evidence only, not legal approval. Track final legal review and jurisdiction-specific obligations separately.
 - Treat a confirmed platform selection separately from its account configuration, credentials, workflows, APIs, field mappings, payment-processor setup, and exact enabled modules.
