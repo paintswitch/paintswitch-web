@@ -12,10 +12,11 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 - **Confirmed:** Every accepted website lead receives an accurate on-page confirmation.
 - **Confirmed:** Automated customer SMS remains off. Selecting `Text` is only a contact preference.
 - **Confirmed:** `hello@paintswitch.com` is the primary notification and privacy-request mailbox.
-- **Confirmed — 2026-08-05:** Keep the immediate new-lead alert at `hello@paintswitch.com`. Alex is backup/escalation-only and must not receive every lead. Send an internal alert to `alex@paintswitch.com` only after a separately approved escalation signal indicates that backup attention is needed.
+- **Confirmed — 2026-08-05:** Keep the immediate new-lead alert at `hello@paintswitch.com`. Add `Contact Attempted` as the second internal pipeline stage. After five minutes, send an internal alert to Alex only when the Opportunity still remains in `New Quote Request`; do not alert Alex when it has moved to `Contact Attempted`. Alex is backup/escalation-only, must not receive every lead, and automated customer SMS remains off.
 - **Verified external mailbox evidence — 2026-08-05:** A signed-in GoDaddy administration view showed that mailbox accounts for `hello@paintswitch.com` and `alex@paintswitch.com` exist under owner administration. Microsoft MFA for `alex@paintswitch.com` succeeded, Outlook opened showing that mailbox, and at 2:24 PM ET a controlled self-addressed operational message containing no customer data was sent and appeared unread in the Alex inbox. This verifies direct mailbox access plus basic same-mailbox send/receipt operation only. It does not verify external-domain delivery, GoHighLevel escalation routing, backup activation, human response, or workflow acceptance.
-- **Verified external configuration evidence — 2026-08-05:** The published workflow triggers on Opportunity Created in `PaintSwitch Lead Intake` and contains only the immediate `Email Owner - hello@paintswitch.com` action. The pipeline still has exactly one `New Quote Request` stage. Wait and If/Else actions are available, but the current configuration has no reliable signal showing whether the owner has handled a lead.
-- **Proposed:** Add a second internal pipeline stage named `Contact Attempted` as the handled signal for a later conditional escalation branch. This would change the confirmed one-stage pipeline and is not approved or implemented. The stage, transition procedure, wait duration, condition, Alex alert content, and failure behavior require explicit approval and verification before use.
+- **Verified external workflow evidence — 2026-08-05:** `PaintSwitch Lead Intake` contains `New Quote Request` and `Contact Attempted`. The Saved/published workflow runs Opportunity Created → immediate hello internal email → exact five-minute Wait → condition. `Still New` sends `Escalate to Alex - still New Quote Request` to `alex@paintswitch.com`; `Contact Attempted` ends without Alex. Both synthetic branches pass, and neither contains SMS/customer action. The Alex action reuses the exact D-032-approved hello subject/body as implementation fact, not new copy approval.
+- **Verified routed receipt — 2026-08-05:** The owner's 4:33 PM ET mobile Outlook screenshot shows the Alex inbox received sender `PaintSwitch`, subject `New PaintSwitch website lead`, at 4:23 PM. GoHighLevel Email Analytics also records `alex@paintswitch.com` as Delivered at 4:23 PM and the immediate hello messages as Delivered at 4:18 PM and 4:20 PM. This verifies routed email receipt, not a human response rehearsal.
+- **TBD / activation-blocking:** Decide the authorized stage-transition actor and acknowledgment procedure, any future distinct Alex wording, and failure/retry behavior; then complete the human-response rehearsal. Do not claim operational response readiness from workflow execution or inbox receipt alone.
 
 ## Latest protected-Preview rehearsal
 
@@ -30,7 +31,7 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 1. Open the internal PaintSwitch notification and the matching GoHighLevel Contact and Opportunity.
 2. Confirm the request contains the approved seven intake fields and does not show a firm price, booking, payment, or service-area approval.
 3. During coverage hours, make the first human call or email attempt within five minutes. For an after-hours lead, make the first attempt by 9:00 AM Eastern the next day.
-4. Record the attempt time, channel, outcome, and next action in the matching GoHighLevel record. Do not place lead data in this runbook.
+4. Record the attempt time, channel, outcome, and next action in the matching GoHighLevel record. The authorized transition actor remains **TBD**; once assigned, that operator moves the Opportunity to `Contact Attempted` immediately after the first contact attempt so a handled lead does not alert Alex. Do not place lead data in this runbook.
 5. Use only project-specific communication. Do not send automated customer SMS during the beta.
 6. Do not promise service availability, pricing, scheduling, or booking before human review.
 
@@ -68,11 +69,10 @@ Alex is not an operational backup until all items pass:
 - **Verified:** `alex@paintswitch.com` mailbox-account existence and owner administration in GoDaddy.
 - **Verified, limited scope:** Microsoft MFA and direct Outlook access to the Alex mailbox.
 - **Verified, limited scope:** One controlled self-addressed operational message with no customer data was sent and received in the Alex inbox at 2:24 PM ET. This does not prove external-domain or GoHighLevel delivery.
-- **Confirmed:** Preserve the immediate `hello@paintswitch.com` alert and use Alex only for backup/escalation after an approved escalation signal; do not notify Alex for every lead.
-- **Verified current configuration:** The published Opportunity Created workflow contains only the immediate `hello@paintswitch.com` action, and `PaintSwitch Lead Intake` has only the `New Quote Request` stage. No Alex action is active.
-- **Blocked:** No reliable handled/escalation signal exists in the current one-stage pipeline. Available Wait and If/Else actions do not create that business signal by themselves.
-- **Proposed / approval required:** Add `Contact Attempted` as a second internal pipeline stage, then use an approved Wait/If/Else condition to alert Alex only when the approved escalation condition is met. Do not create the stage or alter the workflow without explicit approval.
-- **Pending:** A synthetic routed notification and response rehearsal passes without sending automated customer SMS.
+- **Confirmed:** Preserve the immediate `hello@paintswitch.com` alert. Add `Contact Attempted`; after five minutes alert Alex only when the Opportunity remains in `New Quote Request`, and suppress the Alex alert after a move to `Contact Attempted`. Do not notify Alex for every lead, and do not send automated customer SMS.
+- **Verified current configuration and branch tests:** Both stages, the immediate hello action, exact five-minute Wait, conditional branches, Alex action, handled-path suppression, and no-customer-action boundary pass in synthetic execution logs.
+- **Verified routed receipt:** Mobile Outlook shows the Alex message at 4:23 PM, and GoHighLevel Email Analytics records Alex Delivered at 4:23 PM plus hello Delivered at 4:18 PM and 4:20 PM.
+- **Pending:** Assign transition ownership and acknowledgment procedure, decide any future distinct Alex wording and failure/retry behavior, and complete a timestamped human-response rehearsal. Inbox receipt alone is not a response rehearsal.
 
 ## Production release and rollback checklist
 
@@ -81,7 +81,7 @@ Alex is not an operational backup until all items pass:
 3. Verify the apex and `www` redirect, homepage, Privacy, Terms, four-service taxonomy, form disclosure, security headers, and absence of placeholder reviews, standalone Drywall Repair, unsupported pricing, Jen branding, and private address content.
 4. Confirm a known rollback deployment before enabling lead delivery.
 5. Enable `LEAD_DELIVERY_ENABLED` for Production only and redeploy.
-6. Submit one clearly labeled synthetic production lead. Verify one success message, one Contact, one Opportunity, exact mappings and attribution, one completed Upstash state, one workflow execution, one owner notification, no automated SMS, and a timely human contact attempt.
+6. Submit controlled synthetic production leads that verify one success message, one Contact and Opportunity per submission, exact mappings and attribution, completed Upstash state, the immediate hello notification, both D-049 stage/branch outcomes, no automated customer SMS, and timely human contact. Preview/provider branch tests and routed Alex receipt are verified; Production acceptance and the human-response rehearsal remain separate gates.
 7. Restore delivery to `false` immediately if CRM delivery, notification, privacy, or duplicate safeguards do not match the acceptance criteria, then redeploy the last green candidate.
 
 ## Evidence log template
