@@ -12,8 +12,8 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 - **Confirmed:** Every accepted website lead receives an accurate on-page confirmation.
 - **Confirmed:** Automated customer SMS remains off. Selecting `Text` is only a contact preference.
 - **Confirmed:** `hello@paintswitch.com` is the primary notification and privacy-request mailbox.
-- **Confirmed:** Alex becomes a backup only after `alex@paintswitch.com` exists and a controlled receipt test passes.
-- **Verified external mailbox-account evidence — 2026-08-05:** A signed-in GoDaddy administration view showed that mailbox accounts for `hello@paintswitch.com` and `alex@paintswitch.com` exist under owner administration. This verifies account existence and administration only. Alex receipt, Alex's direct access, routing, and backup-response operation still require verification before customer lead data is sent there.
+- **Confirmed:** Alex becomes an operational backup only after `alex@paintswitch.com` exists and a controlled backup-notification test through the owner-approved route is received. A self-addressed mailbox test verifies basic mailbox operation but does not satisfy this routing-activation gate.
+- **Verified external mailbox evidence — 2026-08-05:** A signed-in GoDaddy administration view showed that mailbox accounts for `hello@paintswitch.com` and `alex@paintswitch.com` exist under owner administration. Microsoft MFA for `alex@paintswitch.com` succeeded, Outlook opened showing that mailbox, and at 2:24 PM ET a controlled self-addressed operational message containing no customer data was sent and appeared unread in the Alex inbox. This verifies direct mailbox access plus basic same-mailbox send/receipt operation only. It does not verify external-domain delivery, GoHighLevel routing, exact backup routing, backup activation, human response, or workflow acceptance. Exact Alex routing and GoHighLevel configuration remain **TBD** or unverified, and the response rehearsal remains pending.
 
 ## Latest protected-Preview rehearsal
 
@@ -63,11 +63,11 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 
 Alex is not an operational backup until all items pass:
 
-- `alex@paintswitch.com` mailbox-account existence is verified in GoDaddy administration.
-- A controlled PaintSwitch test message is received in that mailbox.
-- Alex confirms access to the mailbox and the response procedure.
-- The owner approves the exact routing behavior if it changes the currently approved `hello@paintswitch.com`-only workflow.
-- A synthetic notification and response rehearsal passes without sending automated customer SMS.
+- **Verified:** `alex@paintswitch.com` mailbox-account existence and owner administration in GoDaddy.
+- **Verified, limited scope:** Microsoft MFA and direct Outlook access to the Alex mailbox.
+- **Verified, limited scope:** One controlled self-addressed operational message with no customer data was sent and received in the Alex inbox at 2:24 PM ET. This does not prove external-domain or GoHighLevel delivery.
+- **Pending:** The owner approves the exact routing behavior if it changes the currently approved `hello@paintswitch.com`-only workflow, and the GoHighLevel routing configuration is verified.
+- **Pending:** A synthetic routed notification and response rehearsal passes without sending automated customer SMS.
 
 ## Production release and rollback checklist
 

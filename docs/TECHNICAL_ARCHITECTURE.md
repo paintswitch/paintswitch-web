@@ -181,7 +181,7 @@ In a delivery-disabled threshold check, the hosted fixed-window counter reached 
 
 After the rehearsal, Preview `LEAD_DELIVERY_ENABLED` was restored to `false`, and the disabled redeployment reached `Ready`. Production remained disabled. This section intentionally omits synthetic personal data and opaque Redis keys.
 
-A signed-in GoDaddy administration view also verified that mailbox accounts for `hello@paintswitch.com` and `alex@paintswitch.com` exist and are under owner administration. This is external account-state evidence, not repository architecture. Alex receipt, direct access, GoHighLevel routing, and backup operation remain unverified.
+A signed-in GoDaddy administration view also verified that mailbox accounts for `hello@paintswitch.com` and `alex@paintswitch.com` exist and are under owner administration. Later on 2026-08-05, Microsoft MFA for `alex@paintswitch.com` succeeded, Outlook opened showing that mailbox, and a controlled self-addressed operational message containing no customer data was sent at 2:24 PM ET and appeared unread in the Alex inbox. This verifies direct mailbox access plus basic same-mailbox send/receipt operation. It does not verify external-domain delivery, GoHighLevel routing, exact backup routing, backup activation, human response, or workflow acceptance. Exact routing and GoHighLevel configuration remain **TBD** or unverified, and the response rehearsal remains pending. These are external account-state facts, not repository architecture.
 
 ## Deployment configuration
 
