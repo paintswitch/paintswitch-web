@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Request a Painting Quote | PaintSwitch",
-  description: "Request an interior, exterior, cabinet, or commercial painting quote in the DMV. Service availability and pricing are confirmed after review.",
-  keywords: ["painting services", "residential painting", "commercial painting", "DMV painters"],
+  description: "Submit a Virginia painting-project request for individual service-area review. Service availability and pricing are confirmed after review.",
+  keywords: ["painting services", "residential painting", "commercial painting", "Virginia painters"],
 };
 
 export default function RootLayout({

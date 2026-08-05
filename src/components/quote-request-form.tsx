@@ -212,6 +212,10 @@ export function QuoteRequestForm() {
         PaintSwitch reviews every request before confirming service availability and pricing.
       </p>
 
+      <p className="mt-4 text-sm leading-6 text-slate-600">
+        By submitting, you confirm that you are at least 18 and ask PaintSwitch to contact you about this project using the contact information you provide. Choosing <strong>Text</strong> records a contact preference only and is not consent to automated SMS. Automated customer SMS is currently disabled. Read our <a className="rounded-sm font-semibold text-[#0F766E] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0F766E]" href="/privacy">Privacy Policy</a> and <a className="rounded-sm font-semibold text-[#0F766E] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0F766E]" href="/terms">Website Terms</a>.
+      </p>
+
       <button
         className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-[#0F172A] px-6 py-3 text-sm font-bold text-white transition hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0F172A] disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
         type="submit"
