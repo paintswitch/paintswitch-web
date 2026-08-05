@@ -1,6 +1,6 @@
 # PaintSwitch lead-generation beta operations runbook
 
-Last updated: 2026-08-04
+Last updated: 2026-08-05
 
 This runbook operationalizes only confirmed lead-generation beta decisions. It does not add customer promises, approve an exact service boundary, activate automated customer SMS, or replace professional legal advice.
 
@@ -13,7 +13,15 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 - **Confirmed:** Automated customer SMS remains off. Selecting `Text` is only a contact preference.
 - **Confirmed:** `hello@paintswitch.com` is the primary notification and privacy-request mailbox.
 - **Confirmed:** Alex becomes a backup only after `alex@paintswitch.com` exists and a controlled receipt test passes.
-- **Owner-reported implementation fact — 2026-08-04:** The `alex@paintswitch.com` mailbox has been created. Receipt, access, routing, and backup-response operation still require verification before customer lead data is sent there.
+- **Verified external mailbox-account evidence — 2026-08-05:** A signed-in GoDaddy administration view showed that mailbox accounts for `hello@paintswitch.com` and `alex@paintswitch.com` exist under owner administration. This verifies account existence and administration only. Alex receipt, Alex's direct access, routing, and backup-response operation still require verification before customer lead data is sent there.
+
+## Latest protected-Preview rehearsal
+
+- **Verified external candidate evidence — 2026-08-05:** Application commit `beb6781` passed GitHub Actions `Verify`, and its Vercel Preview reached `Ready`.
+- With Preview `LEAD_DELIVERY_ENABLED=false`, one unchanged synthetic submission failed closed and retained its submission identity. After Preview-only delivery was temporarily enabled and the candidate redeployed, retrying that same retained submission recovered exactly once: one GoHighLevel Contact, one Opportunity, one workflow enrollment, and a `Success` internal-notification action were observed.
+- The hosted fixed-window counter capped at five counted valid attempts. Those attempts reached the delivery-disabled `503` boundary after consuming quota; one additional valid attempt returned `429` and created no duplicate Contact, Opportunity, or workflow enrollment.
+- Preview `LEAD_DELIVERY_ENABLED` was restored to `false` after the rehearsal, and the disabled redeployment reached `Ready`. Production remained disabled.
+- This rehearsal verifies the controlled Preview recovery and threshold paths only. It does not activate Production, prove broader concurrent/failure behavior, verify human response timing, or satisfy Alex backup activation. Synthetic personal data and opaque Redis keys are intentionally omitted.
 
 ## New-lead response procedure
 
@@ -55,7 +63,7 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 
 Alex is not an operational backup until all items pass:
 
-- `alex@paintswitch.com` mailbox creation is owner-confirmed.
+- `alex@paintswitch.com` mailbox-account existence is verified in GoDaddy administration.
 - A controlled PaintSwitch test message is received in that mailbox.
 - Alex confirms access to the mailbox and the response procedure.
 - The owner approves the exact routing behavior if it changes the currently approved `hello@paintswitch.com`-only workflow.
