@@ -17,8 +17,16 @@ const termsPage = source("src/app/terms/page.tsx");
 const legalPage = source("src/components/legal-page.tsx");
 const footer = source("src/components/footer.tsx");
 const quoteForm = source("src/components/quote-request-form.tsx");
+const homePage = source("src/app/page.tsx");
+const rootLayout = source("src/app/layout.tsx");
+const hero = source("src/components/hero.tsx");
+const trustBar = source("src/components/trust-bar.tsx");
 
 const customerFacingSources = {
+  homepage: homePage,
+  metadata: rootLayout,
+  hero,
+  "trust bar": trustBar,
   "privacy page": privacyPage,
   "terms page": termsPage,
   "shared legal page": legalPage,
@@ -62,20 +70,55 @@ test("privacy policy matches the approved beta data boundary", () => {
   assert.match(privacyPage, /href="mailto:hello@paintswitch\.com"/u);
 });
 
-test("website terms preserve manual review and approved operating targets", () => {
-  assert.match(termsPage, /accepts Virginia project requests for individual service-area review/u);
+test("website terms preserve DMV review, Virginia priority, and approved first-contact targets", () => {
+  assert.match(termsPage, /accepts project requests throughout the DMV for individual service-area review/u);
+  assert.match(termsPage, /Virginia projects are prioritized for the public beta/u);
   assert.match(termsPage, /Does not confirm that PaintSwitch serves the project location/u);
   assert.match(termsPage, /Does not provide or accept a firm price/u);
   assert.match(termsPage, /Does not schedule or book a project/u);
   assert.match(termsPage, /Does not authorize a deposit or payment/u);
   assert.match(termsPage, /Does not create a painting or service contract/u);
-  assert.match(termsPage, /within five minutes for requests received between <strong>8:00 a\.m\. and 8:00 p\.m\. Eastern Time, daily<\/strong>/u);
+  assert.match(termsPage, /first human contact attempt within five minutes for requests received between <strong>8:00 a\.m\. and 8:00 p\.m\. Eastern Time, daily<\/strong>/u);
   assert.match(termsPage, /9:00 a\.m\. Eastern Time the following day/u);
-  assert.match(termsPage, /These are operating targets and do not guarantee an exact response time/u);
+  assert.match(termsPage, /These are first-contact operating targets/u);
   assert.match(termsPage, /It is not consent to automated SMS messages/u);
   assert.match(termsPage, /PaintSwitch does not send automated customer SMS during the beta/u);
   assert.match(termsPage, /href="\/privacy"/u);
   assert.match(termsPage, /href="mailto:hello@paintswitch\.com"/u);
+});
+
+test("public market copy preserves DMV intake while prioritizing Virginia", () => {
+  for (const [name, value] of Object.entries({homePage, rootLayout, hero, trustBar, termsPage})) {
+    assert.match(value, /DMV/u, `${name} must preserve the confirmed DMV market`);
+  }
+
+  for (const value of [homePage, rootLayout, hero, termsPage]) {
+    assert.match(value, /Virginia/u);
+    assert.doesNotMatch(value, /(?:Virginia[- ]only|only Virginia)/iu);
+  }
+});
+
+test("privacy use copy stays inside the approved beta purpose boundary", () => {
+  const approvedPurposes = [
+    "Review and respond to your quote request",
+    "Evaluate project and service-area availability",
+    "Qualify and manage the lead",
+    "Contact you about the project",
+    "Notify the responsible PaintSwitch team member",
+    "Record basic lead-source and campaign attribution",
+    "Prevent duplicate submissions, fraud, and abuse",
+    "Maintain and secure the lead-delivery process",
+  ];
+  const useSection = privacyPage.match(/<h2>How we use information<\/h2>([\s\S]*?)<\/section>/u)?.[1];
+
+  assert.ok(useSection, "privacy use section is missing");
+  assert.equal((useSection.match(/<li>/gu) ?? []).length, approvedPurposes.length);
+  for (const purpose of approvedPurposes) {
+    assert.ok(useSection.includes(`<li>${purpose}</li>`), `missing approved privacy purpose: ${purpose}`);
+  }
+  assert.match(privacyPage, /does not use beta lead information for unrelated marketing\./u);
+  assert.doesNotMatch(privacyPage, /without separate permission/u);
+  assert.doesNotMatch(privacyPage, /Meet applicable legal obligations/u);
 });
 
 test("footer exposes real legal and PaintSwitch contact links", () => {

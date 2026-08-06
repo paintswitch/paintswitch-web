@@ -32,7 +32,7 @@ export default function Home() {
 
         <section id="services" className="scroll-mt-24 px-5 py-20 sm:px-8 lg:py-28">
           <div className="mx-auto max-w-7xl">
-            <SectionHeading eyebrow="Painting services" title="Choose the service that fits your project" description="Submit a Virginia project request for individual service-area review across interior, exterior, cabinet, or commercial painting." />
+            <SectionHeading eyebrow="Painting services" title="Choose the service that fits your project" description="Submit a DMV project request for individual service-area review across interior, exterior, cabinet, or commercial painting. Virginia projects are prioritized for the public beta." />
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {services.map((service) => <ServiceCard key={service.title} {...service} />)}
               <article className="flex min-h-64 flex-col justify-between rounded-3xl bg-[#0F172A] p-7 text-white sm:p-8">
@@ -63,7 +63,7 @@ export default function Home() {
 
         <section className="px-5 py-20 sm:px-8 lg:py-28" aria-labelledby="areas-title">
           <div className="mx-auto grid max-w-7xl overflow-hidden rounded-3xl bg-[#E6FFFA] lg:grid-cols-2">
-            <div className="p-8 sm:p-12 lg:p-16"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#0F766E]">Service area</p><h2 id="areas-title" className="mt-4 text-3xl font-semibold tracking-tight text-[#0F172A] sm:text-4xl">Virginia project review</h2><p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">Project requests are reviewed individually. PaintSwitch confirms whether a location is within the current service area before confirming availability or pricing.</p></div>
+            <div className="p-8 sm:p-12 lg:p-16"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#0F766E]">Service area</p><h2 id="areas-title" className="mt-4 text-3xl font-semibold tracking-tight text-[#0F172A] sm:text-4xl">DMV project review</h2><p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">PaintSwitch accepts requests throughout the DMV and prioritizes Virginia projects for the public beta. Every location is reviewed individually before availability or pricing is confirmed.</p></div>
             <div className="relative min-h-72 overflow-hidden bg-[#CCFBF1]" aria-hidden="true"><div className="absolute left-[18%] top-[20%] h-44 w-44 rounded-full border border-[#2DD4BF]/50"/><div className="absolute left-[42%] top-[10%] h-52 w-52 rounded-full border border-[#2DD4BF]/50"/><div className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#0F172A] text-3xl text-[#2DD4BF] shadow-xl">⌖</div></div>
           </div>
         </section>
@@ -73,7 +73,7 @@ export default function Home() {
             <div className="lg:sticky lg:top-28">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#0F3D39]">Request a quote</p>
               <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#0F172A] sm:text-5xl">Tell us about your painting project.</h2>
-              <p className="mt-5 max-w-xl text-lg leading-8 text-[#134E4A]">Submit a Virginia project request for individual service-area review across interior, exterior, cabinet, or commercial painting.</p>
+              <p className="mt-5 max-w-xl text-lg leading-8 text-[#134E4A]">Submit a DMV project request for individual service-area review across interior, exterior, cabinet, or commercial painting. Virginia projects are prioritized for the public beta.</p>
               <p className="mt-6 max-w-xl rounded-2xl border border-[#0F766E]/25 bg-white/35 p-4 text-sm leading-6 text-[#134E4A]">Submitting this form does not confirm service availability, pricing, scheduling, or booking. A PaintSwitch team member will review your request and follow up.</p>
             </div>
             <QuoteRequestForm />

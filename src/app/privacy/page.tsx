@@ -39,9 +39,8 @@ export default function PrivacyPolicy() {
           <li>Record basic lead-source and campaign attribution</li>
           <li>Prevent duplicate submissions, fraud, and abuse</li>
           <li>Maintain and secure the lead-delivery process</li>
-          <li>Meet applicable legal obligations</li>
         </ul>
-        <p>PaintSwitch does not use beta lead information for unrelated marketing without separate permission.</p>
+        <p>PaintSwitch does not use beta lead information for unrelated marketing.</p>
       </section>
 
       <section>

@@ -15,7 +15,7 @@ export default function WebsiteTerms() {
       <section>
         <h2>Website purpose</h2>
         <p>
-          PaintSwitch accepts Virginia project requests for individual service-area review across interior, exterior, cabinet, and commercial painting. The website allows you to submit project information for review. PaintSwitch reviews each request before confirming service availability, pricing, scheduling, or any other project commitment.
+          PaintSwitch accepts project requests throughout the DMV for individual service-area review across interior, exterior, cabinet, and commercial painting. Virginia projects are prioritized for the public beta. The website allows you to submit project information for review. PaintSwitch reviews each request before confirming service availability, pricing, scheduling, or any other project commitment.
         </p>
       </section>
 
@@ -45,11 +45,11 @@ export default function WebsiteTerms() {
       </section>
 
       <section>
-        <h2>Response target</h2>
+        <h2>First-contact target</h2>
         <p>
-          PaintSwitch&apos;s response target is within five minutes for requests received between <strong>8:00 a.m. and 8:00 p.m. Eastern Time, daily</strong>. Requests received after hours have a response target of <strong>9:00 a.m. Eastern Time the following day</strong>.
+          PaintSwitch aims to make the first human contact attempt within five minutes for requests received between <strong>8:00 a.m. and 8:00 p.m. Eastern Time, daily</strong>. For requests received after hours, PaintSwitch aims to make the first human contact attempt by <strong>9:00 a.m. Eastern Time the following day</strong>.
         </p>
-        <p>These are operating targets and do not guarantee an exact response time, project acceptance, availability, or booking.</p>
+        <p>These are first-contact operating targets and do not guarantee contact, project acceptance, availability, or booking within an exact time.</p>
       </section>
 
       <section>
