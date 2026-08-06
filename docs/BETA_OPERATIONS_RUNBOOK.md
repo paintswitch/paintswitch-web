@@ -23,7 +23,7 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 
 ## Latest protected-Preview rehearsal
 
-- **Verified external candidate evidence — 2026-08-05:** Application commit `beb6781` passed GitHub Actions `Verify`, and its Vercel Preview reached `Ready`.
+- **Verified external candidate evidence — 2026-08-05:** Application commit `e142b21` passed GitHub Actions `Verify`, and its Vercel Preview reached `Ready`. The protected operational recovery and limiter exercises recorded below were performed on earlier application commit `beb6781`.
 - With Preview `LEAD_DELIVERY_ENABLED=false`, one unchanged synthetic submission failed closed and retained its submission identity. After Preview-only delivery was temporarily enabled and the candidate redeployed, retrying that same retained submission recovered exactly once: one GoHighLevel Contact, one Opportunity, one workflow enrollment, and a `Success` internal-notification action were observed.
 - The hosted fixed-window counter capped at five counted valid attempts. Those attempts reached the delivery-disabled `503` boundary after consuming quota; one additional valid attempt returned `429` and created no duplicate Contact, Opportunity, or workflow enrollment.
 - Preview `LEAD_DELIVERY_ENABLED` was restored to `false` after the rehearsal, and the disabled redeployment reached `Ready`. Production remained disabled.
