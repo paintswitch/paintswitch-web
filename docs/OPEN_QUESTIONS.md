@@ -1,6 +1,6 @@
 # PaintSwitch open questions
 
-Last updated: 2026-08-05
+Last updated: 2026-08-06
 
 This document records unresolved choices and working assumptions. An item is approved only when it is explicitly labeled **Confirmed** and supported by the decision log. Do not present **Proposed** or **TBD** pricing as live customer pricing.
 
@@ -75,13 +75,24 @@ Additional unresolved questions:
 
 - **Confirmed:** Provide quick quotes and close qualifying sales online before anyone must call the customer, stated on 2026-07-11.
 - **Confirmed:** PaintSwitch includes a customer-facing chatbot, approved on 2026-07-11.
+- **Confirmed:** Use GoHighLevel Conversation AI as the chatbot provider and use a Prompt Based bot started from scratch, approved on 2026-08-06.
+- **Confirmed:** Use OpenAI GPT-4.1 for the current Prompt Based bot, approved under D-052 on 2026-08-06.
+- **Confirmed:** Use the D-052 safety-first prompt-only V1: disclose AI in the first reply; answer only **Confirmed** facts; direct visitors to `Request a Quote` or human review; and do not estimate pricing, confirm availability, book or schedule, handle payments, claim a lead or form was submitted, collect sensitive data, or discuss any relationship between PaintSwitch and another company. The bot remains Off.
+- **Confirmed:** Under D-053, the bounded owner-test interface is the exact HighLevel Live Chat widget on the homepage, with visible `PaintSwitch AI Assistant` identity and first-message AI disclosure. Only that widget/channel may be used. The chatbot contact form, voice notes, attachments, SMS, social channels, Voice AI, booking, payments, and actions remain disabled.
+- **Confirmed:** Limit the bot to 10 replies per conversation, use a two-second delay, and sleep it after a manual or workflow message. Keep Conversation Summary off and export no transcript through a workflow.
+- **Confirmed:** Current handoff is only a direction to the separate `Request a Quote` form or `hello@paintswitch.com`, without an exact response-time promise or automatic transcript/context transfer.
+- **Confirmed:** Apply the up-to-12-month D-039 unconverted-lead schedule to live-chat messages through manual deletion or anonymization. A fixed HighLevel active-account retention period is not verified.
+- **Confirmed:** The safeguarded chatbot may appear on the live homepage for owner testing while ads and active promotion remain off. Both the HighLevel bot and `HIGHLEVEL_CHAT_WIDGET_ENABLED` are independent kill switches; the bot remains Off until the controlled test begins.
+- **Confirmed:** HighLevel Starter is active at $97 per month, and the 30-day AI Employee Unlimited trial is authorized to renew at an additional $97 per month after the trial, approved on 2026-08-06.
 - **Confirmed:** Use “Request a Quote” as the primary action for the lead-generation beta, approved on 2026-08-01.
 - **Proposed:** Use the confirmed chatbot to guide the quote flow.
 - **Proposed:** Use homepage calls to action such as “Get My Price” and “No phone call required.”
-- **Proposed:** Provide automated follow-up and a context-preserving human handoff.
-- **TBD:** Chatbot provider, model, architecture, exact interface, knowledge source, escalation criteria, conversation retention, disclosure language, and operating ownership. GoHighLevel has an intended AI-chat function, but that does not resolve these implementation choices.
-- **Confirmed:** The chatbot is not required for the lead-generation beta and is deferred to a later approved release.
-- **TBD:** Which post-beta release first requires the chatbot.
+- **Proposed:** Provide automated follow-up or a future context-preserving human handoff. Neither is part of the D-053 owner-test scope.
+- **TBD:** Provider-internal architecture and data flow beyond the direct widget, knowledge sources beyond the approved prompt, detailed qualification and escalation criteria, operating ownership and evidence for manual conversation deletion, HighLevel's fixed active-account conversation-retention behavior, integrated accessibility/failure/local/Preview/Production verification, and the release/traffic phase for active advertising or broader promotion.
+- **Verified external implementation fact — 2026-08-06:** `PaintSwitch AI Assistant` exists in GoHighLevel as a Prompt Based bot, remains Off, and has only Live Chat selected. It is the only bot and was automatically marked Primary. The D-052-approved OpenAI GPT-4.1 model and safety-first prompt are saved, four bounded provider-panel tests passed, and the D-053 Live Chat widget/settings were saved. No chatbot action is configured. This does not verify the uncommitted website integration, transcript/privacy operation, accessibility, handoff behavior, or Production runtime.
+- **Verified repository implementation fact — 2026-08-06:** The uncommitted working tree contains a homepage-mounted, `HIGHLEVEL_CHAT_WIDGET_ENABLED`-gated `next/script` component with `lazyOnload`, public widget ID `6a75455fa70a87ea8ede056f`, exact LeadConnector CSP origins, source-contract tests, and expanded Privacy content. Sixty-one tests, lint, type checking, and a chat-enabled production build pass locally. Protected Preview and Production runtime acceptance remain open; the bot remains Off.
+- **Confirmed:** The chatbot is not required for lead-generation-beta launch. D-053 supersedes the blanket deferral only for bounded live owner testing with ads and active promotion off.
+- **TBD:** Which promoted public release, if any, first requires the chatbot after owner testing.
 - **TBD:** Final approved homepage and funnel copy beyond the approved beta CTA and availability/pricing disclosure.
 
 ## Booking, customer operations, and integrations
@@ -107,7 +118,7 @@ Additional unresolved questions:
 
 - **Confirmed:** The end state requires a professional standalone website, quote requests, AI lead qualification, working proposals and bookings, collectible payments, measurable marketing-driven traffic/leads, and operations capable of completing the first PaintSwitch projects, approved on 2026-07-18.
 - **Confirmed:** A lead-generation beta precedes instant quote and self-service checkout. It includes quote-request capture, the product outcome that each accepted lead reaches GoHighLevel once, owner notification, on-page confirmation for every accepted lead, and basic source attribution. Automated customer SMS is off for the beta. Implementation evidence must be described accurately as at-most-one automatic Opportunity creation plus durable reconciliation; it is not a strict cross-provider exactly-once guarantee.
-- **Confirmed:** Instant pricing, checkout, payments, customer-selected scheduling, the chatbot, photo-review automation, and automated proposals are deferred from the beta rather than rejected.
+- **Confirmed:** Instant pricing, checkout, payments, customer-selected scheduling, photo-review automation, and automated proposals remain deferred from the beta rather than rejected. D-053 supersedes only the chatbot's blanket deferral by allowing bounded homepage owner testing with ads/promotion off; this does not make the chatbot a beta launch blocker or approve a promoted release.
 - **TBD:** The order, dependencies, success gates, and public-release dates after the lead-generation beta.
 - **TBD:** Which intended GoHighLevel functions beyond beta CRM/pipeline delivery must be enabled and verified in each later release.
 

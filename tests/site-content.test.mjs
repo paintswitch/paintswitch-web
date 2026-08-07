@@ -21,6 +21,7 @@ const homePage = source("src/app/page.tsx");
 const rootLayout = source("src/app/layout.tsx");
 const hero = source("src/components/hero.tsx");
 const trustBar = source("src/components/trust-bar.tsx");
+const chatWidget = source("src/components/highlevel-chat-widget.tsx");
 
 const customerFacingSources = {
   homepage: homePage,
@@ -32,6 +33,7 @@ const customerFacingSources = {
   "shared legal page": legalPage,
   footer,
   "quote form": quoteForm,
+  "chat widget": chatWidget,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -41,7 +43,9 @@ test("defines distinct, dated PaintSwitch legal routes", () => {
   assert.match(termsPage, /title="Website Terms"/u);
 
   assert.equal((legalPage.match(/<h1\b/gu) ?? []).length, 1);
-  assert.match(legalPage, /Effective August 4, 2026/u);
+  assert.match(legalPage, /effectiveDate = "August 4, 2026"/u);
+  assert.match(legalPage, /Effective \{effectiveDate\}/u);
+  assert.match(privacyPage, /effectiveDate="August 6, 2026"/u);
   assert.match(legalPage, /<Footer \/>/u);
   assert.match(legalPage, /href="\/"/u);
 });
@@ -67,6 +71,11 @@ test("privacy policy matches the approved beta data boundary", () => {
   assert.match(privacyPage, /rate-limit records expire after the applicable 10-minute window/u);
   assert.match(privacyPage, /Selecting <strong>Text<\/strong> as a preferred contact method does not provide consent to automated SMS messages/u);
   assert.match(privacyPage, /Automated customer SMS is disabled during the beta/u);
+  assert.match(privacyPage, /The website chat identifies itself as the PaintSwitch AI Assistant/u);
+  assert.match(privacyPage, /cannot provide or accept a firm price/u);
+  assert.match(privacyPage, /does not export chat transcripts through a transcript or summary workflow/u);
+  assert.match(privacyPage, /Live-chat messages that are not associated with an active project follow the same period/u);
+  assert.match(privacyPage, /Do not send payment-card data/u);
   assert.match(privacyPage, /href="mailto:hello@paintswitch\.com"/u);
 });
 
@@ -108,6 +117,7 @@ test("privacy use copy stays inside the approved beta purpose boundary", () => {
     "Record basic lead-source and campaign attribution",
     "Prevent duplicate submissions, fraud, and abuse",
     "Maintain and secure the lead-delivery process",
+    "Operate the optional AI-assisted live chat and review its performance",
   ];
   const useSection = privacyPage.match(/<h2>How we use information<\/h2>([\s\S]*?)<\/section>/u)?.[1];
 

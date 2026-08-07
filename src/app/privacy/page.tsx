@@ -11,6 +11,7 @@ export default function PrivacyPolicy() {
     <LegalPage
       title="Privacy Policy"
       intro="This policy explains how PaintSwitch collects, uses, shares, and retains information through its lead-generation website."
+      effectiveDate="August 6, 2026"
     >
       <section>
         <h2>Information we collect</h2>
@@ -24,6 +25,9 @@ export default function PrivacyPolicy() {
         </ul>
         <p>
           Our website infrastructure also processes limited technical request and IP-address information needed to operate and protect the form, including submission rate limiting.
+        </p>
+        <p>
+          If you use the optional live chat, PaintSwitch collects the messages you send, message timestamps, and limited browser, device, visitor, and session information needed to operate and protect the chat. The approved chat widget does not ask for your name, phone number, email address, payment information, or documents. Use the separate Request a Quote form if you want PaintSwitch to review a project request.
         </p>
       </section>
 
@@ -39,6 +43,7 @@ export default function PrivacyPolicy() {
           <li>Record basic lead-source and campaign attribution</li>
           <li>Prevent duplicate submissions, fraud, and abuse</li>
           <li>Maintain and secure the lead-delivery process</li>
+          <li>Operate the optional AI-assisted live chat and review its performance</li>
         </ul>
         <p>PaintSwitch does not use beta lead information for unrelated marketing.</p>
       </section>
@@ -48,11 +53,24 @@ export default function PrivacyPolicy() {
         <p>PaintSwitch uses service providers to operate the beta website and lead process:</p>
         <ul>
           <li><strong>Vercel</strong> hosts the website and server-side lead endpoint.</li>
-          <li><strong>GoHighLevel/LeadConnector</strong> stores and manages Contact and Opportunity records and operates the internal owner-notification workflow.</li>
+          <li><strong>GoHighLevel/LeadConnector</strong> stores and manages Contact and Opportunity records, operates the internal owner-notification workflow, and processes live-chat messages and AI activity.</li>
           <li><strong>Upstash</strong> provides technical lead-delivery state, duplicate protection, and rate limiting.</li>
           <li><strong>Microsoft 365</strong> supports the PaintSwitch business mailbox and internal notification delivery.</li>
         </ul>
         <p>These providers process information for PaintSwitch in connection with the services they provide.</p>
+      </section>
+
+      <section>
+        <h2>AI-assisted live chat</h2>
+        <p>
+          The website chat identifies itself as the PaintSwitch AI Assistant. It can answer basic questions using approved PaintSwitch information and direct you to the Request a Quote form or the PaintSwitch email address. It cannot provide or accept a firm price, confirm service availability, schedule or book a project, collect a payment, or create a contract.
+        </p>
+        <p>
+          A PaintSwitch team member may review chat messages and AI activity. Chat is not a private channel for sensitive information. Do not send payment-card data, bank information, government identification numbers, medical information, account passwords, or other sensitive personal information through chat.
+        </p>
+        <p>
+          PaintSwitch does not export chat transcripts through a transcript or summary workflow in the approved beta configuration. The separate Request a Quote form is the supported way to give PaintSwitch the contact and project details needed for human follow-up.
+        </p>
       </section>
 
       <section>
@@ -66,6 +84,9 @@ export default function PrivacyPolicy() {
         <h2>Retention</h2>
         <p>
           Unconverted lead records in GoHighLevel are retained for up to 12 months after the last meaningful interaction and are then deleted or anonymized.
+        </p>
+        <p>
+          Live-chat messages that are not associated with an active project follow the same period: up to 12 months after the last meaningful interaction, followed by deletion or anonymization. PaintSwitch may delete unneeded conversations sooner. HighLevel does not publish a fixed active-account conversation-retention period, so PaintSwitch is responsible for applying this schedule.
         </p>
         <p>
           Upstash technical lead-delivery records expire after 30 days. Submission rate-limit records expire after the applicable 10-minute window.

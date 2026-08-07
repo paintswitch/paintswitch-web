@@ -1,6 +1,6 @@
 # PaintSwitch product requirements
 
-Last updated: 2026-08-05
+Last updated: 2026-08-06
 
 ## Product objective
 
@@ -8,7 +8,7 @@ Last updated: 2026-08-05
 - **Confirmed:** Residential interior painting is the operational V1 for instant firm pricing and checkout. The rule is confirmed; its exact earlier historical source date is uncertain and it was reaffirmed on 2026-08-01.
 - **Confirmed:** Include instant pricing and online booking in the launch model.
 - **Confirmed:** Market interior, exterior, cabinet, and commercial painting while routing each project to the correct sales journey.
-- **Confirmed:** Include a customer-facing chatbot; provider, model, architecture, exact interface, and release phasing remain **TBD**.
+- **Confirmed:** Include a customer-facing chatbot using GoHighLevel Conversation AI, a Prompt Based bot started from scratch, OpenAI GPT-4.1, and the D-052 safety-first prompt-only V1 boundaries. The approved prompt is saved and has passed four bounded provider-panel tests. Architecture, interface, transcript handling, detailed qualification and handoff behavior, integrated and production testing, and release phasing remain **TBD** or **Proposed** as labeled.
 
 ## Business and market constraints
 
@@ -47,7 +47,7 @@ The following business/product outcomes were confirmed on 2026-07-18. Decision D
 - **LB-008 — Confirmed:** Record basic lead-source and campaign attribution for measurable beta leads.
 - **LB-009 — Confirmed:** Disclose that service availability and pricing are confirmed after review.
 - **LB-010 — Confirmed:** Do not display instant prices, collect deposits or payments, enable checkout, or promise customer-selected scheduling in the beta.
-- **LB-011 — Confirmed:** The chatbot, instant quote, checkout, payments, photo-review automation, and automated proposals are deferred from the beta, not rejected from the confirmed end state.
+- **LB-011 — Confirmed:** Instant quote, checkout, payments, photo-review automation, and automated proposals are deferred from the beta, not rejected from the confirmed end state. The chatbot is not required for beta launch; D-053 separately permits an optional bounded homepage owner test with ads and active promotion off.
 - **LB-012 — TBD:** Supply or approve remaining notification-action failure handling, domain-warmup completion and raw-header authentication acceptance, exact DBA filing/registrant/address/tax/authorized-representative and later A2P facts, any abuse controls beyond `LB-028`, detailed event definitions, record classes not covered by `LB-034`, professional/legal verification, and later-release sequence. D-033 through D-049 resolve the hosting-plan, Virginia-focus within the confirmed DMV market, internal DBA-direction, beta privacy/contact/retention, age, governing-law, response-target, conditional-backup, dependency-upgrade, escalation-only routing, second-stage, and five-minute escalation choices. Exact transition ownership and acknowledgment procedure, any future distinct Alex-alert wording, and failure/retry behavior remain **TBD**. The current Alex action reuses the exact D-032-approved internal owner-notification subject/body as an implementation fact, not a new copy approval. Protected Preview evidence verifies one application recovery and the rate threshold; external GoHighLevel evidence verifies both escalation branches, dedicated sender/live DNS configuration, row-level post-configuration hello/Alex delivery, routed Alex receipt, and PaintSwitch-only Business Profile values. Hosted concurrency, notification-action failure recovery, privacy/retention rehearsal, professional/legal review, human-response rehearsal, operational backup activation, and Production acceptance remain unverified. Approved integration configuration and mappings are implementation/verification work under `PL-018` through `PL-021`, not new owner decisions.
 - **LB-013 — Confirmed:** The PaintSwitch owner is the primary owner of every beta lead. Response operations are governed by `LB-039`; Alex is only the conditional backup described by `LB-040` and receives only the backup/escalation alerts allowed by `LB-041`, never every routine lead. A self-addressed mailbox test alone does not activate routing.
 - **LB-014 — Superseded:** The former rule requiring automatic SMS for every accepted beta submission was superseded by D-027 and `LB-025`. The on-page-confirmation portion remains current through `LB-007` and `LB-025`.
@@ -90,6 +90,10 @@ The beta CRM foundation is governed by `PL-012` through `PL-016` and `PL-021`. P
 - **PL-003 — Confirmed:** Use GoHighLevel for the intended SMS function.
 - **PL-004 — Confirmed:** Use GoHighLevel for the intended email function.
 - **PL-005 — Confirmed:** Use GoHighLevel for the intended AI-chat function.
+- **PL-022 — Confirmed:** Use GoHighLevel Conversation AI with a Prompt Based bot started from scratch. Approved on 2026-08-06. This confirms the provider and bot type, not the model, prompt, architecture, data handling, interface, actions, or production activation.
+- **PL-023 — Confirmed:** Activate HighLevel Starter at $97 per month and start the 30-day AI Employee Unlimited trial with authorization to renew at an additional $97 per month after the trial. Approved on 2026-08-06. This commercial decision does not activate or approve unrelated modules.
+- **PL-024 — Confirmed:** Use OpenAI GPT-4.1 for the current Prompt Based bot and constrain its first version to the D-052 safety-first prompt-only scope. Model and scope approval alone do not approve an embed or activation; D-053 separately approves only the bounded homepage owner-test conditions.
+- **PL-025 — Confirmed:** Under D-053, expose only the exact HighLevel Live Chat widget on the homepage for bounded owner/live testing while ads and promotion remain off. Apply the approved disclosure, channel, feature, reply-limit, delay, sleep, handoff, summary/export, retention, manual-deletion, and two-kill-switch rules. The bot remains Off until the controlled test; this owner-test approval does not authorize promoted traffic, additional channels or actions, instant pricing, checkout, booking, or payments.
 - **PL-006 — Confirmed:** Use GoHighLevel for the intended automation function.
 - **PL-007 — Confirmed:** Use GoHighLevel for the intended calendar-booking function.
 - **PL-008 — Confirmed:** Use GoHighLevel for the intended pipeline function.
@@ -159,7 +163,7 @@ The following personas are **Proposed** interpretations of the confirmed product
 5. **Confirmed:** The owner receives the approved internal notification at `hello@paintswitch.com` as primary lead owner.
 6. **Confirmed:** The customer sees an immediate accurate on-page confirmation. Automated customer SMS is off for the beta, and selecting `Text` as a contact preference does not authorize an automated SMS. A failed lead delivery produces an approved recoverable next step.
 7. **Confirmed:** Lead response operates from 8:00 AM through 8:00 PM Eastern daily. The first human contact attempt is due within five minutes during those hours and by 9:00 AM Eastern the next day for after-hours leads.
-8. **Confirmed:** The beta does not display an instant price, collect payment, enable checkout, promise customer-selected scheduling, or require the deferred chatbot.
+8. **Confirmed:** The beta does not display an instant price, collect payment, enable checkout, promise customer-selected scheduling, or require the chatbot. D-053's optional owner test does not change this sales boundary.
 9. **TBD:** Production notification-action failure handling, domain-warmup completion and raw-header authentication acceptance, exact A2P facts for later SMS, professional/legal verification, retention outside `LB-034`, and Production end-to-end verification. Destination, From values, publication, immediate hello delivery, both D-049 branches, post-configuration row-level hello/Alex delivery, routed Alex receipt, dedicated sender/live DNS configuration, and PaintSwitch-only Business Profile values are externally verified. Exact transition ownership/acknowledgment, operational backup activation, and human-response rehearsal remain open. Hosted concurrency, actual expiration, privacy/retention rehearsal, professional/legal review, and Production acceptance remain pending.
 
 ## Standard-interior instant-quote journey
@@ -196,13 +200,30 @@ The following personas are **Proposed** interpretations of the confirmed product
 
 ## Chatbot responsibilities and limits
 
-The customer-facing chatbot is **Confirmed** from 2026-07-11. Its provider, model, architecture, exact interface, and release phasing are **TBD**. The intended GoHighLevel AI-chat function does not resolve those details. The following detailed responsibilities remain **Proposed**:
+The customer-facing chatbot is **Confirmed** from 2026-07-11. GoHighLevel Conversation AI, a Prompt Based bot started from scratch, OpenAI GPT-4.1, the D-052 safety-first prompt-only V1, and the D-053 bounded homepage owner-test configuration are **Confirmed** from 2026-08-06. The approved prompt and HighLevel widget settings are saved, and four bounded provider-panel tests pass. The bot remains Off. The current repository integration is uncommitted, and local, Preview, and Production runtime evidence remains pending. Provider-internal architecture beyond the direct widget, knowledge sources beyond the approved prompt, detailed qualification, operating ownership/rehearsal, and any promoted release or broader behavior remain **TBD** or **Proposed** as labeled.
+
+The current prompt-only V1 has these **Confirmed** responsibilities and limits:
+
+- **Confirmed:** Disclose in the first reply that the visitor is speaking with an AI assistant.
+- **Confirmed:** Answer only from **Confirmed** PaintSwitch facts.
+- **Confirmed:** Direct visitors to `Request a Quote` or human review when they need a quote, availability decision, project-specific help, or anything unsupported.
+- **Confirmed:** Do not provide a price or pricing estimate, confirm project or service availability, book or schedule work, take or arrange payments, claim a lead or form was submitted, collect sensitive data, or discuss any relationship between PaintSwitch and another company.
+- **Confirmed:** Display the widget identity as `PaintSwitch AI Assistant` and disclose in the first assistant message that it is AI.
+- **Confirmed:** Appear only through the exact HighLevel Live Chat widget on the homepage. Keep the chatbot contact form, voice notes, attachments, SMS, social channels, Voice AI, booking, payments, and all actions disabled.
+- **Confirmed:** Allow no more than 10 bot replies per conversation, use a two-second reply delay, and sleep the bot whenever a manual message or workflow message is sent.
+- **Confirmed:** Route human handoff only to the separate `Request a Quote` form or `hello@paintswitch.com`. Make no exact response-time promise, do not claim automatic transcript/context transfer, and do not imply that chat created a lead.
+- **Confirmed:** Keep Conversation Summary off and do not export transcripts through a workflow.
+- **Confirmed:** Treat chat messages for unconverted leads under D-039's up-to-12-month-after-last-meaningful-interaction schedule, with PaintSwitch responsible for manual deletion or anonymization. A fixed HighLevel active-account conversation-retention period remains unverified.
+- **Confirmed:** Permit bounded owner testing on the live homepage while ads and active promotion remain off. Activation requires the HighLevel bot and `HIGHLEVEL_CHAT_WIDGET_ENABLED`; either being Off is a kill switch. The bot remains Off until the controlled test begins.
+
+The following expanded responsibilities remain **Proposed**:
 
 - **Proposed:** Explain the supported service categories and route customers to the correct lane.
 - **Proposed:** Ask the approved quote questions in plain language and help customers complete room-by-room inputs.
 - **Proposed:** Explain why a project requires photo review or consultation.
 - **Proposed:** Preserve the customer's collected context when handing off to a human.
-- **Proposed:** Answer only from approved product, pricing, service-area, and policy content.
+
+The proposed context-preserving handoff is not part of the D-053 owner-test scope. The current approved handoff is a direction to the separate form or mailbox with no automatic transcript or context transfer.
 
 The chatbot must observe these **Confirmed** policy boundaries regardless of implementation:
 
@@ -229,7 +250,7 @@ The chatbot must observe these **Confirmed** policy boundaries regardless of imp
 - **FR-010 — Confirmed:** Support an online booking outcome for the approved launch model.
 - **FR-011 — Confirmed:** Represent paint as supplied by PaintSwitch wherever supply responsibility is relevant.
 - **FR-012 — Confirmed:** Keep all customer-facing PaintSwitch identity separate from Jen Contracting.
-- **FR-013 — Confirmed:** Provide a customer-facing chatbot while leaving provider, model, architecture, and exact interface unselected until approved.
+- **FR-013 — Confirmed:** Provide a customer-facing chatbot using the approved GoHighLevel Conversation AI Prompt Based approach, OpenAI GPT-4.1, the saved D-052 prompt, and the bounded D-053 homepage owner-test configuration. Do not expand beyond the approved interface, channel, settings, handoff, retention, or activation boundary.
 - **FR-014 — Confirmed:** Add one flat $125 fuel/materials adjustment exactly once to every project price.
 - **FR-015 — Confirmed:** Use GoHighLevel as the launch backbone and CRM operating engine while requiring verification before treating configuration as live.
 - **FR-016 — Confirmed:** Provide the approved lead-generation beta intake, durably controlled GoHighLevel delivery using at-most-one automatic Opportunity creation plus reconciliation, immediate primary notification to `hello@paintswitch.com`, the two-stage pipeline and five-minute conditional Alex escalation after activation, on-page result states, basic source attribution, public-domain behavior, delivery target, owner-time constraint, form/integration boundary, review-content rule, beta contact/SMS/privacy/retention/age/response policies, 30-day Upstash technical-record TTL, and client-IP rate limit defined by LB-001 through LB-043 and PL-018 through PL-021.
@@ -242,6 +263,14 @@ The chatbot must observe these **Confirmed** policy boundaries regardless of imp
 - **FR-023 — Confirmed:** Treat quote submission as authorization for project-specific contact only, restrict the website and quote service to people age 18 or older, and keep automated customer SMS off for the beta.
 - **FR-024 — Confirmed:** Support the D-045 response schedule and targets. Alex mailbox access, exact routing behavior, GoHighLevel branch execution, and routed receipt pass; do not claim human-response readiness until transition acknowledgment, operational activation, and the response rehearsal are completed.
 - **FR-025 — Confirmed:** Prioritize Virginia in public beta operation without asserting an unapproved Virginia-only boundary, and preserve PaintSwitch-only customer-facing identity despite the internal/legal Virginia DBA direction.
+- **FR-026 — Confirmed:** Implement the current chatbot only as the D-052 prompt-only V1: first-reply AI disclosure, **Confirmed**-facts-only answers, and `Request a Quote` or human-review direction, with no pricing estimate, availability confirmation, booking or scheduling, payment handling, lead-submission claim, sensitive-data collection, or other-company-relationship discussion. Keep the bot Off until the D-053 controlled owner-test conditions and runtime gates are satisfied.
+- **FR-027 — Confirmed:** Load the exact HighLevel Live Chat widget only on the homepage and only when `HIGHLEVEL_CHAT_WIDGET_ENABLED=true`; keep the HighLevel bot Off until the bounded owner test begins.
+- **FR-028 — Confirmed:** Identify the widget visibly as `PaintSwitch AI Assistant` and include AI disclosure in the first assistant message.
+- **FR-029 — Confirmed:** Restrict the owner-test bot to the exact Live Chat channel/widget. Disable the chatbot contact form, voice notes, attachments, SMS, social channels, Voice AI, booking, payments, and all actions.
+- **FR-030 — Confirmed:** Limit the bot to 10 replies per conversation, apply a two-second delay, and sleep it after a manual or workflow message.
+- **FR-031 — Confirmed:** Direct visitors needing human help to the separate `Request a Quote` form or `hello@paintswitch.com`, without promising an exact response time or automatically transferring chat transcript or context.
+- **FR-032 — Confirmed:** Keep Conversation Summary off, export no transcript through workflows, and manually delete or anonymize unconverted-lead chat messages under the up-to-12-month D-039 schedule. Do not claim that HighLevel itself enforces a fixed retention period until verified.
+- **FR-033 — Confirmed:** Keep ads and active promotion off during bounded live owner testing. The D-053 owner-test exposure is optional for the lead-generation beta and does not activate or approve instant pricing, checkout, payment, booking, SMS, social, Voice AI, or chatbot actions.
 
 ### Proposed capabilities
 
@@ -322,6 +351,14 @@ These requirements carry individual statuses; safety requirements already implie
 - **AC-051 — Confirmed:** Deployment records show the commercial beta runs on the owner-confirmed Vercel Pro plan; the plan decision does not substitute for Production promotion, rollback, monitoring, or end-to-end QA.
 - **AC-052 — Confirmed:** A production-safe routing test proves every accepted beta lead immediately notifies `hello@paintswitch.com`; after five minutes, an Opportunity still in `New Quote Request` produces one internal Alex alert; an Opportunity moved to `Contact Attempted` produces no Alex alert; and no automated customer SMS is sent. External synthetic executions plus Outlook and Email Analytics satisfy branch logic, no-customer-action, and routed-receipt portions, including post-configuration row-level hello delivery at 9:31 PM and Alex delivery/receipt at 9:36 PM. Failure handling, operational activation, human-response rehearsal, and Production acceptance remain required.
 - **AC-053 — Confirmed:** GoHighLevel inspection proves `PaintSwitch Lead Intake` contains the initial `New Quote Request` stage and second `Contact Attempted` stage, new accepted website leads enter `New Quote Request`, and an authorized human can move a controlled lead to `Contact Attempted` without changing customer-facing status or sending customer SMS. The two-stage inspection, earlier website-lead initial placement, handled synthetic transition, and no-SMS execution evidence satisfy this criterion.
+- **AC-054 — Confirmed:** Before activation, controlled chatbot tests prove that the first reply discloses AI, every factual answer is supported by **Confirmed** PaintSwitch content, quote and unsupported requests are directed to `Request a Quote` or human review, and adversarial prompts cannot cause pricing estimates, availability confirmation, booking or scheduling, payment handling, lead-submission claims, sensitive-data collection, or discussion of PaintSwitch's relationship with another company. Four provider-panel scenarios pass; D-053 governs the separate bounded owner-test activation and runtime acceptance.
+- **AC-055 — Confirmed:** Source inspection and browser checks prove the public widget ID loads only on `/`, only when `HIGHLEVEL_CHAT_WIDGET_ENABLED=true`, through exact LeadConnector origins, and not on Privacy, Terms, API, or not-found routes. With the flag false, no widget script or chat UI is delivered.
+- **AC-056 — Confirmed:** Live owner-test inspection proves the launcher visibly identifies `PaintSwitch AI Assistant` as AI and the first assistant reply independently discloses AI.
+- **AC-057 — Confirmed:** HighLevel configuration and live browser inspection prove only the exact Live Chat widget/channel is active and that contact form, voice notes, attachments, SMS, social channels, Voice AI, booking, payments, and actions are disabled.
+- **AC-058 — Confirmed:** Controlled conversations prove the two-second delay, no more than 10 bot replies, and sleep behavior after either a manual or workflow message.
+- **AC-059 — Confirmed:** A handoff test directs the visitor only to the separate `Request a Quote` form or `hello@paintswitch.com`, makes no exact response-time promise, creates no automatic Contact, Opportunity, booking, payment, or transcript/context transfer, and does not claim that chat submitted a lead.
+- **AC-060 — Confirmed:** Configuration inspection shows Conversation Summary off and no transcript-export workflow. A synthetic conversation is reviewed and manually deleted or anonymized under the up-to-12-month schedule with minimal evidence; the record must not claim that a fixed HighLevel active-account retention period is verified.
+- **AC-061 — Confirmed:** Before owner testing, local, protected Preview, and Production-safe checks pass with ads/promotion off. The bot and website flag are each demonstrated as independent kill switches, Production begins with the bot Off until the controlled test, and disabling either removes customer replies or the widget without affecting the quote form.
 
 **GoHighLevel two-stage escalation evidence — 2026-08-05:** The Saved/published workflow is Opportunity Created → immediate hello internal email → exact five-minute Wait → condition. `Still New` runs `Escalate to Alex - still New Quote Request` to Alex; `Contact Attempted` ends without Alex. The Alex action reuses exact D-032-approved wording. Unhandled enrolled 4:18:14, Wait finished 4:23:15, `Still New` and Alex `Success` occurred 4:23:16, and finished 4:23:18. Handled enrolled 4:20:40, moved before cutoff, hello `Success` occurred 4:20:41, Wait finished 4:25:41, `Contact Attempted` executed 4:25:42, and finished 4:25:43 with no Alex action. No customer action ran. The 4:33 PM ET Outlook screenshot shows Alex received sender `PaintSwitch`, subject `New PaintSwitch website lead`, at 4:23 PM; Email Analytics records Alex Delivered at 4:23 PM and hello Delivered at 4:18 PM and 4:20 PM. Human response remains untested.
 
@@ -345,17 +382,17 @@ Acceptance criteria that depend on unapproved pricing values, checkout terms, sc
 
 ### Confirmed lead-generation beta first
 
-Decisions D-018 through D-049 confirm the beta as the first release and define its ownership, contact and SMS boundaries, hosting and Pro plan, public domain, Virginia operating focus, internal/legal DBA direction with strict public separation, CRM foundation, private-integration/token boundary, Upstash idempotency, additional Opportunity fields, owner-notification destination, internal sender, workflow publication, technical-state TTL, rate-limit threshold, privacy and retention policy, age restriction, governing-law terms, response target, conditional backup, backup/escalation-only Alex routing, two-stage pipeline, five-minute escalation condition, target date, owner-time limit, custom-form/server-side integration boundary, review-content rule, and dependency remediation. The remaining end-state outcomes still govern later releases but do not block this beta unless listed in the approved beta requirements. The 2026-08-08 date is a target and never overrides an applicable launch gate.
+Decisions D-018 through D-049 confirm the beta as the first release and define its ownership, contact and SMS boundaries, hosting and Pro plan, public domain, Virginia operating focus, internal/legal DBA direction with strict public separation, CRM foundation, private-integration/token boundary, Upstash idempotency, additional Opportunity fields, owner-notification destination, internal sender, workflow publication, technical-state TTL, rate-limit threshold, privacy and retention policy, age restriction, governing-law terms, response target, conditional backup, backup/escalation-only Alex routing, two-stage pipeline, five-minute escalation condition, target date, owner-time limit, custom-form/server-side integration boundary, review-content rule, and dependency remediation. D-053 permits an optional safeguarded homepage chatbot owner test with promotion off; it does not make the chatbot a beta launch blocker or expand the beta's sales scope. The remaining end-state outcomes still govern later releases but do not block this beta unless listed in the approved beta requirements. The 2026-08-08 date is a target and never overrides an applicable launch gate.
 
 - **Confirmed:** Market all four approved painting categories.
 - **Confirmed:** Capture quote requests without instant firm pricing or checkout in the beta.
 - **Confirmed:** Route all beta leads to manual operational review through GoHighLevel.
 - **Confirmed:** Preserve the standalone PaintSwitch brand.
-- **Confirmed:** Defer the customer-facing chatbot from the beta to a later approved release.
+- **Confirmed:** The lead-generation beta may launch without the chatbot. D-053 permits the safeguarded homepage chatbot to be exposed for bounded owner/live testing while ads and active promotion remain off.
 - **Confirmed:** Deliver the seven end-state outcomes in `ER-001` through `ER-007`.
 - **Confirmed:** Use the verified GoHighLevel CRM/pipeline capability required for beta lead capture.
 - **Confirmed:** Preserve the verified CRM foundation, two-stage conditional workflow and routed receipt, private integration, fields, server-only configuration, native mappings, protected Preview recovery, and hosted rate threshold while completing hosted concurrency, failure recovery, actual-expiration verification, operational backup/human-response rehearsal, policy/legal review, Production promotion, and Production end-to-end evidence.
-- **TBD:** Assign the chatbot and other deferred outcomes to specific post-beta releases.
+- **TBD:** Assign any promoted chatbot release and the other deferred outcomes to specific post-beta releases. The D-053 promotion-off owner test is already approved but is not a promoted release.
 
 ### Approved beta implementation sequence
 
@@ -372,7 +409,7 @@ Decisions D-018 through D-049 confirm the beta as the first release and define i
 2. **Proposed:** Implement room-by-room intake, tier classification, eligibility gating, and non-instant routing.
 3. **Proposed:** Implement approved price calculation, checkout, and booking behavior with automated tests.
 4. **Proposed:** Add the approved photo-review intake and operational workflow.
-5. **Proposed:** Assign and implement the confirmed chatbot, then add any approved detailed follow-up, broader conversion, and human-handoff workflows.
+5. **Proposed:** After the bounded D-053 owner test, assign any promoted chatbot release and separately approve any detailed qualification, follow-up, broader conversion, or automatic context-preserving handoff workflow.
 
 ## Explicit exclusions and boundaries
 
@@ -383,7 +420,7 @@ Decisions D-018 through D-049 confirm the beta as the first release and define i
 - **TBD:** Exact service-area eligibility.
 - **TBD:** Exact standard-interior eligibility beyond room-size rules.
 - **TBD:** Live price amounts and detailed pricing policies.
-- **Confirmed:** A customer-facing chatbot is approved; provider, model, architecture, exact interface, detailed responsibilities, and release phasing remain **TBD** or **Proposed** as labeled.
+- **Confirmed:** A customer-facing chatbot, GoHighLevel Conversation AI Prompt Based/Start from Scratch, OpenAI GPT-4.1, the D-052 prompt-only scope, and the D-053 homepage-only owner-test interface/settings are approved. Exact Live Chat-only restrictions, visible/first-message disclosure, 10-reply cap, two-second delay, sleep behavior, no-action boundary, direct form/mailbox handoff without time or context-transfer promise, Conversation Summary/export-off state, manual up-to-12-month unconverted-chat schedule, dual kill switches, and promotion-off testing are controlling. Provider-internal details, broader qualification, automatic context-preserving handoff, manual-retention rehearsal, integrated/runtime evidence, and promoted-release phasing remain **TBD**, **Proposed**, or unverified as labeled.
 - **Confirmed:** GoHighLevel and its intended CRM function are approved. The private integration, server-only secrets, Upstash safeguards, fields, immediate hello action, sender, publication, two-stage pipeline, exact five-minute Alex branch, technical TTL, and beta rate limit are approved. Both synthetic branches, no-customer-action behavior, immediate hello delivery, post-configuration row-level hello/Alex delivery, routed Alex receipt, dedicated sender/live DNS configuration, and PaintSwitch-only Business Profile values are externally verified. The Alex action reuses D-032-approved wording, not new copy. Under D-047, exact stable Next.js and `eslint-config-next` `16.3.0` are installed; fifty-nine tests, lint, type checking, build, and zero-vulnerability audit pass locally; GitHub `Verify` and Ready Preview passed for the earlier pushed application commit. Payment setup, other retention classes, post-beta modules, notification-action failure recovery, hosted concurrency, actual expiration, domain-warmup completion and raw-header authentication proof, transition ownership/acknowledgment, any future distinct Alex wording, operational backup/human response, exact registration/A2P facts, professional/legal review, Production acceptance, and phasing remain **TBD** or unverified.
 - **Confirmed:** Basic lead-source and campaign attribution is approved for the beta; provider, detailed event definitions, consent implementation, and broader analytics behavior remain **TBD**.
 - **Proposed:** In-flow photo upload, direct customer scheduling mechanics, deposits, detailed automated follow-up, broader conversion tracking, and human handoff are not approved implementation scope yet.
@@ -400,3 +437,5 @@ Decisions D-018 through D-049 confirm the beta as the first release and define i
 - **SR-008 — Confirmed:** Label non-firm outputs clearly; do not use “firm,” “final,” or equivalent language before eligibility and pricing validation succeed.
 - **SR-009 — Confirmed:** A chatbot or other automation may not override a safety gate.
 - **SR-010 — Confirmed:** Do not expose proposed figures or policies in `OPEN_QUESTIONS.md` as live customer pricing.
+- **SR-011 — Confirmed:** The D-052 prompt-only chatbot V1 may not estimate prices, confirm availability, book or schedule, handle payments, claim a submission succeeded, collect sensitive data, or discuss any relationship between PaintSwitch and another company; it must direct those visitors to `Request a Quote` or human review.
+- **SR-012 — Confirmed:** The D-053 owner-test chatbot may not promise a human response time, claim automatic handoff or transcript/context transfer, create or imply a lead/booking/payment action, export summaries or transcripts, or remain exposed when either approved kill switch is Off.

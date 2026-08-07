@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer";
+import { HighLevelChatWidget } from "@/components/highlevel-chat-widget";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
@@ -81,6 +82,7 @@ export default function Home() {
         </section>
       </main>
       <Footer />
+      <HighLevelChatWidget />
     </>
   );
 }

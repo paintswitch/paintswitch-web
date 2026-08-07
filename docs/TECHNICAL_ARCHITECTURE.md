@@ -1,8 +1,8 @@
 # PaintSwitch technical architecture
 
-Last repository inspection: 2026-08-05
+Last repository inspection: 2026-08-06
 
-Last external runtime verification: 2026-08-05
+Last external runtime verification: 2026-08-06
 
 This document records only facts verified from the repository. It does not treat planned or proposed systems as implemented.
 
@@ -24,6 +24,7 @@ paintswitch-web/
 │   ├── components/
 │   │   ├── buttons.tsx
 │   │   ├── footer.tsx
+│   │   ├── highlevel-chat-widget.tsx
 │   │   ├── header.tsx
 │   │   ├── hero.tsx
 │   │   ├── how-it-works.tsx
@@ -39,7 +40,7 @@ paintswitch-web/
 │       ├── lead-rate-limit.ts
 │       ├── upstash-config.ts
 │       └── upstash-idempotency.ts
-├── tests/                  Node intake, route, rate-limit, delivery, and public-content contract tests
+├── tests/                  Node intake, route, rate-limit, delivery, public-content, and chat-widget source-contract tests
 ├── eslint.config.mjs
 ├── next.config.ts
 ├── package.json
@@ -74,13 +75,13 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 
 - The application uses the Next.js App Router under `src/app`.
 - `src/app/layout.tsx` provides the root HTML layout and static PaintSwitch metadata.
-- `src/app/page.tsx` is a Server Component that composes the lead-generation page at `/` from reusable components. `src/app/privacy/page.tsx` and `src/app/terms/page.tsx` are static legal-content routes that share `src/components/legal-page.tsx`.
+- `src/app/page.tsx` is a Server Component that composes the lead-generation page at `/` from reusable components. In the uncommitted working tree, it mounts `HighLevelChatWidget` only on this homepage. `src/app/privacy/page.tsx` and `src/app/terms/page.tsx` are static legal-content routes that share `src/components/legal-page.tsx`.
 - `src/components/header.tsx` and `src/components/quote-request-form.tsx` are Client Components. The header uses a click handler to close its native HTML `<details>` mobile menu after navigation.
 - Primary homepage actions use in-page anchors targeting `#quote`; legal and cross-page navigation use normal route links.
 - `QuoteRequestForm` owns client-side submission state. It collects the seven approved beta fields, validates through the shared `lead-intake.ts` parser, exposes field-specific accessible errors and focuses the first invalid control, creates a browser UUID for an unchanged submission attempt, captures bounded `utm_source` and `utm_campaign` values, applies a 50-second `AbortController` timeout, and sends normalized JSON to `/api/leads`. It retains the submission ID for unchanged retries but clears it after a server `409` payload-conflict response. An explicit native `POST` action prevents PII from becoming a query string before hydration; the JSON-only route rejects that fallback encoding rather than accepting an unvalidated lead. The rendered form also includes the approved 18+ acknowledgment, project-specific contact notice, automated-SMS-off boundary, and links to `/privacy` and `/terms`.
 - `src/app/api/leads/route.ts` implements the dynamic `/api/leads` POST boundary with a 55-second maximum duration. It requires an exact same-origin approved production host (`paintswitch.com` or `paintswitch-web.vercel.app`), a permitted local-development origin, or a Vercel preview same-origin request; verifies the exact JSON media type; validates content length; reads at most 16 KiB with a five-second deadline; parses through `lead-intake.ts`; and exposes only generic no-store/nosniff responses. It delegates accepted leads to `lead-delivery.ts`, returns `200` only for a completed/replayed delivery, `409` for submission-ID payload conflict, and retryable `503` responses for busy or unavailable delivery.
 - `src/lib/lead-intake.ts` rejects unexpected keys, control characters, malformed UUIDs, invalid enum values, and malformed email local parts or DNS labels before any future CRM delivery is attempted.
-- `next.config.ts` disables `X-Powered-By` and applies a static-compatible CSP plus frame, MIME-sniffing, referrer, permissions, and cross-domain-policy response headers. The current source has no external browser resource allowlist. Production retains the minimal `'unsafe-inline'` script/style allowances required by Next.js hydration and built-in error-page output; development alone adds `'unsafe-eval'` and WebSocket connections.
+- `next.config.ts` disables `X-Powered-By` and applies a static-compatible CSP plus frame, MIME-sniffing, referrer, permissions, and cross-domain-policy response headers. The uncommitted working tree evaluates `HIGHLEVEL_CHAT_WIDGET_ENABLED === "true"`. When false, the prior self-only browser-resource policy remains. When true, `script-src`, `img-src`, and `connect-src` add only `https://widgets.leadconnectorhq.com`, `https://services.leadconnectorhq.com`, and `https://stcdn.leadconnectorhq.com`; no wildcard is used, and `frame-src` remains `'none'`. Production retains the minimal `'unsafe-inline'` script/style allowances required by Next.js hydration and built-in error-page output; development alone adds `'unsafe-eval'` and WebSocket connections. This is inspected source, not runtime compatibility evidence.
 - No other authored dynamic route, API route, middleware, server action, or background job is present.
 
 ## Rendering and routes
@@ -99,7 +100,8 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 - `SectionHeading` provides shared section-heading presentation.
 - `PrimaryButton` and `SecondaryButton` are styled anchor components, not form buttons.
 - `QuoteRequestForm` renders the beta intake fields, approved pre-submit disclosure, legal links, and client-side pending, success, and failure states. These states alone are not evidence of successful external delivery.
-- `LegalPage` provides the shared PaintSwitch-only header, dated document layout, return link, and footer for the two legal routes.
+- `HighLevelChatWidget` is an uncommitted Server Component that returns `null` unless `HIGHLEVEL_CHAT_WIDGET_ENABLED` equals the exact string `true`. When enabled, it emits one `next/script` loader using `strategy="lazyOnload"`, `https://widgets.leadconnectorhq.com/loader.js`, resources URL `https://widgets.leadconnectorhq.com/chat-widget/loader.js`, and public widget ID `6a75455fa70a87ea8ede056f`. It contains no secret, API client, transcript store, form field, booking, payment, or action logic.
+- `LegalPage` provides the shared PaintSwitch-only header, configurable effective-date layout, return link, and footer for the two legal routes. The uncommitted Privacy route sets August 6, 2026 and adds Live Chat data, vendor, AI, no-sensitive-data, no-summary/export, and manual-retention disclosures; the Terms route retains the shared August 4 default.
 - `Footer` contains static navigation, working Privacy and Terms links, `hello@paintswitch.com`, and the current year.
 - `page.tsx` contains the four approved service categories, benefits, manual-review copy, service-area copy, and the branded quote-request section. The prior Drywall Repair card and placeholder reviews are absent.
 - The current header brand mark is rendered from text; no repository asset is verified as a final production logo following the owner-preferred paint-roller-with-paint-behind direction.
@@ -128,7 +130,7 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 - `npm run build` runs `next build`.
 - `npm run start` runs `next start`.
 - `npm run lint` runs `eslint`.
-- `npm test` runs fifty-nine tests through Node's built-in test runner and TypeScript type stripping. Coverage spans intake validation, route behavior, mocked delivery state, Upstash configuration, 30-day technical-state TTL, atomic fixed-window limiting, client-identity derivation, failure handling, public legal/form/footer source contracts, the DMV-plus-Virginia market-copy boundary, and the approved privacy-purpose boundary.
+- The latest verified `npm test` run executed sixty-one tests through Node's built-in test runner and TypeScript type stripping. The current uncommitted tree adds `tests/highlevel-chat-widget.test.mjs` and expands `tests/site-content.test.mjs` to check the exact flag, widget ID, two loader URLs, `lazyOnload`, homepage mount, exact non-wildcard CSP origins, and chat Privacy copy. All sixty-one tests, lint, type checking, and a Next.js `16.3.0` production build with chat enabled passed locally on 2026-08-06; CI and hosted acceptance remain pending.
 - `npm run typecheck` runs TypeScript with no emitted files.
 - ESLint uses Next.js Core Web Vitals and TypeScript configurations.
 - `.github/workflows/ci.yml` uses Node.js 24 and runs `npm ci`, tests, lint, type checking, and the production build for pull requests and pushes to `main`. On 2026-08-05, GitHub Actions `Verify` passed for application commit `e142b21`.
@@ -155,13 +157,15 @@ Before creating an Opportunity, the coordinator searches the Contact's pipeline 
 
 The external Upstash database and Vercel variables are provisioned. `src/lib/upstash-config.ts` provides one validated Marketplace-or-legacy REST configuration loader for delivery state and rate limiting. `src/lib/upstash-idempotency.ts` applies a 30-day TTL to every guarded technical delivery-state write and implements the atomic fixed-window counter. `src/lib/lead-rate-limit.ts` derives HMAC-pseudonymous namespaced client keys and fails closed. The repository still contains no owner-notification code; that action is external in GoHighLevel. Controlled protected-Preview runs exercised completed persistence/delivery, retained-submission recovery after a fail-closed response, and the hosted rate-limit threshold. The recovered submission produced exactly one Contact, one Opportunity, one workflow enrollment, and a `Success` notification action; the counter capped at five and one additional valid request returned `429` without duplicate provider delivery. This runtime evidence does not add tracked architecture or prove broader failure/concurrency behavior, Production operation, human-response timing, privacy/retention operating procedures, or launch acceptance.
 
-The absence of chatbot code is an implementation gap against a **Confirmed** customer-facing chatbot requirement; it does not establish or imply a provider, model, architecture, or interface.
+The uncommitted working tree contains the bounded browser-side chatbot integration described above. Its data path is a public third-party script loaded directly by the homepage browser from the fixed LeadConnector widget origin, with subsequent resources/connections limited in source to the three exact LeadConnector origins. The repository contains no PaintSwitch chatbot API route, model client, server-side chatbot credential, conversation database, transcript persistence, summary/export workflow, automatic human-handoff state transfer, Contact/Opportunity creation from chat, booking, payment, or chatbot action. Exact provider-internal processing and the browser requests actually made at runtime are not repository facts and remain unverified. D-051/D-052/D-053 provide the business approval boundary; this uncommitted source is not deployed or accepted architecture until verification completes.
 
 GoHighLevel is a **Confirmed** business/platform selection. The pushed source references only server-side environment-variable names, never confidential values, and adds no provider package dependency. External private-integration, pipeline, field, and Vercel-variable verification is recorded in `DEVELOPMENT_STATUS.md`; external configuration is not tracked repository architecture.
 
-Decision D-018 confirms a lead-generation beta that requires verified CRM delivery. The clients, mocked tests, provisioned Upstash connection, D-030 safeguards, corrected D-031 sender evidence, published D-032 workflow, controlled manual and website-driven Preview runs, retained-submission recovery, hosted rate-limit threshold, and owner-confirmed receipt are implementation evidence, not Production acceptance. The Preview environment setting and latest branch Preview have `LEAD_DELIVERY_ENABLED=false`, the disabled redeployment is `Ready`, and Production remains `false`. Broader workflow failure behavior, human-response timing, concurrency, and Production end-to-end evidence remain missing.
+Decision D-018 confirms a lead-generation beta that may launch without the chatbot. D-053 supersedes only the blanket chatbot deferral by allowing bounded homepage owner testing while ads and promotion remain off; it does not make the chatbot a lead-generation-beta gate or approve other deferred sales capabilities. The clients, mocked tests, provisioned Upstash connection, D-030 safeguards, corrected D-031 sender evidence, published D-032 workflow, controlled manual and website-driven Preview runs, retained-submission recovery, hosted rate-limit threshold, and owner-confirmed receipt are implementation evidence, not Production acceptance. The Preview environment setting and latest branch Preview have `LEAD_DELIVERY_ENABLED=false`, the disabled redeployment is `Ready`, and Production remains `false`. The Vercel dashboard now contains `HIGHLEVEL_CHAT_WIDGET_ENABLED=true` for Production and Preview, but no deployment has consumed the new source/setting; the external bot remains Off. Broader workflow failure behavior, human-response timing, concurrency, chatbot hosted runtime, and Production end-to-end evidence remain missing.
 
 ## Controlled external runtime evidence — not repository architecture
+
+On 2026-08-06, the signed-in HighLevel account reported the Starter subscription activated and AI Employee Unlimited enabled under the owner-approved commercial terms in D-050. `PaintSwitch AI Assistant` exists as a Prompt Based bot started from scratch. The owner approved `OpenAI GPT 4.1`, the D-052 safety-first prompt, and the D-053 exact Live Chat owner-test settings. The saved bot remains Off with Live Chat as its only channel; contact form, voice notes, attachments, SMS/social/Voice AI, booking, payment, actions, Conversation Summary, and transcript workflow export are off. The saved settings use 10 replies, a two-second delay, manual/workflow sleep, and direct form/mailbox handoff without automatic context transfer. Four controlled provider-panel tests passed the exact bounded scenarios observed. This external evidence does not verify repository integration, actual transcript/privacy operation, manual deletion, accessibility, handoff, or Production behavior. The later uncommitted repository changes are documented above and have no runtime acceptance.
 
 On 2026-08-04, commit `3bac3ba` was exercised through an access-protected Vercel Preview using Standard Protection with Require Log In. `LEAD_DELIVERY_ENABLED` was temporarily set to `true` for Preview only; Production was explicitly kept `false`. Enabled deployment `CrJA8ve4qzNHneVLwEtkr5N15gJu` at `paintswitch-pp6wvxmih-paint-switch.vercel.app` reached Ready at 1:18:57 PM EDT.
 
@@ -188,7 +192,7 @@ A signed-in GoDaddy administration view also verified that mailbox accounts for 
 - The Git remote points to `paintswitch/paintswitch-web` on GitHub.
 - The repository contains one GitHub Actions verification workflow. GitHub Actions `Verify` passed for application commit `e142b21` on 2026-08-05.
 - The repository contains no tracked Vercel project configuration; `.vercel` is ignored.
-- `next.config.ts` disables `X-Powered-By` and configures the verified static-page security-header baseline.
+- `next.config.ts` disables `X-Powered-By` and configures the security-header baseline. The current uncommitted source conditionally adds the three exact LeadConnector origins only when the chat environment flag is true; this change has not been deployed or runtime-verified.
 - Pushing `codex/lead-generation-beta` automatically creates Vercel Previews. Application commit `e142b21` produced a `Ready` Preview. The protected operational tests recorded above were performed on earlier application commit `beb6781`; both its tested enabled state and restored disabled redeployment reached `Ready`. Production promotion/release and rollback remain unverified, and the apex still serves the prior `main` build.
 - The external database `paintswitch-lead-idempotency` is connected to Vercel with five Sensitive Production-and-Preview variables. No value is recorded in the repository or documentation.
 
@@ -202,6 +206,7 @@ A signed-in GoDaddy administration view also verified that mailbox accounts for 
 - Sanitized delivery reporting emits only a generic event category and validated submission UUID. No monitoring destination, alerting workflow, operator dashboard, or full observability path is present.
 - Server validation, strict request-shape and email checking, a 16 KiB bounded stream, a five-second body-read deadline, exact same-origin production/local/preview checks, generic errors, and security response headers remain in place.
 - Environment files are ignored by Git.
+- The chat widget ID is public configuration in source. No HighLevel chatbot credential or model secret is present. The environment flag controls whether the script tag is emitted; the independent provider bot Off state controls whether the bot replies. Source inspection alone does not prove either kill switch in a running build.
 - After the owner-approved D-047 upgrade to exact stable `next@16.3.0` and `eslint-config-next@16.3.0`, `npm audit --omit=dev --json` reports zero vulnerabilities. The dependency regression suite and local production smoke pass; no Preview/Canary package, React change, or force fix was used. Hosted Preview/CI evidence remains a separate release gate.
 - `BETA_OPERATIONS_RUNBOOK.md` documents manual lead-response, delivery-failure, privacy-request, unconverted-lead-retention, conditional-backup, release, and rollback procedures. No repository-tracked monitoring/alert configuration, automated incident process, automated CRM-retention job, or active backup-routing configuration exists.
 
