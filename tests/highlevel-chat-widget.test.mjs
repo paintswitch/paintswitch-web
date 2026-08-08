@@ -24,6 +24,7 @@ test("CSP adds only exact HighLevel origins when chat is enabled", () => {
   assert.match(nextConfig, /HIGHLEVEL_CHAT_WIDGET_ENABLED === "true"/u);
   assert.match(nextConfig, /https:\/\/widgets\.leadconnectorhq\.com/u);
   assert.match(nextConfig, /https:\/\/services\.leadconnectorhq\.com/u);
+  assert.match(nextConfig, /wss:\/\/services\.leadconnectorhq\.com/u);
   assert.match(nextConfig, /https:\/\/stcdn\.leadconnectorhq\.com/u);
   assert.doesNotMatch(nextConfig, /https:\s/u);
   assert.doesNotMatch(nextConfig, /wss:\s/u);

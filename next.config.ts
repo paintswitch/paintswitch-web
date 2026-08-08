@@ -5,6 +5,7 @@ const isHighLevelChatEnabled = process.env.HIGHLEVEL_CHAT_WIDGET_ENABLED === "tr
 
 const highLevelWidgetOrigin = "https://widgets.leadconnectorhq.com";
 const highLevelServicesOrigin = "https://services.leadconnectorhq.com";
+const highLevelServicesSocketOrigin = "wss://services.leadconnectorhq.com";
 const highLevelStaticOrigin = "https://stcdn.leadconnectorhq.com";
 const highLevelChatOrigins = `${highLevelWidgetOrigin} ${highLevelServicesOrigin} ${highLevelStaticOrigin}`;
 
@@ -14,7 +15,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob:${isHighLevelChatEnabled ? ` ${highLevelChatOrigins}` : ""}`,
   "font-src 'self'",
-  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""}${isHighLevelChatEnabled ? ` ${highLevelChatOrigins}` : ""}`,
+  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""}${isHighLevelChatEnabled ? ` ${highLevelChatOrigins} ${highLevelServicesSocketOrigin}` : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
