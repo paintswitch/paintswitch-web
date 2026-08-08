@@ -1,6 +1,8 @@
 # PaintSwitch technical architecture
 
-Last repository inspection: 2026-07-31
+Last repository inspection: 2026-08-08
+
+Last external runtime verification: 2026-08-08
 
 This document records only facts verified from the repository. It does not treat planned or proposed systems as implemented.
 
@@ -8,22 +10,37 @@ This document records only facts verified from the repository. It does not treat
 
 ```text
 paintswitch-web/
+├── .github/workflows/ci.yml
 ├── public/                 Five SVG assets
 ├── src/
 │   ├── app/
+│   │   ├── api/leads/route.ts
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   └── page.tsx
-│   └── components/
-│       ├── buttons.tsx
-│       ├── footer.tsx
-│       ├── header.tsx
-│       ├── hero.tsx
-│       ├── how-it-works.tsx
-│       ├── section-heading.tsx
-│       ├── service-card.tsx
-│       └── trust-bar.tsx
+│   │   ├── page.tsx
+│   │   ├── privacy/page.tsx
+│   │   └── terms/page.tsx
+│   ├── components/
+│   │   ├── buttons.tsx
+│   │   ├── footer.tsx
+│   │   ├── highlevel-chat-widget.tsx
+│   │   ├── header.tsx
+│   │   ├── hero.tsx
+│   │   ├── how-it-works.tsx
+│   │   ├── legal-page.tsx
+│   │   ├── quote-request-form.tsx
+│   │   ├── section-heading.tsx
+│   │   ├── service-card.tsx
+│   │   └── trust-bar.tsx
+│   └── lib/
+│       ├── ghl-client.ts
+│       ├── lead-delivery.ts
+│       ├── lead-intake.ts
+│       ├── lead-rate-limit.ts
+│       ├── upstash-config.ts
+│       └── upstash-idempotency.ts
+├── tests/                  Node intake, route, rate-limit, delivery, public-content, and chat-widget source-contract tests
 ├── eslint.config.mjs
 ├── next.config.ts
 ├── package.json
@@ -38,48 +55,56 @@ Generated `.next` output and installed `node_modules` are present in the inspect
 
 | Package | Manifest declaration | Lockfile-resolved version |
 | --- | --- | --- |
-| Next.js | `16.2.10` | `16.2.10` |
+| Next.js | `16.3.0` | `16.3.0` |
 | React | `19.2.4` | `19.2.4` |
 | React DOM | `19.2.4` | `19.2.4` |
 | TypeScript | `^5` | `5.9.3` |
 | Tailwind CSS | `^4` | `4.3.3` |
 | Tailwind PostCSS plugin | `^4` | `4.3.3` |
 | ESLint | `^9` | `9.39.5` |
-| eslint-config-next | `16.2.10` | `16.2.10` |
+| eslint-config-next | `16.3.0` | `16.3.0` |
 | Node type definitions | `^20` | `20.19.43` |
 | React type definitions | `^19` | `19.2.17` |
 | React DOM type definitions | `^19` | `19.2.3` |
 
 The repository does not declare a Node.js runtime version through an `engines` field or a checked-in runtime-version file.
 
+Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The bounded framework update was installed without a force fix or incompatible override. `npm audit --omit=dev --json` reports zero vulnerabilities. The application still has no user-controlled CSS-processing path, `next/image` import, direct Sharp call, photo upload, or user-image processing path.
+
 ## Application model
 
 - The application uses the Next.js App Router under `src/app`.
 - `src/app/layout.tsx` provides the root HTML layout and static PaintSwitch metadata.
-- `src/app/page.tsx` composes the single authored page at `/` from reusable presentational components.
-- No component contains a `use client` directive. The inspected components render without application-defined client state or effects.
-- Mobile menu behavior uses the native HTML `<details>` element.
-- Navigation and calls to action use plain anchor links, primarily to sections on the same page.
-- No authored dynamic routes, API routes, route handlers, middleware, server actions, or background jobs are present.
+- `src/app/page.tsx` is a Server Component that composes the lead-generation page at `/` from reusable components. Commit `649f06d` mounts `HighLevelChatWidget` only on this homepage. `src/app/privacy/page.tsx` and `src/app/terms/page.tsx` are static legal-content routes that share `src/components/legal-page.tsx`.
+- `src/components/header.tsx` and `src/components/quote-request-form.tsx` are Client Components. The header uses a click handler to close its native HTML `<details>` mobile menu after navigation.
+- Primary homepage actions use in-page anchors targeting `#quote`; legal and cross-page navigation use normal route links.
+- `QuoteRequestForm` owns client-side submission state. It collects the seven approved beta fields, validates through the shared `lead-intake.ts` parser, exposes field-specific accessible errors and focuses the first invalid control, creates a browser UUID for an unchanged submission attempt, captures bounded `utm_source` and `utm_campaign` values, applies a 50-second `AbortController` timeout, and sends normalized JSON to `/api/leads`. It retains the submission ID for unchanged retries but clears it after a server `409` payload-conflict response. An explicit native `POST` action prevents PII from becoming a query string before hydration; the JSON-only route rejects that fallback encoding rather than accepting an unvalidated lead. The rendered form also includes the approved 18+ acknowledgment, project-specific contact notice, automated-SMS-off boundary, and links to `/privacy` and `/terms`.
+- `src/app/api/leads/route.ts` implements the dynamic `/api/leads` POST boundary with a 55-second maximum duration. It requires an exact same-origin approved production host (`paintswitch.com` or `paintswitch-web.vercel.app`), a permitted local-development origin, or a Vercel preview same-origin request; verifies the exact JSON media type; validates content length; reads at most 16 KiB with a five-second deadline; parses through `lead-intake.ts`; and exposes only generic no-store/nosniff responses. It delegates accepted leads to `lead-delivery.ts`, returns `200` only for a completed/replayed delivery, `409` for submission-ID payload conflict, and retryable `503` responses for busy or unavailable delivery.
+- `src/lib/lead-intake.ts` rejects unexpected keys, control characters, malformed UUIDs, invalid enum values, and malformed email local parts or DNS labels before any future CRM delivery is attempted.
+- `next.config.ts` disables `X-Powered-By` and applies a static-compatible CSP plus frame, MIME-sniffing, referrer, permissions, and cross-domain-policy response headers. Commit `649f06d` evaluates `HIGHLEVEL_CHAT_WIDGET_ENABLED === "true"`; commit `85117a1` adds the exact `wss://services.leadconnectorhq.com` origin to the chat-enabled `connect-src`. When false, the prior self-only browser-resource policy remains. When true, `script-src` and `img-src` add the three exact HTTPS LeadConnector origins, while `connect-src` adds those origins plus the exact services WebSocket origin; no wildcard is used, and `frame-src` remains `'none'`. Production retains the minimal `'unsafe-inline'` script/style allowances required by Next.js hydration and built-in error-page output; development alone adds broad `ws:` and `wss:` schemes. The corrected exact enabled policy supported one no-reload reply in the hosted Preview; Production runtime remains unverified.
+- No other authored dynamic route, API route, middleware, server action, or background job is present.
 
 ## Rendering and routes
 
-- The repository source defines the `/` page plus the favicon resource.
-- Existing ignored build output contains manifests for `/`, `/favicon.ico`, and framework-generated global-error/not-found pages. Generated output is not treated as lasting architecture documentation.
+- The repository source defines `/`, `/privacy`, and `/terms` plus the favicon resource and dynamic `/api/leads` boundary.
+- A production build run on 2026-08-04 reported static routes `/`, `/privacy`, `/terms`, and `/_not-found` plus dynamic route `/api/leads`. Generated output is verification evidence, not canonical source.
 - No dynamic route parameters or runtime data-fetching code are present in the tracked source.
 
 ## Component organization
 
-- `Header` contains brand identity, primary navigation, a desktop call to action, and native mobile navigation.
+- `Header` contains text brand identity, a skip link, primary navigation, a desktop call to action, and client-enhanced native mobile navigation.
 - `Hero` contains the primary positioning copy and a CSS-built room illustration.
 - `TrustBar` displays four static commitments.
 - `ServiceCard` renders static service descriptions and text-symbol icons.
 - `HowItWorks` displays four static process steps.
 - `SectionHeading` provides shared section-heading presentation.
 - `PrimaryButton` and `SecondaryButton` are styled anchor components, not form buttons.
-- `Footer` contains static navigation, contact text, legal placeholders, and the current year.
-- `page.tsx` contains the service list, benefits, page sections, placeholder reviews, service-area copy, and contact call to action.
-- The current header brand mark is rendered from text and a styled “P”; no repository asset is verified as a final production logo following the owner-preferred paint-roller-with-paint-behind direction.
+- `QuoteRequestForm` renders the beta intake fields, approved pre-submit disclosure, legal links, and client-side pending, success, and failure states. These states alone are not evidence of successful external delivery.
+- `HighLevelChatWidget` is a committed Server Component that returns `null` unless `HIGHLEVEL_CHAT_WIDGET_ENABLED` equals the exact string `true`. When enabled, it emits one `next/script` loader using `strategy="lazyOnload"`, `https://widgets.leadconnectorhq.com/loader.js`, resources URL `https://widgets.leadconnectorhq.com/chat-widget/loader.js`, and public widget ID `6a75455fa70a87ea8ede056f`. It contains no secret, API client, transcript store, form field, booking, payment, or action logic.
+- `LegalPage` provides the shared PaintSwitch-only header, configurable effective-date layout, return link, and footer for the two legal routes. Commit `649f06d` sets the Privacy effective date to August 6, 2026 and adds Live Chat data, vendor, AI, no-sensitive-data, no-summary/export, and manual-retention disclosures; the Terms route retains the shared August 4 default.
+- `Footer` contains static navigation, working Privacy and Terms links, `hello@paintswitch.com`, and the current year.
+- `page.tsx` contains the four approved service categories, benefits, manual-review copy, service-area copy, and the branded quote-request section. The prior Drywall Repair card and placeholder reviews are absent.
+- The current header brand mark is rendered from text; no repository asset is verified as a final production logo following the owner-preferred paint-roller-with-paint-behind direction.
 
 ## Styling
 
@@ -93,6 +118,7 @@ The repository does not declare a Node.js runtime version through an `engines` f
 ## TypeScript and module configuration
 
 - TypeScript runs in strict mode with `noEmit` and bundler module resolution.
+- TypeScript permits explicit `.ts` import extensions so the no-dependency Node tests can directly exercise the same route and parser source used by the application.
 - JSX uses the `react-jsx` transform.
 - The `@/*` path alias maps to `src/*`.
 - JavaScript files are allowed by configuration, though the authored application source inspected is TypeScript/TSX.
@@ -104,48 +130,95 @@ The repository does not declare a Node.js runtime version through an `engines` f
 - `npm run build` runs `next build`.
 - `npm run start` runs `next start`.
 - `npm run lint` runs `eslint`.
+- The latest verified `npm test` run executed sixty-one tests through Node's built-in test runner and TypeScript type stripping. Commit `649f06d` adds `tests/highlevel-chat-widget.test.mjs` and expands `tests/site-content.test.mjs` to check the exact flag, widget ID, two loader URLs, `lazyOnload`, homepage mount, exact non-wildcard CSP origins, and chat Privacy copy. All sixty-one tests, lint, type checking, and a Next.js `16.3.0` production build with chat enabled passed locally on 2026-08-06. Commit `85117a1` adds the exact services WebSocket origin to the source contract; fresh PR #2 `GitHub Verify`, `Vercel`, and `Vercel Preview Comments` checks all passed.
+- `npm run typecheck` runs TypeScript with no emitted files.
 - ESLint uses Next.js Core Web Vitals and TypeScript configurations.
-- No test command, test framework, coverage configuration, or tracked automated test files are present.
+- `.github/workflows/ci.yml` uses Node.js 24 and runs `npm ci`, tests, lint, type checking, and the production build for pull requests and pushes to `main`. On 2026-08-08, fresh PR #2 `GitHub Verify`, `Vercel`, and `Vercel Preview Comments` checks all passed for application commit `85117a1`.
+- No coverage configuration is present.
+- Fifty-nine automated tests, lint, TypeScript type checking, and the Next.js 16.3.0 production build passed locally on 2026-08-05. The build reported `/`, `/privacy`, `/terms`, `/_not-found`, and `/api/leads`. Tests use in-memory fake Upstash and GoHighLevel responses to cover exact field mapping, completed replay, changed-payload conflict, concurrency, Redis failure, acquired-lock release when initial state retrieval fails, ambiguous-create reconciliation, explicit rejected-create recovery, failed `creating`-state write, ambiguous failure before any create, completion-write failure reconciliation, a new submission for an existing Contact, Marketplace and legacy Upstash configuration, invalid/partial Marketplace-pair fail-closed behavior, 30-day state TTL, atomic limiter behavior, namespace and client-identity handling, blocked-window non-extension, forged-forwarded-header rejection outside Vercel, other invalid configuration, generic error sanitization, the approved legal/form/footer content boundary, DMV intake with Virginia priority, and narrowed privacy-purpose/first-contact Terms content. Built-app HTTP and Chrome checks cover the homepage and legal routes, legal-link navigation, mobile overflow, security headers, no framework-identifying header, and styled 404 behavior. GitHub reran the complete `Verify` workflow successfully for application commit `e142b21` on 2026-08-05, and its Vercel Preview reached `Ready`. Separate controlled protected-Preview runs exercise real Upstash and GoHighLevel paths; they are external runtime evidence, not automated-test coverage.
 
 ## Data and integrations
 
-The tracked repository contains no implementation of:
+Application commit `85117a1`, also available in the hosted Vercel Preview verified below, contains:
 
-- a database or persistence layer;
-- API endpoints or external API clients;
-- authentication or customer accounts;
-- quote storage or pricing services;
-- file/photo upload;
-- checkout, payments, or deposits;
-- booking, scheduling, or calendar integration;
-- chatbot or AI provider;
-- CRM integration;
-- analytics or conversion tracking;
-- email, SMS, or automated follow-up;
-- human-handoff tooling.
+- the client-side quote-request form and bounded browser-side UTM capture;
+- the fail-closed `/api/leads` validation and delivery boundary;
+- `ghl-client.ts`, which validates server-only configuration and uses native `fetch` for GoHighLevel Contact upsert, Opportunity search, and Opportunity create operations;
+- `upstash-idempotency.ts`, which uses native `fetch` for a Redis REST state store, token-checked 60-second lock, atomic guarded writes/completion, and guarded release, including release of an acquired lock if the initial state read fails;
+- `lead-delivery.ts`, which coordinates durable `contacting`, `contacted`, `creating`, `ambiguous`, `rejected`, and `completed` phases.
 
-No provider for any of these capabilities can be inferred from the repository.
+`lead-delivery.ts` prefers the Marketplace URL/token pair `UPSTASH_REDIS_REST_KV_REST_API_URL` and `UPSTASH_REDIS_REST_KV_REST_API_TOKEN`, supports the legacy `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` pair only when the Marketplace pair is absent, and fails closed for a partial or invalid Marketplace pair.
 
-The absence of chatbot code is an implementation gap against a **Confirmed** customer-facing chatbot requirement; it does not establish or imply a provider, model, architecture, or interface.
+The GHL client maps name, phone, and email to Contact fields, Contact Preference to its approved Contact custom field, and service, description, project location, submission ID, campaign source, and campaign name to the approved Opportunity fields. It uses the fixed LeadConnector API host and validates the token, location, pipeline, stage, and field-ID configuration before any request.
 
-GoHighLevel is a **Confirmed** business/platform selection, but the repository contains no verified GoHighLevel account configuration, dependency, client, API call, field mapping, workflow, credential reference, payment-processor setup, or enabled-module evidence. The platform decision must not be documented here as implemented architecture until repository or environment evidence verifies it.
+The state store retains a SHA-256 payload hash, delivery phase, provider record IDs, generic error category, and timestamp; it does not store the submitted name, phone, email, project description, or provider tokens. GHL responses are streamed with a 1,000,000-byte cap and five-second timeout. Upstash responses are streamed with a 64,000-byte cap and 2.5-second timeout.
 
-Decision D-018 confirms a lead-generation beta that will require lead intake and verified GoHighLevel CRM delivery. That release decision does not establish an implementation architecture: the repository still contains no form handler, API route, server action, webhook, GoHighLevel client, or verified external configuration.
+Before creating an Opportunity, the coordinator searches the Contact's pipeline Opportunities for the Website Submission ID. Ambiguous create outcomes remain durable and are reconciled rather than blindly re-posted. An explicit non-retryable rejected create is reconciled once and may be retried after configuration correction. Delivery events report only a generic category and the validated submission UUID. These controls target at-most-one automatic Opportunity creation plus reconciliation; they cannot provide a strict transactionally guaranteed exactly-once result across Redis and GoHighLevel.
+
+The external Upstash database and Vercel variables are provisioned. `src/lib/upstash-config.ts` provides one validated Marketplace-or-legacy REST configuration loader for delivery state and rate limiting. `src/lib/upstash-idempotency.ts` applies a 30-day TTL to every guarded technical delivery-state write and implements the atomic fixed-window counter. `src/lib/lead-rate-limit.ts` derives HMAC-pseudonymous namespaced client keys and fails closed. The repository still contains no owner-notification code; that action is external in GoHighLevel. Controlled protected-Preview runs exercised completed persistence/delivery, retained-submission recovery after a fail-closed response, and the hosted rate-limit threshold. The recovered submission produced exactly one Contact, one Opportunity, one workflow enrollment, and a `Success` notification action; the counter capped at five and one additional valid request returned `429` without duplicate provider delivery. This runtime evidence does not add tracked architecture or prove broader failure/concurrency behavior, Production operation, human-response timing, privacy/retention operating procedures, or launch acceptance.
+
+Commit `85117a1` contains the bounded browser-side chatbot integration described above, including the exact services WebSocket origin required by the hosted transport. Its data path is a public third-party script loaded directly by the homepage browser from the fixed LeadConnector widget origin, with subsequent resources/connections limited in source to the three exact HTTPS LeadConnector origins and, for `connect-src` only, `wss://services.leadconnectorhq.com`. The repository contains no PaintSwitch chatbot API route, model client, server-side chatbot credential, conversation database, transcript persistence, summary/export workflow, automatic human-handoff state transfer, Contact/Opportunity creation from chat, booking, payment, or chatbot action. Exact provider-internal processing remains a provider fact rather than repository architecture. The hosted Preview verifies the bounded homepage path described below, one no-reload reply display, and one manual synthetic conversation deletion rehearsal. It does not verify exact two-second timing, broader reliability, Production, mobile/accessibility, provider-enforced retention/anonymization, or either shutdown path.
+
+GoHighLevel is a **Confirmed** business/platform selection. The pushed source references only server-side environment-variable names, never confidential values, and adds no provider package dependency. External private-integration, pipeline, field, and Vercel-variable verification is recorded in `DEVELOPMENT_STATUS.md`; external configuration is not tracked repository architecture.
+
+Decision D-018 confirms a lead-generation beta that may launch without the chatbot. D-053 supersedes only the blanket chatbot deferral by allowing bounded homepage owner testing while ads and promotion remain off; it does not make the chatbot a lead-generation-beta gate or approve other deferred sales capabilities. The clients, mocked tests, provisioned Upstash connection, D-030 safeguards, corrected D-031 sender evidence, published D-032 workflow, controlled manual and website-driven Preview runs, retained-submission recovery, hosted rate-limit threshold, owner-confirmed receipt, bounded chatbot Preview, and manual synthetic chat-deletion rehearsal are implementation evidence, not Production acceptance. The Preview environment setting and latest branch Preview have `LEAD_DELIVERY_ENABLED=false`, and Production remains `false`. The hosted Preview consumed `HIGHLEVEL_CHAT_WIDGET_ENABLED=true`; the external bot was changed to Auto Pilot solely for controlled owner testing and remains Live Chat-only. One reply displayed without reload within a 20-second observation, but exact two-second delay, 10-reply-cap, and manual/workflow-sleep runtime behavior, broader reliability, mobile/accessibility behavior, provider-enforced retention/anonymization, both shutdown paths, promoted traffic, and Production end-to-end evidence remain missing.
+
+## Controlled external runtime evidence — not repository architecture
+
+On 2026-08-06, the signed-in HighLevel account reported the Starter subscription activated and AI Employee Unlimited enabled under the owner-approved commercial terms in D-050. `PaintSwitch AI Assistant` exists as a Prompt Based bot started from scratch. The owner approved `OpenAI GPT 4.1`, the D-052 safety-first prompt, and the D-053 exact Live Chat owner-test settings. The bot was initially Off with Live Chat as its only channel; on 2026-08-07 it was changed to Auto Pilot solely for controlled owner testing. The saved settings use 10 replies, a two-second delay, images/voice responses off, manual/workflow sleep, and direct form/mailbox handoff without automatic context transfer. Conversation Summary and transcript workflow export remained off in the prior inspection. Four controlled provider-panel tests passed the exact bounded scenarios observed.
+
+### Chatbot hosted Preview owner-test evidence â€” 2026-08-07 through 2026-08-08
+
+Commit `649f06d` was pushed on `codex/lead-generation-beta`, and its PR #2 checks passed. Preview `https://paintswitch-9vzqs7zmi-paint-switch.vercel.app` loaded the widget only on the homepage. The visible title and intro disclosed that the visitor was interacting with AI. No pre-chat contact form or visible attachment/voice control appeared. Provider markup still contained a hidden `display:none` file input, so this evidence does not claim that provider-internal attachment code is absent.
+
+Historical debugging evidence from commit `649f06d` is preserved: two synthetic messages passed the observed safeguards and appeared in the widget after page reload. A service-question response named interior, exterior, cabinet, and commercial painting and directed the visitor to `Request a Quote`. A pricing/booking request was refused and directed to the form and human follow-up. A third synthetic message asked whether ZIP `22102` could be confirmed. HighLevel generated a response refusing to guarantee ZIP availability and routing to `Request a Quote`/human review, but the browser widget did not display it within a 30-second no-reload observation. Browser logs contained only unrelated Chrome-extension warnings and no site/widget error.
+
+Commit `85117a1` adds the exact `wss://services.leadconnectorhq.com` origin to the chat-enabled `connect-src` and was pushed on `codex/lead-generation-beta`. Fresh PR #2 `GitHub Verify`, `Vercel`, and `Vercel Preview Comments` checks all passed, and Preview `https://paintswitch-44fjlzkoy-paint-switch.vercel.app` reached `Ready`. In a fresh Preview subdomain and session, the homepage chat responded to `What painting services do you offer?` within a 20-second no-reload observation. The displayed reply disclosed AI, named interior, exterior, cabinet, and commercial painting, and directed the visitor to `Request a Quote`. The observation produced zero site/widget console logs. This is one real-time display pass; it does not establish exact two-second timing or broader reliability.
+
+The exact synthetic conversation `Guest Visitor Svdtu`, containing no email, phone, or customer data, was permanently deleted through HighLevel's `Delete Conversation` > `Delete Forever` dialog. The inbox afterward showed no unread conversations. This verifies one manual synthetic deletion rehearsal only. It does not establish provider-enforced retention, anonymization, backup deletion, or the ongoing operating procedure. Mobile/accessibility behavior, both kill-switch shutdown tests, Production runtime, exact delay/cap/sleep runtime behavior, and promoted traffic remain unverified.
+
+On 2026-08-04, commit `3bac3ba` was exercised through an access-protected Vercel Preview using Standard Protection with Require Log In. `LEAD_DELIVERY_ENABLED` was temporarily set to `true` for Preview only; Production was explicitly kept `false`. Enabled deployment `CrJA8ve4qzNHneVLwEtkr5N15gJu` at `paintswitch-pp6wvxmih-paint-switch.vercel.app` reached Ready at 1:18:57 PM EDT.
+
+Exactly one synthetic browser submission ran from 1:19:53 PM through 1:19:57 PM EDT. The browser displayed the exact success copy, `Your request was sent. A PaintSwitch team member will review the details and follow up.` Submission `a0c9e9cd-4e98-4f45-8c1f-16c9a31256ec` created GoHighLevel Contact `w1tEl1ktbKestabbkBr3` and Opportunity `11u1dIja7oMJXS4srkPu`; all expected Contact/Opportunity mappings and both UTM attribution values were observed. The published owner-notification workflow enrolled exactly once at 1:19:56 PM. Execution `01KZ6WM16S7WTFPM40NTEA9381` reported the internal-notification event as `Success` at 1:19:57 PM and finished. No SMS or other customer-facing workflow action ran.
+
+The owner confirmed that the resulting internal message reached `hello@paintswitch.com` at approximately 1:20 PM EDT. This verifies receipt only for this exact controlled Preview trigger; at that time it did not establish sender authentication, failure behavior, operational response, or Production delivery. Later provider-account configuration is tracked in the operational documents, not treated as repository architecture here.
+
+The matching Upstash completed state contained a version, payload hash, provider IDs, completion phase, and updated timestamp, but none of the raw submitted name, email, phone, location, service, description, or preference fields. Its observed remaining TTL was 2,591,535 seconds, and the delivery lock was absent after completion. One Preview rate counter had value `1` with 101 seconds remaining. This proves a single hosted state/counter path; it does not establish a broader privacy classification or test the five-submission threshold, blocked response, concurrency, failure/retry behavior, or Production behavior.
+
+After the test, the Preview environment setting and latest branch Preview were restored to `false`. Fresh disabled deployment `6NrFmAef7vgP3dm9iuC11DBYEJ1d` at `paintswitch-7qbi2cue9-paint-switch.vercel.app` reached Ready at 1:26:34 PM EDT, and Production remained `false`. The immutable enabled deployment URL remains access-protected. The test verifies one website-to-Upstash-to-GoHighLevel-to-workflow-to-inbox success path, not failure handling, Production delivery, human-response timing, or complete launch operation.
+
+### Final-candidate protected-Preview evidence — 2026-08-05
+
+Application commit `beb6781` passed GitHub Actions `Verify`, and its Vercel Preview reached `Ready`. The candidate was first exercised with `LEAD_DELIVERY_ENABLED=false`; one unchanged synthetic submission failed closed while the browser retained its submission identity. Preview delivery was then temporarily enabled and the candidate redeployed. Retrying that same retained submission recovered exactly once: GoHighLevel contained one Contact, one Opportunity, one workflow enrollment, and one internal-notification action with status `Success`. No duplicate provider record or workflow enrollment was observed.
+
+In a delivery-disabled threshold check, the hosted fixed-window counter reached its cap of five counted valid attempts. Those attempts returned the expected delivery-disabled `503`; one additional valid attempt returned `429` and did not create another Contact, Opportunity, or workflow enrollment. This verifies the deployed threshold and blocked-request no-delivery boundary for the controlled Preview client; it does not establish behavior across concurrent clients or Production.
+
+After the rehearsal, Preview `LEAD_DELIVERY_ENABLED` was restored to `false`, and the disabled redeployment reached `Ready`. Production remained disabled. This section intentionally omits synthetic personal data and opaque Redis keys.
+
+A signed-in GoDaddy administration view also verified that mailbox accounts for `hello@paintswitch.com` and `alex@paintswitch.com` exist and are under owner administration. Later on 2026-08-05, Microsoft MFA for `alex@paintswitch.com` succeeded, Outlook opened showing that mailbox, and a controlled self-addressed operational message containing no customer data was sent at 2:24 PM ET and appeared unread in the Alex inbox. Separate external operational evidence then verified the Saved/published two-stage GoHighLevel branch and both synthetic outcomes: an Opportunity still in `New Quote Request` after five minutes produced the Alex action, while one moved to `Contact Attempted` did not. The owner's mobile Outlook screenshot and GoHighLevel Email Analytics verify routed Alex receipt at 4:23 PM. Transition ownership and acknowledgment, failure/retry behavior, human response, and complete operational-backup readiness remain unverified. These are external account-state and runtime facts, not tracked repository architecture.
 
 ## Deployment configuration
 
 - The Git remote points to `paintswitch/paintswitch-web` on GitHub.
-- The repository contains no tracked GitHub Actions workflows.
+- The repository contains one GitHub Actions verification workflow. Fresh PR #2 `GitHub Verify`, `Vercel`, and `Vercel Preview Comments` checks all passed for application commit `85117a1` on 2026-08-08.
 - The repository contains no tracked Vercel project configuration; `.vercel` is ignored.
-- `next.config.ts` exports an otherwise empty `NextConfig` object.
-- A historical deployment report is recorded in `DEVELOPMENT_STATUS.md`; it is not verified architecture evidence.
+- `next.config.ts` disables `X-Powered-By` and configures the security-header baseline. Commit `85117a1` conditionally adds the three exact HTTPS LeadConnector origins and the exact services WebSocket origin only when the chat environment flag is true; the WebSocket origin is limited to `connect-src`. The enabled policy displayed one hosted Preview reply without reload and produced zero site/widget console logs; Production runtime remains unverified.
+- Pushing `codex/lead-generation-beta` automatically creates Vercel Previews. Application commit `85117a1` produced Ready Preview `https://paintswitch-44fjlzkoy-paint-switch.vercel.app`, where the bounded homepage chatbot displayed one safeguarded reply within a 20-second no-reload observation. The protected lead-delivery operational tests recorded above were performed on earlier application commit `beb6781`; both its tested enabled state and restored disabled redeployment reached `Ready`. Production promotion/release and rollback remain unverified, and the apex still serves the prior `main` build.
+- The external database `paintswitch-lead-idempotency` is connected to Vercel with five Sensitive Production-and-Preview variables. No value is recorded in the repository or documentation.
 
 ## Security and operational posture visible in the repository
 
-- No application authentication, authorization, secrets-handling code, data-retention controls, rate limiting, or application logging is present.
+- No application authentication or authorization is present. D-030's 30-day technical-record TTL and five-valid-submissions-per-client-IP-per-600-seconds rate limit are implemented and locally tested. D-039 confirms a 12-month retention rule for unconverted CRM leads, but the repository snapshot audited here contains no implementation of that CRM deletion/anonymization process; retention for other record classes remains TBD.
+- Server-only configuration validation, fixed provider hosts, provider timeouts, streamed response caps, generic public errors, durable state logic, and reconciliation exist locally. Confidential values are not present in source.
+- The browser generates and reuses a UUID when an unchanged failed submission is retried and clears it after a `409` conflict. The server hashes the full normalized payload to detect submission-ID reuse with changed content.
+- The 60-second lock and durable phases support at-most-one automatic create plus reconciliation. Every guarded technical-state write carries the 30-day expiry. Hosted evidence includes a completed state with expiry and absent completed lock plus one unchanged synthetic submission that first failed closed and then recovered exactly once after Preview delivery was enabled. Exactly one Contact, one Opportunity, one workflow enrollment, and one `Success` notification action were observed. Broader failure modes, concurrency, and Production behavior remain unverified, and no cross-provider exactly-once guarantee is claimed.
+- The atomic limiter runs after schema validation and before GoHighLevel delivery. Its fixed 600-second window begins with the first valid request. Requests that fail origin, content, body, or schema validation do not consume quota; blocked attempts do not increment or extend the window. Hosted Preview evidence on 2026-08-05 verified a counter capped at five and one additional valid request returning `429` without provider duplication. Unavailable limiting returns `503`. Deployed environments trust only a canonical single-IP `x-vercel-forwarded-for`; localhost uses one shared development identity. HMAC keys prevent raw-IP storage but use the Upstash token as the secret, so token rotation resets active pseudonymous buckets.
+- Sanitized delivery reporting emits only a generic event category and validated submission UUID. No monitoring destination, alerting workflow, operator dashboard, or full observability path is present.
+- Server validation, strict request-shape and email checking, a 16 KiB bounded stream, a five-second body-read deadline, exact same-origin production/local/preview checks, generic errors, and security response headers remain in place.
 - Environment files are ignored by Git.
-- A historical dependency-install report identified untriaged vulnerabilities; see `DEVELOPMENT_STATUS.md`.
-- No operational runbook, monitoring configuration, incident process, or backup configuration is present.
+- The chat widget ID is public configuration in source. No HighLevel chatbot credential or model secret is present. The enabled environment flag and the provider bot's Auto Pilot state were exercised together in the hosted Preview, proving the activation side of the two-control boundary and one no-reload reply display only. Neither shutdown path has been tested, and exact delay/cap/sleep runtime behavior remains unverified. The Preview showed no pre-chat form and no visible attachment/voice controls, but provider markup retained a hidden `display:none` file input; provider-internal attachment code is therefore not claimed absent.
+- After the owner-approved D-047 upgrade to exact stable `next@16.3.0` and `eslint-config-next@16.3.0`, `npm audit --omit=dev --json` reports zero vulnerabilities. The dependency regression suite and local production smoke pass; no Preview/Canary package, React change, or force fix was used. Fresh PR #2 Preview/CI checks pass for commit `85117a1`; Production remains a separate release gate.
+- `BETA_OPERATIONS_RUNBOOK.md` documents manual lead-response, delivery-failure, privacy-request, unconverted-lead-retention, conditional-backup, release, and rollback procedures. No repository-tracked monitoring/alert configuration, automated incident process, automated CRM-retention job, or active backup-routing configuration exists.
 
 ## Architecture boundaries
 

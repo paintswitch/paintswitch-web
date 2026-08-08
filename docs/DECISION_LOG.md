@@ -1,6 +1,6 @@
 # PaintSwitch decision log
 
-Last updated: 2026-08-01
+Last updated: 2026-08-08
 
 This log records material approved decisions. Dates are approval dates when supplied; otherwise the entry identifies when the decision was first documented as confirmed. Preserve superseded entries and link their replacements.
 
@@ -10,7 +10,7 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Status:** Confirmed
 - **Decision:** PaintSwitch is a standalone consumer brand completely separate from Jen Contracting. Never use Jen Contracting branding, “powered by Jen,” shared identity, or any customer-facing connection.
 - **Reason:** Establishes the governing brand boundary and prevents customer confusion.
-- **Consequences:** All customer-facing identity, copy, metadata, experiences, and future integrations must present PaintSwitch independently.
+- **Consequences:** All customer-facing identity, copy, metadata, experiences, and future integrations must present PaintSwitch independently. D-035 later establishes a Jen Contracting DBA relationship for internal/legal structure only; it does not permit any Jen branding, “powered by” language, shared identity, or implied customer-facing connection.
 - **Supersedes:** Any prior undocumented assumption that PaintSwitch could be customer-facing as part of, shared with, or powered by Jen Contracting. No prior decision ID is documented.
 
 ## D-002 — DMV launch market
@@ -19,7 +19,7 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Status:** Confirmed
 - **Decision:** Launch in the DMV. Exact cities, counties, ZIP codes, travel zones, and service boundaries remain TBD.
 - **Reason:** Establishes the regional launch focus without inventing unsupported coverage details.
-- **Consequences:** Product and marketing may refer to the DMV, but address eligibility and travel rules cannot be enforced or promised until approved.
+- **Consequences:** Product and marketing may refer to the DMV, but address eligibility and travel rules cannot be enforced or promised until approved. D-034 later prioritizes Virginia for the public beta without creating a Virginia-only service boundary.
 - **Supersedes:** None documented.
 
 ## D-003 — Technology-driven mainstream positioning
@@ -109,7 +109,7 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Status:** Confirmed
 - **Decision:** PaintSwitch includes a customer-facing chatbot.
 - **Reason:** Establishes the chatbot as an approved customer-facing product capability.
-- **Consequences:** The chatbot must follow confirmed brand, pricing, eligibility, review, and consultation rules. Provider, model, architecture, exact interface, and any responsibilities not independently confirmed remain TBD or Proposed.
+- **Consequences:** The chatbot must follow confirmed brand, pricing, eligibility, review, and consultation rules. D-051 later resolves the provider and bot type, D-052 resolves the model and narrow prompt-only V1, and D-053 resolves the bounded homepage owner-test interface/settings, direct handoff, manual chat-retention boundary, and activation kill switches. Provider-internal details, broader qualification/actions, operating rehearsal, and promoted-release phasing not independently confirmed remain TBD or Proposed.
 - **Supersedes:** The 2026-07-31 documentation classification that treated the chatbot itself as Proposed. A chatbot-guided quote flow and specific chatbot responsibilities remain Proposed unless separately confirmed.
 
 ## D-013 — Flat fuel/materials adjustment
@@ -162,9 +162,377 @@ This log records material approved decisions. Dates are approval dates when supp
 - **Date:** 2026-08-01
 - **Status:** Confirmed
 - **Decision:** Launch a focused lead-generation beta before instant pricing and self-service checkout. The beta markets the four confirmed painting services—interior, exterior, cabinet, and commercial—and does not market Drywall Repair as a standalone service. Its primary action is “Request a Quote.” It accepts quote requests throughout the DMV for manual service-availability review; collects name, phone, email, project ZIP or address, service type, project description, and contact preference; sends each lead to a verified GoHighLevel CRM pipeline; notifies the responsible operator; shows an on-page submission confirmation; and records basic lead-source and campaign attribution.
-- **Reason:** Establishes the shortest approved release capable of generating measurable PaintSwitch leads while pricing, checkout, scheduling, chatbot, and other end-state workflows are still unresolved or unimplemented.
-- **Consequences:** The beta must not display instant prices, collect deposits or payments, enable checkout, promise customer-selected scheduling, or imply that an address or price is approved before review. It may state that PaintSwitch serves the DMV while disclosing that service availability and pricing are confirmed after review. The confirmed customer-facing chatbot, instant quote, checkout, payments, photo-review automation, and automated proposals are deferred from this beta rather than rejected. Exact GoHighLevel configuration, pipeline fields beyond the approved intake data, lead owner, response-time target, customer email/SMS acknowledgment, consent and legal wording, custom domain, anti-spam implementation, detailed conversion-event definitions, and later-release sequencing remain TBD until approved or verified.
+- **Reason:** Establishes the shortest approved release capable of generating measurable PaintSwitch leads while pricing, checkout, scheduling, and other end-state workflows are still unresolved or unimplemented.
+- **Consequences:** The beta must not display instant prices, collect deposits or payments, enable checkout, promise customer-selected scheduling, or imply that an address or price is approved before review. It may state that PaintSwitch serves the DMV while disclosing that service availability and pricing are confirmed after review. Instant quote, checkout, payments, photo-review automation, and automated proposals are deferred from this beta rather than rejected. D-053 later supersedes only the chatbot-deferral portion by permitting a bounded homepage-only live owner test while ads and promotion remain off; that test is optional for the lead-generation beta and does not expand the beta's pricing, checkout, payment, scheduling, or proposal scope. Decision D-019 later confirms the primary lead owner, acknowledgment channels, and Vercel beta hosting. D-030 later confirms the beta's rate-limit threshold and technical Upstash-record TTL. Current source and local tests implement both; protected Preview evidence now verifies the hosted threshold and one fail-closed/retained-submission recovery completed exactly once. Hosted concurrency, notification-action failure recovery, actual expiration, and Production operation remain pending. Exact GoHighLevel configuration, pipeline fields beyond the approved intake data, backup routing, SMS content/consent/sender/workflow, legal verification, broader record retention/deletion, detailed conversion-event definitions, and later-release sequencing remain TBD until approved or verified.
 - **Supersedes:** The prior TBD status of whether a lead-generation beta could precede instant quote and checkout; the prior TBD status of standalone Drywall Repair for this beta; and the prior Proposed status of basic conversion/source tracking for this beta. It does not resolve Drywall Repair scope for later releases or approve broader analytics behavior.
+
+## D-019 — Beta lead ownership, acknowledgment, and hosting
+
+- **Date:** 2026-08-02
+- **Status:** Confirmed
+- **Decision:** The PaintSwitch owner is the primary owner of all beta leads. Every valid beta submission receives both an immediate on-page confirmation and an immediate automatic SMS acknowledgment. Human outreach should occur immediately when possible. The beta remains on the existing Vercel location while the owner works on acquiring a custom domain and creating the GoHighLevel account.
+- **Reason:** Establishes accountable lead ownership, closes the acknowledgment-channel decision, and prevents domain acquisition from delaying lead generation.
+- **Consequences:** New leads must notify the owner and enter a workflow that sends the approved acknowledgment only after a valid submission is accepted. The exact measurable human-response target, operating hours, backup owner, SMS wording, consent and opt-out language, sender/number configuration, failure handling, and verified GoHighLevel account/workflow remain TBD. Current HighLevel form guidance reviewed on 2026-08-02 requires an SMS-consent checkbox to be optional and unchecked; selecting `Text` as a contact preference is not sufficient consent. The recommendation to give every accepted lead on-page confirmation but send automatic SMS only after explicit optional opt-in is **Proposed**, because adopting it would narrow this decision and requires owner approval. Provider or carrier guidance and A2P approval are operational-readiness inputs, not legal approval; final legal review remains TBD. SMS remains disabled until the conflict is resolved. A future custom domain is expected but does not block the beta.
+- **Supersedes:** The prior TBD status of the primary lead owner, whether beta acknowledgment includes SMS, and whether a custom domain is required for beta. It does not approve exact SMS compliance language or prove that a GoHighLevel account or domain exists.
+- **Superseded by:** D-027 supersedes only the requirement that every valid submission receive automatic SMS. The primary-owner, immediate-human-outreach, on-page-confirmation, and Vercel-hosting portions remain current.
+
+## D-020 — Primary domain and redirect
+
+- **Date:** 2026-08-02
+- **Status:** Confirmed
+- **Decision:** Use `paintswitch.com` as PaintSwitch's primary customer-facing domain while Vercel remains the website host. Permanently redirect `www.paintswitch.com` to `paintswitch.com`.
+- **Reason:** The owner purchased the domain and explicitly authorized both connections, establishing one canonical public address without changing the approved Vercel hosting direction.
+- **Consequences:** The apex domain may be connected to the Vercel production deployment and the `www` hostname may use a permanent redirect to the apex. This resolves domain acquisition and canonical-domain direction. It does not verify GitHub automatic-deployment behavior, environment settings, rollback, monitoring, GoHighLevel configuration, or any customer-facing workflow beyond website delivery.
+- **Supersedes:** The part of D-019 describing domain acquisition as future work. It does not supersede D-019's decision that domain work must not delay the beta.
+
+## D-021 — GoHighLevel beta CRM foundation
+
+- **Date:** 2026-08-02
+- **Status:** Confirmed
+- **Decision:** Create a dedicated GoHighLevel pipeline named `PaintSwitch Lead Intake` with exactly one stage named `New Quote Request`. Add fields named `Service Type`, `Project Description`, and `Contact Preference`. Leave the existing sample/demo pipeline and records untouched. Keep GoHighLevel SMS and Voice AI disabled until each is separately approved and operationally ready.
+- **Reason:** Establishes a minimal, isolated CRM destination for the approved lead-generation beta without altering demo data or prematurely activating customer messaging or AI phone intake.
+- **Consequences:** The pipeline and stage may be configured immediately. The three field names are approved, but their Contact-versus-Opportunity object, field types, option values, and mappings remain **TBD**. This CRM foundation does not prove website delivery, owner notification, deduplication, workflow, API/secure connection, sender identity, A2P registration, or production QA. At the time of this decision, D-019 required automatic SMS for beta; D-027 later superseded that requirement with consent-based SMS and an A2P-pending disabled state. Voice AI remains outside the beta unless separately approved.
+- **Supersedes:** The prior **TBD** status of the production pipeline name, initial stage name, and these three custom-field names. It does not supersede D-019's SMS requirement or D-018's deferral of AI qualification from the beta.
+- **Superseded by:** D-027 supersedes only the statement that SMS must be enabled to satisfy the beta. D-049 supersedes only the exactly-one-stage restriction by adding `Contact Attempted`; `New Quote Request` remains the initial stage. The pipeline name, original fields, sample-data, and interim-disabled-state portions remain current.
+
+## D-022 — GoHighLevel beta field definitions and PaintSwitch mailbox
+
+- **Date:** 2026-08-02
+- **Status:** Confirmed
+- **Decision:** Configure `Service Type` as an Opportunity single-select dropdown with `Interior`, `Exterior`, `Cabinet`, and `Commercial`; configure `Project Description` as an Opportunity multi-line field; and configure `Contact Preference` as a Contact single-select dropdown with `Call`, `Text`, and `Email`. Use `hello@paintswitch.com` as the primary PaintSwitch domain mailbox.
+- **Reason:** Gives the beta lead destination a consistent project/contact data structure and establishes a standalone PaintSwitch email identity that does not expose a Jen Contracting address.
+- **Consequences:** The three custom fields may be created in GoHighLevel and used by the website mapping. **Implementation verification — 2026-08-04:** The fields and local mappings exist, and the server-side field identifiers are configured. D-029 confirms `hello@paintswitch.com` as the owner-notification destination; D-031 confirms internal sender `PaintSwitch <hello@paintswitch.com>`; owner-supplied screenshot evidence satisfies AC-044's visible no-Jen sender check; and D-032 authorized and verified publication of the exact workflow. A controlled manual Opportunity and one protected Preview website submission each produced exactly one completed workflow enrollment and a successful internal-notification action. The owner confirmed receipt of the Preview-triggered notification at approximately 1:20 PM EDT. The Preview Contact mapping verified `Contact Preference = Email`; the Opportunity mapping verified all approved fields. **Additional external implementation evidence — 2026-08-05:** Dedicated sender/live DNS configuration, PaintSwitch-only Business Profile values, post-configuration row-level hello/Alex delivery, and routed Alex receipt are verified. Staff ownership, domain-warmup completion/raw-header authentication, failure behavior, production deployment, and production provider end-to-end tests remain incomplete.
+- **Supersedes:** The field-object, field-type, option-value, and primary-mailbox-address portions of D-021 and the related **TBD** entries. It does not approve the remaining integration, sender-authentication, or messaging configuration.
+
+## D-023 — Lead-generation beta delivery target and implementation boundaries
+
+- **Date:** 2026-08-02
+- **Status:** Confirmed
+- **Decision:** Target the confirmed lead-generation beta for launch on Saturday, 2026-08-08. Limit owner-required participation to at most one hour per day. Use a custom branded PaintSwitch quote-request form connected securely to GoHighLevel through a server-side integration. Remove the current placeholder reviews and do not publish reviews again until verified, permissioned reviews exist.
+- **Reason:** Establishes a focused delivery target, protects the owner's time, fixes the customer-facing intake direction, and removes unsupported trust content while preserving the confirmed GoHighLevel operating model.
+- **Consequences:** The date is a delivery goal, not authorization to bypass any confirmed safety, legal, privacy, consent, security, messaging, or acceptance requirement. GoHighLevel credentials and secrets must not be exposed to customer-delivered code. The custom form, private integration, server-only GHL configuration, mappings, at-most-one automatic-create/reconciliation logic, failure handling, Upstash database, Sensitive Vercel connection, D-030 safeguards, working Privacy and Terms routes, approved pre-submit disclosures, and DMV-wide individual-review copy with Virginia priority exist in current source. Fifty-nine automated tests, lint, TypeScript type checking, the production build, and the zero-vulnerability audit pass locally. The 2026-08-04 protected Preview verified the initial success path and owner receipt. On 2026-08-05, earlier application commit `beb6781` recovered one retained synthetic submission exactly once after a fail-closed result, created one successful workflow action, safely returned Preview to disabled without a duplicate, and verified the hosted five-request threshold with a following `429`. Current application commit `e142b21` passed GitHub `Verify` and reached Vercel `Ready`. Hosted concurrency, notification-action failure recovery, actual expiration, privacy/retention rehearsal, professional/legal review, Production promotion, final operating rehearsal, and Production acceptance remain incomplete. D-033 resolves the prior Vercel Hobby plan blocker through owner approval and signed-in Pro-team verification. External A2P remains a later-release risk; D-042 requires automated customer SMS to remain off for beta. Work must be sequenced so required owner participation does not exceed one hour on any day.
+- **Supersedes:** The unresolved choice between removing or replacing placeholder reviews for the beta: they must be removed until verified, permissioned reviews exist. It also resolves the beta form direction in favor of a custom branded form and the website-to-GoHighLevel connection boundary in favor of a secure server-side integration. It does not supersede D-019's SMS requirement, D-021's interim SMS safety state, or any launch gate.
+- **Superseded by:** D-027 supersedes only the requirement that an A2P delay cannot result in a beta launch with SMS disabled. All other safety, legal, privacy, consent, security, and acceptance gates remain current.
+
+## D-024 — GoHighLevel private integration and Vercel secret storage
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Create a private integration for the Paint Switch GoHighLevel location and store its token securely as a server-side Vercel environment secret. Never expose the token in customer-delivered code, tracked source, public logs, or canonical documentation.
+- **Reason:** Gives the approved custom PaintSwitch form a secure server-to-server path into the confirmed GoHighLevel operating engine.
+- **Consequences:** Private-integration creation and Vercel secret configuration may proceed. Use only the permissions required for the approved beta contact/opportunity delivery and verify the environment-variable handling, rotation procedure, native mappings, delivery workflow, and end-to-end behavior during implementation. The confidential token value must never enter canonical documentation. D-029 confirms the notification destination, D-031 confirms the internal From values, corrected screenshot evidence satisfies AC-044, and D-032 verifies publication. **Implementation verification — 2026-08-04:** The private integration exists with the required beta contact/opportunity/custom-field permissions, and its token is stored as a Sensitive Vercel environment variable for Production and Preview. Location, pipeline, and stage identifiers are configured server-side. One controlled manual Opportunity and one protected Preview website submission each verified one successful workflow trigger and internal-notification action. The owner confirmed that the Preview-triggered internal notification reached `hello@paintswitch.com` at approximately 1:20 PM EDT. The Preview test proves one server-to-server website/provider path without exposing a credential in the observed browser path. **Additional external implementation evidence — 2026-08-05:** Dedicated sender/live DNS configuration, post-configuration row-level hello/Alex delivery, and routed Alex receipt now exist. Domain-warmup completion/raw-header authentication, failure behavior, retries/concurrency, and production end-to-end acceptance remain incomplete; the Preview environment setting and latest branch Preview are `false`, Production is `false`, and the earlier immutable enabled Preview remains access-protected.
+- **Supersedes:** The prior TBD status of whether to use a GoHighLevel private integration and where to store its token. It does not supersede D-023's server-side security boundary.
+
+## D-025 — Upstash Redis duplicate and idempotency protection
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Use the free Upstash Redis service as the durable server-side duplicate/idempotency mechanism for beta lead delivery.
+- **Reason:** A durable store is required to prevent retries and concurrent submissions from creating duplicate GoHighLevel records; browser-generated submission IDs alone are insufficient.
+- **Consequences:** The Upstash account/database and server-only Vercel secrets may be configured and the lead-delivery path may use the approved submission ID for durable duplicate protection. D-030 fixes the durable technical idempotency/delivery-state TTL at 30 days. Key design, atomic operation, provider-failure behavior, reconciliation, limits, monitoring, and acceptance tests remain implementation details to complete and verify within this confirmed boundary. No Upstash credential may enter customer-delivered code or tracked source. **Implementation verification — 2026-08-04:** The owner accepted the marketplace terms. Free database `paintswitch-lead-idempotency` exists in Washington, D.C. (`iad1`) with eviction disabled and is connected to Vercel through five Sensitive Production-and-Preview variables. Current source contains the verified durable controls and local fault-injection tests. One protected Preview submission produced a `completed` state with matching CRM IDs, a 64-hex-character payload hash, completion phase, version, and updated timestamp, but none of the raw submitted name, email, phone, location, service, description, or preference fields; 2,591,535 seconds of TTL remained and there was no remaining lock. **Additional hosted verification — 2026-08-05:** Application commit `beb6781` passed GitHub `Verify` and reached Vercel `Ready`. A protected Preview first failed closed, retained one synthetic submission for retry, and then recovered that same submission after delivery was enabled, producing exactly one Contact, one Opportunity, and one successful owner-notification workflow action. After Preview delivery was restored to disabled, a verification request created no duplicate. A separate hosted limiter check held the counter at five and returned `429` for the next valid request. Hosted concurrency, actual 30-day expiration, Production operation, and notification-action failure recovery remain unverified. D-030 does not approve retention for CRM/business/customer data.
+- **Supersedes:** The unresolved choice between a durable idempotency store and a one-opportunity-per-contact rule. It does not approve deduplication based on customer identity or permit silent loss of a legitimate new request.
+
+## D-026 — Additional GoHighLevel Opportunity fields
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Add four GoHighLevel Opportunity fields named `Project Location`, `Website Submission ID`, `Campaign Source`, and `Campaign Name`.
+- **Reason:** These fields provide explicit destinations for project location, durable submission identity, and the beta's approved source/campaign attribution.
+- **Consequences:** The four fields may be created on the Opportunity object and mapped from the secure website delivery path. Select and verify field types, settings, native-contact handling, source normalization, and mappings as implementation details consistent with the approved names and purposes. The three D-022 fields remain unchanged. **Implementation verification — 2026-08-04:** All four Opportunity fields exist, their identifiers are configured in the server-side Vercel field mapping, and the client maps project location, submission ID, campaign source, and campaign name to them. One protected Preview submission populated and verified all four fields, including `Campaign Source = controlled_preview_test` and `Campaign Name = website_e2e_2026_08_04`. Production-safe population evidence remains incomplete.
+- **Supersedes:** The prior TBD status of these four destination field names and object assignment. It does not supersede D-022.
+
+## D-027 — Consent-based beta SMS and A2P launch fallback
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Use a separate SMS opt-in control that is optional and unchecked by default. Every accepted beta lead receives an immediate on-page confirmation. Send an automatic non-marketing SMS acknowledgment only when the customer explicitly opts in and SMS is legally and operationally enabled. If A2P registration is still pending, the beta may launch with SMS disabled.
+- **Reason:** Resolves the conflict between the earlier every-lead SMS requirement and current consent guidance while preserving immediate truthful acknowledgment and the launch target.
+- **Consequences:** Selecting `Text` as contact preference is not consent, declining SMS must not block form submission, and unchecked leads receive no automated SMS. Exact checkbox and SMS wording, sender/number, HELP/STOP behavior, retention, privacy/Terms content, legal approval, verified A2P identity, workflow, and failure handling remain TBD or unverified. Provider/carrier approval does not replace legal review. Launching with SMS disabled does not waive CRM delivery, owner notification, on-page confirmation, privacy, security, anti-spam, or other applicable beta gates.
+- **Supersedes:** The every-valid-lead automatic-SMS portion of D-019, D-021's statement that SMS must later be enabled to satisfy beta, and D-023's prohibition on launching with SMS disabled solely because A2P is pending. It resolves LB-024. It does not supersede the interim rule that SMS remains disabled until separately ready.
+
+## D-028 — Monitored residual dependency risk accepted for beta
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Accept the documented, low-reachability residual risk from the remaining transitive PostCSS and Sharp dependency advisories for the beta while monitoring for a compatible upstream Next.js patch.
+- **Reason:** Current repository inspection found no attacker-controlled CSS-processing or untrusted image-processing path in the beta, and no compatible upstream fix is currently available without an unsafe override or downgrade.
+- **Consequences:** The recorded advisories do not by themselves block this beta. Continue monitoring and reassess before introducing user-controlled CSS, image upload/processing, `next/image`, direct Sharp use, or any other change that could alter reachability. Do not run `npm audit fix --force`, force incompatible transitive versions, or downgrade Next.js automatically. This is scoped risk acceptance, not proof of zero risk or a waiver of other security gates.
+- **Supersedes:** The prior TBD owner disposition on whether the scoped residual dependency risk blocks beta launch. It does not supersede future advisory review or final-candidate verification.
+
+## D-029 — Owner-notification destination
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Send PaintSwitch owner lead notifications to `hello@paintswitch.com`.
+- **Reason:** Resolves the one-letter conflict introduced by the later `hell@paintswitch.com` typo and establishes the approved destination for immediate internal lead notification.
+- **Consequences:** Configure the owner-notification workflow to use `hello@paintswitch.com`; never use `hell@paintswitch.com`. This decision confirms the destination only; D-031 confirms the internal-notification sender. Owner-supplied evidence confirms that the corrected controlled test reached this mailbox with visible sender `PaintSwitch`, PaintSwitch-only routing, the approved subject/body, and no Jen identity, satisfying AC-044. D-032 authorized and verified publication of the exact workflow. Protected Preview checks have produced successful internal-notification actions, including one after retained-submission recovery, and the owner confirmed receipt of the earlier Preview message. Dedicated sender/live DNS configuration and later row-level post-configuration hello/Alex delivery are verified. Lead delivery and notification must not be represented as Production-operational until domain-warmup completion/raw-header authentication proof, notification-action failure recovery, and Production website-to-CRM-to-notification acceptance evidence are complete.
+- **Supersedes:** The temporary 2026-08-03 TBD classification caused by the `hell@paintswitch.com` typo. It does not supersede D-022's primary-mailbox decision or approve sender configuration, workflow content, backup ownership, response-time policy, or any customer-facing email.
+
+## D-030 — Beta technical-record retention and lead-submission rate limit
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Apply a 30-day TTL to Upstash technical idempotency/delivery-state records. Limit the beta lead-intake path to a maximum of five lead submissions per client IP address per ten minutes.
+- **Reason:** Establishes the owner-approved technical retention and abuse-control safeguards required before enabling beta lead delivery.
+- **Consequences:** Implement and test both controls before production lead intake is enabled. The 30-day TTL applies only to Upstash technical idempotency/delivery-state records; it does not approve retention or deletion rules for GoHighLevel Contacts or Opportunities, customer-submitted business data, notification email, provider logs, analytics, or other business records. Those broader CRM/business-data rules remain **TBD** except for D-039's unconverted-lead rule. The exact internal rate-limit mechanism, response implementation, monitoring, and recovery behavior may be selected and verified within the confirmed threshold, but must not weaken it. **Implementation verification — 2026-08-04:** Current source applies the 30-day TTL to every guarded technical delivery-state write and enforces an atomic fixed window of five valid submissions per client IP per 600 seconds after schema validation and before GoHighLevel delivery. The window begins with the first valid request; requests that fail origin, content, body, or schema validation do not consume quota, and blocked attempts do not increment or extend the window. Client identities use HMAC-SHA-256 pseudonymous keys separated into production, preview, and local namespaces. Deployed source trusts only `x-vercel-forwarded-for`; localhost uses a shared local-development bucket. Rotating the Upstash token resets active pseudonymous buckets. An over-limit request returns `429` with `Retry-After`; unavailable limiter configuration, identity, or storage fails closed with `503`. Fifty-nine automated tests, lint, TypeScript type checking, and the production build pass locally. **Hosted verification — 2026-08-05:** A protected Preview check observed the counter stop at five and the next valid request receive `429`, matching the confirmed fixed-window threshold. The fail-closed/recovery check also reused one retained synthetic submission and completed it exactly once after recovery. Preview was restored to disabled, and the disabled verification created no duplicate. Actual 30-day expiration, hosted concurrency, Production operation, and notification-action failure recovery remain unverified.
+- **Supersedes:** The unresolved beta technical Upstash-record TTL and anti-spam/rate-limit threshold portions of D-018, D-023, and related open questions. It does not supersede broader privacy, CRM/business-data retention or deletion, consent, legal, or security requirements.
+
+## D-031 — PaintSwitch-only internal owner-notification sender
+
+- **Date:** 2026-08-03
+- **Status:** Confirmed
+- **Decision:** Use From name `PaintSwitch` and From email `hello@paintswitch.com` for PaintSwitch's internal owner lead-notification email.
+- **Reason:** Preserves the standalone PaintSwitch identity required by D-001 and uses the approved PaintSwitch mailbox from D-022 and D-029.
+- **Consequences:** The internal owner-notification workflow must use exactly those From values and must not use a Jen Contracting-linked sender. This decision confirms only the internal notification sender choice. Customer-facing sender scope, notification-action failure handling, and Production end-to-end operation remain **TBD** or unverified as labeled. Owner-supplied evidence satisfies AC-044's visible no-Jen sender check. Protected Preview checks verify successful workflow actions, including one after retained-submission application recovery, and the owner confirmed receipt of the earlier Preview notification. **Additional external implementation evidence — 2026-08-05:** `mg.paintswitch.com` is enabled in GoHighLevel with SPF, DKIM, CNAME, MX, and DMARC DNS records; live DNS returned the configured SPF/DMARC/MX state; GoHighLevel displays Warmup In Progress at Stage 1 and later 0.1%, Shared IP Active, and SSL Issued. Its Business Profile uses `PaintSwitch`, `hello@paintswitch.com`, and `https://paintswitch.com`. A second synthetic Opportunity produced row-level hello/Alex delivery and routed Alex receipt. Domain-warmup completion, raw-header authentication proof, notification-action failure recovery, and Production deliverability remain unverified. D-032 separately authorized and verified publication.
+- **Supersedes:** The unresolved internal owner-notification From-name and From-email choice and the previously observed Jen-linked sender implementation state. It does not supersede D-029's destination decision or approve a customer-facing sender, authentication method, or live workflow.
+
+## D-032 — Publish the PaintSwitch owner-notification workflow
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Publish the exact GoHighLevel workflow `PaintSwitch Website Lead - Owner Notification` after verifying its Opportunity Created trigger is filtered to `PaintSwitch Lead Intake`, its recipient is `hello@paintswitch.com`, its From name is `PaintSwitch`, its From email is `hello@paintswitch.com`, and its subject/body match the approved internal alert.
+- **Reason:** Activates the owner-approved internal notification configuration while preserving the standalone PaintSwitch identity and exact CRM routing boundary.
+- **Consequences:** Publication of this exact workflow is approved. **Verified implementation — 2026-08-04:** The publish switch was turned on, the global workflow was saved, and after reload it remained Saved with the publish switch checked. With separate owner approval, one isolated synthetic Contact (`TEST PaintSwitch Workflow 2026-08-04`) and one manual Opportunity (`TEST — PaintSwitch Workflow Verification 2026-08-04`) were created in `PaintSwitch Lead Intake` / `New Quote Request`. The Opportunity Created trigger enrolled exactly once at 7:45:28 AM EDT, the `Email Owner - hello@paintswitch.com` internal-notification event reported `Success`, and the workflow finished at 7:45:30 AM. A later protected Preview website submission also enrolled exactly once at 1:19:56 PM; workflow execution `01KZ6WM16S7WTFPM40NTEA9381` reported the internal notification `Success` at 1:19:57 PM and finished without any SMS/customer action. The owner confirmed that this website-triggered message arrived at approximately 1:20 PM EDT. **Additional hosted verification — 2026-08-05:** Recovery of one retained synthetic submission created exactly one Contact and one Opportunity, and the published workflow recorded one internal-notification action as `Success`; restoring Preview delivery to disabled and checking again created no duplicate. No real customer data was used. Dedicated sending-domain/live DNS configuration was later verified. A second post-configuration synthetic Opportunity produced row-level Delivered records to hello at 9:31 PM and Alex at 9:36 PM plus Alex inbox receipt. Application delivery recovery is verified for the protected Preview case, and synthetic post-configuration routing/receipt is verified separately; domain-warmup completion, raw-header authentication proof, notification-action failure recovery, operational backup/human response, hosted concurrency, and Production end-to-end acceptance remain **TBD** or unverified.
+- **Supersedes:** The unresolved approval and implementation status of publishing this exact Draft. It does not supersede D-029's destination, D-031's sender values, or any remaining notification acceptance gate.
+
+## D-033 — Vercel Pro for commercial beta hosting
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Use Vercel Pro for PaintSwitch's commercial beta hosting. The owner reports that the PaintSwitch Vercel project is now on Pro.
+- **Reason:** Resolves the commercially compliant hosting-plan choice that previously blocked commercial lead generation on the documented Hobby plan.
+- **Consequences:** The hosting-plan decision is approved. A signed-in Vercel dashboard check on 2026-08-04 showed the `Paint Switch` team labeled `Pro` and contained the `paintswitch-web` project. Billing administration, Production promotion, environment review, rollback, monitoring, final-candidate verification, and Production acceptance remain implementation work. This does not authorize bypassing any other launch gate.
+- **Supersedes:** The prior **TBD** choice of a commercially compliant Vercel plan and the documented Hobby-plan blocker. It does not supersede D-019's Vercel-hosting decision or D-020's domain decision.
+
+## D-034 — Virginia public beta operating focus
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Make Virginia the public operating focus for the PaintSwitch lead-generation beta.
+- **Reason:** Prioritizes the market where the owner wants the beta to generate and serve leads.
+- **Consequences:** Public beta copy, local lead-generation activity, operational preparation, and launch QA should prioritize Virginia. This focus does not establish a Virginia-only service boundary, approve exact cities/counties/ZIP codes, or supersede the confirmed DMV launch market; exact coverage remains **TBD**.
+- **Supersedes:** The absence of a prioritized jurisdiction within the confirmed DMV launch market. It does not supersede D-002.
+
+## D-035 — PaintSwitch Virginia DBA under Jen Contracting with strict public separation
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Use PaintSwitch as a Virginia DBA of Jen Contracting for internal/legal structure while keeping PaintSwitch completely standalone and PaintSwitch-only in every customer-facing context under D-001.
+- **Reason:** Establishes the owner's internal/legal structural direction without changing the approved standalone consumer brand.
+- **Consequences:** Internal legal, registration, accounting, and compliance preparation may use the approved DBA direction. No customer-facing page, message, sender, branding, “powered by” statement, shared identity, or implied affiliation may connect PaintSwitch to Jen Contracting. The formal registrant name/suffix, filing status, registration number, registered address, tax/EIN facts, licensing, authorized representative, required legal-disclosure treatment, and A2P acceptance remain **TBD** or unverified. If a legal disclosure requirement conflicts with D-001, stop and obtain owner/legal direction rather than publishing a Jen connection.
+- **Supersedes:** The unresolved choice between a standalone legal entity and a DBA structure. It does not prove that the DBA is registered or supersede D-001.
+
+## D-036 — Stop MHIC-focused beta work
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Stop treating Maryland Home Improvement Commission (MHIC) work as a PaintSwitch beta focus.
+- **Reason:** Aligns launch work with the confirmed Virginia public operating focus.
+- **Consequences:** Do not prioritize MHIC-specific implementation, copy, or launch preparation. This is a project-priority decision, not a legal exemption, licensing determination, or Virginia-only service boundary. Maryland governing law under D-044 and any jurisdiction-specific licensing or consumer-protection obligations remain subject to legal review.
+- **Supersedes:** Any prior working assumption that MHIC preparation was a beta priority. It does not waive legal compliance for work actually accepted in any jurisdiction.
+
+## D-037 — Approved beta website-lead data purposes
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Use website lead data only for quote review and response, CRM operation, source/campaign attribution, security, and duplicate prevention.
+- **Reason:** Establishes a narrow purpose boundary for the beta's approved lead intake.
+- **Consequences:** Privacy/Terms copy, vendor configuration, staff access, analytics, and operational use must stay within these purposes. New uses require explicit owner approval and documentation. This approval does not by itself verify provider configuration, staff practice, or legal compliance.
+- **Supersedes:** The prior **TBD** status of permitted beta website-lead uses.
+
+## D-038 — No sale or targeted-ad use of beta lead data
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Do not sell website lead data and do not share or use it for targeted advertising.
+- **Reason:** Sets the owner's privacy boundary for beta customer information.
+- **Consequences:** Privacy/Terms copy and every vendor or campaign configuration must reflect this prohibition. Source/campaign attribution under D-018 remains allowed only for measurement within D-037's approved purposes.
+- **Supersedes:** The prior **TBD** status of sale and targeted-ad sharing/use.
+
+## D-039 — Twelve-month retention for unconverted CRM leads
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Retain an unconverted CRM lead for 12 months after its last interaction, then delete or anonymize it unless it is tied to an active project, a verified security matter, a dispute, or a legal need.
+- **Reason:** Establishes a finite business-record retention rule while preserving documented exceptions.
+- **Consequences:** GoHighLevel retention/deletion or anonymization procedures, exception evidence, and audit records must implement this rule before it can be called operational. This decision governs unconverted CRM leads; it does not set the retention period for active/completed projects, notification email, provider logs, analytics records, or other records not expressly covered. D-030's separate 30-day Upstash technical-state TTL remains unchanged.
+- **Supersedes:** The prior **TBD** status of unconverted CRM-lead retention.
+
+## D-040 — Privacy requests through hello@paintswitch.com
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Accept website-lead privacy access, correction, and deletion requests through `hello@paintswitch.com` and use reasonable verification before acting on a request.
+- **Reason:** Gives beta customers a direct privacy-request channel while protecting records from unauthorized disclosure or deletion.
+- **Consequences:** Published policy and an operating procedure must explain the channel, verification, exception handling, response ownership, and completion evidence. Exact verification steps and response deadlines remain implementation/legal-review details; verification must be proportionate and must not collect unnecessary data.
+- **Supersedes:** The prior **TBD** privacy-request channel and request types.
+
+## D-041 — Project-specific contact authorized by quote submission
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Submitting a quote request authorizes PaintSwitch to contact that person about the submitted project.
+- **Reason:** Establishes the beta's project-specific response basis without converting a quote request into general marketing consent.
+- **Consequences:** The form and policy must disclose project-specific contact accurately. This decision does not authorize unrelated marketing, targeted advertising, or automated SMS and does not replace any legally required channel-specific consent.
+- **Supersedes:** The prior **TBD** status of project-specific contact authorization.
+
+## D-042 — Automated customer SMS remains off for beta
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Treat `Text` as a contact preference only, never as automated-SMS consent, and keep automated customer SMS disabled for the lead-generation beta.
+- **Reason:** Preserves the approved project-contact experience without activating an unready automated messaging channel.
+- **Consequences:** The beta must send no automated customer SMS. D-027's rule that any future SMS opt-in be separate, optional, and unchecked remains controlling before a later activation; A2P, exact wording, sender/number, HELP/STOP behavior, retention, legal review, workflow, and failure handling remain unresolved for that later activation.
+- **Supersedes:** D-027 only to the extent that it allowed automated SMS to become enabled during the beta once ready. It does not supersede D-027's consent safeguards or on-page-confirmation rule.
+
+## D-043 — Beta website and quote service restricted to adults
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Limit the beta website and quote-request service to people age 18 or older.
+- **Reason:** Establishes the owner's customer-eligibility boundary for the beta service.
+- **Consequences:** Privacy/Terms and the quote flow must communicate and enforce the approved 18+ boundary in a legally reviewed manner. Exact implementation and handling of suspected underage submissions remain implementation/legal-review details.
+- **Supersedes:** The prior **TBD** age-eligibility policy.
+
+## D-044 — Maryland governing law without mandatory arbitration or class-action waiver
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Use Maryland governing law for the beta Terms and include neither mandatory arbitration nor a class-action waiver.
+- **Reason:** Establishes the owner's preferred governing-law and dispute-resolution policy.
+- **Consequences:** Terms must reflect this choice and receive implementation/legal review. The Maryland governing-law choice does not make MHIC a beta focus, decide venue, waive jurisdiction-specific protections, or establish service eligibility in Maryland. The interaction between Maryland governing law, the Virginia DBA direction, Virginia operating focus, and mandatory local law remains subject to legal review.
+- **Supersedes:** The prior **TBD** governing-law, arbitration, and class-action-waiver choices.
+
+## D-045 — Beta human-response hours and targets
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Operate lead response from 8:00 AM through 8:00 PM Eastern every day. Make the first human contact attempt within five minutes for leads received during those hours; for after-hours leads, make the first attempt by 9:00 AM Eastern the next day.
+- **Reason:** Converts “contact immediately” into measurable beta operating expectations.
+- **Consequences:** GoHighLevel timestamps, owner/backup coverage, alerts, and rehearsals must make compliance measurable. These are first-attempt targets, not guarantees of customer contact or project acceptance. Failure escalation and reporting remain implementation details.
+- **Supersedes:** The prior **TBD** response hours and measurable human-response target while preserving D-019's primary-owner assignment.
+
+## D-046 — Alex as conditional backup after mailbox verification
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Use Alex as the beta backup lead-notification recipient only after `alex@paintswitch.com` is created and a controlled backup notification is received through the owner-approved route. A self-addressed mailbox test verifies basic mailbox operation but does not activate backup routing.
+- **Reason:** Provides conditional backup coverage without routing lead data to an unverified mailbox.
+- **Consequences:** The PaintSwitch owner remains the primary lead owner. **External account and mailbox verification — 2026-08-05:** GoDaddy Products and email administration showed both `hello@paintswitch.com` and `alex@paintswitch.com` as existing PaintSwitch-domain mailbox accounts with administrative visibility. Microsoft MFA then succeeded for `alex@paintswitch.com`, Outlook opened for that account, and at 2:24 PM Eastern a controlled self-addressed operational message containing no customer data was sent and appeared unread in the Alex inbox. This satisfies the mailbox-creation, direct-access, and basic controlled self-send/receipt prerequisites. **Later routed verification — 2026-08-05:** The owner supplied a 4:33 PM ET mobile Outlook screenshot showing sender `PaintSwitch`, subject `New PaintSwitch website lead`, received by `alex@paintswitch.com` at 4:23 PM; GoHighLevel Email Analytics records that message as Delivered at 4:23 PM. This satisfies the controlled routed-notification receipt gate. It does not prove a human response rehearsal or complete operational activation. Backup response readiness remains incomplete.
+- **Supersedes:** The prior **TBD** choice of backup person, subject to the stated creation-and-test condition. It does not prove implementation or approve any other address.
+
+## D-047 — Upgrade the beta candidate to stable Next.js 16.3.0
+
+- **Date:** 2026-08-04
+- **Status:** Confirmed
+- **Decision:** Upgrade Next.js and `eslint-config-next` together from exact version `16.2.12` to exact stable version `16.3.0`, then run the complete dependency audit and regression suite. Do not use a Preview/Canary package or `npm audit fix --force`.
+- **Reason:** The production audit identified `16.3.0` as the bounded direct remediation for the remaining Next.js, PostCSS, and Sharp findings, and the owner explicitly approved that update.
+- **Consequences:** The exact stable packages were installed without changing React. `npm audit --omit=dev --json` now reports zero vulnerabilities. Fifty-nine tests, lint, TypeScript type checking, and the Next.js `16.3.0` production build pass locally with routes `/`, `/privacy`, `/terms`, `/_not-found`, and `/api/leads`. The local production server returns `200` for all three authored pages with CSP and frame-denial headers and no `X-Powered-By`; the fail-closed form retains its values and shows the approved recoverable failure message; the built public output contains no Jen Contracting, private-address, or MHIC content and includes the required DMV intake plus Virginia-priority language. **Hosted verification — 2026-08-05:** Application commit `e142b21` passed the GitHub `Verify` workflow and its Vercel Preview reached `Ready`. Production promotion and Production acceptance remain separate release gates.
+- **Supersedes:** D-028 only as the active disposition for the three dependency findings resolved by this upgrade. D-028 remains historical evidence of the earlier scoped risk decision and continues to prohibit automatic force fixes or incompatible overrides.
+
+## D-048 — Alex receives backup/escalation-only internal alerts
+
+- **Date:** 2026-08-05
+- **Status:** Confirmed
+- **Decision:** Keep `hello@paintswitch.com` as the immediate primary internal notification destination for every accepted beta lead. Alex must not receive every lead. After the D-046 routing-activation conditions pass, Alex may receive internal alerts only for backup or escalation conditions. Automated customer SMS remains off.
+- **Reason:** Preserves one clear primary operating owner while giving the beta a controlled backup/escalation path without duplicating every routine lead notification.
+- **Consequences:** D-049 confirms the signal and timing. Both stages, workflow branches, and routed Alex receipt are externally verified. Exact transition ownership, acknowledgment mechanism, any future distinct Alex wording, failure behavior, operational activation, and human-response rehearsal remain **TBD** or unverified. D-046's remaining response-readiness gates remain controlling.
+- **Supersedes:** The prior **TBD** choice between every-lead Alex routing and backup/escalation-only routing. D-049 supersedes this decision only where it formerly left the signal, timing, and second-stage status unresolved. D-019's primary-owner assignment, D-029's `hello@paintswitch.com` destination, D-042's automated-SMS-off rule, and D-046's activation conditions remain current.
+
+## D-049 — `Contact Attempted` stage and five-minute Alex escalation
+
+- **Date:** 2026-08-05
+- **Status:** Confirmed
+- **Decision:** Add `Contact Attempted` as the second internal stage in `PaintSwitch Lead Intake`. Keep `New Quote Request` as the initial stage and keep the immediate internal notification to `hello@paintswitch.com` for every accepted beta lead. After five minutes, alert Alex only when the Opportunity still remains in `New Quote Request`; do not alert Alex when the lead has moved to `Contact Attempted`. Routine handled leads must not notify Alex, and automated customer SMS remains off.
+- **Reason:** The stage supplies the owner-approved handled signal and the five-minute condition escalates only leads that have not been marked as contacted, without duplicating routine alerts to Alex.
+- **Consequences:** The two stages and conditional workflow are externally verified as configured, Saved, published, and executed successfully through both synthetic branches. The Alex action reuses the exact D-032-approved internal owner-notification subject/body; this is an implementation fact and does not approve distinct new Alex-alert copy. Routed Alex receipt is verified by Outlook and GoHighLevel Email Analytics. Exact transition ownership and acknowledgment procedure, any future distinct Alex wording, failure and retry behavior, operational activation, and human-response rehearsal remain **TBD** or unverified. D-046 still prohibits treating Alex as an operational backup until its remaining response-readiness gates pass.
+- **Supersedes:** D-021 and PS-PL-013 only where they required exactly one pipeline stage. It also supersedes D-048 and LB-042 where the second stage was **Proposed** and the escalation trigger/timing were **TBD**. It does not supersede the `PaintSwitch Lead Intake` name, the `New Quote Request` initial stage, D-029's immediate `hello@paintswitch.com` destination, D-042's automated-customer-SMS-off rule, D-045's human-response schedule, or D-046's activation conditions.
+
+## D-050 — Activate the paid HighLevel and AI Employee subscriptions
+
+- **Date:** 2026-08-06
+- **Status:** Confirmed
+- **Decision:** Activate the HighLevel Starter subscription at $97 per month immediately. Also start the 30-day AI Employee Unlimited free trial and authorize it to renew at an additional $97 per month after the trial ends.
+- **Reason:** Provides the paid HighLevel account and AI capacity needed to build and test PaintSwitch's approved GoHighLevel operating engine and customer-facing chatbot.
+- **Consequences:** The signed-in HighLevel account reported the Starter subscription activated and later reported the AI Employee Unlimited subscription enabled successfully. After the trial, the two approved recurring subscriptions total $194 per month before any separate phone, SMS, payment-processing, usage, tax, or other provider charges. The exact first AI renewal date and cancellation procedure were not displayed and remain to be verified. Buying the bundle does not approve or activate Voice AI, automated SMS, Reviews AI, Content AI, Image AI, payments, or any other customer-facing module.
+- **Supersedes:** The prior unactivated/trial-only commercial state. It does not supersede D-018's beta scope, D-042's automated-customer-SMS-off rule, or the requirement to approve and test each customer-facing capability before activation.
+
+## D-051 — Use a Prompt Based GoHighLevel Conversation AI bot
+
+- **Date:** 2026-08-06
+- **Status:** Confirmed
+- **Decision:** Use GoHighLevel Conversation AI as the chatbot provider and use its Prompt Based bot type, starting from scratch.
+- **Reason:** Keeps the chatbot inside the owner-selected GoHighLevel operating engine and gives PaintSwitch direct control over the bot's instructions and safeguards.
+- **Consequences:** A `PaintSwitch AI Assistant` shell was created in the verified PaintSwitch location in Off mode. The initial shell was restricted to the Live Chat channel; SMS, Instagram, Facebook, the SMS chat widget, and WhatsApp were removed. HighLevel automatically marked the only bot as Primary. D-052 later approves the model and a narrow safety-first prompt-only V1 scope; the approved prompt replaced the editor's original generic default and passed four bounded provider-panel tests. D-053 later resolves the bounded homepage interface, owner-testing activation boundary, exact widget controls, handoff route, chat-retention rule, and kill switches. On 2026-08-07 the bot was changed from Off to Auto Pilot solely for the controlled hosted Preview owner test recorded below; Live Chat remained its only channel. Detailed qualification or actions beyond D-052/D-053 and promoted-public-release phasing remain **TBD** or **Proposed** as labeled.
+- **Supersedes:** The prior **TBD** chatbot-provider and bot-type choices. It does not approve the remaining **Proposed** or **TBD** chatbot behavior beyond the later D-052/D-053 boundaries. D-052 separately resolves the model and limited V1-scope questions; D-053 separately supersedes D-018 only where D-018 deferred all chatbot exposure.
+
+## D-052 — OpenAI GPT-4.1 and safety-first prompt-only chatbot V1
+
+- **Date:** 2026-08-06
+- **Status:** Confirmed
+- **Decision:** Use OpenAI GPT-4.1 for the current GoHighLevel Prompt Based `PaintSwitch AI Assistant`. Its V1 is prompt-only: the first reply must disclose that the visitor is speaking with an AI assistant; the bot may answer only from **Confirmed** PaintSwitch facts and direct visitors to `Request a Quote` or human review. It must not provide pricing estimates, confirm project or service availability, book or schedule work, take or arrange payments, claim that a lead or form was submitted, collect sensitive data, or discuss any relationship between PaintSwitch and another company.
+- **Reason:** Establishes a narrow, testable first chatbot scope that can help visitors without inventing policy, creating unsupported commitments, exposing internal business relationships, or implying that unimplemented actions succeeded.
+- **Consequences:** The approved safety-first prompt was saved in the verified GoHighLevel bot, and four bounded provider-panel tests passed: service-scope explanation with first-reply AI disclosure; price and prompt-injection refusal; ZIP-eligibility and booking refusal; and hidden-instruction and company-relationship refusal. The bot remains **Off** at the time of D-053 documentation. D-053 separately approves the bounded customer-facing owner-test conditions; neither the provider-panel evidence nor the in-progress repository integration proves website accessibility, transcript/privacy operation, end-to-end behavior, or Production readiness. Future prompt changes or scope expansions require separate approval.
+- **Supersedes:** D-051 only where it left the model, first-reply AI disclosure requirement, and initial prompt-only scope unresolved. D-053 separately resolves the limited interface, owner-testing, retention, handoff, settings, and kill-switch questions and supersedes D-018's chatbot deferral only. D-052 does not supersede D-042's automated-customer-SMS-off rule or any confirmed brand or pricing safeguard.
+
+## D-053 — Safeguarded homepage chatbot owner test
+
+- **Date:** 2026-08-06
+- **Status:** Confirmed
+- **Decision:** Expose the exact HighLevel Live Chat widget on the PaintSwitch homepage for bounded owner testing on the live site while ads and active promotion remain off. The visible widget identity and the first assistant message must both disclose `PaintSwitch AI Assistant` as AI. Use the existing Prompt Based OpenAI GPT-4.1 bot only on this exact Live Chat widget/channel. Keep the chatbot's own contact form, voice notes, attachments, SMS, social channels, Voice AI, booking, payment, and all chatbot actions disabled. Limit the bot to 10 replies per conversation, use a two-second reply delay, and put the bot to sleep when a manual message or workflow message is sent. Human handoff is limited to directing the visitor to the separate `Request a Quote` form or `hello@paintswitch.com`; make no exact response-time promise and do not claim or implement automatic transcript or context transfer. Keep Conversation Summary off and do not export transcripts through a workflow. Treat chat messages for unconverted leads under the same up-to-12-month-after-last-meaningful-interaction schedule as D-039, with PaintSwitch responsible for manual deletion or anonymization because a fixed HighLevel active-account retention period has not been verified. Preserve two independent kill switches: keep the HighLevel bot Off until the controlled test begins and require the website environment flag before the widget can load.
+- **Reason:** Allows the owner to evaluate the already approved AI assistant on the real PaintSwitch site before traffic is promoted, while limiting collection, channels, commitments, actions, retention, and shutdown risk.
+- **Consequences:** The HighLevel Live Chat widget has been saved externally, but the bot remains **Off** at the time this decision is documented. The repository working tree contains an uncommitted homepage-only environment-gated component using `next/script` with `strategy="lazyOnload"`, public widget ID `6a75455fa70a87ea8ede056f`, exact LeadConnector CSP origins, related contract tests, and expanded Privacy content. These are in-progress implementation facts, not accepted runtime evidence. Local, protected Preview, and Production verification remain pending; promotion and ads must stay off during owner testing. The current direct handoff does not create a Contact, Opportunity, notification, booking, payment, or transcript transfer. HighLevel's fixed active-account chat-retention behavior, manual deletion rehearsal/evidence, and any promoted public-release phase remain **TBD** or unverified.
+- **Supersedes:** D-018 only where it deferred every customer-facing chatbot exposure from the lead-generation beta, and D-052 only where it required separate approval before this bounded owner-testing activation. It does not make the chatbot a lead-generation-beta launch blocker, approve active advertising or broader promotion, or supersede D-018's deferral of instant pricing, checkout, payments, customer-selected scheduling, photo-review automation, or automated proposals. It does not approve detailed quote qualification, automatic context-preserving handoff, transcript export, additional channels, actions, booking, payments, SMS, social messaging, Voice AI, or a wider chatbot release.
+
+### Hosted chatbot owner-test Preview evidence — 2026-08-07
+
+This evidence records implementation verification only and creates no new decision. Commit `649f06d` (`Expose safeguarded PaintSwitch chat for owner testing`) was pushed on `codex/lead-generation-beta`. Pull request #2 reported all three checks passed: GitHub `Verify`, `Vercel`, and `Vercel Preview Comments`. Hosted Preview `https://paintswitch-9vzqs7zmi-paint-switch.vercel.app` loaded the chat widget only on the homepage. The visible title and intro disclosed that `PaintSwitch AI Assistant` is AI. No pre-chat contact form appeared, and no attachment or voice control was visible. HighLevel still rendered a hidden `display:none` file input, so this observation does not prove that all provider-internal attachment code is absent.
+
+For the controlled owner test, the HighLevel bot was changed from Off to Auto Pilot while remaining Live Chat-only. The prior configuration inspection recorded a two-second delay, 10-reply cap, images/voice responses off, manual/workflow sleep on, Conversation Summary off, and no transcript-export workflow; the hosted owner test did not independently recheck those saved settings. Two synthetic Preview messages exercised the bounded prompt and appeared in the widget after page reload: a services question received an answer naming interior, exterior, cabinet, and commercial painting and directing the visitor to `Request a Quote`; a pricing-and-booking request was refused and directed to the form/human follow-up. A third synthetic message asked whether ZIP `22102` could be confirmed. HighLevel generated a response refusing to guarantee ZIP availability and routing the visitor to `Request a Quote`/human review, but the browser widget did not display that response during a 30-second observation without reload. The safety wording passed in HighLevel; real-time browser delivery/latency did not pass and remains unaccepted. Browser logs contained only unrelated Chrome-extension warnings and no site or widget error.
+
+The exact synthetic conversation `Guest Visitor Svdtu`, which contained no email, phone, or customer data, was then permanently deleted through HighLevel's `Delete Conversation` > `Delete Forever` dialog. The inbox afterward showed no unread conversations. This passes one manual synthetic deletion rehearsal only; it does not verify provider-enforced retention, anonymization, backup deletion, or the ongoing operating procedure.
+
+This Preview evidence does not verify the mobile viewport, either independent kill-switch shutdown path, Production runtime, real-time reply latency, active advertising, broader promotion, or a promoted chatbot release. Provider-enforced retention and anonymization also remain unverified. Those items remain unverified or **TBD** as already labeled.
+
+### Real-time transport diagnosis and hosted retest — 2026-08-08
+
+This is implementation evidence, not a new decision. Inspection of HighLevel's public widget bundle showed Socket.IO using marketplace `https://services.leadconnectorhq.com`, path `/sockets-live-chat/socket.io`, and WebSocket/polling transports. Commit `85117a1` adds the exact `wss://services.leadconnectorhq.com` origin to chat-enabled `connect-src` without a wildcard, and the source-contract test asserts that exact WSS origin. This remains an inferred explanation for the delayed display observed on commit `649f06d`; the retest below proves one corrected real-time case, not the precise cause.
+
+All 61 tests, lint, TypeScript checking, and the chat-enabled Next.js `16.3.0` production build passed for `85117a1`, with routes `/`, `/_not-found`, `/api/leads`, `/privacy`, and `/terms`. The commit was pushed; PR #2 then passed fresh GitHub `Verify`, `Vercel`, and `Vercel Preview Comments` checks. Preview `https://paintswitch-44fjlzkoy-paint-switch.vercel.app` reached `Ready`. In a fresh subdomain/session, the homepage widget opened and `What painting services do you offer?` received the approved AI-disclosed four-service/`Request a Quote` reply within a 20-second no-reload observation. Browser diagnostics contained zero site/widget logs after unrelated extension logs were excluded. This passes real-time browser display for one bounded case after the exact WSS allowance; it does not prove an exact two-second delay or resolve the remaining runtime gates.
+
+### GoHighLevel two-stage escalation implementation evidence — 2026-08-05
+
+This evidence records external implementation verification only and creates no new copy decision. `PaintSwitch Lead Intake` now contains `New Quote Request` and `Contact Attempted`. The Saved and published workflow runs Opportunity Created, the existing immediate internal email to `hello@paintswitch.com`, an exact five-minute Wait, and a condition. If the Opportunity still remains in `New Quote Request`, the `Still New` branch runs the internal action named `Escalate to Alex - still New Quote Request` to `alex@paintswitch.com`; otherwise the `Contact Attempted` branch ends without an Alex action. The Alex action reuses the exact D-032-approved hello internal-notification subject/body. No SMS or other customer action exists in this workflow.
+
+Using the displayed execution-log times, the synthetic unhandled Opportunity enrolled at 4:18:14; the hello action executed; the Wait finished at 4:23:15; `Still New` executed at 4:23:16; the Alex action reported Event status `Success` at 4:23:16; and the workflow finished at 4:23:18. The synthetic handled Opportunity enrolled at 4:20:40 and was moved to `Contact Attempted` before the cutoff; the hello action reported Event status `Success` at 4:20:41; the Wait finished at 4:25:41; `Contact Attempted` executed at 4:25:42; and the workflow finished at 4:25:43 with no Alex action in the execution log. These tests verify both workflow branches and the no-SMS/customer-action boundary. The owner-supplied 4:33 PM ET mobile Outlook screenshot independently shows the Alex inbox received sender `PaintSwitch`, subject `New PaintSwitch website lead`, at 4:23 PM. GoHighLevel Email Analytics records Alex Delivered at 4:23 PM and hello Delivered at 4:18 PM and 4:20 PM. This verifies routed receipt, not human response.
+
+The same 2026-08-05 Email Analytics view shows one earlier `hello@paintswitch.com` record as `Failed` at 11:38 AM. That time is near the retained-submission workflow execution whose internal notification action was recorded as `Success`, but exact linkage is unverified. This is implementation evidence, not a decision: a workflow action status alone is not delivery proof, and root cause, the authentication state of that earlier message, notification retry/fallback, and operator failure recovery remain unverified.
+
+### GoHighLevel dedicated sending-domain and post-configuration evidence — 2026-08-05
+
+This evidence records external implementation facts and creates no new decision. In the signed-in GoHighLevel and GoDaddy accounts, dedicated sending subdomain `mg.paintswitch.com` was added. GoDaddy Domain Connect created SPF, DKIM, CNAME, and MX records; `_dmarc.mg` was added manually as `v=DMARC1;p=none;`. Live DNS later returned Mailgun MX records, SPF authorizing LeadConnector and Mailgun, and the DMARC monitoring policy. GoHighLevel displayed the domain enabled, Warmup In Progress at Stage 1, later at 0.1% with the counter reading “1 of 1,000 emails today,” Shared IP Active, and SSL Issued. The GoHighLevel Business Profile was corrected to Friendly Business Name `PaintSwitch`, Business Email `hello@paintswitch.com`, and Business Website `https://paintswitch.com`. Legal Business Name, authorized-representative facts, DBA filing, and required legal disclosures remain unverified.
+
+A controlled synthetic Opportunity containing no real customer data triggered `Email Owner - hello@paintswitch.com` at 7:59:28 PM ET. The action detail reported Event status `Success`. The Opportunity was moved to `Contact Attempted`; after the exact Wait finished at 8:04:28 PM, the workflow executed the handled branch and finished at 8:04:29 PM with no Alex action. That move is workflow-control evidence, not proof of a human contact attempt. For the selected analytics period, GoHighLevel displayed eight Sent, eight Delivered, and one historical Failed. The analytics view did not expose a row-level Delivered event tied to this test. Dedicated-domain configuration and successful post-configuration action execution are therefore verified; warmup completion, raw-message SPF/DKIM/DMARC results, specific-message receipt, the 11:38 AM failure's root cause, notification retry/fallback, and Production deliverability remain unverified.
+
+Later the same day, a second synthetic Opportunity containing no real customer data was created at 9:31 PM ET and left in `New Quote Request`. GoHighLevel Email Analytics records its immediate hello notification as Delivered at 9:31 PM and the conditional Alex notification as Delivered at 9:36 PM. Signed-in Alex Outlook received the latter with visible sender `PaintSwitch <hello@paintswitch.com>`, a visible sending/routing address under `mg.paintswitch.com`, the approved subject, and the approved internal-alert body. Live DNS queries also returned the configured Mailgun MX records, SPF authorization for LeadConnector and Mailgun, and DMARC monitoring policy. GoHighLevel showed warmup at Stage 1 and 0.1%, with the counter reading “1 of 1,000 emails today.” This closes the synthetic post-configuration row-level and routed-Alex receipt evidence gap. It does not establish raw-header SPF/DKIM/DMARC results, warmup completion, notification-failure recovery, human response, or Production acceptance.
+
+### Legal/privacy and release preflight evidence — 2026-08-05
+
+This evidence adds no owner decision and does not constitute legal advice. Repository review found the implemented Privacy, Terms, age, contact, SMS-off, retention, data-use, vendor, and no-targeted-advertising disclosures substantially aligned with Confirmed requirements. [Virginia Code § 59.1-69](https://law.lis.virginia.gov/vacode/title59.1/chapter5/section59.1-69/) and the [Virginia SCC fictitious-name guidance](https://www.scc.virginia.gov/businesses/business-faqs/fictitious-names/) make the unverified PaintSwitch fictitious-name filing and required legal-identity/disclosure treatment a release gate rather than a documentation assumption. The 12-month unconverted-lead and privacy-request procedures remain unrehearsed; provider access roles are not fully verified; and retention for notification email, provider logs, analytics, active/completed projects, and other record classes remains TBD. Local candidate smoke and source inspection found no new P0 code defect, but Firefox/WebKit, screen-reader, monitoring/failure-alert, rollback-rehearsal, Production promotion, and Production E2E evidence remain incomplete. D-023's target date does not supersede these gates.
+
+### Controlled Preview website-to-workflow-action success-path evidence — 2026-08-04
+
+This evidence records implementation verification only and creates no new decision. Safeguarded commit `3bac3ba` ran behind Vercel Require Log In / Standard Protection. `LEAD_DELIVERY_ENABLED` was temporarily `true` for Preview only while Production remained explicitly `false`. Enabled deployment `CrJA8ve4qzNHneVLwEtkr5N15gJu` (`paintswitch-pp6wvxmih-paint-switch.vercel.app`) was Ready at 1:18:57 PM EDT. One browser submission ran from 1:19:53 through 1:19:57 PM EDT with all seven approved fields and UTM values `controlled_preview_test` / `website_e2e_2026_08_04`. The page displayed exactly: “Your request was sent. A PaintSwitch team member will review the details and follow up.”
+
+Submission `a0c9e9cd-4e98-4f45-8c1f-16c9a31256ec` created Contact `w1tEl1ktbKestabbkBr3` and open Opportunity `11u1dIja7oMJXS4srkPu` in `PaintSwitch Lead Intake` / `New Quote Request`. Exact mappings were verified for every approved Contact and Opportunity field, including `Contact Preference = Email`, `Campaign Source = controlled_preview_test`, and `Campaign Name = website_e2e_2026_08_04`. Workflow execution `01KZ6WM16S7WTFPM40NTEA9381` enrolled once at 1:19:56 PM, reported the internal owner notification `Success` at 1:19:57 PM, finished, and sent no SMS or other customer action.
+
+Upstash showed a `completed` state with matching IDs, a 64-hex-character payload hash, completion phase, version, and updated timestamp, but none of the raw submitted name, email, phone, location, service, description, or preference fields; 2,591,535 seconds of TTL remained and there was no lock. One Preview rate counter had count `1` and 101 seconds of remaining TTL; the threshold was not tested. The Preview environment setting and latest branch Preview were restored to `false`, and fresh disabled deployment `6NrFmAef7vgP3dm9iuC11DBYEJ1d` (`paintswitch-7qbi2cue9-paint-switch.vercel.app`) was Ready at 1:26:34 PM EDT. Production was untouched and remained explicitly `false`; the enabled immutable unique URL remains access-protected. The owner confirmed that the resulting website-triggered notification arrived at `hello@paintswitch.com` at approximately 1:20 PM EDT. This evidence does not verify production end-to-end delivery, retries/concurrency, failure recovery, actual expiration, threshold enforcement, human-response execution, privacy/retention operations, professional/legal review, or launch acceptance.
+
+### Protected Preview failure, recovery, limiter, and restoration evidence — 2026-08-05
+
+This evidence records implementation verification only and creates no new decision. Application commit `beb6781` passed GitHub `Verify`, and its protected Vercel Preview reached `Ready`. The hosted form first failed closed and retained the same synthetic submission for a recoverable retry. After Preview delivery was enabled, retrying that retained submission completed exactly once, creating one Contact, one Opportunity, and one successful internal owner-notification workflow action. Preview delivery was then restored to disabled; the disabled verification created no duplicate. A separate hosted rate-limit check observed the counter cap at five and the next valid request receive `429`.
+
+The check did not use or record real customer data. It verifies one protected hosted fail-closed/recovery path, the fixed-window threshold response, one successful notification action, and safe restoration. This check itself did not verify hosted concurrency, notification-action failure recovery, actual 30-day expiration, Alex routing, backup activation, human-response timing, professional/legal review, Production operation, or launch acceptance. The later D-049 provider tests and Outlook/Email Analytics evidence separately verify both routing branches and routed Alex receipt; they do not verify human response.
 
 ## Proposed decision candidates
 
