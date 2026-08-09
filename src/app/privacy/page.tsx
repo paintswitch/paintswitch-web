@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
     <LegalPage
       title="Privacy Policy"
       intro="This policy explains how PaintSwitch collects, uses, shares, and retains information through its lead-generation website."
-      effectiveDate="August 6, 2026"
+      effectiveDate="August 8, 2026"
     >
       <section>
         <h2>Information we collect</h2>
@@ -63,7 +63,7 @@ export default function PrivacyPolicy() {
       <section>
         <h2>AI-assisted live chat</h2>
         <p>
-          The website chat identifies itself as the PaintSwitch AI Assistant. It can answer basic questions using approved PaintSwitch information and direct you to the Request a Quote form or the PaintSwitch email address. It cannot provide or accept a firm price, confirm service availability, schedule or book a project, collect a payment, or create a contract.
+          The website chat identifies itself as Switch bot, PaintSwitch&apos;s AI assistant. It can answer basic questions using approved PaintSwitch information and direct you to the Request a Quote form or the PaintSwitch email address. It cannot provide or accept a firm price, confirm service availability, schedule or book a project, collect a payment, or create a contract.
         </p>
         <p>
           A PaintSwitch team member may review chat messages and AI activity. Chat is not a private channel for sensitive information. Do not send payment-card data, bank information, government identification numbers, medical information, account passwords, or other sensitive personal information through chat.
