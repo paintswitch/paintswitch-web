@@ -1,6 +1,6 @@
 # PaintSwitch product requirements
 
-Last updated: 2026-08-06
+Last updated: 2026-08-08
 
 ## Product objective
 
@@ -200,7 +200,7 @@ The following personas are **Proposed** interpretations of the confirmed product
 
 ## Chatbot responsibilities and limits
 
-The customer-facing chatbot is **Confirmed** from 2026-07-11. GoHighLevel Conversation AI, a Prompt Based bot started from scratch, OpenAI GPT-4.1, the D-052 safety-first prompt-only V1, and the D-053 bounded homepage owner-test configuration are **Confirmed** from 2026-08-06. D-054 dated 2026-08-08 confirms the current `Switch bot` name while preserving explicit AI disclosure. The approved prompt and HighLevel widget settings are saved, four bounded provider-panel tests pass, and the bot is Auto Pilot only for controlled owner testing. The homepage-only integration is merged and live; provider-managed `Switch bot` title and introduction are externally verified. Provider-internal architecture beyond the direct widget, knowledge sources beyond the approved prompt, detailed qualification, operating ownership/rehearsal, Production reply behavior, and any promoted release or broader behavior remain **TBD**, **Proposed**, or unverified as labeled.
+The customer-facing chatbot is **Confirmed** from 2026-07-11. GoHighLevel Conversation AI, a Prompt Based bot started from scratch, OpenAI GPT-4.1, the D-052 safety-first prompt-only V1, and the D-053 bounded homepage owner-test configuration are **Confirmed** from 2026-08-06. D-054 dated 2026-08-08 confirms the current `Switch bot` name while preserving explicit AI disclosure. The approved prompt and HighLevel widget settings are saved, four bounded provider-panel tests pass, and the bot is Auto Pilot only for controlled owner testing. The homepage-only integration is merged and live; provider-managed `Switch bot` title and introduction are externally verified, and Production Privacy content uses the same identity with effective date August 8, 2026. Provider-internal architecture beyond the direct widget, knowledge sources beyond the approved prompt, detailed qualification, operating ownership/rehearsal, Production reply behavior, and any promoted release or broader behavior remain **TBD**, **Proposed**, or unverified as labeled.
 
 The current prompt-only V1 has these **Confirmed** responsibilities and limits:
 
