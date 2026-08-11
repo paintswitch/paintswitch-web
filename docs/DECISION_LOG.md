@@ -1,6 +1,6 @@
 # PaintSwitch decision log
 
-Last updated: 2026-08-10
+Last updated: 2026-08-11
 
 This log records material approved decisions. Dates are approval dates when supplied; otherwise the entry identifies when the decision was first documented as confirmed. Preserve superseded entries and link their replacements.
 
@@ -601,6 +601,15 @@ This evidence records implementation verification only and creates no new owner 
 The hosted homepage displayed the D-058 design, retained the visible “Illustrative color study” and “Not a customer project” labels, exposed the four approved service categories, and opened the widget with the title `Switch bot` plus explicit AI identification. An incomplete quote request produced field-specific errors and the summary alert without sending a lead. Hosted Privacy and Terms routes loaded with the expected titles and content, and Terms used the D-059 non-guaranteed follow-up wording. Browser diagnostics showed no PaintSwitch-origin error; observed errors and warnings came from unrelated Chrome extensions. This evidence does not approve or prove a Production merge, enabled Production lead delivery, full mobile/keyboard/screen-reader/cross-browser/zoom acceptance, kill-switch shutdown behavior, final supporting copy, professional legal review, paid traffic, or final go/no-go.
 
 Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the live `https://paintswitch.com` bot after the `Switch bot` rename. The first generated response explicitly identified Switch bot as PaintSwitch's AI assistant, listed only the four approved service categories, stated that PaintSwitch supplies the paint, and directed the visitor to `Request a Quote`. A second response refused a requested firm price and booking; a third refused to promise an exact human response time and directed the visitor to the quote form or `hello@paintswitch.com`. All replies displayed without reload, with observed final-response times of approximately 8 to 17 seconds. The exact synthetic conversation was permanently deleted, and the associated synthetic Contact was deleted after its identity and creation time were reverified; GoHighLevel states deleted contacts are restorable for 60 days. This closes only the tested Production-response and bounded-cleanup evidence gaps. It does not verify the configured two-second delay, 10-reply cap, manual/workflow sleep, mobile/accessibility, both shutdown paths, provider-enforced retention/anonymization, or broader reliability.
+
+## D-060 — Final stacked production logo and website brand-color integration
+
+- **Date:** 2026-08-11
+- **Status:** Confirmed
+- **Decision:** Approve the exact attached stacked PaintSwitch production-logo package and master vector as the final production logo. Use the artwork unchanged, preserve its navy `#012765` and cobalt `#0658FE`, replace the interim text-only wordmark in customer-facing site brand marks, and align website buttons and interactive accents with those two colors while retaining the approved warm greige, taupe, and soft-cream editorial base.
+- **Reason:** The owner explicitly approved the inspected production package and the recommendation to preserve its exact artwork/colors and integrate them cohesively into the existing editorial website.
+- **Consequences:** The exact path-only 915×524 SVG is the controlling web artwork; it must not be retraced, recolored, recomposed, or substituted with a font-rendered approximation. The warm-neutral base, restrained editorial tone, Georgia/system typography, “Transformation through color” message, and visibly labeled illustrative hero remain approved. The logo must appear on a light surface when necessary to preserve contrast, including within the dark footer. This decision does not approve a derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, an exact warm-gold value, authentic project claims/assets, additional supporting copy, deployment, promoted traffic, or final go/no-go.
+- **Supersedes:** D-058 only where it approved the interim text-only wordmark and prior interactive-accent assignments. It supersedes D-056 only where deep teal was used as the current primary interactive accent; D-056's warm greige/taupe, warm-charcoal, and soft-cream direction remains current. D-060 controls if the exact approved artwork differs from D-016's earlier direction-only description. It does not supersede D-055, D-057, D-059, or any non-design launch gate.
 
 ## Proposed decision candidates
 

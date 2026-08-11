@@ -1,6 +1,6 @@
 # PaintSwitch technical architecture
 
-Last repository inspection: 2026-08-10
+Last repository inspection: 2026-08-11
 
 Last external runtime verification: 2026-08-10
 
@@ -11,7 +11,7 @@ This document records only facts verified from the repository. It does not treat
 ```text
 paintswitch-web/
 ├── .github/workflows/ci.yml
-├── public/                 Five starter SVG assets and one local illustrative color-study PNG
+├── public/                 Starter SVG assets, the exact PaintSwitch logo SVG, and one local illustrative color-study PNG
 ├── src/
 │   ├── app/
 │   │   ├── api/leads/route.ts
@@ -92,7 +92,8 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 
 ## Component organization
 
-- `Header` contains text brand identity, a skip link, primary navigation, a desktop call to action, and client-enhanced native mobile navigation.
+- `BrandLogo` renders `/images/paintswitch-logo.svg` through `next/image` with intrinsic 915×524 dimensions and an empty decorative alternative; each containing home link supplies the accessible `PaintSwitch home` name. The tracked SVG is byte-identical to the approved source (SHA-256 `4680e0995f21908e852d7062a471abad46cbcece918151af74f73249553f31ae`), path-only, and uses exact fills `#012765` and `#0658FE`.
+- `Header` contains the shared production logo, a skip link, primary navigation, a desktop call to action, and client-enhanced native mobile navigation.
 - `Hero` contains the transformation-through-color positioning, approved review-before-availability-or-pricing boundary, quote/service anchors, and a local static image served from `/images/paintswitch-color-study.png` through `next/image` at its verified 1586×992 intrinsic dimensions. The figure labels the asset as an “Illustrative color study” and “Not a customer project”; it is generated/local design imagery, not evidence of PaintSwitch work or a customer before/after story.
 - `TrustBar` renders a four-item service index for Interior, Exterior, Cabinets, and Commercial.
 - `ServiceCard` renders the four static service descriptions with editorial numbering rather than text-symbol icons.
@@ -101,20 +102,21 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 - `PrimaryButton` and `SecondaryButton` are styled anchor components, not form buttons.
 - `QuoteRequestForm` renders the beta intake fields, approved pre-submit disclosure, legal links, and client-side pending, success, and failure states. These states alone are not evidence of successful external delivery.
 - `HighLevelChatWidget` is a committed Server Component that returns `null` unless `HIGHLEVEL_CHAT_WIDGET_ENABLED` equals the exact string `true`. When enabled, it emits one `next/script` loader using `strategy="lazyOnload"`, `https://widgets.leadconnectorhq.com/loader.js`, resources URL `https://widgets.leadconnectorhq.com/chat-widget/loader.js`, and public widget ID `6a75455fa70a87ea8ede056f`. It contains no secret, API client, transcript store, form field, booking, payment, or action logic.
-- `LegalPage` provides the shared PaintSwitch-only header, configurable effective-date layout, return link, and footer for the two legal routes. Commit `649f06d` added Live Chat data, vendor, AI, no-sensitive-data, no-summary/export, and manual-retention disclosures. Squash-merged commit `0dd1c74f2a0d2b5260f36061b573986eb5b57126` sets the Privacy effective date to August 8, 2026 and identifies the chat as `Switch bot`, PaintSwitch's AI assistant; the Terms route retains the shared August 4 default.
-- `Footer` contains static navigation, working Privacy and Terms links, `hello@paintswitch.com`, the transformation-through-color line, the current year, and the factual DMV/Virginia-priority note.
+- `LegalPage` provides the shared PaintSwitch production-logo header, configurable effective-date layout, return link, and footer for the two legal routes. Commit `649f06d` added Live Chat data, vendor, AI, no-sensitive-data, no-summary/export, and manual-retention disclosures. Squash-merged commit `0dd1c74f2a0d2b5260f36061b573986eb5b57126` sets the Privacy effective date to August 8, 2026 and identifies the chat as `Switch bot`, PaintSwitch's AI assistant; the Terms route retains the shared August 4 default.
+- `Footer` contains the shared exact full-color logo on a soft-cream contrast backing, static navigation, working Privacy and Terms links, `hello@paintswitch.com`, the transformation-through-color line, the current year, and the factual DMV/Virginia-priority note.
 - `page.tsx` contains the four approved service categories, an editorial transformation section and palette swatches, benefits, manual-review copy, service-area copy, and the branded quote-request section. The prior Drywall Repair card and placeholder reviews are absent.
-- The current header brand mark is rendered from text; no repository asset is verified as a final production logo following the owner-preferred paint-roller-with-paint-behind direction.
+- The stock `src/app/favicon.ico` remains separate from the approved full logo. No dedicated PaintSwitch app icon, social card/crop, reverse logo, one-color logo, or manifest is implemented.
 
 ## Styling
 
 - Tailwind CSS is loaded through `@import "tailwindcss"` in `src/app/globals.css`.
 - PostCSS loads `@tailwindcss/postcss`.
 - Most presentation uses Tailwind utility classes embedded in JSX.
-- `globals.css` defines local visual tokens for soft cream `#F5F1E8`, warm greige `#D1C4B8`, soft taupe `#C9BDAD`, deep teal `#2D5A5A`, warm charcoal `#3D4E4E`, ink, muted ink, and rules. It also defines system sans and Georgia/Times editorial-serif stacks, smooth scrolling, selection colors, and reduced-motion overrides.
+- `globals.css` defines local visual tokens for soft cream `#F5F1E8`, warm greige `#D1C4B8`, soft taupe `#C9BDAD`, brand navy `#012765`, brand cobalt `#0658FE`, warm charcoal `#3D4E4E`, ink, muted ink, and rules. It also defines system sans and Georgia/Times editorial-serif stacks, smooth scrolling, selection colors, and reduced-motion overrides. Component utilities use navy for readable text/primary surfaces and cobalt for hover/focus or decorative accents while preserving warm editorial surfaces.
 - No external webfont import is present in the root layout.
 - The project does not contain a separate design-token package or component library.
-- D-058 records owner approval of the exact current Georgia/system font pairing and component-token assignments as part of the lead-generation beta design candidate. They remain repository implementation facts rather than a final production identity specification: D-058 does not approve a final paint-roller logo, an exact warm-gold value, authentic customer-project imagery or claims, a merge, hosted Preview, Production deployment, or promoted traffic.
+- D-060 supersedes D-058 only for the interim text wordmark and prior interactive-accent assignments. The repository now implements the exact approved production logo and blue interaction system while retaining D-058's Georgia/system typography, warm-neutral base, and labeled illustrative hero. No exact warm-gold value, derivative icon/social/reverse usage system, authentic customer-project imagery/claims, merge, Production deployment, or promoted traffic is inferred from the source.
+- The 2026-08-11 D-060 local verification passed all 63 tests, lint, TypeScript checking, the Next.js `16.3.0` production build, and rendered desktop/mobile checks of the header, footer, legal shell, exact logo asset, blue interaction surfaces, and horizontal-overflow boundary. Hosted Preview and Production evidence remain separate.
 - The local D-059 candidate keeps response timing as static Terms content rather than application logic. `src/app/terms/page.tsx` uses non-guaranteed follow-up wording and contains no five-minute or 9:00 a.m. customer promise; the source contract prevents those exact timings from returning. The external GoHighLevel workflow retains its separate internal five-minute Alex branch and is not implemented in this repository.
 
 ## TypeScript and module configuration

@@ -6,8 +6,8 @@ export function ServiceCard({ title, description, icon }: { title: string; descr
   return (
     <article className="group flex min-h-72 flex-col justify-between border-t border-[#A99D91] py-7 sm:py-8">
       <div className="flex items-start justify-between gap-6">
-        <span aria-hidden="true" className="font-editorial text-3xl italic text-[#2D5A5A]">{numbers[icon]}</span>
-        <span aria-hidden="true" className="h-2 w-2 bg-[#2D5A5A] transition-transform duration-300 group-hover:rotate-45" />
+        <span aria-hidden="true" className="font-editorial text-3xl italic text-[#012765]">{numbers[icon]}</span>
+        <span aria-hidden="true" className="h-2 w-2 bg-[#0658FE] transition-transform duration-300 group-hover:rotate-45" />
       </div>
       <div className="pt-12">
         <h3 className="font-editorial text-3xl font-normal tracking-[-0.03em] text-[#253231]">{title}</h3>

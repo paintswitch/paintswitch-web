@@ -1,6 +1,6 @@
 # PaintSwitch product requirements
 
-Last updated: 2026-08-10
+Last updated: 2026-08-11
 
 ## Product objective
 
@@ -117,11 +117,13 @@ The confirmed GoHighLevel selection, CRM foundation, and server-side connection 
 ## Brand, visual, and governance requirements
 
 - **VI-001 — Confirmed:** Follow the owner-preferred first HTML example's logo direction: a paint roller with paint behind it. Approved on 2026-07-18.
-- **VI-002 — TBD:** Approve and verify the final production logo file, variants, and usage rules.
+- **VI-002 — Confirmed:** Use the exact attached stacked PaintSwitch production-logo package and path-only 915×524 master vector as the final production logo, preserving its artwork and exact navy `#012765` and cobalt `#0658FE`. Approved on 2026-08-11 under D-060. Do not retrace, recolor, recompose, or substitute a font-rendered approximation.
 - **VI-003 — Confirmed:** Use a sophisticated, confident, editorial tone. Demonstrate expertise through intentional choices rather than trends, and avoid anything cute or condescending. Approved on 2026-08-09. This direction must remain compatible with PaintSwitch's confirmed mid-market, convenience-first, technology-first, mainstream positioning rather than imply inherited luxury positioning.
-- **VI-004 — Confirmed:** Use the owner-approved palette direction: warm greige or soft taupe for the base/background with candidates `#D1C4B8` and `#C9BDAD`; deep teal, forest green, or warm charcoal for the primary accent with candidates `#2D5A5A` and `#3D4E4E`; and soft cream or warm gold for secondary warmth, with `#F5F1E8` approved as the soft-cream candidate. Approved on 2026-08-09. D-058 separately approves the current local component-token assignments for the lead-generation beta design candidate; post-beta/final token changes and an exact warm-gold value remain **TBD**.
+- **VI-004 — Confirmed:** Retain the owner-approved warm greige/soft-taupe base candidates `#D1C4B8` and `#C9BDAD`, warm charcoal `#3D4E4E`, and soft cream `#F5F1E8`. Approved on 2026-08-09 under D-056. D-060 supersedes only the former deep-teal primary-interactive-accent assignment; an exact warm-gold value remains **TBD**.
 - **VI-005 — Confirmed:** Center the design message on “Transformation through color” and use before/after stories to show the power of expert color choices and quality craftsmanship. Approved on 2026-08-09. Any story presented as PaintSwitch customer work must use authentic, permissioned project facts and assets; generated or conceptual imagery must be clearly identified as an illustrative color study. Exact project selections, captions, supporting copy, and production assets remain **TBD**.
-- **VI-006 — Confirmed:** Use the exact current local editorial pass shown to the owner on a phone as the lead-generation beta design candidate. Approved on 2026-08-09. This approval covers the current layout, Georgia/system typography, current component-token assignments, interim text-only wordmark, and the hero only while it remains clearly labeled “Illustrative color study” and “Not a customer project.” It does not approve a final paint-roller production logo, authentic customer-project claims or assets, an exact warm-gold value, final supporting copy beyond the current displayed copy, a merge or Production deployment, or promoted traffic. Owner visual review is complete; PR #6's hosted Preview and CI passed on 2026-08-10, while Production QA remains required.
+- **VI-006 — Superseded:** The exact 2026-08-09 beta-candidate bundle included an interim text-only wordmark and prior token assignments. D-060 supersedes those two parts while preserving D-058's layout, Georgia/system typography, warm-neutral base, clearly labeled illustrative hero, and historical Preview evidence.
+- **VI-007 — Confirmed:** Replace customer-facing interim site wordmarks with VI-002's exact production logo; align website buttons and interactive accents with navy `#012765` and cobalt `#0658FE`; and retain the approved warm greige/taupe/soft-cream editorial base. Approved on 2026-08-11 under D-060. Use a light surface behind the full-color logo where needed for contrast instead of recoloring it.
+- **VI-008 — TBD:** Decide any derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, responsive placement rules beyond the verified website implementation, and broader off-site usage rules.
 - **GV-002 — Confirmed:** Timebox launch stand-ups to 10 minutes, not 30 minutes. Approved on 2026-07-18.
 - **GV-003 — TBD:** Decide stand-up frequency, participants, facilitator, schedule, and escalation format.
 

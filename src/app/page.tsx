@@ -19,7 +19,8 @@ const services: { title: string; description: string; icon: ServiceIcon }[] = [
 const palette = [
   ["Warm greige", "#D1C4B8"],
   ["Soft taupe", "#C9BDAD"],
-  ["Deep teal", "#2D5A5A"],
+  ["Brand navy", "#012765"],
+  ["Brand cobalt", "#0658FE"],
   ["Warm charcoal", "#3D4E4E"],
   ["Soft cream", "#F5F1E8"],
 ];
@@ -35,14 +36,14 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main id="main-content" tabIndex={-1} className="focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#2D5A5A]">
+      <main id="main-content" tabIndex={-1} className="focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0658FE]">
         <Hero />
         <TrustBar />
 
         <section className="bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28" aria-labelledby="transformation-title">
           <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-24">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2D5A5A]">The power of color</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#012765]">The power of color</p>
               <h2 id="transformation-title" className="font-editorial mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#253231] sm:text-5xl lg:text-6xl">
                 A thoughtful change can transform the whole room.
               </h2>
@@ -53,7 +54,7 @@ export default function Home() {
               </p>
               <div>
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#596563]">PaintSwitch color direction</p>
-                <ul className="grid grid-cols-2 border-l border-t border-[#A99D91]/70 sm:grid-cols-5">
+                <ul className="grid grid-cols-2 border-l border-t border-[#A99D91]/70 sm:grid-cols-6">
                   {palette.map(([name, color]) => (
                     <li key={name} className="border-b border-r border-[#A99D91]/70 bg-[#F5F1E8] p-2">
                       <span className="block aspect-square w-full border border-[#253231]/10" style={{ backgroundColor: color }} aria-hidden="true" />
@@ -98,7 +99,7 @@ export default function Home() {
         <section className="bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28" aria-labelledby="areas-title">
           <div className="mx-auto grid max-w-7xl border-y border-[#A99D91] lg:grid-cols-[0.66fr_1.34fr]">
             <div className="flex items-center border-b border-[#A99D91] py-8 lg:border-b-0 lg:border-r lg:py-12">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2D5A5A]">Service area</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#012765]">Service area</p>
             </div>
             <div className="py-10 lg:pl-16">
               <h2 id="areas-title" className="font-editorial text-4xl font-normal tracking-[-0.04em] text-[#253231] sm:text-5xl">DMV project review</h2>
@@ -107,7 +108,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="quote" className="scroll-mt-24 bg-[#2D5A5A] px-5 py-20 sm:px-8 lg:py-28">
+        <section id="quote" className="scroll-mt-24 bg-[#012765] px-5 py-20 sm:px-8 lg:py-28">
           <div className="mx-auto grid max-w-7xl items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div className="text-[#F5F1E8] lg:sticky lg:top-28">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D1C4B8]">Request a quote</p>

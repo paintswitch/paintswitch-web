@@ -29,7 +29,7 @@ const fieldErrorMessages: Record<InputFieldName, string> = {
 };
 
 const fieldClassName =
-  "mt-2 min-h-12 w-full rounded-sm border border-[#A99D91] bg-white px-4 py-3 text-base text-[#253231] outline-none transition-colors placeholder:text-[#596563] focus:border-[#2D5A5A] focus:ring-2 focus:ring-[#2D5A5A]/25";
+  "mt-2 min-h-12 w-full rounded-sm border border-[#A99D91] bg-white px-4 py-3 text-base text-[#253231] outline-none transition-colors placeholder:text-[#596563] focus:border-[#0658FE] focus:ring-2 focus:ring-[#0658FE]/25";
 
 function attributionValue(value: string | null, fallback = "") {
   const sanitized = (value ?? fallback)
@@ -213,11 +213,11 @@ export function QuoteRequestForm() {
       </p>
 
       <p className="mt-4 text-sm leading-6 text-[#596563]">
-        By submitting, you confirm that you are at least 18 and ask PaintSwitch to contact you about this project using the contact information you provide. Choosing <strong>Text</strong> records a contact preference only and is not consent to automated SMS. Automated customer SMS is currently disabled. Read our <a className="rounded-sm font-semibold text-[#2D5A5A] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2D5A5A]" href="/privacy">Privacy Policy</a> and <a className="rounded-sm font-semibold text-[#2D5A5A] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2D5A5A]" href="/terms">Website Terms</a>.
+        By submitting, you confirm that you are at least 18 and ask PaintSwitch to contact you about this project using the contact information you provide. Choosing <strong>Text</strong> records a contact preference only and is not consent to automated SMS. Automated customer SMS is currently disabled. Read our <a className="rounded-sm font-semibold text-[#012765] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]" href="/privacy">Privacy Policy</a> and <a className="rounded-sm font-semibold text-[#012765] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]" href="/terms">Website Terms</a>.
       </p>
 
       <button
-        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-sm bg-[#253231] px-6 py-3 text-sm font-semibold text-[#F5F1E8] transition-colors hover:bg-[#3D4E4E] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#253231] disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
+        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-sm bg-[#012765] px-6 py-3 text-sm font-semibold text-[#F5F1E8] transition-colors hover:bg-[#0658FE] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE] disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
         type="submit"
         disabled={status === "submitting"}
       >
@@ -232,7 +232,7 @@ export function QuoteRequestForm() {
           </p>
         )}
         {status === "success" && (
-          <p role="status" className="border border-[#2D5A5A]/25 bg-white px-4 py-3 text-sm font-semibold text-[#2D5A5A]">
+          <p role="status" className="border border-[#012765]/25 bg-white px-4 py-3 text-sm font-semibold text-[#012765]">
             Your request was sent. A PaintSwitch team member will review the details and follow up.
           </p>
         )}

@@ -4,7 +4,8 @@
   --cream: #f5f1e8;
   --greige: #d1c4b8;
   --taupe: #c9bdad;
-  --teal: #2d5a5a;
+  --brand-navy: #012765;
+  --brand-cobalt: #0658fe;
   --charcoal: #3d4e4e;
   --ink: #253231;
   --muted-ink: #596563;
@@ -33,7 +34,7 @@ html {
 }
 
 ::selection {
-  background: var(--teal);
+  background: var(--brand-navy);
   color: var(--cream);
 }
 

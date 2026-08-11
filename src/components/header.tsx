@@ -1,14 +1,19 @@
 "use client";
 
 import type { MouseEvent } from "react";
+import { BrandLogo } from "./brand-logo";
 import { PrimaryButton } from "./buttons";
 
 const links = [["Home", "#home"], ["Services", "#services"], ["How It Works", "#how-it-works"], ["About", "#about"]];
 
 function Logo() {
   return (
-    <a href="#home" aria-label="PaintSwitch home" className="text-lg font-semibold tracking-[-0.03em] text-[#253231] sm:text-xl">
-      PaintSwitch
+    <a
+      href="#home"
+      aria-label="PaintSwitch home"
+      className="inline-flex rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
+    >
+      <BrandLogo className="h-12 w-auto sm:h-14" loading="eager" />
     </a>
   );
 }
@@ -20,7 +25,7 @@ function closeMobileMenu(event: MouseEvent<HTMLAnchorElement>) {
 export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#A99D91]/55 bg-[#F5F1E8]/95 text-[#253231] backdrop-blur">
-      <a href="#main-content" className="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:not-sr-only focus:bg-[#253231] focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-[#F5F1E8]">
+      <a href="#main-content" className="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:not-sr-only focus:bg-[#012765] focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-[#F5F1E8]">
         Skip to content
       </a>
       <div className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between px-5 sm:px-8">
@@ -29,7 +34,7 @@ export function Header() {
           <ul className="flex items-center gap-8">
             {links.map(([label, href]) => (
               <li key={href}>
-                <a className="text-xs font-semibold uppercase tracking-[0.14em] text-[#596563] transition-colors hover:text-[#253231]" href={href}>
+                <a className="text-xs font-semibold uppercase tracking-[0.14em] text-[#596563] transition-colors hover:text-[#012765] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]" href={href}>
                   {label}
                 </a>
               </li>
@@ -57,7 +62,7 @@ export function Header() {
                 </li>
               ))}
             </ul>
-            <a href="#quote" onClick={closeMobileMenu} className="mt-4 inline-flex min-h-12 w-full items-center justify-center bg-[#2D5A5A] px-6 py-3 text-sm font-semibold text-[#F5F1E8] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2D5A5A]">
+            <a href="#quote" onClick={closeMobileMenu} className="mt-4 inline-flex min-h-12 w-full items-center justify-center bg-[#012765] px-6 py-3 text-sm font-semibold text-[#F5F1E8] transition-colors hover:bg-[#0658FE] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]">
               Request a Quote
             </a>
           </nav>

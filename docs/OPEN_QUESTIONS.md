@@ -1,6 +1,6 @@
 # PaintSwitch open questions
 
-Last updated: 2026-08-10
+Last updated: 2026-08-11
 
 This document records unresolved choices and working assumptions. An item is approved only when it is explicitly labeled **Confirmed** and supported by the decision log. Do not present **Proposed** or **TBD** pricing as live customer pricing.
 
@@ -173,8 +173,9 @@ Additional unresolved questions:
 - **Confirmed:** The owner approved a sophisticated, confident, editorial tone on 2026-08-09. Show expertise through intentional choices rather than trends, and avoid anything cute or condescending.
 - **Confirmed:** The owner approved warm greige or soft taupe base/background candidates `#D1C4B8` and `#C9BDAD`; deep teal, forest-green, or warm-charcoal primary-accent candidates `#2D5A5A` and `#3D4E4E`; and soft cream or warm gold for secondary warmth. `#F5F1E8` is the approved soft-cream candidate.
 - **Confirmed:** “Transformation through color” is the core design message. Before/after stories should show the power of expert color choices and quality craftsmanship.
-- **Confirmed:** Under D-058 dated 2026-08-09, the owner approved the exact current local editorial pass shown on the owner's phone as the lead-generation beta design candidate, including its Georgia/system typography, current token assignments, interim text-only wordmark, and clearly labeled illustrative color-study hero. This completes owner visual review for that beta candidate only.
-- **TBD:** Final paint-roller production logo artwork, file, variants, any post-beta/final typography or token changes beyond the approved beta candidate, long-term responsive identity rules, and final production-brand approval evidence.
+- **Superseded:** Under D-058 dated 2026-08-09, the owner approved the then-current local editorial pass, including its interim text-only wordmark and prior token assignments. D-060 supersedes those two parts while preserving its layout, Georgia/system typography, warm-neutral base, clearly labeled illustrative hero, and historical Preview evidence.
+- **Confirmed:** Under D-060 dated 2026-08-11, the owner approved the exact attached stacked production-logo package and path-only master vector as the final PaintSwitch logo, preserving navy `#012765` and cobalt `#0658FE`, replacing interim site wordmarks, and using those colors for website buttons and interactive accents while retaining the warm editorial base.
+- **TBD:** Any derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, responsive placements beyond the verified website implementation, and broader off-site usage rules. Do not derive or publish these without separate approval.
 - **TBD:** The exact warm-gold color value. `#F5F1E8` is approved as soft cream and must not be silently reclassified as the missing warm-gold value.
 - **TBD:** Authentic, permissioned PaintSwitch before/after project assets, project facts, captions, and final supporting homepage/funnel copy beyond the current displayed copy. Until those exist and are approved, generated or conceptual visuals must be labeled as illustrative color studies and must not imply customer work, project history, testimonials, or results. D-059 authorizes the intended next-weekend launch target with the approved interim treatment. PR #6's protected hosted Preview and CI passed on 2026-08-10; Production acceptance and final go/no-go remain release gates.
 

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
@@ -28,6 +29,8 @@ const buttons = source("src/components/buttons.tsx");
 const serviceCard = source("src/components/service-card.tsx");
 const howItWorks = source("src/components/how-it-works.tsx");
 const sectionHeading = source("src/components/section-heading.tsx");
+const brandLogoComponent = source("src/components/brand-logo.tsx");
+const brandLogoAsset = source("public/images/paintswitch-logo.svg");
 
 const customerFacingSources = {
   homepage: homePage,
@@ -45,6 +48,7 @@ const customerFacingSources = {
   "service card": serviceCard,
   "how it works": howItWorks,
   "section heading": sectionHeading,
+  "brand logo": brandLogoComponent,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -176,13 +180,39 @@ test("public legal, footer, and form source has no customer-facing Jen reference
   }
 });
 
+test("customer-facing brand marks use the approved exact production logo", () => {
+  const logoBytes = readFileSync(new URL("../public/images/paintswitch-logo.svg", import.meta.url));
+  const logoHash = createHash("sha256").update(logoBytes).digest("hex");
+
+  assert.equal(logoHash, "4680e0995f21908e852d7062a471abad46cbcece918151af74f73249553f31ae");
+  assert.match(brandLogoAsset, /viewBox="170 335 915 524"/u);
+  assert.match(brandLogoAsset, /#012765/iu);
+  assert.match(brandLogoAsset, /#0658FE/iu);
+  assert.doesNotMatch(brandLogoAsset, /<script|<image|data:/iu);
+  assert.match(brandLogoComponent, /src="\/images\/paintswitch-logo\.svg"/u);
+  assert.match(brandLogoComponent, /width=\{915\}/u);
+  assert.match(brandLogoComponent, /height=\{524\}/u);
+
+  for (const [name, value] of Object.entries({ header, footer, legalPage })) {
+    assert.match(value, /<BrandLogo\b/u, `${name} must use the approved production logo`);
+    assert.doesNotMatch(value, />\s*PaintSwitch\s*</u, `${name} still contains an interim text-only wordmark`);
+  }
+
+  assert.match(footer, /bg-\[#F5F1E8\]/u);
+});
+
 test("homepage implements the approved editorial color-transformation direction", () => {
-  for (const color of ["#D1C4B8", "#C9BDAD", "#2D5A5A", "#3D4E4E", "#F5F1E8"]) {
+  for (const color of ["#D1C4B8", "#C9BDAD", "#012765", "#0658FE", "#3D4E4E", "#F5F1E8"]) {
     assert.ok(
       globalStyles.toUpperCase().includes(color) || homePage.toUpperCase().includes(color),
       `missing approved color: ${color}`,
     );
   }
+
+  assert.match(globalStyles, /--brand-navy:\s*#012765/iu);
+  assert.match(globalStyles, /--brand-cobalt:\s*#0658fe/iu);
+  assert.match(buttons, /bg-\[#012765\]/u);
+  assert.match(buttons, /hover:bg-\[#0658FE\]/u);
 
   assert.match(hero, /Transformation[\s\S]*through[\s\S]*color\./u);
   assert.match(homePage, /Before-and-after stories show the power of expert color choices and quality craftsmanship\./u);

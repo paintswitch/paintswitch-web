@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "./brand-logo";
 
 const groups = [
   { title: "Company", links: [["About", "/#about"], ["How It Works", "/#how-it-works"], ["Privacy", "/privacy"], ["Terms", "/terms"]] },
@@ -12,7 +13,13 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 border-b border-[#D1C4B8]/25 pb-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/" className="text-2xl font-semibold tracking-[-0.03em]">PaintSwitch</Link>
+            <Link
+              href="/"
+              aria-label="PaintSwitch home"
+              className="inline-flex rounded-sm bg-[#F5F1E8] p-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
+            >
+              <BrandLogo className="h-auto w-36 sm:w-40" />
+            </Link>
             <p className="font-editorial mt-5 max-w-xs text-2xl leading-8 text-[#D1C4B8]">Transformation through color.</p>
           </div>
           {groups.map((group) => (
