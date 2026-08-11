@@ -1,5 +1,4 @@
 import Image from "next/image";
-import colorStudy from "../../public/images/paintswitch-color-study.png";
 import { PrimaryButton, SecondaryButton } from "./buttons";
 
 export function Hero() {
@@ -26,8 +25,10 @@ export function Hero() {
         <figure className="relative mx-auto w-full max-w-3xl">
           <div className="relative overflow-hidden border border-[#3D4E4E]/30 bg-[#F5F1E8] p-2 sm:p-3">
             <Image
-              src={colorStudy}
+              src="/images/paintswitch-color-study.png"
               alt="The same living room shown with warm greige walls and with a deep teal feature wall"
+              width={1586}
+              height={992}
               className="aspect-[16/10] w-full object-cover"
               sizes="(min-width: 1024px) 55vw, 100vw"
               preload

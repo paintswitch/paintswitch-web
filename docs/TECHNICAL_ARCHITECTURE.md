@@ -69,7 +69,7 @@ Generated `.next` output and installed `node_modules` are present in the inspect
 
 The repository does not declare a Node.js runtime version through an `engines` field or a checked-in runtime-version file.
 
-Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The bounded framework update was installed without a force fix or incompatible override. `npm audit --omit=dev --json` reports zero vulnerabilities. The application has no user-controlled CSS-processing path, direct Sharp call, photo upload, or user-image processing path. The current local redesign imports one repository-local PNG through `next/image`; this static authored asset is not a customer upload path.
+Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The bounded framework update was installed without a force fix or incompatible override. `npm audit --omit=dev --json` reports zero vulnerabilities. The application has no user-controlled CSS-processing path, direct Sharp call, photo upload, or user-image processing path. The current local redesign serves one repository-local PNG from `public/images/` through `next/image` using its public URL and explicit intrinsic dimensions; this static authored asset is not a customer upload path.
 
 ## Application model
 
@@ -93,7 +93,7 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 ## Component organization
 
 - `Header` contains text brand identity, a skip link, primary navigation, a desktop call to action, and client-enhanced native mobile navigation.
-- `Hero` contains the transformation-through-color positioning, approved review-before-availability-or-pricing boundary, quote/service anchors, and a local static image imported through `next/image`. The figure labels `public/images/paintswitch-color-study.png` as an “Illustrative color study” and “Not a customer project”; it is generated/local design imagery, not evidence of PaintSwitch work or a customer before/after story.
+- `Hero` contains the transformation-through-color positioning, approved review-before-availability-or-pricing boundary, quote/service anchors, and a local static image served from `/images/paintswitch-color-study.png` through `next/image` at its verified 1586×992 intrinsic dimensions. The figure labels the asset as an “Illustrative color study” and “Not a customer project”; it is generated/local design imagery, not evidence of PaintSwitch work or a customer before/after story.
 - `TrustBar` renders a four-item service index for Interior, Exterior, Cabinets, and Commercial.
 - `ServiceCard` renders the four static service descriptions with editorial numbering rather than text-symbol icons.
 - `HowItWorks` displays four static process steps.
