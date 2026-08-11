@@ -1,6 +1,6 @@
 # PaintSwitch technical architecture
 
-Last repository inspection: 2026-08-08
+Last repository inspection: 2026-08-09
 
 Last external runtime verification: 2026-08-08
 
@@ -11,7 +11,7 @@ This document records only facts verified from the repository. It does not treat
 ```text
 paintswitch-web/
 ├── .github/workflows/ci.yml
-├── public/                 Five SVG assets
+├── public/                 Five starter SVG assets and one local illustrative color-study PNG
 ├── src/
 │   ├── app/
 │   │   ├── api/leads/route.ts
@@ -69,7 +69,7 @@ Generated `.next` output and installed `node_modules` are present in the inspect
 
 The repository does not declare a Node.js runtime version through an `engines` field or a checked-in runtime-version file.
 
-Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The bounded framework update was installed without a force fix or incompatible override. `npm audit --omit=dev --json` reports zero vulnerabilities. The application still has no user-controlled CSS-processing path, `next/image` import, direct Sharp call, photo upload, or user-image processing path.
+Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The bounded framework update was installed without a force fix or incompatible override. `npm audit --omit=dev --json` reports zero vulnerabilities. The application has no user-controlled CSS-processing path, direct Sharp call, photo upload, or user-image processing path. The current local redesign imports one repository-local PNG through `next/image`; this static authored asset is not a customer upload path.
 
 ## Application model
 
@@ -93,17 +93,17 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 ## Component organization
 
 - `Header` contains text brand identity, a skip link, primary navigation, a desktop call to action, and client-enhanced native mobile navigation.
-- `Hero` contains the primary positioning copy and a CSS-built room illustration.
-- `TrustBar` displays four static commitments.
-- `ServiceCard` renders static service descriptions and text-symbol icons.
+- `Hero` contains the transformation-through-color positioning, approved review-before-availability-or-pricing boundary, quote/service anchors, and a local static image imported through `next/image`. The figure labels `public/images/paintswitch-color-study.png` as an “Illustrative color study” and “Not a customer project”; it is generated/local design imagery, not evidence of PaintSwitch work or a customer before/after story.
+- `TrustBar` renders a four-item service index for Interior, Exterior, Cabinets, and Commercial.
+- `ServiceCard` renders the four static service descriptions with editorial numbering rather than text-symbol icons.
 - `HowItWorks` displays four static process steps.
 - `SectionHeading` provides shared section-heading presentation.
 - `PrimaryButton` and `SecondaryButton` are styled anchor components, not form buttons.
 - `QuoteRequestForm` renders the beta intake fields, approved pre-submit disclosure, legal links, and client-side pending, success, and failure states. These states alone are not evidence of successful external delivery.
 - `HighLevelChatWidget` is a committed Server Component that returns `null` unless `HIGHLEVEL_CHAT_WIDGET_ENABLED` equals the exact string `true`. When enabled, it emits one `next/script` loader using `strategy="lazyOnload"`, `https://widgets.leadconnectorhq.com/loader.js`, resources URL `https://widgets.leadconnectorhq.com/chat-widget/loader.js`, and public widget ID `6a75455fa70a87ea8ede056f`. It contains no secret, API client, transcript store, form field, booking, payment, or action logic.
 - `LegalPage` provides the shared PaintSwitch-only header, configurable effective-date layout, return link, and footer for the two legal routes. Commit `649f06d` added Live Chat data, vendor, AI, no-sensitive-data, no-summary/export, and manual-retention disclosures. Squash-merged commit `0dd1c74f2a0d2b5260f36061b573986eb5b57126` sets the Privacy effective date to August 8, 2026 and identifies the chat as `Switch bot`, PaintSwitch's AI assistant; the Terms route retains the shared August 4 default.
-- `Footer` contains static navigation, working Privacy and Terms links, `hello@paintswitch.com`, and the current year.
-- `page.tsx` contains the four approved service categories, benefits, manual-review copy, service-area copy, and the branded quote-request section. The prior Drywall Repair card and placeholder reviews are absent.
+- `Footer` contains static navigation, working Privacy and Terms links, `hello@paintswitch.com`, the transformation-through-color line, the current year, and the factual DMV/Virginia-priority note.
+- `page.tsx` contains the four approved service categories, an editorial transformation section and palette swatches, benefits, manual-review copy, service-area copy, and the branded quote-request section. The prior Drywall Repair card and placeholder reviews are absent.
 - The current header brand mark is rendered from text; no repository asset is verified as a final production logo following the owner-preferred paint-roller-with-paint-behind direction.
 
 ## Styling
@@ -111,9 +111,11 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 - Tailwind CSS is loaded through `@import "tailwindcss"` in `src/app/globals.css`.
 - PostCSS loads `@tailwindcss/postcss`.
 - Most presentation uses Tailwind utility classes embedded in JSX.
-- `globals.css` defines background and foreground variables, system font stacks, smooth scrolling, selection colors, and reduced-motion overrides.
+- `globals.css` defines local visual tokens for soft cream `#F5F1E8`, warm greige `#D1C4B8`, soft taupe `#C9BDAD`, deep teal `#2D5A5A`, warm charcoal `#3D4E4E`, ink, muted ink, and rules. It also defines system sans and Georgia/Times editorial-serif stacks, smooth scrolling, selection colors, and reduced-motion overrides.
 - No external webfont import is present in the root layout.
 - The project does not contain a separate design-token package or component library.
+- D-058 records owner approval of the exact current Georgia/system font pairing and component-token assignments as part of the lead-generation beta design candidate. They remain repository implementation facts rather than a final production identity specification: D-058 does not approve a final paint-roller logo, an exact warm-gold value, authentic customer-project imagery or claims, a merge, hosted Preview, Production deployment, or promoted traffic.
+- The local D-059 candidate keeps response timing as static Terms content rather than application logic. `src/app/terms/page.tsx` uses non-guaranteed follow-up wording and contains no five-minute or 9:00 a.m. customer promise; the source contract prevents those exact timings from returning. The external GoHighLevel workflow retains its separate internal five-minute Alex branch and is not implemented in this repository.
 
 ## TypeScript and module configuration
 
@@ -130,7 +132,7 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 - `npm run build` runs `next build`.
 - `npm run start` runs `next start`.
 - `npm run lint` runs `eslint`.
-- The latest verified `npm test` run executed sixty-one tests through Node's built-in test runner and TypeScript type stripping. Commit `649f06d` adds `tests/highlevel-chat-widget.test.mjs` and expands `tests/site-content.test.mjs` to check the exact flag, widget ID, two loader URLs, `lazyOnload`, homepage mount, exact non-wildcard CSP origins, and chat Privacy copy. All sixty-one tests, lint, type checking, and a Next.js `16.3.0` production build with chat enabled passed locally on 2026-08-06. Commit `85117a1` adds the exact services WebSocket origin to the source contract; fresh PR #2 `GitHub Verify`, `Vercel`, and `Vercel Preview Comments` checks all passed.
+- The latest verified `npm test` run executed sixty-two tests through Node's built-in test runner and TypeScript type stripping. The added editorial-design source contract checks the approved palette values, transformation message, local color-study asset, explicit illustrative/not-customer-work labels, and absence of invented customer-result claims. On 2026-08-09, all sixty-two tests, lint, type checking, and a Next.js `16.3.0` production build passed locally. Responsive browser checks at 1440×1000 and 390×844 found no horizontal overflow and verified the local hero image, mobile navigation, empty-form validation/focus behavior, and both legal routes; page logs contained no warnings or errors. Earlier commit `649f06d` added `tests/highlevel-chat-widget.test.mjs` and expanded `tests/site-content.test.mjs` to check the exact flag, widget ID, two loader URLs, `lazyOnload`, homepage mount, exact non-wildcard CSP origins, and chat Privacy copy. Commit `85117a1` added the exact services WebSocket origin to the source contract; fresh PR #2 `GitHub Verify`, `Vercel`, and `Vercel Preview Comments` checks all passed.
 - `npm run typecheck` runs TypeScript with no emitted files.
 - ESLint uses Next.js Core Web Vitals and TypeScript configurations.
 - `.github/workflows/ci.yml` uses Node.js 24 and runs `npm ci`, tests, lint, type checking, and the production build for pull requests and pushes to `main`. On 2026-08-08, fresh PR #2 `GitHub Verify`, `Vercel`, and `Vercel Preview Comments` checks all passed for application commit `85117a1`; PR #2 was then squash-merged to `main` as commit `7fb7359ccd5d1518d2dd4763e34350da9168d0cb`.

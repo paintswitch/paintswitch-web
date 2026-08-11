@@ -1,6 +1,6 @@
 # PaintSwitch decision log
 
-Last updated: 2026-08-08
+Last updated: 2026-08-09
 
 This log records material approved decisions. Dates are approval dates when supplied; otherwise the entry identifies when the decision was first documented as confirmed. Preserve superseded entries and link their replacements.
 
@@ -548,6 +548,51 @@ The check did not use or record real customer data. It verifies one protected ho
 - **Reason:** Gives the chatbot a concise PaintSwitch-specific name without weakening the owner-approved disclosure that visitors are interacting with AI.
 - **Consequences:** The signed-in GoHighLevel bot name, live widget title, widget introduction, and saved first-reply instructions were changed to `Switch bot`. The live homepage immediately showed the `Switch bot` title and the introduction, “Hi — I’m Switch bot, PaintSwitch’s AI assistant.” The repository Privacy copy and content contract must use the same identity. All D-052/D-053 scope, safety, channel, disabled-feature, reply-limit, delay, sleep, handoff, retention, kill-switch, and promotion-off controls remain unchanged. This naming decision does not approve broader qualification, actions, channels, advertising, booking, payments, SMS, Voice AI, or promoted traffic.
 - **Supersedes:** D-053 only where it required the exact visible name `PaintSwitch AI Assistant`, and D-052 only where it referred to that former bot name. It does not supersede either decision's explicit AI-disclosure requirement or any other safeguard. Historical evidence recorded before this decision retains the former observed name.
+
+## D-055 — Sophisticated editorial design tone
+
+- **Date:** 2026-08-09
+- **Status:** Confirmed
+- **Decision:** Use a sophisticated, confident, editorial design tone. Show expertise through intentional choices rather than trends, and avoid anything cute or condescending.
+- **Reason:** Establishes a durable visual and verbal character that communicates expertise without relying on trend-led, playful, or patronizing presentation.
+- **Consequences:** Design, imagery, layout, and approved copy should feel deliberate, restrained, and confident. This direction must remain compatible with D-003's mid-market, convenience-first, technology-first, technology-driven mainstream positioning and must not imply inherited Jen Contracting luxury positioning or weaken D-001's public separation.
+- **Supersedes:** None documented.
+
+## D-056 — Warm neutral and deep accent palette direction
+
+- **Date:** 2026-08-09
+- **Status:** Confirmed
+- **Decision:** Use warm greige or soft taupe as the base/background, with approved candidates `#D1C4B8` and `#C9BDAD`; use deep teal, forest green, or warm charcoal as the primary accent, with approved candidates `#2D5A5A` and `#3D4E4E`; and use soft cream or warm gold for secondary warmth, with `#F5F1E8` approved as the soft-cream candidate.
+- **Reason:** Creates an intentional, warm, sophisticated palette aligned with the approved editorial direction.
+- **Consequences:** The supplied values are approved palette options. Exact component-token assignments, final contrast/application decisions, and an exact warm-gold value remain TBD; `#F5F1E8` must not be silently described as the missing warm-gold value. Final typography and logo production remain separately unresolved.
+- **Supersedes:** None documented.
+
+## D-057 — Transformation-through-color message and storytelling
+
+- **Date:** 2026-08-09
+- **Status:** Confirmed
+- **Decision:** Use “Transformation through color” as the core design message. Use before/after stories to show the power of expert color choices and quality craftsmanship.
+- **Reason:** Gives the brand a concrete editorial narrative centered on the visible value of professional color decisions and execution.
+- **Consequences:** The design may use before/after storytelling, but it may not invent customer projects, project facts, testimonials, or results. Any story presented as PaintSwitch customer work requires authentic, permissioned assets and accurate supporting facts. Generated or conceptual imagery must be identified as an illustrative color study. Exact project selections, captions, supporting homepage/funnel copy, and production assets remain TBD, and no story may introduce an unapproved price, service-area promise, or other policy.
+- **Supersedes:** None documented.
+
+## D-058 — Approve the current editorial pass as the beta design candidate
+
+- **Date:** 2026-08-09
+- **Status:** Confirmed
+- **Decision:** Approve the exact current local editorial design pass shown on the owner's phone as the lead-generation beta design candidate. The approved candidate includes the current editorial layout, Georgia/system typography, current component-token assignments, interim text-only wordmark, and clearly labeled illustrative color-study hero.
+- **Reason:** Completes owner visual review for the current beta candidate while preserving a clear boundary between an approved local design direction and final brand assets, customer-project evidence, deployment, or public promotion.
+- **Consequences:** The current local design may proceed through regression, hosted Preview, and Production-safe verification without another visual-direction decision unless it materially changes. The hero must retain visible “Illustrative color study” and “Not a customer project” labels until authentic, permissioned PaintSwitch project assets and facts are separately approved. This decision does not approve a final paint-roller production logo, convert the illustrative image into customer work, approve authentic project claims, supply an exact warm-gold value, approve final supporting copy beyond the current displayed copy, merge or deploy the working tree, or authorize promoted traffic. All non-design beta launch gates remain controlling.
+- **Supersedes:** Only the unresolved owner-visual-review status for this exact local beta candidate and the TBD status of its current Georgia/system typography and component-token assignments for beta-candidate use. It does not supersede D-016's final paint-roller logo direction, D-056's unresolved exact warm-gold value, D-057's authenticity boundary, or any release, deployment, copy, legal, operational, or traffic requirement.
+
+## D-059 — Next-weekend full-design launch with Switch bot and no public response-time promise
+
+- **Date:** 2026-08-09
+- **Status:** Confirmed
+- **Decision:** Launch the lead-generation website by the weekend of 2026-08-15 through 2026-08-16 using the full D-058 editorial design and an active `Switch bot`. Remove the customer-facing five-minute and next-morning human-response targets from the website. Public copy may say that PaintSwitch reviews requests and follows up as soon as reasonably possible, but it must not promise contact or review within a specific timeframe.
+- **Reason:** The owner may be occupied when a request arrives and does not want the website to create an exact customer expectation that cannot always be met. The approved design and safeguarded chatbot are intended to be part of the launch experience rather than later optional additions.
+- **Consequences:** The local Website Terms replace the exact response-time section with non-guaranteed follow-up wording, and a content test prevents the five-minute or 9:00 a.m. promise from returning. D-045's timing may remain an internal operating goal, and D-049's five-minute conditional Alex alert remains an internal safety net; neither may be presented as a customer promise or a launch guarantee. `Switch bot` must be active for the intended full launch only after its existing disclosure, scope, mobile, Production-response, privacy, and kill-switch acceptance gates pass. This target authorizes planning and release preparation, not bypassing safety, legal, security, CRM-delivery, or final go/no-go verification.
+- **Supersedes:** D-045 only where its exact timing was published as customer-facing website copy or treated as a firm launch-acceptance promise; the internal operating goal remains. It supersedes D-053 and PS-CH-021 only on promoted-release phasing by making the safeguarded `Switch bot` part of the intended launch. It supersedes the expired D-023 2026-08-08 target with the weekend-of-2026-08-15 target. It does not expand chatbot capabilities or alter D-049's internal five-minute escalation.
 
 ## Proposed decision candidates
 

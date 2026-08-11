@@ -1,14 +1,16 @@
 # PaintSwitch lead-generation beta operations runbook
 
-Last updated: 2026-08-05
+Last updated: 2026-08-09
 
 This runbook operationalizes only confirmed lead-generation beta decisions. It does not add customer promises, approve an exact service boundary, activate automated customer SMS, or replace professional legal advice.
+
+Under D-059, the five-minute/next-morning human-contact timing is an internal operating goal only. It must not appear as a customer promise or firm launch-acceptance requirement. The separate five-minute Alex escalation remains an internal safety net.
 
 ## Current operating boundary
 
 - **Confirmed:** The PaintSwitch owner is the primary owner of every beta lead.
 - **Confirmed:** Lead-response coverage is 8:00 AM–8:00 PM Eastern every day.
-- **Confirmed:** Make the first human contact attempt within five minutes during coverage hours and by 9:00 AM Eastern the next day for after-hours leads.
+- **Confirmed internal goal:** Aim to make the first human contact attempt within five minutes during coverage hours and by 9:00 AM Eastern the next day for after-hours leads. D-059 removes this timing from customer-facing commitments and launch guarantees.
 - **Confirmed:** Every accepted website lead receives an accurate on-page confirmation.
 - **Confirmed:** Automated customer SMS remains off. Selecting `Text` is only a contact preference.
 - **Confirmed:** `hello@paintswitch.com` is the primary notification and privacy-request mailbox.
@@ -20,7 +22,7 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 - **Verified dedicated sending-domain configuration — 2026-08-05:** In the signed-in GoHighLevel and GoDaddy accounts, `mg.paintswitch.com` was added as the dedicated PaintSwitch sending subdomain. GoDaddy Domain Connect created the SPF, DKIM, CNAME, and MX records; `_dmarc.mg` was added as a DMARC TXT record with monitoring policy `p=none`. Live DNS queries later returned MX records for Mailgun, SPF authorizing LeadConnector and Mailgun, and DMARC monitoring policy `p=none`. GoHighLevel displayed the domain enabled, Warmup In Progress at Stage 1, Shared IP Active, and SSL Issued. At the later check, warmup showed 0.1% and the counter read “1 of 1,000 emails today.” The GoHighLevel Business Profile was also corrected to friendly name `PaintSwitch`, business email `hello@paintswitch.com`, and website `https://paintswitch.com`; no Jen-linked business email remains there. This verifies configuration and public DNS state only, not raw-message authentication headers, warmup completion, the cause of the earlier failed message, retry/fallback behavior, or Production deliverability.
 - **Verified post-configuration workflow exercise — 2026-08-05:** A synthetic Opportunity with no real customer data triggered `Email Owner - hello@paintswitch.com` at 7:59:28 PM ET and the execution detail reported `Success`. The Opportunity was immediately moved to `Contact Attempted`; after the exact Wait finished at 8:04:28 PM, the workflow executed `Contact Attempted` and finished at 8:04:29 PM with no Alex action. That stage transition is workflow-control evidence, not proof of human contact. For the selected analytics period, GoHighLevel displayed eight Sent, eight Delivered, and one historical Failed. Because the analytics view did not expose a row-level link from that aggregate to the synthetic action, this is successful post-configuration workflow evidence, not proof that the specific message passed SPF, DKIM, or DMARC at the recipient.
 - **Verified post-configuration row-level delivery and delayed-routing receipt — 2026-08-05:** A second synthetic Opportunity containing no real customer data was created at 9:31 PM ET and left in `New Quote Request`. GoHighLevel Email Analytics recorded the immediate `hello@paintswitch.com` message as `Delivered` at 9:31 PM and the conditional `alex@paintswitch.com` message as `Delivered` at 9:36 PM. Signed-in Alex Outlook received the 9:36 PM message with visible sender `PaintSwitch <hello@paintswitch.com>`, a visible sending/routing address under `mg.paintswitch.com`, subject `New PaintSwitch website lead`, and the approved internal-alert body. This verifies row-level provider delivery, delayed backup routing, and Alex inbox receipt after the dedicated-domain setup. It is an after-hours synthetic routing test, not a human-response rehearsal, Production delivery, raw-header SPF/DKIM/DMARC evidence, warmup completion, or notification-failure recovery.
-- **TBD / activation-blocking:** Decide the authorized stage-transition actor and acknowledgment procedure, any future distinct Alex wording, and failure/retry behavior; resolve or formally accept the historical 11:38 AM failure; then complete an in-coverage timestamped human-response rehearsal. Do not claim operational response readiness from workflow execution or inbox receipt alone.
+- **TBD / activation-blocking:** Decide the authorized stage-transition actor and acknowledgment procedure, any future distinct Alex wording, and failure/retry behavior; resolve or formally accept the historical 11:38 AM failure. A timestamped human-response rehearsal remains useful operating evidence, but D-059 makes the exact five-minute outcome nonblocking and non-public. Do not claim guaranteed response readiness from workflow execution or inbox receipt alone.
 
 ## Latest protected-Preview rehearsal
 
@@ -34,7 +36,7 @@ This runbook operationalizes only confirmed lead-generation beta decisions. It d
 
 1. Open the internal PaintSwitch notification and the matching GoHighLevel Contact and Opportunity.
 2. Confirm the request contains the approved seven intake fields and does not show a firm price, booking, payment, or service-area approval.
-3. During coverage hours, make the first human contact attempt within five minutes. For an after-hours lead, make the first attempt by 9:00 AM Eastern the next day.
+3. During coverage hours, aim to make the first human contact attempt within five minutes. For an after-hours lead, aim to make the first attempt by 9:00 AM Eastern the next day. These are internal goals only; customer communications must not state or guarantee them.
 4. Record the attempt time, channel, outcome, and next action in the matching GoHighLevel record. The authorized transition actor remains **TBD**; once assigned, that operator moves the Opportunity to `Contact Attempted` immediately after the first contact attempt so a handled lead does not alert Alex. Do not place lead data in this runbook.
 5. Use only project-specific communication. Do not send automated customer SMS during the beta.
 6. Do not promise service availability, pricing, scheduling, or booking before human review.

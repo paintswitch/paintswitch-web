@@ -1,6 +1,6 @@
 # PaintSwitch master context
 
-Last updated: 2026-08-08
+Last updated: 2026-08-09
 
 This document is the governing summary of PaintSwitch's approved business and product direction. Current website copy is implementation evidence only and must not be treated as proof of approval.
 
@@ -17,7 +17,12 @@ This document is the governing summary of PaintSwitch's approved business and pr
 ## Visual direction
 
 - **Confirmed:** On 2026-07-18, the owner preferred the first HTML example's logo direction: a paint roller with paint behind it.
-- **TBD:** Final production logo artwork, file, variants, typography, colors, responsive usage, and approval evidence. The visual preference does not prove that a specific current or future logo asset is final.
+- **Confirmed:** On 2026-08-09, the owner approved a sophisticated, confident, editorial tone that demonstrates expertise through intentional choices rather than trends and avoids anything cute or condescending.
+- **Confirmed:** On 2026-08-09, the owner approved a palette direction with warm greige or soft taupe base/background candidates `#D1C4B8` and `#C9BDAD`; deep teal, forest-green, or warm-charcoal primary-accent candidates `#2D5A5A` and `#3D4E4E`; and soft cream or warm gold for secondary warmth. `#F5F1E8` is the approved soft-cream candidate. No exact warm-gold value was supplied.
+- **Confirmed:** On 2026-08-09, the owner approved “Transformation through color” as the core message and before/after stories as the way to demonstrate the power of expert color choices and quality craftsmanship.
+- **Confirmed:** Under D-058 dated 2026-08-09, the owner approved the exact current local editorial pass shown on the owner's phone as the lead-generation beta design candidate. That approval covers the current editorial layout, Georgia/system typography, current token assignments, interim text-only wordmark, and clearly labeled illustrative color-study hero.
+- **Confirmed:** Under D-059 dated 2026-08-09, target launch by the weekend of 2026-08-15 through 2026-08-16 with the full approved editorial design and safeguarded `Switch bot` active after its launch acceptance gates pass.
+- **TBD:** Final paint-roller production logo artwork, file, variants, post-beta/final typography or token changes beyond the approved beta candidate, an exact warm-gold value, long-term responsive identity rules, authentic permissioned PaintSwitch before/after project assets and facts, final supporting copy beyond the current displayed copy, and final production-brand approval evidence. D-058 does not turn the illustrative hero into customer work, approve claimed project results, merge or deploy the local working tree, or authorize promoted traffic. Hosted Preview and Production verification remain separate implementation gates.
 
 ## Launch market
 
@@ -117,7 +122,7 @@ The flat $125 fuel/materials adjustment is the only numeric pricing value curren
 - **TBD:** Provider-internal architecture beyond the direct widget, browser/session fields beyond the documented Privacy scope, knowledge sources beyond the approved prompt, detailed qualification behavior, operating ownership for manual chat deletion and response, mobile/accessibility/kill-switch evidence, Production response/latency acceptance beyond verified presence/opening, and promoted-public-release phasing.
 - **Proposed:** Use the chatbot to guide the quote flow, explain routing, collect approved inputs, and preserve context for human handoff.
 
-The chatbot's existence, provider, Prompt Based bot type, OpenAI GPT-4.1 model, D-052 prompt-only V1 boundaries, D-053 owner-test configuration, and D-054 `Switch bot` identity are approved. The prompt and widget settings are saved, four bounded provider-panel tests pass, and commits `649f06d` and `85117a1` plus their hosted Previews establish the exact limited historical and bounded-response evidence above. Squash-merged commit `7fb7359ccd5d1518d2dd4763e34350da9168d0cb` established the homepage-only Production integration; squash-merged commit `0dd1c74f2a0d2b5260f36061b573986eb5b57126` and its Ready Production deployment establish the matching `Switch bot` Privacy identity and August 8 effective date. Live checks verified the `Switch bot` title and AI-disclosing introduction without sending a Production message. The bot is Auto Pilot for controlled owner testing, and one no-customer-data synthetic conversation deletion rehearsal passed. Detailed qualification beyond the bounded prompt, automatic context-preserving handoff, provider-internal retention/anonymization behavior, mobile/accessibility and shutdown testing, Production response/latency, promoted release, and any broader feature remain unresolved.
+The chatbot's existence, provider, Prompt Based bot type, OpenAI GPT-4.1 model, D-052 prompt-only V1 boundaries, D-053 configuration, D-054 `Switch bot` identity, and D-059 launch assignment are approved. The prompt and widget settings are saved, four bounded provider-panel tests pass, and commits `649f06d` and `85117a1` plus their hosted Previews establish the exact limited historical and bounded-response evidence above. Squash-merged commit `7fb7359ccd5d1518d2dd4763e34350da9168d0cb` established the homepage-only Production integration; squash-merged commit `0dd1c74f2a0d2b5260f36061b573986eb5b57126` and its Ready Production deployment establish the matching `Switch bot` Privacy identity and August 8 effective date. Live checks verified the `Switch bot` title and AI-disclosing introduction without sending a Production message. One no-customer-data synthetic conversation deletion rehearsal passed. Detailed qualification beyond the bounded prompt, automatic context-preserving handoff, provider-internal retention/anonymization behavior, mobile/accessibility and shutdown testing, Production response/latency, and any broader feature remain unresolved; promoted-release intent is resolved by D-059.
 
 ## Other product capabilities under consideration
 
@@ -144,8 +149,8 @@ The owner confirmed the following outcomes on 2026-07-18:
 
 ## Approved lead-generation beta
 
-- **Confirmed:** The lead-generation beta is the first release milestone and may launch before instant pricing, checkout, payments, online scheduling, photo-review automation, or automated proposals. Under D-053, the safeguarded chatbot may be exposed separately for bounded owner/live testing with ads and promotion off, but it is not required for beta launch.
-- **Confirmed:** Target the beta for launch on Saturday, 2026-08-08. This is a delivery goal, not permission to bypass any confirmed safety, legal, privacy, consent, security, messaging, or acceptance requirement.
+- **Confirmed:** The lead-generation beta is the first release milestone and may launch before instant pricing, checkout, payments, online scheduling, photo-review automation, or automated proposals. Under D-059, the safeguarded `Switch bot` is part of the intended full-design launch after its acceptance gates pass.
+- **Confirmed:** Target the full-design beta with active safeguarded `Switch bot` for the weekend of 2026-08-15 through 2026-08-16. This is a delivery goal, not permission to bypass any confirmed safety, legal, privacy, consent, security, messaging, CRM-delivery, chatbot, or acceptance requirement.
 - **Confirmed:** The beta markets interior, exterior, cabinet, and commercial painting. Drywall Repair is not a standalone marketed beta service.
 - **Confirmed:** The primary customer action is “Request a Quote.”
 - **Confirmed:** Use a custom branded PaintSwitch quote-request form and connect it securely to GoHighLevel through a server-side integration. Customer-delivered code must not expose GoHighLevel credentials or secrets.
@@ -153,7 +158,8 @@ The owner confirmed the following outcomes on 2026-07-18:
 - **Confirmed:** Lead intake collects name, phone, email, project ZIP or address, service type, project description, and contact preference.
 - **Confirmed:** The PaintSwitch owner is the primary owner of all beta leads.
 - **Confirmed:** Each accepted submission goes to a verified GoHighLevel CRM pipeline, notifies the owner, presents an immediate on-page confirmation, and records basic source/campaign attribution. Automated customer SMS is off for the beta, and choosing `Text` as a contact preference is not automated-SMS consent.
-- **Confirmed:** Lead response operates from 8:00 AM through 8:00 PM Eastern daily. The first human contact attempt is due within five minutes during those hours and by 9:00 AM Eastern the next day for after-hours leads.
+- **Confirmed:** Lead response operates from 8:00 AM through 8:00 PM Eastern daily. After D-059, the five-minute and next-morning timings are internal operating goals rather than customer-facing promises or firm launch-acceptance guarantees.
+- **Confirmed:** Website and chatbot copy must not promise a five-minute, 9:00 a.m., or other exact human-response time. The public rule is that PaintSwitch reviews requests and follows up as soon as reasonably possible, with no guarantee of contact, review, acceptance, availability, scheduling, or booking within a specific timeframe.
 - **Confirmed:** The PaintSwitch owner is the primary operational recipient. Alex is conditional backup. On 2026-08-05, account access, both workflow branches, and controlled routed receipt to Alex were verified. These facts satisfy the mailbox and routed-notification gates but do not prove a human response rehearsal or complete operational activation.
 - **Confirmed:** Under D-048 and D-049 dated 2026-08-05, `hello@paintswitch.com` remains the immediate primary internal destination for every accepted beta lead. Alex must not receive every lead. After five minutes, alert Alex only when the Opportunity still remains in `New Quote Request`; do not alert Alex when it has moved to `Contact Attempted`. Automated customer SMS remains off. Both branches and routed Alex receipt are externally verified. Exact transition ownership and acknowledgment procedure, any future distinct Alex wording, failure/retry behavior, operational activation, and response rehearsal remain **TBD** or unverified.
 - **Confirmed:** Vercel remains the beta website host, and custom-domain work does not block beta.
@@ -197,5 +203,5 @@ The owner confirmed the following outcomes on 2026-07-18:
 ## Success measures
 
 - **Confirmed:** A central product outcome is closing qualifying standard-interior sales online before a call is necessary.
-- **Confirmed:** For beta response operations, make the first human contact attempt within five minutes during the 8:00 AM–8:00 PM Eastern daily operating window and by 9:00 AM Eastern the next day after hours.
+- **Confirmed:** For beta response operations, retain the former five-minute/next-morning timing as an internal goal only. D-059 removes it from public website commitments and from firm launch-acceptance promises because the owner may be unavailable when a request arrives.
 - **TBD:** Conversion targets, quote-completion targets, booking targets, revenue goals, margin thresholds, customer-satisfaction measures, and operational-quality measures beyond the confirmed beta response target.

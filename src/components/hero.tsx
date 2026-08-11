@@ -1,10 +1,48 @@
+import Image from "next/image";
+import colorStudy from "../../public/images/paintswitch-color-study.png";
 import { PrimaryButton, SecondaryButton } from "./buttons";
 
 export function Hero() {
-  return <section id="home" className="overflow-hidden bg-[#F8FAFC] px-5 pb-16 pt-14 sm:px-8 sm:pt-20 lg:pb-24 lg:pt-24">
-    <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.03fr_0.97fr] lg:gap-20">
-      <div><div className="mb-7 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] text-[#0F766E]"><span className="h-2 w-2 rounded-full bg-[#2DD4BF]"/>Virginia-priority DMV project review</div><h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.04em] text-[#0F172A] sm:text-6xl lg:text-7xl">Painting.<br/><span className="text-[#0F766E]">Simplified.</span></h1><p className="mt-7 max-w-xl text-lg leading-8 text-slate-600 sm:text-xl">Request a quote for interior, exterior, cabinet, or commercial painting. We review every project before confirming service availability and pricing.</p><div className="mt-9 flex flex-col gap-3 sm:flex-row"><PrimaryButton href="#quote">Request a Quote <span aria-hidden="true">→</span></PrimaryButton><SecondaryButton href="#services">Explore Services</SecondaryButton></div><p className="mt-5 text-sm text-slate-500">No instant-price promises. Clear review and next steps.</p></div>
-      <div className="relative mx-auto w-full max-w-xl" aria-label="Illustration of a freshly painted modern room" role="img"><div className="absolute -right-10 -top-10 h-52 w-52 rounded-full bg-[#2DD4BF]/20 blur-3xl"/><div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] bg-[#0F172A] p-5 shadow-2xl sm:p-8"><div className="absolute inset-x-8 top-8 h-1 rounded-full bg-[#2DD4BF]"/><div className="relative mt-8 h-[calc(100%-2rem)] overflow-hidden rounded-2xl bg-[#F1F5F9]"><div className="absolute inset-x-0 top-0 h-[58%] bg-[#CCFBF1]"/><div className="absolute bottom-0 h-[42%] w-full bg-[#D6D3D1] [clip-path:polygon(0_30%,100%_0,100%_100%,0_100%)]"/><div className="absolute left-[12%] top-[14%] h-[38%] w-[34%] rounded-t-full border-[10px] border-white bg-[#5EEAD4] shadow-lg"><div className="absolute left-1/2 top-0 h-full w-1 bg-white"/></div><div className="absolute right-[10%] top-[18%] h-[30%] w-[34%] rounded-lg border-[8px] border-white bg-[#0F172A]"><div className="m-3 h-3/4 rounded bg-[#2DD4BF]/60"/></div><div className="absolute bottom-[15%] left-[27%] h-[27%] w-[52%] rounded-t-3xl bg-[#0F172A] shadow-xl"><div className="absolute -left-4 top-4 h-20 w-8 rounded-l-xl bg-[#1E293B]"/><div className="absolute -right-4 top-4 h-20 w-8 rounded-r-xl bg-[#1E293B]"/></div><div className="absolute bottom-[7%] right-[8%] h-24 w-3 rounded bg-[#0F172A] before:absolute before:-left-5 before:-top-8 before:h-12 before:w-12 before:rounded-full before:bg-[#2DD4BF]"/></div></div><div className="absolute -bottom-5 -left-3 rounded-2xl bg-white p-4 shadow-xl sm:-left-7"><div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#CCFBF1] text-[#0F766E]">✓</span><div><p className="text-xs text-slate-500">Your project</p><p className="text-sm font-bold text-[#0F172A]">Ready to refresh</p></div></div></div></div>
-    </div>
-  </section>;
+  return (
+    <section id="home" className="overflow-hidden bg-[#D1C4B8] px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3D4E4E]">Painting for the DMV · Virginia prioritized</p>
+          <h1 className="font-editorial mt-6 max-w-2xl text-[2.15rem] font-normal leading-[0.9] tracking-[-0.055em] text-[#253231] min-[360px]:text-[2.7rem] sm:text-[4.25rem] lg:text-[clamp(4.5rem,7.5vw,6.9rem)]">
+            Transformation<br />through <em className="font-normal text-[#2D5A5A]">color.</em>
+          </h1>
+          <p className="mt-8 max-w-xl text-lg leading-8 text-[#3D4E4E] sm:text-xl">
+            Expert color choices and quality craftsmanship can change how a space looks, feels, and lives.
+          </p>
+          <p className="mt-4 max-w-xl leading-7 text-[#3D4E4E]">
+            Request a quote for interior, exterior, cabinet, or commercial painting. Every project is reviewed before service availability or pricing is confirmed.
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <PrimaryButton href="#quote">Request a Quote <span aria-hidden="true">→</span></PrimaryButton>
+            <SecondaryButton href="#services">Explore Services</SecondaryButton>
+          </div>
+        </div>
+
+        <figure className="relative mx-auto w-full max-w-3xl">
+          <div className="relative overflow-hidden border border-[#3D4E4E]/30 bg-[#F5F1E8] p-2 sm:p-3">
+            <Image
+              src={colorStudy}
+              alt="The same living room shown with warm greige walls and with a deep teal feature wall"
+              className="aspect-[16/10] w-full object-cover"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              preload
+            />
+            <div className="pointer-events-none absolute inset-x-2 bottom-2 grid grid-cols-2 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-[#F5F1E8] sm:inset-x-3 sm:bottom-3 sm:text-xs">
+              <span className="bg-[#253231]/88 px-3 py-2 sm:px-4">Before · warm greige</span>
+              <span className="justify-self-end bg-[#2D5A5A]/92 px-3 py-2 text-right sm:px-4">After · deep teal</span>
+            </div>
+          </div>
+          <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-[#3D4E4E]/40 pt-3 text-xs uppercase tracking-[0.14em] text-[#3D4E4E]">
+            <span>Illustrative color study</span>
+            <span>Not a customer project</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  );
 }

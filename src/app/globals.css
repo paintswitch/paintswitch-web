@@ -1,14 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --cream: #f5f1e8;
+  --greige: #d1c4b8;
+  --taupe: #c9bdad;
+  --teal: #2d5a5a;
+  --charcoal: #3d4e4e;
+  --ink: #253231;
+  --muted-ink: #596563;
+  --rule: #a99d91;
+  --background: var(--cream);
+  --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
   --font-mono: "SFMono-Regular", Consolas, monospace;
 }
 
@@ -16,6 +25,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
 }
 
 html {
@@ -23,8 +33,12 @@ html {
 }
 
 ::selection {
-  background: #2dd4bf;
-  color: #0f172a;
+  background: var(--teal);
+  color: var(--cream);
+}
+
+.font-editorial {
+  font-family: Georgia, "Times New Roman", serif;
 }
 
 @media (prefers-reduced-motion: reduce) {

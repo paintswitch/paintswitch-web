@@ -16,6 +16,14 @@ const services: { title: string; description: string; icon: ServiceIcon }[] = [
   { title: "Commercial Painting", description: "Tell us about your commercial space and painting needs for consultation review.", icon: "commercial" },
 ];
 
+const palette = [
+  ["Warm greige", "#D1C4B8"],
+  ["Soft taupe", "#C9BDAD"],
+  ["Deep teal", "#2D5A5A"],
+  ["Warm charcoal", "#3D4E4E"],
+  ["Soft cream", "#F5F1E8"],
+];
+
 const benefits = [
   ["01", "Simple request", "Share the project details PaintSwitch needs in one clear form."],
   ["02", "Project review", "Every request is reviewed before service availability or pricing is confirmed."],
@@ -27,55 +35,85 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main id="main-content" tabIndex={-1} className="focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0F766E]">
+      <main id="main-content" tabIndex={-1} className="focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#2D5A5A]">
         <Hero />
         <TrustBar />
 
-        <section id="services" className="scroll-mt-24 px-5 py-20 sm:px-8 lg:py-28">
+        <section className="bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28" aria-labelledby="transformation-title">
+          <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-24">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2D5A5A]">The power of color</p>
+              <h2 id="transformation-title" className="font-editorial mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#253231] sm:text-5xl lg:text-6xl">
+                A thoughtful change can transform the whole room.
+              </h2>
+            </div>
+            <div className="flex flex-col justify-between gap-12 border-l border-[#A99D91] pl-6 sm:pl-10">
+              <p className="max-w-2xl text-xl leading-9 text-[#3D4E4E] sm:text-2xl">
+                Before-and-after stories show the power of expert color choices and quality craftsmanship.
+              </p>
+              <div>
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#596563]">PaintSwitch color direction</p>
+                <ul className="grid grid-cols-2 border-l border-t border-[#A99D91]/70 sm:grid-cols-5">
+                  {palette.map(([name, color]) => (
+                    <li key={name} className="border-b border-r border-[#A99D91]/70 bg-[#F5F1E8] p-2">
+                      <span className="block aspect-square w-full border border-[#253231]/10" style={{ backgroundColor: color }} aria-hidden="true" />
+                      <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.12em] text-[#596563]">{name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="services" className="scroll-mt-24 border-t border-[#A99D91]/60 bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28">
           <div className="mx-auto max-w-7xl">
-            <SectionHeading eyebrow="Painting services" title="Choose the service that fits your project" description="Submit a DMV project request for individual service-area review across interior, exterior, cabinet, or commercial painting. Virginia projects are prioritized for the public beta." />
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+              <SectionHeading eyebrow="Painting services" title="Expert attention for every surface" description="Submit a DMV project request for individual service-area review. Virginia projects are prioritized for the public beta." />
+              <PrimaryButton href="#quote" className="self-start lg:mb-2">Request a Quote</PrimaryButton>
+            </div>
+            <div className="mt-14 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
               {services.map((service) => <ServiceCard key={service.title} {...service} />)}
-              <article className="flex min-h-64 flex-col justify-between rounded-3xl bg-[#0F172A] p-7 text-white sm:p-8">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2DD4BF]">Not sure where to start?</p>
-                <div><h3 className="text-2xl font-semibold">Let&apos;s talk paint.</h3><p className="mt-3 text-slate-300">Tell us about your space and we&apos;ll help shape the right plan.</p></div>
-                <PrimaryButton href="#quote" className="mt-6 self-start">Request a Quote</PrimaryButton>
-              </article>
             </div>
           </div>
         </section>
 
         <HowItWorks />
 
-        <section id="about" className="scroll-mt-24 bg-[#0F172A] px-5 py-20 text-white sm:px-8 lg:py-28">
+        <section id="about" className="scroll-mt-24 bg-[#253231] px-5 py-20 text-[#F5F1E8] sm:px-8 lg:py-28">
           <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <SectionHeading light eyebrow="Why PaintSwitch" title="A clear way to start your painting project" description="Share the details once, receive confirmation, and know that a human will review your request before the next step." />
-            <div className="grid gap-px overflow-hidden rounded-3xl bg-white/15 sm:grid-cols-2">
+            <div className="grid border-l border-t border-[#D1C4B8]/30 sm:grid-cols-2">
               {benefits.map(([number, title, description]) => (
-                <article key={title} className="bg-[#111c32] p-7 sm:p-9">
-                  <span className="font-mono text-sm text-[#2DD4BF]">{number}</span>
-                  <h3 className="mt-8 text-xl font-semibold">{title}</h3>
-                  <p className="mt-3 leading-7 text-slate-300">{description}</p>
+                <article key={title} className="border-b border-r border-[#D1C4B8]/30 p-7 sm:p-9">
+                  <span className="font-editorial text-2xl italic text-[#D1C4B8]">{number}</span>
+                  <h3 className="font-editorial mt-10 text-2xl font-normal text-[#F5F1E8]">{title}</h3>
+                  <p className="mt-4 leading-7 text-[#D1C4B8]">{description}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="px-5 py-20 sm:px-8 lg:py-28" aria-labelledby="areas-title">
-          <div className="mx-auto grid max-w-7xl overflow-hidden rounded-3xl bg-[#E6FFFA] lg:grid-cols-2">
-            <div className="p-8 sm:p-12 lg:p-16"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#0F766E]">Service area</p><h2 id="areas-title" className="mt-4 text-3xl font-semibold tracking-tight text-[#0F172A] sm:text-4xl">DMV project review</h2><p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">PaintSwitch accepts requests throughout the DMV and prioritizes Virginia projects for the public beta. Every location is reviewed individually before availability or pricing is confirmed.</p></div>
-            <div className="relative min-h-72 overflow-hidden bg-[#CCFBF1]" aria-hidden="true"><div className="absolute left-[18%] top-[20%] h-44 w-44 rounded-full border border-[#2DD4BF]/50"/><div className="absolute left-[42%] top-[10%] h-52 w-52 rounded-full border border-[#2DD4BF]/50"/><div className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#0F172A] text-3xl text-[#2DD4BF] shadow-xl">⌖</div></div>
+        <section className="bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28" aria-labelledby="areas-title">
+          <div className="mx-auto grid max-w-7xl border-y border-[#A99D91] lg:grid-cols-[0.66fr_1.34fr]">
+            <div className="flex items-center border-b border-[#A99D91] py-8 lg:border-b-0 lg:border-r lg:py-12">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2D5A5A]">Service area</p>
+            </div>
+            <div className="py-10 lg:pl-16">
+              <h2 id="areas-title" className="font-editorial text-4xl font-normal tracking-[-0.04em] text-[#253231] sm:text-5xl">DMV project review</h2>
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-[#596563]">PaintSwitch accepts requests throughout the DMV and prioritizes Virginia projects for the public beta. Every location is reviewed individually before availability or pricing is confirmed.</p>
+            </div>
           </div>
         </section>
 
-        <section id="quote" className="scroll-mt-24 bg-[#2DD4BF] px-5 py-20 sm:px-8 lg:py-28">
+        <section id="quote" className="scroll-mt-24 bg-[#2D5A5A] px-5 py-20 sm:px-8 lg:py-28">
           <div className="mx-auto grid max-w-7xl items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-            <div className="lg:sticky lg:top-28">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#0F3D39]">Request a quote</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#0F172A] sm:text-5xl">Tell us about your painting project.</h2>
-              <p className="mt-5 max-w-xl text-lg leading-8 text-[#134E4A]">Submit a DMV project request for individual service-area review across interior, exterior, cabinet, or commercial painting. Virginia projects are prioritized for the public beta.</p>
-              <p className="mt-6 max-w-xl rounded-2xl border border-[#0F766E]/25 bg-white/35 p-4 text-sm leading-6 text-[#134E4A]">Submitting this form does not confirm service availability, pricing, scheduling, or booking. A PaintSwitch team member will review your request and follow up.</p>
+            <div className="text-[#F5F1E8] lg:sticky lg:top-28">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D1C4B8]">Request a quote</p>
+              <h2 className="font-editorial mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl">Tell us about your painting project.</h2>
+              <p className="mt-6 max-w-xl text-lg leading-8 text-[#F5F1E8]/80">Submit a DMV project request for individual service-area review across interior, exterior, cabinet, or commercial painting. Virginia projects are prioritized for the public beta.</p>
+              <p className="mt-8 max-w-xl border-l border-[#D1C4B8] pl-5 text-sm leading-6 text-[#D1C4B8]">Submitting this form does not confirm service availability, pricing, scheduling, or booking. A PaintSwitch team member will review your request and follow up.</p>
             </div>
             <QuoteRequestForm />
           </div>

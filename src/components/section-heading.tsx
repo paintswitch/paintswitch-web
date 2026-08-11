@@ -1,2 +1,11 @@
 type Props = { eyebrow: string; title: string; description?: string; light?: boolean };
-export function SectionHeading({ eyebrow, title, description, light = false }: Props) { return <div className="max-w-2xl"><p className={`text-sm font-bold uppercase tracking-[0.18em] ${light ? "text-[#2DD4BF]" : "text-[#0F766E]"}`}>{eyebrow}</p><h2 className={`mt-4 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#0F172A]"}`}>{title}</h2>{description && <p className={`mt-5 text-lg leading-8 ${light ? "text-slate-300" : "text-slate-600"}`}>{description}</p>}</div>; }
+
+export function SectionHeading({ eyebrow, title, description, light = false }: Props) {
+  return (
+    <div className="max-w-3xl">
+      <p className={`text-xs font-semibold uppercase tracking-[0.2em] ${light ? "text-[#D1C4B8]" : "text-[#2D5A5A]"}`}>{eyebrow}</p>
+      <h2 className={`font-editorial mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl ${light ? "text-[#F5F1E8]" : "text-[#253231]"}`}>{title}</h2>
+      {description && <p className={`mt-6 max-w-2xl text-lg leading-8 ${light ? "text-[#D1C4B8]" : "text-[#3D4E4E]"}`}>{description}</p>}
+    </div>
+  );
+}
