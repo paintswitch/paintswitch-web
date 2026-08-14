@@ -1,3 +1,18 @@
 export type ServiceIcon = "interior" | "exterior" | "cabinet" | "commercial";
-const icons: Record<ServiceIcon, string> = { interior: "▱", exterior: "⌂", cabinet: "▦", commercial: "▥" };
-export function ServiceCard({ title, description, icon }: { title: string; description: string; icon: ServiceIcon }) { return <article className="group flex min-h-64 flex-col rounded-3xl border border-slate-200 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-xl sm:p-8"><span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#CCFBF1] text-2xl text-[#0F766E]">{icons[icon]}</span><div className="mt-auto pt-10"><h3 className="text-xl font-semibold text-[#0F172A]">{title}</h3><p className="mt-3 leading-7 text-slate-600">{description}</p></div></article>; }
+
+const numbers: Record<ServiceIcon, string> = { interior: "01", exterior: "02", cabinet: "03", commercial: "04" };
+
+export function ServiceCard({ title, description, icon }: { title: string; description: string; icon: ServiceIcon }) {
+  return (
+    <article className="group flex min-h-72 flex-col justify-between border-t border-[#A99D91] py-7 sm:py-8">
+      <div className="flex items-start justify-between gap-6">
+        <span aria-hidden="true" className="font-editorial text-3xl italic text-[#012765]">{numbers[icon]}</span>
+        <span aria-hidden="true" className="h-2 w-2 bg-[#0658FE] transition-transform duration-300 group-hover:rotate-45" />
+      </div>
+      <div className="pt-12">
+        <h3 className="font-editorial text-3xl font-normal tracking-[-0.03em] text-[#253231]">{title}</h3>
+        <p className="mt-4 max-w-sm leading-7 text-[#596563]">{description}</p>
+      </div>
+    </article>
+  );
+}

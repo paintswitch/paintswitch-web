@@ -1,22 +1,73 @@
 "use client";
 
 import type { MouseEvent } from "react";
+import { BrandLogo } from "./brand-logo";
 import { PrimaryButton } from "./buttons";
 
 const links = [["Home", "#home"], ["Services", "#services"], ["How It Works", "#how-it-works"], ["About", "#about"]];
 
-function Logo() { return <a href="#home" aria-label="PaintSwitch home" className="text-xl font-bold tracking-tight">Paint<span className="text-[#0F766E]">Switch</span></a>; }
+function Logo() {
+  return (
+    <a
+      href="#home"
+      aria-label="PaintSwitch home"
+      className="inline-flex rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
+    >
+      <BrandLogo className="h-12 w-auto sm:h-14" loading="eager" />
+    </a>
+  );
+}
 
 function closeMobileMenu(event: MouseEvent<HTMLAnchorElement>) {
   event.currentTarget.closest("details")?.removeAttribute("open");
 }
 
 export function Header() {
-  return <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 text-[#0F172A] backdrop-blur">
-    <a href="#main-content" className="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:not-sr-only focus:rounded-full focus:bg-[#0F172A] focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-white">Skip to content</a>
-    <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8"><Logo />
-      <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex"><ul className="flex items-center gap-7">{links.map(([label, href]) => <li key={href}><a className="text-sm font-medium text-slate-600 transition hover:text-[#0F172A]" href={href}>{label}</a></li>)}</ul><PrimaryButton href="#quote">Request a Quote</PrimaryButton></nav>
-      <details className="group relative lg:hidden"><summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-slate-300 [&::-webkit-details-marker]:hidden"><span className="sr-only">Toggle navigation menu</span><span aria-hidden="true" className="text-xl group-open:hidden">☰</span><span aria-hidden="true" className="hidden text-xl group-open:block">×</span></summary><nav aria-label="Mobile navigation" className="absolute right-0 top-14 w-[min(20rem,calc(100vw-2.5rem))] rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"><ul>{links.map(([label, href]) => <li key={href}><a className="block rounded-xl px-4 py-3 font-medium hover:bg-slate-50" href={href} onClick={closeMobileMenu}>{label}</a></li>)}</ul><a href="#quote" onClick={closeMobileMenu} className="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-[#2DD4BF] px-6 py-3 text-sm font-bold text-[#0F172A] transition hover:bg-[#5EEAD4] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2DD4BF]">Request a Quote</a></nav></details>
-    </div>
-  </header>;
+  return (
+    <header className="sticky top-0 z-50 border-b border-[#A99D91]/55 bg-[#F5F1E8]/95 text-[#253231] backdrop-blur">
+      <a href="#main-content" className="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:not-sr-only focus:bg-[#012765] focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-[#F5F1E8]">
+        Skip to content
+      </a>
+      <div className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between px-5 sm:px-8">
+        <Logo />
+        <nav aria-label="Primary navigation" className="hidden items-center gap-9 lg:flex">
+          <ul className="flex items-center gap-8">
+            {links.map(([label, href]) => (
+              <li key={href}>
+                <a className="text-xs font-semibold uppercase tracking-[0.14em] text-[#596563] transition-colors hover:text-[#012765] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]" href={href}>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <PrimaryButton href="#quote">Request a Quote</PrimaryButton>
+        </nav>
+        <details className="group relative lg:hidden">
+          <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center border border-[#A99D91] [&::-webkit-details-marker]:hidden">
+            <span className="sr-only">Toggle navigation menu</span>
+            <span aria-hidden="true" className="space-y-1.5 group-open:hidden">
+              <span className="block h-px w-5 bg-[#253231]" />
+              <span className="block h-px w-5 bg-[#253231]" />
+              <span className="block h-px w-5 bg-[#253231]" />
+            </span>
+            <span aria-hidden="true" className="hidden text-2xl font-light leading-none group-open:block">×</span>
+          </summary>
+          <nav aria-label="Mobile navigation" className="absolute right-0 top-14 w-[min(20rem,calc(100vw-2.5rem))] border border-[#A99D91] bg-[#F5F1E8] p-4 shadow-[0_20px_50px_rgba(37,50,49,0.15)]">
+            <ul>
+              {links.map(([label, href]) => (
+                <li key={href}>
+                  <a className="block border-b border-[#A99D91]/45 px-3 py-4 text-sm font-semibold uppercase tracking-[0.12em]" href={href} onClick={closeMobileMenu}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="#quote" onClick={closeMobileMenu} className="mt-4 inline-flex min-h-12 w-full items-center justify-center bg-[#012765] px-6 py-3 text-sm font-semibold text-[#F5F1E8] transition-colors hover:bg-[#0658FE] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]">
+              Request a Quote
+            </a>
+          </nav>
+        </details>
+      </div>
+    </header>
+  );
 }

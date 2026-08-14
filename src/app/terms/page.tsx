@@ -11,6 +11,7 @@ export default function WebsiteTerms() {
     <LegalPage
       title="Website Terms"
       intro="These terms apply to the PaintSwitch website and its lead-generation quote-request service."
+      effectiveDate="August 9, 2026"
     >
       <section>
         <h2>Website purpose</h2>
@@ -45,11 +46,11 @@ export default function WebsiteTerms() {
       </section>
 
       <section>
-        <h2>First-contact target</h2>
+        <h2>Follow-up timing</h2>
         <p>
-          PaintSwitch aims to make the first human contact attempt within five minutes for requests received between <strong>8:00 a.m. and 8:00 p.m. Eastern Time, daily</strong>. For requests received after hours, PaintSwitch aims to make the first human contact attempt by <strong>9:00 a.m. Eastern Time the following day</strong>.
+          PaintSwitch reviews quote requests and follows up as soon as reasonably possible. Response times vary based on when a request is received, current lead volume, and team availability.
         </p>
-        <p>These are first-contact operating targets and do not guarantee contact, project acceptance, availability, or booking within an exact time.</p>
+        <p>Submitting a request does not guarantee contact, project acceptance, availability, scheduling, or booking within a specific timeframe.</p>
       </section>
 
       <section>

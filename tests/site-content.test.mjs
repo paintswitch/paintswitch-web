@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
@@ -22,6 +23,14 @@ const rootLayout = source("src/app/layout.tsx");
 const hero = source("src/components/hero.tsx");
 const trustBar = source("src/components/trust-bar.tsx");
 const chatWidget = source("src/components/highlevel-chat-widget.tsx");
+const globalStyles = source("src/app/globals.css");
+const header = source("src/components/header.tsx");
+const buttons = source("src/components/buttons.tsx");
+const serviceCard = source("src/components/service-card.tsx");
+const howItWorks = source("src/components/how-it-works.tsx");
+const sectionHeading = source("src/components/section-heading.tsx");
+const brandLogoComponent = source("src/components/brand-logo.tsx");
+const brandLogoAsset = source("public/images/paintswitch-logo.svg");
 
 const customerFacingSources = {
   homepage: homePage,
@@ -34,6 +43,12 @@ const customerFacingSources = {
   footer,
   "quote form": quoteForm,
   "chat widget": chatWidget,
+  header,
+  buttons,
+  "service card": serviceCard,
+  "how it works": howItWorks,
+  "section heading": sectionHeading,
+  "brand logo": brandLogoComponent,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -46,6 +61,7 @@ test("defines distinct, dated PaintSwitch legal routes", () => {
   assert.match(legalPage, /effectiveDate = "August 4, 2026"/u);
   assert.match(legalPage, /Effective \{effectiveDate\}/u);
   assert.match(privacyPage, /effectiveDate="August 8, 2026"/u);
+  assert.match(termsPage, /effectiveDate="August 9, 2026"/u);
   assert.match(legalPage, /<Footer \/>/u);
   assert.match(legalPage, /href="\/"/u);
 });
@@ -79,7 +95,7 @@ test("privacy policy matches the approved beta data boundary", () => {
   assert.match(privacyPage, /href="mailto:hello@paintswitch\.com"/u);
 });
 
-test("website terms preserve DMV review, Virginia priority, and approved first-contact targets", () => {
+test("website terms preserve DMV review, Virginia priority, and avoid a response-time promise", () => {
   assert.match(termsPage, /accepts project requests throughout the DMV for individual service-area review/u);
   assert.match(termsPage, /Virginia projects are prioritized for the public beta/u);
   assert.match(termsPage, /Does not confirm that PaintSwitch serves the project location/u);
@@ -87,9 +103,10 @@ test("website terms preserve DMV review, Virginia priority, and approved first-c
   assert.match(termsPage, /Does not schedule or book a project/u);
   assert.match(termsPage, /Does not authorize a deposit or payment/u);
   assert.match(termsPage, /Does not create a painting or service contract/u);
-  assert.match(termsPage, /first human contact attempt within five minutes for requests received between <strong>8:00 a\.m\. and 8:00 p\.m\. Eastern Time, daily<\/strong>/u);
-  assert.match(termsPage, /9:00 a\.m\. Eastern Time the following day/u);
-  assert.match(termsPage, /These are first-contact operating targets/u);
+  assert.match(termsPage, /follows up as soon as reasonably possible/u);
+  assert.match(termsPage, /Response times vary based on when a request is received, current lead volume, and team availability/u);
+  assert.match(termsPage, /does not guarantee contact, project acceptance, availability, scheduling, or booking within a specific timeframe/u);
+  assert.doesNotMatch(termsPage, /five minutes|5 minutes|9:00 a\.m\./iu);
   assert.match(termsPage, /It is not consent to automated SMS messages/u);
   assert.match(termsPage, /PaintSwitch does not send automated customer SMS during the beta/u);
   assert.match(termsPage, /href="\/privacy"/u);
@@ -161,4 +178,46 @@ test("public legal, footer, and form source has no customer-facing Jen reference
       `${name} contains a customer-facing Jen reference`,
     );
   }
+});
+
+test("customer-facing brand marks use the approved exact production logo", () => {
+  const logoBytes = readFileSync(new URL("../public/images/paintswitch-logo.svg", import.meta.url));
+  const logoHash = createHash("sha256").update(logoBytes).digest("hex");
+
+  assert.equal(logoHash, "4680e0995f21908e852d7062a471abad46cbcece918151af74f73249553f31ae");
+  assert.match(brandLogoAsset, /viewBox="170 335 915 524"/u);
+  assert.match(brandLogoAsset, /#012765/iu);
+  assert.match(brandLogoAsset, /#0658FE/iu);
+  assert.doesNotMatch(brandLogoAsset, /<script|<image|data:/iu);
+  assert.match(brandLogoComponent, /src="\/images\/paintswitch-logo\.svg"/u);
+  assert.match(brandLogoComponent, /width=\{915\}/u);
+  assert.match(brandLogoComponent, /height=\{524\}/u);
+
+  for (const [name, value] of Object.entries({ header, footer, legalPage })) {
+    assert.match(value, /<BrandLogo\b/u, `${name} must use the approved production logo`);
+    assert.doesNotMatch(value, />\s*PaintSwitch\s*</u, `${name} still contains an interim text-only wordmark`);
+  }
+
+  assert.match(footer, /bg-\[#F5F1E8\]/u);
+});
+
+test("homepage implements the approved editorial color-transformation direction", () => {
+  for (const color of ["#D1C4B8", "#C9BDAD", "#012765", "#0658FE", "#3D4E4E", "#F5F1E8"]) {
+    assert.ok(
+      globalStyles.toUpperCase().includes(color) || homePage.toUpperCase().includes(color),
+      `missing approved color: ${color}`,
+    );
+  }
+
+  assert.match(globalStyles, /--brand-navy:\s*#012765/iu);
+  assert.match(globalStyles, /--brand-cobalt:\s*#0658fe/iu);
+  assert.match(buttons, /bg-\[#012765\]/u);
+  assert.match(buttons, /hover:bg-\[#0658FE\]/u);
+
+  assert.match(hero, /Transformation[\s\S]*through[\s\S]*color\./u);
+  assert.match(homePage, /Before-and-after stories show the power of expert color choices and quality craftsmanship\./u);
+  assert.match(hero, /Illustrative color study/u);
+  assert.match(hero, /Not a customer project/u);
+  assert.match(hero, /paintswitch-color-study\.png/u);
+  assert.doesNotMatch(`${hero}\n${homePage}`, /(?:our client|completed project|customer result)/iu);
 });

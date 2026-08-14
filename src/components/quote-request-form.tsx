@@ -29,7 +29,7 @@ const fieldErrorMessages: Record<InputFieldName, string> = {
 };
 
 const fieldClassName =
-  "mt-2 min-h-12 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-base text-[#0F172A] outline-none transition placeholder:text-slate-500 focus:border-[#0F766E] focus:ring-4 focus:ring-teal-100";
+  "mt-2 min-h-12 w-full rounded-sm border border-[#A99D91] bg-white px-4 py-3 text-base text-[#253231] outline-none transition-colors placeholder:text-[#596563] focus:border-[#0658FE] focus:ring-2 focus:ring-[#0658FE]/25";
 
 function attributionValue(value: string | null, fallback = "") {
   const sanitized = (value ?? fallback)
@@ -123,7 +123,7 @@ export function QuoteRequestForm() {
 
   return (
     <form
-      className="rounded-[2rem] bg-white p-6 text-left shadow-2xl shadow-slate-950/15 sm:p-8"
+      className="border border-[#A99D91] bg-[#F5F1E8] p-6 text-left shadow-[10px_10px_0_rgba(37,50,49,0.16)] sm:p-8"
       action="/api/leads"
       method="post"
       onSubmit={handleSubmit}
@@ -145,31 +145,31 @@ export function QuoteRequestForm() {
       aria-busy={status === "submitting"}
     >
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="text-sm font-semibold text-slate-700">
+        <label className="text-sm font-semibold text-[#3D4E4E]">
           Name
           <input className={fieldClassName} name="name" type="text" autoComplete="name" maxLength={100} required aria-invalid={Boolean(fieldErrors.name)} aria-describedby={fieldErrors.name ? "name-error" : undefined} />
           {fieldErrors.name && <span id="name-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.name}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-slate-700">
+        <label className="text-sm font-semibold text-[#3D4E4E]">
           Phone
           <input className={fieldClassName} name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={30} required aria-invalid={Boolean(fieldErrors.phone)} aria-describedby={fieldErrors.phone ? "phone-error" : undefined} />
           {fieldErrors.phone && <span id="phone-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.phone}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-slate-700">
+        <label className="text-sm font-semibold text-[#3D4E4E]">
           Email
           <input className={fieldClassName} name="email" type="email" autoComplete="email" maxLength={254} required aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "email-error" : undefined} />
           {fieldErrors.email && <span id="email-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.email}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-slate-700">
+        <label className="text-sm font-semibold text-[#3D4E4E]">
           Project ZIP code or address
           <input className={fieldClassName} name="projectLocation" type="text" autoComplete="street-address" maxLength={200} required aria-invalid={Boolean(fieldErrors.projectLocation)} aria-describedby={fieldErrors.projectLocation ? "project-location-error" : undefined} />
           {fieldErrors.projectLocation && <span id="project-location-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.projectLocation}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-slate-700">
+        <label className="text-sm font-semibold text-[#3D4E4E]">
           Service
           <select className={fieldClassName} name="serviceType" defaultValue="" required aria-invalid={Boolean(fieldErrors.serviceType)} aria-describedby={fieldErrors.serviceType ? "service-error" : undefined}>
             <option value="" disabled>Select a service</option>
@@ -181,7 +181,7 @@ export function QuoteRequestForm() {
           {fieldErrors.serviceType && <span id="service-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.serviceType}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-slate-700">
+        <label className="text-sm font-semibold text-[#3D4E4E]">
           Preferred contact method
           <select className={fieldClassName} name="contactPreference" defaultValue="" required aria-invalid={Boolean(fieldErrors.contactPreference)} aria-describedby={fieldErrors.contactPreference ? "contact-preference-error" : undefined}>
             <option value="" disabled>Select a preference</option>
@@ -193,7 +193,7 @@ export function QuoteRequestForm() {
         </label>
       </div>
 
-      <label className="mt-5 block text-sm font-semibold text-slate-700">
+      <label className="mt-5 block text-sm font-semibold text-[#3D4E4E]">
         Tell us about your project
         <textarea
           className={`${fieldClassName} min-h-36 resize-y`}
@@ -208,16 +208,16 @@ export function QuoteRequestForm() {
         {fieldErrors.projectDescription && <span id="project-description-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.projectDescription}</span>}
       </label>
 
-      <p className="mt-5 text-sm leading-6 text-slate-600">
+      <p className="mt-5 text-sm leading-6 text-[#596563]">
         PaintSwitch reviews every request before confirming service availability and pricing.
       </p>
 
-      <p className="mt-4 text-sm leading-6 text-slate-600">
-        By submitting, you confirm that you are at least 18 and ask PaintSwitch to contact you about this project using the contact information you provide. Choosing <strong>Text</strong> records a contact preference only and is not consent to automated SMS. Automated customer SMS is currently disabled. Read our <a className="rounded-sm font-semibold text-[#0F766E] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0F766E]" href="/privacy">Privacy Policy</a> and <a className="rounded-sm font-semibold text-[#0F766E] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0F766E]" href="/terms">Website Terms</a>.
+      <p className="mt-4 text-sm leading-6 text-[#596563]">
+        By submitting, you confirm that you are at least 18 and ask PaintSwitch to contact you about this project using the contact information you provide. Choosing <strong>Text</strong> records a contact preference only and is not consent to automated SMS. Automated customer SMS is currently disabled. Read our <a className="rounded-sm font-semibold text-[#012765] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]" href="/privacy">Privacy Policy</a> and <a className="rounded-sm font-semibold text-[#012765] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]" href="/terms">Website Terms</a>.
       </p>
 
       <button
-        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-[#0F172A] px-6 py-3 text-sm font-bold text-white transition hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0F172A] disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
+        className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-sm bg-[#012765] px-6 py-3 text-sm font-semibold text-[#F5F1E8] transition-colors hover:bg-[#0658FE] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE] disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
         type="submit"
         disabled={status === "submitting"}
       >
@@ -225,19 +225,19 @@ export function QuoteRequestForm() {
       </button>
 
       <div className="mt-5 min-h-14" aria-live="polite" aria-atomic="true">
-        {status === "submitting" && <p className="text-sm font-semibold text-slate-700">Sending your request…</p>}
+        {status === "submitting" && <p className="text-sm font-semibold text-[#3D4E4E]">Sending your request…</p>}
         {status === "validation" && (
-          <p role="alert" className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+          <p role="alert" className="border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
             Review the highlighted fields, then try again.
           </p>
         )}
         {status === "success" && (
-          <p role="status" className="rounded-2xl bg-teal-50 px-4 py-3 text-sm font-semibold text-[#0F5F59]">
+          <p role="status" className="border border-[#012765]/25 bg-white px-4 py-3 text-sm font-semibold text-[#012765]">
             Your request was sent. A PaintSwitch team member will review the details and follow up.
           </p>
         )}
         {status === "error" && (
-          <p role="alert" className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+          <p role="alert" className="border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
             We could not confirm that your request was received. Please wait a moment and try again.
           </p>
         )}
