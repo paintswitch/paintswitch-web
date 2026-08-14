@@ -1,6 +1,6 @@
 # PaintSwitch master context
 
-Last updated: 2026-08-11
+Last updated: 2026-08-14
 
 This document is the governing summary of PaintSwitch's approved business and product direction. Current website copy is implementation evidence only and must not be treated as proof of approval.
 
@@ -22,8 +22,9 @@ This document is the governing summary of PaintSwitch's approved business and pr
 - **Confirmed:** On 2026-08-09, the owner approved “Transformation through color” as the core message and before/after stories as the way to demonstrate the power of expert color choices and quality craftsmanship.
 - **Confirmed:** Under D-058 dated 2026-08-09, the owner approved the exact local editorial pass shown on the owner's phone as the lead-generation beta design candidate. D-060 supersedes only that candidate's interim text-only wordmark and prior interactive-accent assignments; its layout, Georgia/system typography, warm-neutral base, and clearly labeled illustrative color-study hero remain approved.
 - **Confirmed:** Under D-060 dated 2026-08-11, the owner approved the exact attached stacked production-logo package and path-only master vector as PaintSwitch's final production logo. Preserve its artwork and exact navy `#012765` and cobalt `#0658FE`; replace customer-facing interim site wordmarks; use those colors for website buttons and interactive accents; and retain the warm greige/taupe/soft-cream editorial base. Use a light backing where needed for contrast rather than recoloring the logo.
+- **Confirmed:** Under D-061 dated 2026-08-13 and reaffirmed 2026-08-14, publish the complete D-058/D-060 website design to Production so the owner can review the live product and direct final visual refinements. This publication approval does not authorize paid/promoted traffic, enable Production lead delivery, expand `Switch bot`, or waive remaining launch gates.
 - **Confirmed:** Under D-059 dated 2026-08-09, target launch by the weekend of 2026-08-15 through 2026-08-16 with the full approved editorial design and safeguarded `Switch bot` active after its launch acceptance gates pass.
-- **TBD:** Any derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, broader off-site usage rules, an exact warm-gold value, long-term post-beta typography changes, authentic permissioned PaintSwitch before/after project assets and facts, and final supporting copy beyond the current displayed copy. D-060 does not turn the illustrative hero into customer work, approve claimed project results, merge or deploy the candidate, authorize promoted traffic, or satisfy Production verification.
+- **TBD:** Any derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, broader off-site usage rules, an exact warm-gold value, long-term post-beta typography changes, authentic permissioned PaintSwitch before/after project assets and facts, and final supporting copy beyond the current displayed copy. D-061 resolves merge and Production publication for the approved current design only; it does not turn the illustrative hero into customer work, approve claimed project results, authorize promoted traffic, or satisfy the remaining launch gates.
 
 ## Launch market
 
