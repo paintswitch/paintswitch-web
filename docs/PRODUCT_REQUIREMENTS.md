@@ -1,6 +1,6 @@
 # PaintSwitch product requirements
 
-Last updated: 2026-08-11
+Last updated: 2026-08-14
 
 ## Product objective
 
@@ -124,6 +124,7 @@ The confirmed GoHighLevel selection, CRM foundation, and server-side connection 
 - **VI-006 — Superseded:** The exact 2026-08-09 beta-candidate bundle included an interim text-only wordmark and prior token assignments. D-060 supersedes those two parts while preserving D-058's layout, Georgia/system typography, warm-neutral base, clearly labeled illustrative hero, and historical Preview evidence.
 - **VI-007 — Confirmed:** Replace customer-facing interim site wordmarks with VI-002's exact production logo; align website buttons and interactive accents with navy `#012765` and cobalt `#0658FE`; and retain the approved warm greige/taupe/soft-cream editorial base. Approved on 2026-08-11 under D-060. Use a light surface behind the full-color logo where needed for contrast instead of recoloring it.
 - **VI-008 — TBD:** Decide any derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, responsive placement rules beyond the verified website implementation, and broader off-site usage rules.
+- **VI-009 — Confirmed:** Publish the complete D-058/D-060 editorial website to `https://paintswitch.com` for live owner visual review. Approved on 2026-08-13 and reaffirmed on 2026-08-14 under D-061. This publication requirement does not authorize promoted traffic, enable Production lead delivery, approve unresolved copy/assets, or waive remaining launch acceptance.
 - **GV-002 — Confirmed:** Timebox launch stand-ups to 10 minutes, not 30 minutes. Approved on 2026-07-18.
 - **GV-003 — TBD:** Decide stand-up frequency, participants, facilitator, schedule, and escalation format.
 

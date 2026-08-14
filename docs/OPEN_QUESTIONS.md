@@ -1,6 +1,6 @@
 # PaintSwitch open questions
 
-Last updated: 2026-08-11
+Last updated: 2026-08-14
 
 This document records unresolved choices and working assumptions. An item is approved only when it is explicitly labeled **Confirmed** and supported by the decision log. Do not present **Proposed** or **TBD** pricing as live customer pricing.
 
@@ -175,6 +175,7 @@ Additional unresolved questions:
 - **Confirmed:** “Transformation through color” is the core design message. Before/after stories should show the power of expert color choices and quality craftsmanship.
 - **Superseded:** Under D-058 dated 2026-08-09, the owner approved the then-current local editorial pass, including its interim text-only wordmark and prior token assignments. D-060 supersedes those two parts while preserving its layout, Georgia/system typography, warm-neutral base, clearly labeled illustrative hero, and historical Preview evidence.
 - **Confirmed:** Under D-060 dated 2026-08-11, the owner approved the exact attached stacked production-logo package and path-only master vector as the final PaintSwitch logo, preserving navy `#012765` and cobalt `#0658FE`, replacing interim site wordmarks, and using those colors for website buttons and interactive accents while retaining the warm editorial base.
+- **Confirmed:** Under D-061 dated 2026-08-13 and reaffirmed 2026-08-14, publish the complete approved D-058/D-060 website to Production for live owner visual review. PR #6 merged as `19473d74a4e4a8890c9ea48e3f02bde9f0a86e13`, and Production serves the approved homepage, legal routes, quote-call-to-action source, and exact logo asset. This does not authorize promoted traffic, enable Production lead delivery, or waive remaining launch gates.
 - **TBD:** Any derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, responsive placements beyond the verified website implementation, and broader off-site usage rules. Do not derive or publish these without separate approval.
 - **TBD:** The exact warm-gold color value. `#F5F1E8` is approved as soft cream and must not be silently reclassified as the missing warm-gold value.
 - **TBD:** Authentic, permissioned PaintSwitch before/after project assets, project facts, captions, and final supporting homepage/funnel copy beyond the current displayed copy. Until those exist and are approved, generated or conceptual visuals must be labeled as illustrative color studies and must not imply customer work, project history, testimonials, or results. D-059 authorizes the intended next-weekend launch target with the approved interim treatment. PR #6's protected hosted Preview and CI passed on 2026-08-10; Production acceptance and final go/no-go remain release gates.

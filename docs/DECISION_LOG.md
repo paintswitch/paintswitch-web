@@ -1,6 +1,6 @@
 # PaintSwitch decision log
 
-Last updated: 2026-08-11
+Last updated: 2026-08-14
 
 This log records material approved decisions. Dates are approval dates when supplied; otherwise the entry identifies when the decision was first documented as confirmed. Preserve superseded entries and link their replacements.
 
@@ -610,6 +610,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
 - **Reason:** The owner explicitly approved the inspected production package and the recommendation to preserve its exact artwork/colors and integrate them cohesively into the existing editorial website.
 - **Consequences:** The exact path-only 915×524 SVG is the controlling web artwork; it must not be retraced, recolored, recomposed, or substituted with a font-rendered approximation. The warm-neutral base, restrained editorial tone, Georgia/system typography, “Transformation through color” message, and visibly labeled illustrative hero remain approved. The logo must appear on a light surface when necessary to preserve contrast, including within the dark footer. This decision does not approve a derivative roller-only mark, favicon/app icon, social crop/card, reverse or one-color version, exact clear-space/minimum-size rules, an exact warm-gold value, authentic project claims/assets, additional supporting copy, deployment, promoted traffic, or final go/no-go.
 - **Supersedes:** D-058 only where it approved the interim text-only wordmark and prior interactive-accent assignments. It supersedes D-056 only where deep teal was used as the current primary interactive accent; D-056's warm greige/taupe, warm-charcoal, and soft-cream direction remains current. D-060 controls if the exact approved artwork differs from D-016's earlier direction-only description. It does not supersede D-055, D-057, D-059, or any non-design launch gate.
+
+## D-061 — Publish the approved full-design website to Production for owner review
+
+- **Date:** 2026-08-13; reaffirmed 2026-08-14
+- **Status:** Confirmed
+- **Decision:** Commit, push, merge, and publish the complete owner-approved D-058/D-060 website design to PaintSwitch Production so the owner can review the live product and provide further visual guidance.
+- **Reason:** The owner explicitly asked to see the website live with all approved design and brand decisions applied before guiding the final visual refinements.
+- **Consequences:** Pull request #6 may be promoted to `main` and deployed to `https://paintswitch.com`. This approval covers the current editorial layout, exact production logo, navy/cobalt interaction system, labeled illustrative hero, flexible public follow-up wording, existing safeguarded `Switch bot` integration, quote-request interface, and legal pages. It does not authorize paid or promoted traffic, enable Production lead delivery, approve unresolved supporting copy or derivative brand assets, waive professional legal/privacy review, expand chatbot capabilities, or satisfy the remaining operational, security, accessibility, bot, CRM-delivery, and final launch gates.
+- **Supersedes:** D-058 and D-060 only where they explicitly left merge and Production deployment unauthorized. It does not supersede their visual/authenticity boundaries, D-059's safety-gate rule, or any non-design launch requirement.
 
 ## Proposed decision candidates
 
