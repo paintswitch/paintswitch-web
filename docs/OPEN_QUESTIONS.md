@@ -11,6 +11,8 @@ This document records unresolved choices and working assumptions. An item is app
 - **Confirmed:** Alexandria, Virginia is the first local SEO city-page target and Arlington, Virginia is second, approved on 2026-08-14. These are content priorities only and do not establish eligibility for every address or ZIP code.
 - **Confirmed:** City pages preserve the existing global design, use only the four approved services, and keep visible facts and schema aligned without unsupported numeric prices, `Top-Rated` language, or coverage promises.
 - **Rejected:** Do not request or publish a state-license number or EPA Lead-Safe claim for PaintSwitch city landing pages.
+- **Confirmed:** PR #8 published `/alexandria-va`, `/arlington-va`, and their sitemap entries to Production under D-064. Direct HTTP/source verification passed; this does not establish citywide or ZIP-wide service eligibility.
+- **TBD:** Search-engine discovery/indexing, ongoing local-rank measurement, and any additional city-page priority after Alexandria and Arlington.
 - **Confirmed:** Stop treating MHIC-specific work as a beta focus. This does not waive licensing or consumer-protection obligations for work actually accepted in Maryland.
 - **TBD:** Which DMV cities, counties, and ZIP codes are eligible at launch?
 - **TBD:** Are there travel zones, and how are they defined?

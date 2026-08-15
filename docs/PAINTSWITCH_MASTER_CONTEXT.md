@@ -41,6 +41,8 @@ This document is the governing summary of PaintSwitch's approved business and pr
 - **Confirmed:** City pages may present only interior, exterior, cabinet, and commercial painting; factual visible content and structured data must agree; and no unsupported numeric price, `Top-Rated` claim, guaranteed coverage statement, or invented trust signal may be published.
 - **Rejected:** Requesting or publishing a state-license number or EPA Lead-Safe claim for PaintSwitch city landing pages. The owner explicitly directed on 2026-08-14 that these inputs be omitted and not requested again.
 - **TBD:** Exact eligible cities, counties, ZIP codes, service boundaries, travel zones, and address-level eligibility remain unresolved. Neighborhood and postal references on a city page are local context, not eligibility promises.
+- **Confirmed:** Publish the D-062/D-063 Alexandria and Arlington city pages to Production. Approved and completed/verified on 2026-08-14 (America/New_York) under D-064 through PR #8 and Vercel Production deployment `dpl_nUcWjwbNRvxpxgEETSrcDzysCKn9`.
+- **Verified implementation boundary:** Direct Production HTTP/source checks confirm both routes, metadata/canonicals, the approved four-service content, guarded Service/FAQ structured data, and sitemap entries. They do not verify a submitted form or lead delivery, search-engine indexing, visual/responsive/accessibility rendering, browser-console behavior, performance, promoted traffic, or an exact service boundary.
 
 ## Operating model
 
