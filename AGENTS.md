@@ -22,3 +22,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Update `docs/DEVELOPMENT_STATUS.md` when material implementation or verification status changes.
 - Run the existing lint and production build checks after application-code changes.
 - Ask the user for direction when application code, website copy, and canonical documentation conflict.
+- For local SEO city pages, follow D-062 and D-063: Alexandria, Virginia is first and Arlington, Virginia is second; a page target is not an approved service boundary.
+- Do not change global headers, footers, navigation, brand colors, typography, CSS frameworks, or shared component layouts for city-page work. Add page-local content only within the established main-content structure.
+- Never ask for or publish a state-license number or EPA Lead-Safe claim on PaintSwitch city landing pages.
+- City pages may show only the four approved services: interior, exterior, cabinet, and commercial painting. Do not publish unsupported numeric prices, `Top-Rated` claims, guaranteed coverage, or schema claims that are not present in and supported by the visible page.

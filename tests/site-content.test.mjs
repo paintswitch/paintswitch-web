@@ -2,6 +2,12 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import {
+  alexandriaCityPage,
+  arlingtonCityPage,
+  buildCityJsonLd,
+  cityLandingPages,
+} from "../src/lib/city-landing-pages.ts";
 
 function source(path) {
   return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -31,6 +37,11 @@ const howItWorks = source("src/components/how-it-works.tsx");
 const sectionHeading = source("src/components/section-heading.tsx");
 const brandLogoComponent = source("src/components/brand-logo.tsx");
 const brandLogoAsset = source("public/images/paintswitch-logo.svg");
+const cityLandingPageComponent = source("src/components/city-landing-page.tsx");
+const cityLandingPageData = source("src/lib/city-landing-pages.ts");
+const alexandriaPage = source("src/app/alexandria-va/page.tsx");
+const arlingtonPage = source("src/app/arlington-va/page.tsx");
+const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
   homepage: homePage,
@@ -49,6 +60,10 @@ const customerFacingSources = {
   "how it works": howItWorks,
   "section heading": sectionHeading,
   "brand logo": brandLogoComponent,
+  "city landing page": cityLandingPageComponent,
+  "city landing page data": cityLandingPageData,
+  "Alexandria page": alexandriaPage,
+  "Arlington page": arlingtonPage,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -181,7 +196,10 @@ test("public legal, footer, and form source has no customer-facing Jen reference
 });
 
 test("customer-facing brand marks use the approved exact production logo", () => {
-  const logoBytes = readFileSync(new URL("../public/images/paintswitch-logo.svg", import.meta.url));
+  const logoBytes = Buffer.from(
+    readFileSync(new URL("../public/images/paintswitch-logo.svg", import.meta.url), "utf8").replace(/\r\n/gu, "\n"),
+    "utf8",
+  );
   const logoHash = createHash("sha256").update(logoBytes).digest("hex");
 
   assert.equal(logoHash, "4680e0995f21908e852d7062a471abad46cbcece918151af74f73249553f31ae");
@@ -220,4 +238,83 @@ test("homepage implements the approved editorial color-transformation direction"
   assert.match(hero, /Not a customer project/u);
   assert.match(hero, /paintswitch-color-study\.png/u);
   assert.doesNotMatch(`${hero}\n${homePage}`, /(?:our client|completed project|customer result)/iu);
+});
+
+test("city landing pages use the approved sequence, metadata limits, and canonical routes", () => {
+  assert.deepEqual(
+    cityLandingPages.map((page) => page.city),
+    ["Alexandria", "Arlington"],
+  );
+
+  for (const page of cityLandingPages) {
+    assert.ok(page.title.length < 60, `${page.city} title exceeds 59 characters`);
+    assert.ok(page.description.length < 155, `${page.city} description exceeds 154 characters`);
+    assert.match(page.title, new RegExp(`Painters in ${page.city}, VA \\| PaintSwitch`, "u"));
+  }
+
+  assert.match(alexandriaPage, /canonical: "https:\/\/paintswitch\.com\/alexandria-va"/u);
+  assert.match(arlingtonPage, /canonical: "https:\/\/paintswitch\.com\/arlington-va"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/alexandria-va"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/arlington-va"/u);
+});
+
+test("city pages preserve the shared design system and working local navigation anchors", () => {
+  for (const component of ["Header", "Footer", "PrimaryButton", "SecondaryButton", "QuoteRequestForm", "SectionHeading", "ServiceCard", "TrustBar"]) {
+    assert.match(cityLandingPageComponent, new RegExp(`<${component}\\b`, "u"), `missing shared ${component}`);
+  }
+
+  for (const anchor of ["home", "services", "how-it-works", "about", "quote"]) {
+    assert.match(cityLandingPageComponent, new RegExp(`id="${anchor}"`, "u"), `missing #${anchor}`);
+  }
+
+  assert.equal((cityLandingPageComponent.match(/<h1\b/gu) ?? []).length, 1);
+  assert.doesNotMatch(cityLandingPageComponent, /HighLevelChatWidget/u);
+  assert.doesNotMatch(`${alexandriaPage}\n${arlingtonPage}`, /HighLevelChatWidget/u);
+});
+
+test("city content uses only approved services and contains no unsupported marketing claims", () => {
+  const approvedServices = ["Interior Painting", "Exterior Painting", "Cabinet Painting", "Commercial Painting"];
+
+  for (const page of cityLandingPages) {
+    assert.deepEqual(
+      page.services.map((service) => service.title),
+      approvedServices,
+    );
+    assert.match(page.heroSummary, /individual service-area and project review/u);
+    assert.match(page.faqs[1].answer, /individual service-area review/u);
+  }
+
+  const publicCitySources = `${cityLandingPageComponent}\n${cityLandingPageData}\n${alexandriaPage}\n${arlingtonPage}`;
+  assert.doesNotMatch(publicCitySources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
+  assert.doesNotMatch(publicCitySources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
+  assert.doesNotMatch(publicCitySources, /\bJen(?:\s+Contracting)?\b/iu);
+});
+
+test("city JSON-LD matches the visible service and FAQ data without unsupported fields", () => {
+  for (const page of [alexandriaCityPage, arlingtonCityPage]) {
+    const jsonLd = buildCityJsonLd(page);
+    const [service, faqPage] = jsonLd["@graph"];
+
+    assert.equal(service["@type"], "Service");
+    assert.equal(service.url, `https://paintswitch.com/${page.slug}`);
+    assert.deepEqual(
+      service.serviceType,
+      page.services.map((entry) => entry.title),
+    );
+
+    assert.equal(faqPage["@type"], "FAQPage");
+    assert.deepEqual(
+      faqPage.mainEntity.map((question) => ({
+        question: question.name,
+        answer: question.acceptedAnswer.text,
+      })),
+      page.faqs,
+    );
+
+    const serialized = JSON.stringify(jsonLd);
+    assert.doesNotMatch(serialized, /"(?:aggregateRating|areaServed|postalCode|streetAddress|price|license|insurance|offers|hasOfferCatalog)"\s*:/iu);
+    assert.doesNotMatch(serialized, /\bEPA\b/iu);
+  }
+
+  assert.match(cityLandingPageComponent, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
 });

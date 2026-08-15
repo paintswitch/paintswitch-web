@@ -4,7 +4,7 @@ Last repository inspection: 2026-08-14
 
 Last documentation-completeness audit: 2026-08-04
 
-Last local application verification: 2026-08-11
+Last local application verification: 2026-08-14
 
 Last external platform verification: 2026-08-14
 
@@ -15,6 +15,17 @@ Last external GoHighLevel verification: 2026-08-10
 Repository: `paintswitch/paintswitch-web`
 
 This document separates facts verified directly from the current repository from reports that have not been reverified during this documentation update.
+
+## Current local city-page candidate — 2026-08-14
+
+- D-062/D-063 are implemented in the uncommitted working tree through static routes `/alexandria-va` and `/arlington-va`, shared rendering in `src/components/city-landing-page.tsx`, city content and Service/FAQ schema generation in `src/lib/city-landing-pages.ts`, and the generated `/sitemap.xml` route in `src/app/sitemap.ts`.
+- Alexandria is first and Arlington is second in the shared city data. Both pages reuse the existing Header, Footer, TrustBar, button, SectionHeading, ServiceCard, and QuoteRequestForm components. No global component, stylesheet, dependency, configuration, or deployment file is changed by this candidate.
+- Static metadata uses `Painters in Alexandria, VA | PaintSwitch` and `Painters in Arlington, VA | PaintSwitch`; both titles are under 60 characters and their descriptions are under 155. Each page has its exact canonical URL.
+- Visible city content and JSON-LD use only interior, exterior, cabinet, and commercial painting. The local cost table describes review factors without numeric prices. No state-license, EPA Lead-Safe, `Top-Rated`, deck-staining/power-washing, Jen, unsupported numeric-price, or guaranteed-coverage claim is present. The Service schema uses the four approved service names, and FAQPage mirrors the three visible FAQs.
+- All 67 automated tests, lint, TypeScript type checking, and the Next.js `16.3.0` production build pass. The build reports static routes `/`, `/_not-found`, `/alexandria-va`, `/arlington-va`, `/privacy`, `/sitemap.xml`, and `/terms`, plus dynamic `/api/leads`.
+- Local rendered HTTP checks returned `200` for both city routes, verified the exact title, one H1, one literal parseable JSON-LD script with Service and FAQPage, the exact canonical URL, and absence of prohibited visible claims. `/sitemap.xml` returned `200` and contains both city routes.
+- The city pages have not been committed, pushed, merged, hosted, or published to Production. The in-app browser had no available binding, so fresh visual, responsive, mobile, keyboard, screen-reader, accessibility, and browser-console QA for these pages remains unverified.
+- City routes, neighborhood names, and ZIP references are local content, not service-eligibility logic. Exact eligible cities, counties, ZIP codes, travel zones, permanent boundaries, and address-level availability remain **TBD** and require individual review.
 
 ## Current Production release reconciliation — 2026-08-14
 
@@ -32,7 +43,7 @@ This document separates facts verified directly from the current repository from
 - The repository contains a Next.js App Router application under `src/app`, written in TypeScript and React.
 - Manifest versions are Next.js `16.3.0`, React `19.2.4`, React DOM `19.2.4`, TypeScript `^5`, Tailwind CSS `^4`, and ESLint `^9`.
 - Lockfile-resolved development versions include TypeScript `5.9.3`, Tailwind CSS `4.3.3`, and ESLint `9.39.5`. See `TECHNICAL_ARCHITECTURE.md` for the complete verified dependency summary.
-- The implemented authored page routes are `/`, `/privacy`, and `/terms`; the App Router also serves the favicon and framework-provided error/not-found behavior. One authored dynamic route, `/api/leads`, validates lead requests and invokes the delivery service. Commit `3bac3ba` on `codex/lead-generation-beta` was deployed to protected Vercel Previews for a controlled enabled-delivery test and subsequent fail-closed restoration. The Preview environment setting and latest branch Preview have `LEAD_DELIVERY_ENABLED=false`; Production also has `false`. The earlier immutable enabled Preview remains access-protected.
+- The implemented authored page routes are `/`, `/alexandria-va`, `/arlington-va`, `/privacy`, `/sitemap.xml`, and `/terms`; the App Router also serves the favicon and framework-provided error/not-found behavior. The two city pages and sitemap are uncommitted local-candidate routes. One authored dynamic route, `/api/leads`, validates lead requests and invokes the delivery service. Commit `3bac3ba` on `codex/lead-generation-beta` was deployed to protected Vercel Previews for a controlled enabled-delivery test and subsequent fail-closed restoration. The Preview environment setting and latest branch Preview have `LEAD_DELIVERY_ENABLED=false`; Production also has `false`. The earlier immutable enabled Preview remains access-protected.
 - The repository has `dev`, `build`, `start`, `lint`, `test`, and `typecheck` scripts.
 
 ### Implemented user experience
@@ -40,6 +51,7 @@ This document separates facts verified directly from the current repository from
 - A responsive, single-page PaintSwitch marketing frontend is implemented locally.
 - It includes a sticky header, desktop and `<details>` mobile navigation, a skip link, hero, trust bar, four approved service cards, beta-accurate process steps, brand-benefit section, DMV-wide individual service-area review copy with Virginia prioritized, a branded quote-request form, working Privacy and Terms pages, and footer.
 - Interior, exterior, cabinet, and commercial are the only service categories shown. Standalone Drywall Repair and the placeholder review section have been removed.
+- The local city-page candidate adds Alexandria-first and Arlington-second landing pages using the same approved four services, existing global design components, individual-review boundary, factor-only cost table, local-context sections, matching Service/FAQ JSON-LD, and the existing quote form. It does not add a citywide availability promise or exact service-area logic.
 - Primary actions use “Request a Quote” and navigate to the branded form. Metadata and page copy identify the four categories and state that service availability and pricing are confirmed after review.
 - The form frontend collects name, phone, email, project ZIP code or address, service type, project description, and contact preference. It uses the same parser as the server before sending, shows field-specific accessible errors, focuses the first invalid control, applies length limits, provides submitting/success/failure presentation, retains a per-attempt UUID across an unchanged retry, clears that UUID after a server `409` submission-ID conflict, applies a 50-second browser timeout, and captures bounded `utm_source` / `utm_campaign` values. Its explicit native `POST` fallback prevents customer details from falling into a URL query if JavaScript is unavailable, although the JSON-only endpoint intentionally rejects that non-JavaScript encoding.
 - The form includes the approved 18+ acknowledgment, project-specific contact notice, `Text`-preference/automated-SMS boundary, and working Privacy/Terms links. It does not display an instant price, collect payment, enable checkout, or promise customer-selected scheduling.
@@ -55,7 +67,7 @@ This document separates facts verified directly from the current repository from
 
 ### Missing, placeholder, or not connected
 
-- The service area has no city, county, ZIP, address-eligibility, or travel-zone logic. The form collects one combined project-location value and the local delivery client maps it to the approved `Project Location` Opportunity field; no native address normalization or service-eligibility decision is implemented.
+- The service area has no city, county, ZIP, address-eligibility, or travel-zone logic. The Alexandria and Arlington pages provide local marketing context only and explicitly do not guarantee coverage. The form collects one combined project-location value and the local delivery client maps it to the approved `Project Location` Opportunity field; no native address normalization or service-eligibility decision is implemented.
 - `/api/leads` provides a fail-closed server boundary with strict key/type/value validation, practical local-part and DNS-label email validation, a 16 KiB bounded streaming body read, a five-second body-read deadline, exact JSON media-type checking, exact same-origin production-host checks for `paintswitch.com` and `paintswitch-web.vercel.app`, local-development and Vercel-preview handling, generic no-store/nosniff responses, and a 55-second function maximum. It maps delivery conflict to `409` and busy/unavailable states to generic retryable `503` responses. With delivery disabled or configuration incomplete, a valid request remains unavailable and cannot truthfully reach the success state end to end.
 - The private integration exists, and its confidential token, location ID, pipeline ID, stage ID, and seven custom-field IDs are configured server-side in Vercel. The token is Sensitive and available to Production and Preview; no value is tracked or documented. `LEAD_DELIVERY_ENABLED` is `false`.
 - Commit `efb96b9` contains a native-fetch GoHighLevel client for Contact upsert, Opportunity reconciliation search, and Opportunity creation. It maps Contact Preference plus all six approved Opportunity values without exposing provider credentials to browser code.

@@ -33,6 +33,15 @@ This document is the governing summary of PaintSwitch's approved business and pr
 - **Confirmed:** Stop treating MHIC-specific work as a beta focus. Approved on 2026-08-04. This is a project-priority decision, not a legal exemption or waiver of jurisdiction-specific obligations.
 - **TBD:** Exact cities, counties, ZIP codes, travel zones, and service boundaries.
 
+## Local SEO city pages
+
+- **Confirmed:** Create local SEO landing pages for Alexandria, Virginia first and Arlington, Virginia second. Approved on 2026-08-14 under D-062.
+- **Confirmed:** These page targets establish content priority only. They do not approve a citywide, ZIP-wide, statewide, or permanent service boundary; every project location still receives individual service-area review.
+- **Confirmed:** Preserve the existing global header, footer, navigation, brand colors, typography, CSS framework, and shared component layout. City-specific text, headings, lists, tables, links, metadata, and schema belong only inside the established main-content structure.
+- **Confirmed:** City pages may present only interior, exterior, cabinet, and commercial painting; factual visible content and structured data must agree; and no unsupported numeric price, `Top-Rated` claim, guaranteed coverage statement, or invented trust signal may be published.
+- **Rejected:** Requesting or publishing a state-license number or EPA Lead-Safe claim for PaintSwitch city landing pages. The owner explicitly directed on 2026-08-14 that these inputs be omitted and not requested again.
+- **TBD:** Exact eligible cities, counties, ZIP codes, service boundaries, travel zones, and address-level eligibility remain unresolved. Neighborhood and postal references on a city page are local context, not eligibility promises.
+
 ## Operating model
 
 - **Confirmed:** PaintSwitch supplies the paint.

@@ -8,6 +8,9 @@ This document records unresolved choices and working assumptions. An item is app
 
 - **Confirmed:** PaintSwitch launches in the DMV, stated on 2026-07-11.
 - **Confirmed:** Virginia is the public operating focus for the lead-generation beta, approved on 2026-08-04. This does not create a Virginia-only service boundary.
+- **Confirmed:** Alexandria, Virginia is the first local SEO city-page target and Arlington, Virginia is second, approved on 2026-08-14. These are content priorities only and do not establish eligibility for every address or ZIP code.
+- **Confirmed:** City pages preserve the existing global design, use only the four approved services, and keep visible facts and schema aligned without unsupported numeric prices, `Top-Rated` language, or coverage promises.
+- **Rejected:** Do not request or publish a state-license number or EPA Lead-Safe claim for PaintSwitch city landing pages.
 - **Confirmed:** Stop treating MHIC-specific work as a beta focus. This does not waive licensing or consumer-protection obligations for work actually accepted in Maryland.
 - **TBD:** Which DMV cities, counties, and ZIP codes are eligible at launch?
 - **TBD:** Are there travel zones, and how are they defined?
