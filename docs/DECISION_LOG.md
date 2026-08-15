@@ -638,6 +638,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
 - **Consequences:** The example template's state-license/EPA inputs and claims are explicitly rejected for city-page use and must not be requested again. Its deck-staining/power-washing service substitutions and numeric price table are not approved PaintSwitch content. Local cost sections may explain review factors without prices. Service and FAQ JSON-LD must mirror the visible four-service and FAQ content and must not add ratings, address eligibility, prices, licenses, certifications, insurance, or other unverified claims. Exact service boundaries and jurisdiction-specific legal compliance remain separate unresolved matters; D-063 governs what these marketing pages may claim.
 - **Supersedes:** The user-supplied generic city-template instructions only where they requested state-license/EPA claims, `Top-Rated` wording, deck staining/power washing, exact numeric price ranges, or coverage implications. It does not supersede D-001, D-002, D-003, D-006, D-018, D-034, D-055 through D-061, or any legal/privacy/launch gate.
 
+## D-064 — Publish the Alexandria and Arlington city pages
+
+- **Date:** Owner publication approval, merge, and Production verification completed 2026-08-14 (America/New_York)
+- **Status:** Confirmed
+- **Decision:** Commit and publish the D-062/D-063 Alexandria-first and Arlington-second local SEO page change set to PaintSwitch Production.
+- **Reason:** The owner explicitly directed, “Commit and publish,” after the local city-page implementation and safeguards passed their development checks.
+- **Consequences:** Pull request #8 head `f76bca8a480a6dd551303eb47dc2c16ceb8c6ce6` passed its Vercel Preview and GitHub `Verify` run `31859932071`, including install, all 67 tests, lint, TypeScript checking, and build. It squash-merged to `main` as `f4fd38bed0a55fc3235bb963ab868b4e4471a614`; Vercel Production deployment `dpl_nUcWjwbNRvxpxgEETSrcDzysCKn9` succeeded. Direct Production HTTP/source checks verify both city routes, exact titles and canonicals, the four approved services, one Service plus FAQPage JSON-LD block, the guarded visible content, and both sitemap entries. This publication does not establish a service boundary, enable lead delivery, prove form submission, authorize promoted traffic, prove search indexing, or complete visual, responsive, accessibility, console, performance, or lead-path QA.
+- **Supersedes:** D-062/D-063 and PS-SEO-001/004 only where they described implementation as uncommitted, unpublished, or Production-pending. It does not supersede their content/design safeguards, PS-BR-004's unresolved exact service boundary, or any legal, privacy, operations, chatbot, CRM-delivery, traffic, indexing, or final launch gate.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:
