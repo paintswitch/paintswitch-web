@@ -20,19 +20,30 @@ Allowed decision statuses are **Confirmed**, **Proposed**, **TBD**, **Rejected**
 
 **D-061 Production publication evidence — 2026-08-14:** The owner approved publishing the complete D-058/D-060 website for live visual review on 2026-08-13 and reaffirmed that direction on 2026-08-14. Pull request #6 head `17eba55e13f5400ce37ee713dee9757e8f89be82` passed GitHub `Verify`, Vercel, and Vercel Preview Comments and squash-merged to `main` as `19473d74a4e4a8890c9ea48e3f02bde9f0a86e13`. Production `https://paintswitch.com/`, `/privacy`, and `/terms` returned `200`; the homepage source references the exact logo and `Request a Quote`; and the exact 154,690-byte logo asset returned `200`. Browser panels were unavailable for a fresh visual inspection, so this evidence proves publication and source/asset presence, not fresh Production visual rendering, complete bot interaction, mobile/accessibility behavior, lead delivery, promoted traffic, or final launch acceptance. Any older row below saying the approved design is awaiting merge or Production publication is superseded by this evidence; its remaining non-publication gates stay current.
 
+**D-062/D-063 local city-page candidate — 2026-08-14:** The owner approved Alexandria, Virginia as the first local SEO city-page target and Arlington, Virginia as the second, while explicitly rejecting state-license and EPA Lead-Safe inputs or claims for these pages. Current uncommitted source defines static `/alexandria-va` and `/arlington-va` routes, shared page-local rendering in `src/components/city-landing-page.tsx`, factual page/schema data in `src/lib/city-landing-pages.ts`, and `src/app/sitemap.ts`. Source inspection shows static title/description/canonical metadata, the approved four services, individual-review language, cost factors without numeric prices, and matching Service/FAQ JSON-LD; global design component and stylesheet files are unchanged. All 67 automated tests, lint, TypeScript type checking, and the Next.js `16.3.0` production build pass. Local rendered HTTP checks return `200` for both city routes with the exact title and canonical, one H1, one parseable JSON-LD script containing Service plus FAQPage with three FAQs, no prohibited visible claim, and a `200` sitemap containing both routes. Fresh visual, responsive, and accessibility browser QA, hosted checks, merge, and Production verification remain; the in-app browser had no available binding. Page targeting does not resolve exact service boundaries.
+
 ## Coverage counts by status
 
-These counts cover the 189 unique `PS-*` requirement rows in this register:
+These counts cover the 193 unique `PS-*` requirement rows in this register:
 
 | Status | Count |
 | --- | ---: |
-| Confirmed | 120 |
+| Confirmed | 123 |
 | Proposed | 22 |
 | TBD | 25 |
-| Rejected | 0 |
+| Rejected | 1 |
 | Superseded | 19 |
 | Historical/Needs verification | 3 |
-| **Total** | **189** |
+| **Total** | **193** |
+
+## Local SEO city pages
+
+| ID | Decision or requirement | Status | Source date | Canonical document and section | Implementation status | Test or acceptance evidence | Blocks launch |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| PS-SEO-001 | Create local SEO city pages for Alexandria, Virginia first and Arlington, Virginia second. | Confirmed | 2026-08-14 | `DECISION_LOG.md` § D-062; `PRODUCT_REQUIREMENTS.md` § Brand, visual, and governance requirements | Implemented and locally verified at `/alexandria-va` and `/arlington-va`; not merged or published | Source inspection and the 67-test pass confirm the requested ordering, explicit static routes, metadata, and sitemap entries. The build reports both routes and `/sitemap.xml`; both rendered routes and the sitemap return `200` locally. Checklist: LC-SEO-005/006. | No—additional organic entry pages, not a lead-beta prerequisite |
+| PS-SEO-002 | Treat Alexandria and Arlington page targeting as content priority, not an exact service boundary; continue individual address review. | Confirmed | 2026-08-14 | `DECISION_LOG.md` § D-062; `PAINTSWITCH_MASTER_CONTEXT.md` § Local SEO city pages | Implemented and locally verified | Visible hero, local-reference, FAQ, and quote language states that each address receives review and that city/ZIP references do not guarantee availability. The content contract and rendered checks pass. Exact service boundaries remain TBD under PS-BR-004. Checklist: LC-SEO-005/006 and LC-BIZ-001. | No—manual-review beta remains available; Yes—automated eligibility still requires PS-BR-004 |
+| PS-SEO-003 | Request or publish a state-license number or EPA Lead-Safe claim for PaintSwitch city landing pages. | Rejected | 2026-08-14 | `DECISION_LOG.md` § D-063; `PRODUCT_REQUIREMENTS.md` § PS-SEO-003 | Excluded and locally verified | Source, automated, and rendered-HTML checks find no state-license or EPA Lead-Safe claim in the city component, page data, route metadata, visible copy, or JSON-LD. Checklist: LC-SEO-006 and LC-TRUST-004. | No—rejected content must remain absent |
+| PS-SEO-004 | Preserve the global design; use page-local content only; show the four approved services; align visible facts with Service/FAQ schema; and exclude unsupported numeric prices, `Top-Rated` claims, guaranteed coverage, and invented trust fields. | Confirmed | 2026-08-14 | `DECISION_LOG.md` § D-063; `PRODUCT_REQUIREMENTS.md` § PS-SEO-004 | Implemented and locally verified; fresh visual QA and publication pending | `city-landing-page.tsx` reuses Header, Footer, TrustBar, buttons, SectionHeading, ServiceCard, and QuoteRequestForm; `city-landing-pages.ts` limits Service schema and visible content to Interior, Exterior, Cabinet, and Commercial; no global component or CSS file changed. All 67 tests and local rendered/schema checks pass. Fresh responsive/accessibility browser, hosted, and Production checks remain. Checklist: LC-SEO-005/006 and LC-QA-002/005. | No—pages can remain unpublished without blocking the existing lead path |
 
 ## Brand, market, and operating model
 
@@ -263,7 +274,7 @@ These counts cover the 189 unique `PS-*` requirement rows in this register:
 | PS-SU-009 | Leave whether beta acknowledgment includes SMS as TBD. | Superseded | 2026-08-01 | `DECISION_LOG.md` § D-019 | Documentation corrected | D-019 first required every-lead SMS; D-027 now governs optional opt-in SMS and permits launch with SMS disabled while A2P is pending. | No |
 | PS-SU-010 | Treat a custom domain as an unresolved beta-hosting requirement. | Superseded | 2026-08-01 | `DECISION_LOG.md` § D-019 | Documentation corrected | Superseded by keeping beta on Vercel while domain acquisition proceeds. | No |
 
-No **Rejected** requirements are currently documented.
+One **Rejected** requirement is documented: PS-SEO-003 prohibits requesting or publishing state-license or EPA Lead-Safe claims on PaintSwitch city landing pages.
 
 ## Contradictions and gaps requiring explicit handling
 
@@ -283,5 +294,6 @@ No **Rejected** requirements are currently documented.
 14. D-034 prioritizes Virginia publicly but does not create a Virginia-only boundary or supersede the DMV launch. D-036 stops MHIC-focused beta work but does not waive licensing requirements for any Maryland work actually accepted. Exact coverage and jurisdiction-specific compliance remain unresolved (`PS-BR-003`, `PS-BR-004`, `PS-BR-008`, `PS-BR-009`, `PS-OP-005`).
 15. D-035 approves a Virginia DBA of Jen Contracting internally/legally while D-001 prohibits every customer-facing Jen connection. Exact filing and any legally required disclosure treatment are unverified; do not publish a Jen connection to resolve that tension without explicit owner/legal direction (`PS-BR-001`, `PS-OP-006`).
 16. D-044 selects Maryland governing law while Virginia is the public operating focus and DBA jurisdiction. This is an approved policy choice, not proof of enforceability or a licensing determination; Terms implementation requires legal review (`PS-BR-008`, `PS-BR-009`, `PS-LB-038`, `PS-OP-005`).
+17. D-062 approves Alexandria-first and Arlington-second city-page targeting without resolving exact service boundaries. D-063 rejects the generic template's state-license/EPA, `Top-Rated`, deck/power-washing, numeric-price, and coverage-claim elements while preserving the approved four-service taxonomy and global design. The local candidate passes all 67 tests, lint, type checking, build, rendered-route/schema checks, and sitemap checks; fresh visual/responsive/accessibility browser QA, hosted checks, merge, and Production publication remain pending (`PS-SEO-001` through `PS-SEO-004`, `PS-BR-004`).
 
 These contradictions are recorded rather than resolved from website copy.

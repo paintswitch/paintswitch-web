@@ -620,6 +620,24 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
 - **Consequences:** Pull request #6 may be promoted to `main` and deployed to `https://paintswitch.com`. This approval covers the current editorial layout, exact production logo, navy/cobalt interaction system, labeled illustrative hero, flexible public follow-up wording, existing safeguarded `Switch bot` integration, quote-request interface, and legal pages. It does not authorize paid or promoted traffic, enable Production lead delivery, approve unresolved supporting copy or derivative brand assets, waive professional legal/privacy review, expand chatbot capabilities, or satisfy the remaining operational, security, accessibility, bot, CRM-delivery, and final launch gates.
 - **Supersedes:** D-058 and D-060 only where they explicitly left merge and Production deployment unauthorized. It does not supersede their visual/authenticity boundaries, D-059's safety-gate rule, or any non-design launch requirement.
 
+## D-062 — Alexandria-first and Arlington-second local SEO city pages
+
+- **Date:** 2026-08-14
+- **Status:** Confirmed
+- **Decision:** Create PaintSwitch local SEO landing pages for Alexandria, Virginia first and Arlington, Virginia second.
+- **Reason:** The owner selected the first two Virginia local-search markets and their implementation order so PaintSwitch can build relevant local entry pages without waiting for the full service-boundary decision.
+- **Consequences:** Static city pages may target Alexandria and Arlington with source-backed local architectural, neighborhood, postal, and regional context. A page target is not an approval that PaintSwitch serves every address or ZIP code in that city, and it does not resolve exact cities, counties, travel zones, or permanent service boundaries. Every project location continues through individual review. Page content must not expose the internal Jen Contracting relationship.
+- **Supersedes:** None. D-002's confirmed DMV market, D-034's Virginia beta priority, and the **TBD** exact service boundary remain controlling.
+
+## D-063 — Preserve the site design and reject unsupported city-page claims
+
+- **Date:** 2026-08-14
+- **Status:** Confirmed
+- **Decision:** For PaintSwitch city landing pages, preserve the existing global header, footer, navigation, brand colors, typography, CSS framework, and shared component layouts; add only page-local text, headings, lists, tables, links, metadata, and structured data within the established main-content structure. Use only the approved interior, exterior, cabinet, and commercial service categories. Never ask for or publish a state-license number or EPA Lead-Safe claim for these pages. Do not publish unsupported numeric prices, `Top-Rated` language, guaranteed service-area coverage, or structured-data fields not supported by matching visible facts.
+- **Reason:** The owner requires scalable local content without redesigning the approved site or turning an example SEO template into unsupported PaintSwitch business, pricing, licensing, certification, ranking, or coverage claims.
+- **Consequences:** The example template's state-license/EPA inputs and claims are explicitly rejected for city-page use and must not be requested again. Its deck-staining/power-washing service substitutions and numeric price table are not approved PaintSwitch content. Local cost sections may explain review factors without prices. Service and FAQ JSON-LD must mirror the visible four-service and FAQ content and must not add ratings, address eligibility, prices, licenses, certifications, insurance, or other unverified claims. Exact service boundaries and jurisdiction-specific legal compliance remain separate unresolved matters; D-063 governs what these marketing pages may claim.
+- **Supersedes:** The user-supplied generic city-template instructions only where they requested state-license/EPA claims, `Top-Rated` wording, deck staining/power washing, exact numeric price ranges, or coverage implications. It does not supersede D-001, D-002, D-003, D-006, D-018, D-034, D-055 through D-061, or any legal/privacy/launch gate.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:

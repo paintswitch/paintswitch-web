@@ -51,6 +51,14 @@ paintswitch-web/
 
 Generated `.next` output and installed `node_modules` are present in the inspected working directory but ignored by Git and are not canonical source.
 
+The 2026-08-14 uncommitted local city-page candidate adds these authored files to the structure above:
+
+- `src/app/alexandria-va/page.tsx` and `src/app/arlington-va/page.tsx` for two explicit static city routes.
+- `src/app/sitemap.ts` for the generated `/sitemap.xml` route.
+- `src/components/city-landing-page.tsx` for the shared page-local city layout that composes existing global components without changing them.
+- `src/lib/city-landing-pages.ts` for typed Alexandria/Arlington content and Service/FAQ JSON-LD generation.
+- Additional city-page source-contract coverage in `tests/site-content.test.mjs`.
+
 ## Framework and dependency versions
 
 | Package | Manifest declaration | Lockfile-resolved version |
@@ -75,20 +83,25 @@ Next.js `16.3.0` resolves PostCSS `8.5.23` and optional Sharp `0.35.3`. The boun
 
 - The application uses the Next.js App Router under `src/app`.
 - `src/app/layout.tsx` provides the root HTML layout and static PaintSwitch metadata.
-- `src/app/page.tsx` is a Server Component that composes the lead-generation page at `/` from reusable components. Commit `649f06d` mounts `HighLevelChatWidget` only on this homepage. `src/app/privacy/page.tsx` and `src/app/terms/page.tsx` are static legal-content routes that share `src/components/legal-page.tsx`.
+- `src/app/page.tsx` is a Server Component that composes the lead-generation page at `/` from reusable components. Commit `649f06d` mounts `HighLevelChatWidget` only on this homepage. `src/app/privacy/page.tsx` and `src/app/terms/page.tsx` are static legal-content routes that share `src/components/legal-page.tsx`. The uncommitted `src/app/alexandria-va/page.tsx` and `src/app/arlington-va/page.tsx` files export static route metadata and pass typed city data into the shared `CityLandingPage` Server Component; neither city route mounts `HighLevelChatWidget`.
+- `src/components/city-landing-page.tsx` reuses Header, Footer, TrustBar, PrimaryButton, SecondaryButton, SectionHeading, ServiceCard, and QuoteRequestForm. It provides the existing header's `#home`, `#services`, `#how-it-works`, `#about`, and `#quote` targets locally, renders one H1, and emits one safely serialized JSON-LD script. No existing global component or `globals.css` change is present in the working tree.
+- `src/lib/city-landing-pages.ts` holds the typed visible content for Alexandria first and Arlington second and generates an `@graph` containing one Service and one FAQPage object. `Service.serviceType` is the four approved service names; FAQPage is generated from the same three FAQ objects rendered visibly. The schema contains no Offer/OfferCatalog, price, rating, address, license, certification, or insurance field.
+- `src/app/sitemap.ts` returns static entries for the apex, both city routes, Privacy, and Terms. The framework exposes it at `/sitemap.xml`.
 - `src/components/header.tsx` and `src/components/quote-request-form.tsx` are Client Components. The header uses a click handler to close its native HTML `<details>` mobile menu after navigation.
 - Primary homepage actions use in-page anchors targeting `#quote`; legal and cross-page navigation use normal route links.
 - `QuoteRequestForm` owns client-side submission state. It collects the seven approved beta fields, validates through the shared `lead-intake.ts` parser, exposes field-specific accessible errors and focuses the first invalid control, creates a browser UUID for an unchanged submission attempt, captures bounded `utm_source` and `utm_campaign` values, applies a 50-second `AbortController` timeout, and sends normalized JSON to `/api/leads`. It retains the submission ID for unchanged retries but clears it after a server `409` payload-conflict response. An explicit native `POST` action prevents PII from becoming a query string before hydration; the JSON-only route rejects that fallback encoding rather than accepting an unvalidated lead. The rendered form also includes the approved 18+ acknowledgment, project-specific contact notice, automated-SMS-off boundary, and links to `/privacy` and `/terms`.
 - `src/app/api/leads/route.ts` implements the dynamic `/api/leads` POST boundary with a 55-second maximum duration. It requires an exact same-origin approved production host (`paintswitch.com` or `paintswitch-web.vercel.app`), a permitted local-development origin, or a Vercel preview same-origin request; verifies the exact JSON media type; validates content length; reads at most 16 KiB with a five-second deadline; parses through `lead-intake.ts`; and exposes only generic no-store/nosniff responses. It delegates accepted leads to `lead-delivery.ts`, returns `200` only for a completed/replayed delivery, `409` for submission-ID payload conflict, and retryable `503` responses for busy or unavailable delivery.
 - `src/lib/lead-intake.ts` rejects unexpected keys, control characters, malformed UUIDs, invalid enum values, and malformed email local parts or DNS labels before any future CRM delivery is attempted.
 - `next.config.ts` disables `X-Powered-By` and applies a static-compatible CSP plus frame, MIME-sniffing, referrer, permissions, and cross-domain-policy response headers. Commit `649f06d` evaluates `HIGHLEVEL_CHAT_WIDGET_ENABLED === "true"`; commit `85117a1` adds the exact `wss://services.leadconnectorhq.com` origin to the chat-enabled `connect-src`. When false, the prior self-only browser-resource policy remains. When true, `script-src` and `img-src` add the three exact HTTPS LeadConnector origins, while `connect-src` adds those origins plus the exact services WebSocket origin; no wildcard is used, and `frame-src` remains `'none'`. Production retains the minimal `'unsafe-inline'` script/style allowances required by Next.js hydration and built-in error-page output; development alone adds broad `ws:` and `wss:` schemes. The corrected exact enabled policy supported no-reload replies in Preview and the bounded 2026-08-10 Production response test. Broader latency/reliability and the two disabled-state paths remain unverified.
-- No other authored dynamic route, API route, middleware, server action, or background job is present.
+- No other authored dynamic route, API route, middleware, server action, or background job is present. The city routes and sitemap are static and perform no runtime data fetching.
 
 ## Rendering and routes
 
-- The repository source defines `/`, `/privacy`, and `/terms` plus the favicon resource and dynamic `/api/leads` boundary.
-- A production build run on 2026-08-04 reported static routes `/`, `/privacy`, `/terms`, and `/_not-found` plus dynamic route `/api/leads`. Generated output is verification evidence, not canonical source.
+- The current working-tree source defines `/`, `/alexandria-va`, `/arlington-va`, `/privacy`, `/sitemap.xml`, and `/terms` plus the favicon resource and dynamic `/api/leads` boundary.
+- The 2026-08-14 Next.js `16.3.0` production build reports static routes `/`, `/_not-found`, `/alexandria-va`, `/arlington-va`, `/privacy`, `/sitemap.xml`, and `/terms` plus dynamic route `/api/leads`. Generated output is verification evidence, not canonical source.
 - No dynamic route parameters or runtime data-fetching code are present in the tracked source.
+
+The two city route modules provide title tags under 60 characters, descriptions under 155 characters, and exact canonical URLs. Local rendered HTTP checks return `200` for both routes and verify one H1, one literal parseable JSON-LD block with Service and FAQPage, three FAQs, and absence of the prohibited visible claims. `/sitemap.xml` also returns `200` with both routes. All 67 automated tests, lint, TypeScript type checking, and the production build pass. The in-app browser had no available binding, so no fresh visual, responsive, mobile, accessibility, or browser-console verification exists for these pages. No hosted or Production city-page evidence exists.
 
 ## Component organization
 
