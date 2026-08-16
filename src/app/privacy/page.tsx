@@ -94,6 +94,9 @@ export default function PrivacyPolicy() {
         <p>
           Information may be retained longer when necessary for an active project, a verified security matter, a dispute, or an applicable legal obligation.
         </p>
+        <p>
+          PaintSwitch also generates other limited operational records while running the website and beta, such as notification-email delivery logs and website traffic data. It keeps those records only as long as reasonably needed for the approved purposes in this policy, then deletes or anonymizes them.
+        </p>
       </section>
 
       <section>
@@ -106,7 +109,7 @@ export default function PrivacyPolicy() {
       <section>
         <h2>Your privacy requests</h2>
         <p>
-          You may ask to access, correct, or delete your information by emailing <a href="mailto:hello@paintswitch.com">hello@paintswitch.com</a>. PaintSwitch may take reasonable steps to verify a request before acting on it.
+          You may ask to access, correct, or delete your information by emailing <a href="mailto:hello@paintswitch.com">hello@paintswitch.com</a>. Before acting on a request, PaintSwitch verifies that it came from the email address associated with your submission, plus one additional identifier such as your phone number or project ZIP code.
         </p>
       </section>
 

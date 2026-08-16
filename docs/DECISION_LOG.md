@@ -1,6 +1,6 @@
 # PaintSwitch decision log
 
-Last updated: 2026-08-14
+Last updated: 2026-08-16
 
 This log records material approved decisions. Dates are approval dates when supplied; otherwise the entry identifies when the decision was first documented as confirmed. Preserve superseded entries and link their replacements.
 
@@ -646,6 +646,24 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
 - **Reason:** The owner explicitly directed, “Commit and publish,” after the local city-page implementation and safeguards passed their development checks.
 - **Consequences:** Pull request #8 head `f76bca8a480a6dd551303eb47dc2c16ceb8c6ce6` passed its Vercel Preview and GitHub `Verify` run `31859932071`, including install, all 67 tests, lint, TypeScript checking, and build. It squash-merged to `main` as `f4fd38bed0a55fc3235bb963ab868b4e4471a614`; Vercel Production deployment `dpl_nUcWjwbNRvxpxgEETSrcDzysCKn9` succeeded. Direct Production HTTP/source checks verify both city routes, exact titles and canonicals, the four approved services, one Service plus FAQPage JSON-LD block, the guarded visible content, and both sitemap entries. This publication does not establish a service boundary, enable lead delivery, prove form submission, authorize promoted traffic, prove search indexing, or complete visual, responsive, accessibility, console, performance, or lead-path QA.
 - **Supersedes:** D-062/D-063 and PS-SEO-001/004 only where they described implementation as uncommitted, unpublished, or Production-pending. It does not supersede their content/design safeguards, PS-BR-004's unresolved exact service boundary, or any legal, privacy, operations, chatbot, CRM-delivery, traffic, indexing, or final launch gate.
+
+## D-065 — Accept unfiled Virginia DBA/fictitious-name registration as a known beta risk
+
+- **Date:** 2026-08-16
+- **Status:** Confirmed
+- **Decision:** Do not file the Virginia fictitious-name (DBA) registration for PaintSwitch under Jen Contracting before this launch. Accept the resulting compliance exposure as a known, open risk while the beta prioritizes revenue generation over further legal/administrative investment.
+- **Reason:** The owner determined that the website needs to start generating leads and revenue before continuing to invest in legal formalization, and explicitly chose to proceed without filing.
+- **Consequences:** D-035's internal/legal DBA direction remains the confirmed structural intent, but its filing is not scheduled and is no longer treated as a precondition for this launch. This is a known, legally unresolved exposure under Virginia Code § 59.1-69 (cited in the 2026-08-05 legal preflight); it does not authorize any customer-facing Jen Contracting disclosure, branding, or implied connection — D-001 remains fully controlling. Getting a fast written read from counsel when available (Track A of the launch plan) remains worthwhile, but a completed filing is no longer a blocking dependency. Revisit once revenue supports further legal investment.
+- **Supersedes:** The prior framing in `LAUNCH_CHECKLIST.md` and `DEVELOPMENT_STATUS.md` that treated the Virginia fictitious-name filing as an unresolved to-do still to be completed before commercial operation. It is now an explicitly accepted risk rather than an open task.
+
+## D-066 — Privacy Policy and Terms operational completions
+
+- **Date:** 2026-08-16
+- **Status:** Confirmed
+- **Decision:** (1) Add a general retention statement to the Privacy Policy covering operational record classes not separately itemized elsewhere in the policy — such as notification-email delivery logs and website traffic data — retained only as long as reasonably needed for the policy's approved purposes, then deleted or anonymized. (2) Require that a privacy request (access, correction, or deletion) be verified as coming from the email address associated with the original submission plus one additional identifier — phone number or project ZIP code — before PaintSwitch acts on it. (3) Do not list a physical business address or registered agent on the Website Terms during the beta, because PaintSwitch operates as a service-area business with no walk-in location that customers visit.
+- **Reason:** Closes operational gaps flagged in `OPEN_QUESTIONS.md` and `LC-TRUST-001`/`LC-TRUST-003` without waiting on the separate DBA/legal-identity question resolved by D-065. The address decision follows from PaintSwitch's service-area operating model: Google Business Profile and ad platforms support service-area listings without a public address, and the site's SEO structured data already uses `Service`/`FAQPage` schema with no `address` field (D-063).
+- **Consequences:** `src/app/privacy/page.tsx` now contains both the retention catch-all sentence and the revised two-factor verification sentence; both passed the full local test, lint, and production-build regression (all 67 tests, lint, and `next build` passed on 2026-08-16). Exact retention periods for the newly covered record classes, provider access-role verification, and professional legal review of the complete Privacy/Terms text remain open per `OPEN_QUESTIONS.md`. No address is required in `src/app/terms/page.tsx` for the beta; revisit if PaintSwitch later forms a filed legal entity with its own address.
+- **Supersedes:** The prior unspecified "reasonable steps to verify" language implied by D-040, and the prior unresolved retention-catch-all and Terms-address gaps identified in `LC-TRUST-001`/`LC-TRUST-003` and `OPEN_QUESTIONS.md`.
 
 ## Proposed decision candidates
 

@@ -1,10 +1,10 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-08-14
+Last repository inspection: 2026-08-16
 
 Last documentation-completeness audit: 2026-08-04
 
-Last local application verification: 2026-08-14
+Last local application verification: 2026-08-16
 
 Last external platform verification: 2026-08-14
 
@@ -15,6 +15,13 @@ Last external GoHighLevel verification: 2026-08-10
 Repository: `paintswitch/paintswitch-web`
 
 This document separates facts verified directly from the current repository from reports that have not been reverified during this documentation update.
+
+## Privacy Policy update and new dependency finding — 2026-08-16
+
+- **Implemented:** `src/app/privacy/page.tsx` now contains a general retention catch-all sentence for operational record classes not separately itemized (notification-email delivery logs, website traffic data) and a revised privacy-request verification sentence requiring the email address on file plus one additional identifier (phone number or project ZIP code), under D-066. `src/app/terms/page.tsx` is unchanged; D-066 confirms no physical address is required there for the beta.
+- **Verified:** After a clean `npm ci`, all 67 automated tests, lint, and the Next.js `16.3.0` production build passed with the updated Privacy Policy source. Build routes remain `/`, `/alexandria-va`, `/api/leads`, `/arlington-va`, `/privacy`, `/sitemap.xml`, and `/terms`.
+- **Recorded:** D-065 documents the owner's decision not to file the Virginia fictitious-name (DBA) registration before this launch and to accept that exposure as a known, open risk rather than a launch blocker.
+- **Resolved same day:** The same `npm ci` surfaced one new high-severity advisory not present at the D-047 (2026-08-04) zero-vulnerability checkpoint: a transitive production dependency on `nanoid < 3.3.18` (GHSA-2v37-7h3g-55p8, CWE-835, denial-of-service via an infinite loop when a custom generator's `size` is zero), reached through `next@16.3.0` → `postcss@8.5.23` → `nanoid`. `postcss@8.5.23` declares `nanoid: ^3.3.16`, a range the patched `3.3.18` already satisfies, so `npm audit fix` (non-force) resolved it by moving only the lockfile entry — `next`, `postcss`, and `package.json` were untouched. `npm audit --omit=dev --json` now reports zero vulnerabilities again, and all 67 tests, lint, and the production build passed afterward. No force fix, Preview/Canary substitution, or incompatible override was used, consistent with the D-028/D-047 precedent.
 
 ## Current city-page Production release — 2026-08-14
 
