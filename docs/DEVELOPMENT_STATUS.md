@@ -6,7 +6,7 @@ Last documentation-completeness audit: 2026-08-04
 
 Last local application verification: 2026-08-16
 
-Last external platform verification: 2026-08-14
+Last external platform verification: 2026-08-17
 
 Last external deployment verification: 2026-08-14
 
@@ -15,6 +15,12 @@ Last external GoHighLevel verification: 2026-08-16
 Repository: `paintswitch/paintswitch-web`
 
 This document separates facts verified directly from the current repository from reports that have not been reverified during this documentation update.
+
+## SEO/QA verification pass — 2026-08-17
+
+- **Verified (passed):** The homepage skip link (`href="#main-content"`) exists in the DOM and activates correctly. Direct inspection of the live `/alexandria-va` and `/arlington-va` Production pages found zero console errors, correct titles/canonicals, and `Service`+`FAQPage` JSON-LD only, with none of `areaServed`, `offers`, `address`, `aggregateRating`, or `review` present. A scripted scan for prohibited claim language (`Top-Rated`, license/EPA/Lead-Safe references, `$` pricing, `Jen Contracting`, `MHIC`, unqualified "guarantee") returned no genuine matches on either page — the only hits were a substring false positive ("EPA" inside "preparation") and the required negation disclaimer ("does not guarantee service for every address or ZIP code"). `sitemap.xml` is clean: all 5 URLs present with correct `lastmod` dates, and the homepage carries no accidental `noindex` robots meta tag.
+- **Verified (failed/gap confirmed):** `https://paintswitch.com/robots.txt` returns `404` — no robots file has been implemented, confirming `LC-SEO-002`'s "robots strategy" is a genuine implementation gap, not just an unrecorded decision. Direct inspection of the live homepage HTML found **no Open Graph or Twitter Card metadata at all** (`og:title`, `og:image`, `og:description`, `twitter:card` all absent) — confirming `LC-SEO-001`'s "social-sharing metadata... remain" note as a real gap: sharing `paintswitch.com` on any social platform or messaging app currently renders as a bare link with no preview card.
+- **Not yet tested:** True cross-browser (Firefox/WebKit), screen-reader, and mobile-viewport QA remain outside what this browser-automation session can verify; only Chrome desktop was used.
 
 ## Switch bot reply-cap verification finding — 2026-08-16
 
