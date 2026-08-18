@@ -145,33 +145,33 @@ export function QuoteRequestForm() {
       aria-busy={status === "submitting"}
     >
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="text-sm font-semibold text-[#3D4E4E]">
+        <label htmlFor="name" className="text-sm font-semibold text-[#3D4E4E]">
           Name
-          <input className={fieldClassName} name="name" type="text" autoComplete="name" maxLength={100} required aria-invalid={Boolean(fieldErrors.name)} aria-describedby={fieldErrors.name ? "name-error" : undefined} />
+          <input id="name" className={fieldClassName} name="name" type="text" autoComplete="name" maxLength={100} required aria-invalid={Boolean(fieldErrors.name)} aria-describedby={fieldErrors.name ? "name-error" : undefined} />
           {fieldErrors.name && <span id="name-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.name}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-[#3D4E4E]">
+        <label htmlFor="phone" className="text-sm font-semibold text-[#3D4E4E]">
           Phone
-          <input className={fieldClassName} name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={30} required aria-invalid={Boolean(fieldErrors.phone)} aria-describedby={fieldErrors.phone ? "phone-error" : undefined} />
+          <input id="phone" className={fieldClassName} name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={30} required aria-invalid={Boolean(fieldErrors.phone)} aria-describedby={fieldErrors.phone ? "phone-error" : undefined} />
           {fieldErrors.phone && <span id="phone-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.phone}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-[#3D4E4E]">
+        <label htmlFor="email" className="text-sm font-semibold text-[#3D4E4E]">
           Email
-          <input className={fieldClassName} name="email" type="email" autoComplete="email" maxLength={254} required aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "email-error" : undefined} />
+          <input id="email" className={fieldClassName} name="email" type="email" autoComplete="email" maxLength={254} required aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "email-error" : undefined} />
           {fieldErrors.email && <span id="email-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.email}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-[#3D4E4E]">
+        <label htmlFor="projectLocation" className="text-sm font-semibold text-[#3D4E4E]">
           Project ZIP code or address
-          <input className={fieldClassName} name="projectLocation" type="text" autoComplete="street-address" maxLength={200} required aria-invalid={Boolean(fieldErrors.projectLocation)} aria-describedby={fieldErrors.projectLocation ? "project-location-error" : undefined} />
+          <input id="projectLocation" className={fieldClassName} name="projectLocation" type="text" autoComplete="street-address" maxLength={200} required aria-invalid={Boolean(fieldErrors.projectLocation)} aria-describedby={fieldErrors.projectLocation ? "project-location-error" : undefined} />
           {fieldErrors.projectLocation && <span id="project-location-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.projectLocation}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-[#3D4E4E]">
+        <label htmlFor="serviceType" className="text-sm font-semibold text-[#3D4E4E]">
           Service
-          <select className={fieldClassName} name="serviceType" defaultValue="" required aria-invalid={Boolean(fieldErrors.serviceType)} aria-describedby={fieldErrors.serviceType ? "service-error" : undefined}>
+          <select id="serviceType" className={fieldClassName} name="serviceType" defaultValue="" required aria-invalid={Boolean(fieldErrors.serviceType)} aria-describedby={fieldErrors.serviceType ? "service-error" : undefined}>
             <option value="" disabled>Select a service</option>
             <option value="Interior">Interior painting</option>
             <option value="Exterior">Exterior painting</option>
@@ -181,9 +181,9 @@ export function QuoteRequestForm() {
           {fieldErrors.serviceType && <span id="service-error" className="mt-2 block text-sm font-medium text-red-700">{fieldErrors.serviceType}</span>}
         </label>
 
-        <label className="text-sm font-semibold text-[#3D4E4E]">
+        <label htmlFor="contactPreference" className="text-sm font-semibold text-[#3D4E4E]">
           Preferred contact method
-          <select className={fieldClassName} name="contactPreference" defaultValue="" required aria-invalid={Boolean(fieldErrors.contactPreference)} aria-describedby={fieldErrors.contactPreference ? "contact-preference-error" : undefined}>
+          <select id="contactPreference" className={fieldClassName} name="contactPreference" defaultValue="" required aria-invalid={Boolean(fieldErrors.contactPreference)} aria-describedby={fieldErrors.contactPreference ? "contact-preference-error" : undefined}>
             <option value="" disabled>Select a preference</option>
             <option value="Call">Call</option>
             <option value="Text">Text</option>
@@ -193,9 +193,10 @@ export function QuoteRequestForm() {
         </label>
       </div>
 
-      <label className="mt-5 block text-sm font-semibold text-[#3D4E4E]">
+      <label htmlFor="projectDescription" className="mt-5 block text-sm font-semibold text-[#3D4E4E]">
         Tell us about your project
         <textarea
+          id="projectDescription"
           className={`${fieldClassName} min-h-36 resize-y`}
           name="projectDescription"
           rows={5}
