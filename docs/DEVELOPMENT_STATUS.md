@@ -1,20 +1,26 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-08-16
+Last repository inspection: 2026-08-18
 
 Last documentation-completeness audit: 2026-08-04
 
 Last local application verification: 2026-08-16
 
-Last external platform verification: 2026-08-17
+Last external platform verification: 2026-08-18
 
-Last external deployment verification: 2026-08-14
+Last external deployment verification: 2026-08-18
 
-Last external GoHighLevel verification: 2026-08-16
+Last external GoHighLevel verification: 2026-08-18
 
 Repository: `paintswitch/paintswitch-web`
 
 This document separates facts verified directly from the current repository from reports that have not been reverified during this documentation update.
+
+## Production lead delivery enabled and verified — 2026-08-18
+
+- **Implemented:** `robots.txt` was added (`public/robots.txt`, allows all crawlers, links `sitemap.xml`), Open Graph and Twitter Card metadata were added to `src/app/layout.tsx` (closing the 2026-08-17 social-metadata gap below), and the quote request form (`src/components/quote-request-form.tsx`) gained explicit `id`/`htmlFor` label associations on all seven fields for accessibility. `public/favicon.svg` was added (a simplified paint-roller mark; the byte-identical full wordmark logo proved too detailed to render legibly at favicon sizes and was replaced). All changes passed lint and the Next.js `16.3.0` production build before being pushed to `main` and auto-deployed by Vercel.
+- **Verified (critical launch blocker cleared):** The Vercel Production environment variable `LEAD_DELIVERY_ENABLED` was changed from `false` to `true` and Production was redeployed (deployment `3J3R7bmyr`, commit `6d5e966`, `Ready`, domains `paintswitch.com` and `paintswitch-web.vercel.app`). A production-safe test lead, clearly labeled as internal/non-customer in its message body, was submitted through the live `https://paintswitch.com` quote form via a real browser session (not a bare API call — an unauthenticated `curl` POST to `/api/leads` correctly returned `403 REQUEST_REJECTED` from the route's bot/origin protection, which is expected behavior and not a sign of misconfiguration). The form returned the on-page success state, and the internal notification email from `hello@mg.paintswitch.com` ("New PaintSwitch website lead") was received, confirming the lead reached the PaintSwitch Lead Intake pipeline in GoHighLevel. This is the first verified live Production lead-delivery pass under LC-BETA-007/009/020 and LC-END-002.
+- **Not yet done:** The test lead must still be located and deleted from the GoHighLevel CRM as non-production data. A location-level GoHighLevel staff record for Alex Aguilar (distinct from the existing agency-level `AGENCY-ADMIN` user) could not be saved through the location's "My Staff" add-user flow during this session — the location's staff list showed "No Users found" after the save attempt, so automatic lead-owner assignment at the location-staff level remains unconfigured; a CRM automation/workflow-based assignment rule was documented as the recommended alternative but not yet built and activated inside GoHighLevel itself. Hosted concurrency acceptance, a Production fail-closed/recovery-state test, and the operator-acknowledgment rehearsal (contacting a test lead within the internal five-minute branch) remain open.
 
 ## SEO/QA verification pass — 2026-08-17
 
