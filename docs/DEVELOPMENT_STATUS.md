@@ -1,18 +1,31 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-08-18
+Last repository inspection: 2026-08-19
 
 Last documentation-completeness audit: 2026-08-04
 
 Last local application verification: 2026-08-16
 
-Last external platform verification: 2026-08-18
+Last external platform verification: 2026-08-19
 
-Last external deployment verification: 2026-08-18
+Last external deployment verification: 2026-08-19
 
-Last external GoHighLevel verification: 2026-08-18
+Last external GoHighLevel verification: 2026-08-19
 
 Repository: `paintswitch/paintswitch-web`
+
+## Form-submission failure root-caused: GHL rejects staff-owned emails, not a site bug — 2026-08-19
+
+- **Owner report:** Beginning the evening of 2026-08-19, the owner could not submit the live production quote form from any device — tried mobile data, home wifi, a separate desktop on wifi, Safari private/incognito mode, and cellular (5G, no wifi) — all failed identically with the on-page message "We could not confirm that your request was received."
+- **Investigation (extensive, documented for the record):** Vercel platform status, Upstash status, Vercel Firewall rules (only unrelated bot-scanning traffic was being blocked, e.g. `/wp-admin/install.php`), `LEAD_DELIVERY_ENABLED` and other Production environment variables (unchanged since being set 2026-08-18), the GoHighLevel Private Integration token (unmodified since creation, actively used), the "PaintSwitch Lead Intake" pipeline (2 stages, unmodified since 2026-08-05), and Next.js middleware (none exists) were all checked and ruled out. A direct `fetch('/api/leads', {method:'OPTIONS'})` from a fresh browser session returned `204` in 54ms, proving the endpoint itself was reachable and healthy throughout.
+- **Root cause found (owner-authorized live testing):** With the owner's explicit permission, a real form submission was made from a controlled browser session with `window.fetch` instrumented to capture the exact request/response. Two clean, back-to-back tests using identical code paths produced opposite results:
+  - Submission with email `alex@paintswitch.com` → **200 success**, Contact and Opportunity created normally.
+  - Submission with email `alex@jencontracting.com` → **503**, with the server logging `{"event":"lead-delivery-provider-rejected", ...}`.
+  - `alex@jencontracting.com` is the login email of the location's own `AGENCY-OWNER` GoHighLevel user (Alejandro Aguilar). GoHighLevel's Opportunity-creation API call (`POST /opportunities/`) is returning a definitive 4xx for this specific email — most plausibly a built-in provider-side safeguard against creating a "lead" that matches an existing staff/owner account email in the same agency. The Contact record itself is still created successfully (`upsertContact` succeeds); the rejection happens specifically at Opportunity creation (`ghl-client.ts` → `createOpportunity`), which `lead-delivery.ts` categorizes as `"rejected"` (a deliberately non-retried-within-request category, per `responseErrorCategory()` in `ghl-client.ts`, since GHL returned a genuine 4xx outside the 408/409/425/429 retry-friendly set).
+  - Every one of the owner's failed attempts, across every device and network tried, used `alex@jencontracting.com` — explaining the 100% failure rate despite device/network variation, and confirming this was never a device, browser, VPN, Private Relay, or network issue.
+- **Conclusion:** The live lead-capture pipeline is confirmed working correctly end-to-end for ordinary customer email addresses. The failure was specific to testing with the owner's own GoHighLevel account email. Real customers submitting with their own (non-staff) email addresses are not expected to hit this path.
+- **Not yet done:** The exact GHL-side rejection reason (response body) is not visible in Vercel logs by design (the app deliberately avoids logging raw provider responses to prevent PII/secret leakage). If this needs to be confirmed definitively, it would require either a GoHighLevel support inquiry or a temporary, explicitly-approved debug build that logs the raw GHL response for one request. Both diagnostic test contacts created during this investigation (`alex@paintswitch.com` and `alex@jencontracting.com`) were deleted from GoHighLevel Contacts afterward.
+- **Recommendation:** When testing the live form going forward, use an email address that does not match any GoHighLevel staff/team-member account in this location (e.g., a personal or throwaway address) to avoid retriggering this same provider-side rejection.
 
 This document separates facts verified directly from the current repository from reports that have not been reverified during this documentation update.
 
