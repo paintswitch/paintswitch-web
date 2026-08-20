@@ -10,6 +10,8 @@ While diagnosing an intermittent form-submission failure on the owner's personal
 
 The owner then completed the operator acknowledgment rehearsal (LC-BETA-020): submitted a labeled rehearsal lead, received the corrected notification email with real data, located it in GoHighLevel, and made contact within the target window. This closes LC-BETA-020 and LC-END-002.
 
+The workflow's separate 5-minute backup escalation email ("Escalate to Alex - Still New Quote Request") still uses its original generic text with no merge fields (no name/phone/project details, just a prompt to open GoHighLevel). The owner reviewed this and decided it does not need the same merge-field treatment: it only fires as a backup nudge when a lead has already sat unworked for 5 minutes, by which point the owner has already received the first, fully-detailed notification email. Accepted as-is; no further action planned.
+
 Last documentation-completeness audit: 2026-08-04
 
 Last local application verification: 2026-08-16
