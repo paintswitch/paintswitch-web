@@ -2,6 +2,14 @@
 
 Last repository inspection: 2026-08-20
 
+## Owner-notification merge fields fixed; operator rehearsal passed — 2026-08-20
+
+An earlier edit to the "PaintSwitch Website Lead - Owner Notification" workflow's email message left literal placeholder text (e.g., `[insert Contact Name field]`) instead of real GoHighLevel merge tags, so notification emails arrived without usable lead data. This was corrected: each field was replaced with the correct merge tag (`{{contact.name}}`, `{{contact.phone}}`, `{{contact.email}}`, `{{opportunity.service_type}}`, `{{opportunity.project_location}}`, `{{opportunity.project_description}}`) and the workflow was saved and republished. A live test confirmed the corrected email arrives with real lead data populated correctly.
+
+While diagnosing an intermittent form-submission failure on the owner's personal Chrome browser, the client Network tab showed a `503 LEAD_DELIVERY_UNAVAILABLE` response for `/api/leads` at a timestamp where Vercel's own request logs showed **zero** matching entries — meaning the response was fabricated locally rather than returned by the live server. Submitting the identical form in Microsoft Edge on the same machine succeeded immediately. This isolates the intermittent failures to something in the owner's Chrome browser profile (most likely an extension) intercepting and faking responses for this endpoint, not a defect in the site, server, or API. Real customers are not expected to be affected. The specific Chrome extension responsible has not yet been identified; using Edge or a clean Chrome profile is the interim workaround for the owner's own testing.
+
+The owner then completed the operator acknowledgment rehearsal (LC-BETA-020): submitted a labeled rehearsal lead, received the corrected notification email with real data, located it in GoHighLevel, and made contact within the target window. This closes LC-BETA-020 and LC-END-002.
+
 Last documentation-completeness audit: 2026-08-04
 
 Last local application verification: 2026-08-16
