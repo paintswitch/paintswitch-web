@@ -1,18 +1,26 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-08-19
+Last repository inspection: 2026-08-20
 
 Last documentation-completeness audit: 2026-08-04
 
 Last local application verification: 2026-08-16
 
-Last external platform verification: 2026-08-19
+Last external platform verification: 2026-08-20
 
 Last external deployment verification: 2026-08-19
 
-Last external GoHighLevel verification: 2026-08-19
+Last external GoHighLevel verification: 2026-08-20
 
 Repository: `paintswitch/paintswitch-web`
+
+## Attorney review complete — 2026-08-20
+
+Under D-067, the owner engaged an attorney, sent the prepared legal-review scope packet, and reported on 2026-08-20 (immediately following a call with counsel) that it was reviewed and approved without requested changes. This closes the professional-legal-review gate tracked in `LC-TRUST-001`/`LC-TRUST-003` and the D-065 written-counsel-read item. This is the owner's verbal report of the call's outcome; no written legal opinion has been filed in the repository. No site-text changes were requested.
+
+## Hosted concurrency verified — 2026-08-19/20
+
+Fired three simultaneous `POST /api/leads` requests from a real browser session against Production, all sharing one identical `submissionId`. Result: exactly one request succeeded (`200`, Contact + Opportunity created), and the other two were safely rejected (`503`, `LEAD_DELIVERY_UNAVAILABLE`, the `"busy"` claim path) with no duplicate records created. This verifies the Upstash idempotency lock holds under real concurrent load, closing the hosted-concurrency item tracked across `LC-BETA-007/015`, `LC-END-002`, `LC-OPS-006/008`.
 
 ## Form-submission failure root-caused: GHL rejects staff-owned emails, not a site bug — 2026-08-19
 

@@ -665,6 +665,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
 - **Consequences:** `src/app/privacy/page.tsx` now contains both the retention catch-all sentence and the revised two-factor verification sentence; both passed the full local test, lint, and production-build regression (all 67 tests, lint, and `next build` passed on 2026-08-16). Exact retention periods for the newly covered record classes, provider access-role verification, and professional legal review of the complete Privacy/Terms text remain open per `OPEN_QUESTIONS.md`. No address is required in `src/app/terms/page.tsx` for the beta; revisit if PaintSwitch later forms a filed legal entity with its own address.
 - **Supersedes:** The prior unspecified "reasonable steps to verify" language implied by D-040, and the prior unresolved retention-catch-all and Terms-address gaps identified in `LC-TRUST-001`/`LC-TRUST-003` and `OPEN_QUESTIONS.md`.
 
+## D-067 — Attorney approval of Privacy Policy, Website Terms, and D-065 DBA exposure
+
+- **Date:** 2026-08-20
+- **Status:** Confirmed
+- **Decision:** The owner engaged an attorney, sent the prepared legal-review scope packet (covering the current Privacy Policy and Website Terms text, the D-065 unfiled Virginia DBA/fictitious-name exposure, Maryland governing law versus Virginia-focused customers, licensing/insurance disclosure, the D-066 privacy-request verification standard, and the SMS/TCPA boundary), and reported on 2026-08-20 that counsel reviewed the packet and approved it without requested changes.
+- **Reason:** Closes the professional-legal-review gate tracked in `LC-TRUST-001` and the D-065 written-counsel-read item in `OPEN_QUESTIONS.md`, both of which were explicitly held open pending an engaged attorney's review.
+- **Consequences:** The legal-review blocker on `LC-TRUST-001` and `LC-END-002` is resolved. This decision record reflects the owner's verbal report of the outcome of a call with counsel; no written legal opinion or memo has been filed in the repository. If a written opinion or specific redline is later received, incorporate it and update this entry accordingly. No site-text changes were requested, so `src/app/privacy/page.tsx` and `src/app/terms/page.tsx` are unchanged by this decision.
+- **Supersedes:** The `OPEN_QUESTIONS.md` "Historical/Needs verification" note stating no attorney was engaged, and the `LC-TRUST-001` status noting professional legal review remained outstanding.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:
