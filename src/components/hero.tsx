@@ -6,7 +6,7 @@ export function Hero() {
     <section id="home" className="overflow-hidden bg-[#D1C4B8] px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-24">
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3D4E4E]">Painting for the DMV · Virginia prioritized</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3D4E4E]">Painting for the DMV</p>
           <h1 className="font-editorial mt-6 max-w-2xl text-[2.15rem] font-normal leading-[0.9] tracking-[-0.055em] text-[#253231] min-[360px]:text-[2.7rem] sm:text-[4.25rem] lg:text-[clamp(4.5rem,7.5vw,6.9rem)]">
             Transformation<br />through <em className="font-normal text-[#012765]">color.</em>
           </h1>

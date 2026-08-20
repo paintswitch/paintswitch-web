@@ -218,7 +218,7 @@ export function CityLandingPage({ page }: { page: CityLandingPageData }) {
                 Tell us about your {page.city} painting project.
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-8 text-[#F5F1E8]/80">
-                Share the property location, service, and project details for individual review. Virginia projects are prioritized for the public beta.
+                Share the property location, service, and project details for individual review.
               </p>
               <p className="mt-8 max-w-xl border-l border-[#D1C4B8] pl-5 text-sm leading-6 text-[#D1C4B8]">
                 Submitting this form does not confirm service availability, pricing, scheduling, or booking. A PaintSwitch team member will review your request and follow up.

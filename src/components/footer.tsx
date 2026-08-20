@@ -37,7 +37,7 @@ export function Footer() {
         </div>
         <div className="flex flex-col gap-2 pt-7 text-xs uppercase tracking-[0.12em] text-[#D1C4B8]/75 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} PaintSwitch. All rights reserved.</p>
-          <p>Painting for the DMV · Virginia prioritized</p>
+          <p>Painting for the DMV</p>
         </div>
       </div>
     </footer>

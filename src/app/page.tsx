@@ -70,7 +70,7 @@ export default function Home() {
         <section id="services" className="scroll-mt-24 border-t border-[#A99D91]/60 bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-              <SectionHeading eyebrow="Painting services" title="Expert attention for every surface" description="Submit a DMV project request for individual service-area review. Virginia projects are prioritized for the public beta." />
+              <SectionHeading eyebrow="Painting services" title="Expert attention for every surface" description="Share your project details for individual review across the DMV." />
               <PrimaryButton href="#quote" className="self-start lg:mb-2">Request a Quote</PrimaryButton>
             </div>
             <div className="mt-14 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -83,7 +83,7 @@ export default function Home() {
 
         <section id="about" className="scroll-mt-24 bg-[#253231] px-5 py-20 text-[#F5F1E8] sm:px-8 lg:py-28">
           <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-            <SectionHeading light eyebrow="Why PaintSwitch" title="A clear way to start your painting project" description="Share the details once, receive confirmation, and know that a human will review your request before the next step." />
+            <SectionHeading light eyebrow="Why PaintSwitch" title="A clear way to start your painting project" description="Every request gets a personal review — backed by over 25 years of painting experience — before we confirm what's next." />
             <div className="grid border-l border-t border-[#D1C4B8]/30 sm:grid-cols-2">
               {benefits.map(([number, title, description]) => (
                 <article key={title} className="border-b border-r border-[#D1C4B8]/30 p-7 sm:p-9">
@@ -103,7 +103,7 @@ export default function Home() {
             </div>
             <div className="py-10 lg:pl-16">
               <h2 id="areas-title" className="font-editorial text-4xl font-normal tracking-[-0.04em] text-[#253231] sm:text-5xl">DMV project review</h2>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-[#596563]">PaintSwitch accepts requests throughout the DMV and prioritizes Virginia projects for the public beta. Every location is reviewed individually before availability or pricing is confirmed.</p>
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-[#596563]">PaintSwitch accepts requests throughout the DMV. Every location is reviewed individually before availability or pricing is confirmed.</p>
             </div>
           </div>
         </section>
@@ -113,7 +113,7 @@ export default function Home() {
             <div className="text-[#F5F1E8] lg:sticky lg:top-28">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D1C4B8]">Request a quote</p>
               <h2 className="font-editorial mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl">Tell us about your painting project.</h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-[#F5F1E8]/80">Submit a DMV project request for individual service-area review across interior, exterior, cabinet, or commercial painting. Virginia projects are prioritized for the public beta.</p>
+              <p className="mt-6 max-w-xl text-lg leading-8 text-[#F5F1E8]/80">Tell us about your interior, exterior, cabinet, or commercial project across the DMV.</p>
               <p className="mt-8 max-w-xl border-l border-[#D1C4B8] pl-5 text-sm leading-6 text-[#D1C4B8]">Submitting this form does not confirm service availability, pricing, scheduling, or booking. A PaintSwitch team member will review your request and follow up.</p>
             </div>
             <QuoteRequestForm />

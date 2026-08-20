@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Request a Painting Quote | PaintSwitch",
-  description: "Submit a DMV painting-project request for individual service-area review, with Virginia prioritized for the public beta. Service availability and pricing are confirmed after review.",
+  description: "Submit a DMV painting-project request for individual service-area review. Service availability and pricing are confirmed after review.",
   keywords: ["painting services", "residential painting", "commercial painting", "DMV painters", "Virginia painters"],
   verification: {
     google: "sVUjCBFVGJjWrRzky2n58cSi29Paa4UrfBGg8x4L-bo",

@@ -128,15 +128,25 @@ test("website terms preserve DMV review, Virginia priority, and avoid a response
   assert.match(termsPage, /href="mailto:hello@paintswitch\.com"/u);
 });
 
-test("public market copy preserves DMV intake while prioritizing Virginia", () => {
+test("public market copy preserves DMV intake; Virginia priority stays in legal terms only", () => {
   for (const [name, value] of Object.entries({homePage, rootLayout, hero, trustBar, termsPage})) {
     assert.match(value, /DMV/u, `${name} must preserve the confirmed DMV market`);
   }
 
-  for (const value of [homePage, rootLayout, hero, termsPage]) {
-    assert.match(value, /Virginia/u);
-    assert.doesNotMatch(value, /(?:Virginia[- ]only|only Virginia)/iu);
+  // Marketing copy no longer states the Virginia-priority operational detail (owner-approved
+  // 2026-08-20 copy revision); it remains disclosed in the Website Terms.
+  assert.match(termsPage, /Virginia/u);
+  assert.doesNotMatch(termsPage, /(?:Virginia[- ]only|only Virginia)/iu);
+
+  for (const [name, value] of Object.entries({homePage, hero})) {
+    assert.doesNotMatch(value, /Virginia/u, `${name} should no longer mention Virginia priority in marketing copy`);
   }
+
+  // rootLayout keeps "Virginia painters" only as an SEO keyword, not in visible marketing copy.
+  assert.match(rootLayout, /keywords:.*Virginia painters/su);
+  const [, visibleDescription] = rootLayout.match(/description:\s*"([^"]*)"/u) ?? [];
+  assert.ok(visibleDescription, "rootLayout must define a metadata description");
+  assert.doesNotMatch(visibleDescription, /Virginia/u, "rootLayout metadata description should not mention Virginia priority");
 });
 
 test("privacy use copy stays inside the approved beta purpose boundary", () => {
