@@ -994,6 +994,110 @@ export const greatFallsCityPage: CityLandingPageData = {
   ],
 };
 
+const oaktonServices: CityService[] = [
+  {
+    title: "Interior Painting",
+    description:
+      "Oakton's mix of 1960s-70s subdivision homes and newer construction brings a wide range of wall systems, trim details, and prior coatings. PaintSwitch reviews room details, existing condition, color changes, repairs, and furniture level before confirming availability or pricing.",
+    icon: "interior",
+  },
+  {
+    title: "Exterior Painting",
+    description:
+      "Exterior requests begin with a consultation review of the building, substrate, access, and preparation needs. Larger, tree-covered lots are common in Oakton, so property-specific exterior requirements remain part of the review.",
+    icon: "exterior",
+  },
+  {
+    title: "Cabinet Painting",
+    description:
+      "Cabinet projects are reviewed around door and drawer count, existing finish, condition, access, and the desired color change. PaintSwitch uses that project information to determine the appropriate consultation next step.",
+    icon: "cabinet",
+  },
+  {
+    title: "Commercial Painting",
+    description:
+      "Commercial requests can include offices, retail spaces, and other business interiors or exteriors near Oakton and the surrounding Fairfax County area. Tell us about the site, surfaces, access, and operating constraints for consultation review.",
+    icon: "commercial",
+  },
+];
+
+export const oaktonCityPage: CityLandingPageData = {
+  city: "Oakton",
+  stateAbbreviation: "VA",
+  stateName: "Virginia",
+  slug: "oakton-va",
+  title: "Painters in Oakton, VA | PaintSwitch",
+  description:
+    "Need painters in Oakton, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+  primaryKeyword: "Painters Oakton VA",
+  heroSummary:
+    "Looking for painters in Oakton, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's tree-covered, larger-lot properties. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
+  architectureHeading: "Painting plans shaped around Oakton architecture",
+  architectureParagraphs: [
+    "Oakton took its name in 1883 from a post office built beside a large oak tree, on land previously known as Flint Hill; a trolley station followed in 1905, connecting the area to Washington, D.C. Post-World War II suburbanization brought subdivisions such as Waples Mill Manor in the 1960s, and today's central Fairfax County community mixes that housing stock with newer construction on larger, wooded lots.",
+    "A useful painting plan starts with the actual property rather than a citywide assumption. Surface condition, prior coatings, moisture, repairs, occupied space, and any property-specific exterior review should be understood before preparation or scheduling is confirmed.",
+  ],
+  neighborhoods: ["Waples Mill Manor", "Waples Mill Estates", "Flint Hill area", "Near Difficult Run"],
+  postalCodes: ["22124"],
+  services: oaktonServices,
+  costFactors: [
+    {
+      projectType: "Single-room interior",
+      reviewFactors:
+        "Room type and dimensions, walls, ceilings, trim, doors, closets, ceiling height, repairs, color changes, and occupied or furniture level.",
+    },
+    {
+      projectType: "Multi-room or full interior",
+      reviewFactors:
+        "Each room is reviewed separately, along with shared trim, doors, circulation areas, access, protection, repairs, and sequencing.",
+    },
+    {
+      projectType: "Exterior painting",
+      reviewFactors:
+        "Building height, surface material and condition, access, preparation needs, moisture, repairs, exterior requirements, and an appropriate weather window.",
+    },
+    {
+      projectType: "Kitchen cabinet painting",
+      reviewFactors:
+        "Door and drawer count, existing coating and condition, hardware, access, preparation, color change, and site setup.",
+    },
+  ],
+  regionalFactors: [
+    {
+      title: "Humidity and rain",
+      description:
+        "Oakton has hot, humid summers and precipitation throughout the year. Exterior planning should account for moisture sources, dry surfaces, sound caulk and trim, and suitable application conditions.",
+    },
+    {
+      title: "Larger, wooded lots",
+      description:
+        "Homes on larger, tree-covered lots can bring more exterior surface area and site-access considerations, which affect preparation time and staging.",
+    },
+    {
+      title: "Property-specific exterior review",
+      description:
+        "Some Oakton properties carry homeowner-association or other exterior requirements. Property owners should verify the rules that apply before selecting visible exterior changes.",
+    },
+  ],
+  faqs: [
+    {
+      question: "How is painting pricing handled in Oakton?",
+      answer:
+        "PaintSwitch does not publish an unsupported citywide price. Submit the project location, service, surfaces, condition, and scope so the request can be reviewed before pricing is confirmed.",
+    },
+    {
+      question: "Does an Oakton city page confirm service for every local ZIP code?",
+      answer:
+        "No. Oakton ZIP codes do not confirm PaintSwitch availability. Every project location receives an individual service-area review.",
+    },
+    {
+      question: "How long does an Oakton painting project take?",
+      answer:
+        "Timing depends on scope, surface condition, preparation, repairs, access, occupied-space needs, drying conditions, and weather for exterior work. PaintSwitch reviews those details before scheduling is confirmed.",
+    },
+  ],
+};
+
 export const cityLandingPages = [
   alexandriaCityPage,
   arlingtonCityPage,
@@ -1004,6 +1108,7 @@ export const cityLandingPages = [
   fairfaxStationCityPage,
   bethesdaCityPage,
   greatFallsCityPage,
+  oaktonCityPage,
 ] as const;
 
 export function buildCityJsonLd(page: CityLandingPageData) {

@@ -63,6 +63,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: "https://paintswitch.com/oakton-va",
+      lastModified: "2026-08-22",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: "https://paintswitch.com/privacy",
       lastModified: "2026-08-08",
       changeFrequency: "yearly",

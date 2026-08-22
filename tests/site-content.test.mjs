@@ -14,6 +14,7 @@ import {
   fairfaxStationCityPage,
   bethesdaCityPage,
   greatFallsCityPage,
+  oaktonCityPage,
 } from "../src/lib/city-landing-pages.ts";
 
 function source(path) {
@@ -55,6 +56,7 @@ const viennaPage = source("src/app/vienna-va/page.tsx");
 const fairfaxStationPage = source("src/app/fairfax-station-va/page.tsx");
 const bethesdaPage = source("src/app/bethesda-md/page.tsx");
 const greatFallsPage = source("src/app/great-falls-va/page.tsx");
+const oaktonPage = source("src/app/oakton-va/page.tsx");
 const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
@@ -85,6 +87,7 @@ const customerFacingSources = {
   "Fairfax Station page": fairfaxStationPage,
   "Bethesda page": bethesdaPage,
   "Great Falls page": greatFallsPage,
+  "Oakton page": oaktonPage,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -284,6 +287,7 @@ test("city landing pages use the approved sequence, metadata limits, and canonic
       "Fairfax Station",
       "Bethesda",
       "Great Falls",
+      "Oakton",
     ],
   );
 
@@ -305,6 +309,7 @@ test("city landing pages use the approved sequence, metadata limits, and canonic
   assert.match(fairfaxStationPage, /canonical: "https:\/\/paintswitch\.com\/fairfax-station-va"/u);
   assert.match(bethesdaPage, /canonical: "https:\/\/paintswitch\.com\/bethesda-md"/u);
   assert.match(greatFallsPage, /canonical: "https:\/\/paintswitch\.com\/great-falls-va"/u);
+  assert.match(oaktonPage, /canonical: "https:\/\/paintswitch\.com\/oakton-va"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/alexandria-va"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/arlington-va"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/chevy-chase-village-md"/u);
@@ -314,6 +319,7 @@ test("city landing pages use the approved sequence, metadata limits, and canonic
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/fairfax-station-va"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/bethesda-md"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/great-falls-va"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/oakton-va"/u);
 });
 
 test("city pages preserve the shared design system and working local navigation anchors", () => {
@@ -328,7 +334,7 @@ test("city pages preserve the shared design system and working local navigation 
   assert.equal((cityLandingPageComponent.match(/<h1\b/gu) ?? []).length, 1);
   assert.doesNotMatch(cityLandingPageComponent, /HighLevelChatWidget/u);
   assert.doesNotMatch(
-    `${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}\n${mcLeanPage}\n${potomacPage}\n${viennaPage}\n${fairfaxStationPage}\n${bethesdaPage}\n${greatFallsPage}`,
+    `${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}\n${mcLeanPage}\n${potomacPage}\n${viennaPage}\n${fairfaxStationPage}\n${bethesdaPage}\n${greatFallsPage}\n${oaktonPage}`,
     /HighLevelChatWidget/u,
   );
 });
@@ -345,7 +351,7 @@ test("city content uses only approved services and contains no unsupported marke
     assert.match(page.faqs[1].answer, /individual service-area review/u);
   }
 
-  const publicCitySources = `${cityLandingPageComponent}\n${cityLandingPageData}\n${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}\n${mcLeanPage}\n${potomacPage}\n${viennaPage}\n${fairfaxStationPage}\n${bethesdaPage}\n${greatFallsPage}`;
+  const publicCitySources = `${cityLandingPageComponent}\n${cityLandingPageData}\n${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}\n${mcLeanPage}\n${potomacPage}\n${viennaPage}\n${fairfaxStationPage}\n${bethesdaPage}\n${greatFallsPage}\n${oaktonPage}`;
   assert.doesNotMatch(publicCitySources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
   assert.doesNotMatch(publicCitySources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
   assert.doesNotMatch(publicCitySources, /\bJen(?:\s+Contracting)?\b/iu);
@@ -362,6 +368,7 @@ test("city JSON-LD matches the visible service and FAQ data without unsupported 
     fairfaxStationCityPage,
     bethesdaCityPage,
     greatFallsCityPage,
+    oaktonCityPage,
   ]) {
     const jsonLd = buildCityJsonLd(page);
     const [service, faqPage] = jsonLd["@graph"];
