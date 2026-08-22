@@ -578,12 +578,117 @@ export const potomacCityPage: CityLandingPageData = {
   ],
 };
 
+const viennaServices: CityService[] = [
+  {
+    title: "Interior Painting",
+    description:
+      "Vienna's mix of historic homes near the Windover Heights district, mid-century houses, and newer construction brings a wide range of wall systems and prior coatings. PaintSwitch reviews room details, existing condition, color changes, repairs, and furniture level before confirming availability or pricing.",
+    icon: "interior",
+  },
+  {
+    title: "Exterior Painting",
+    description:
+      "Exterior requests begin with a consultation review of the building, substrate, access, and preparation needs. Larger, semi-rural lots near Wolf Trap are common in the area, so property-specific exterior requirements remain part of the review.",
+    icon: "exterior",
+  },
+  {
+    title: "Cabinet Painting",
+    description:
+      "Cabinet projects are reviewed around door and drawer count, existing finish, condition, access, and the desired color change. PaintSwitch uses that project information to determine the appropriate consultation next step.",
+    icon: "cabinet",
+  },
+  {
+    title: "Commercial Painting",
+    description:
+      "Commercial requests can include offices, retail spaces, and other business interiors or exteriors near Vienna's Church Street area and the surrounding corridor. Tell us about the site, surfaces, access, and operating constraints for consultation review.",
+    icon: "commercial",
+  },
+];
+
+export const viennaCityPage: CityLandingPageData = {
+  city: "Vienna",
+  stateAbbreviation: "VA",
+  stateName: "Virginia",
+  slug: "vienna-va",
+  title: "Painters in Vienna, VA | PaintSwitch",
+  description:
+    "Need painters in Vienna, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+  primaryKeyword: "Painters Vienna VA",
+  heroSummary:
+    "Looking for painters in Vienna, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the town's mix of historic and newer homes. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
+  architectureHeading: "Painting plans shaped around Vienna architecture",
+  architectureParagraphs: [
+    "Vienna traces to a late-1760s tobacco plantation called Ayr Hill, and grew into a town by the mid-1850s with the arrival of a rail line, later taking the name Vienna. The Windover Heights Historic District preserves homes from that era, while the surrounding town and nearby Wolf Trap area mix mid-century houses, larger semi-rural lots, and newer construction.",
+    "A useful painting plan starts with the actual property rather than a citywide assumption. Surface condition, prior coatings, moisture, repairs, occupied space, and any property-specific exterior review should be understood before preparation or scheduling is confirmed.",
+  ],
+  neighborhoods: ["Windover Heights Historic District", "Stonewall Manor", "Four Corners", "Old Courthouse", "Wolf Trap area"],
+  postalCodes: ["22180", "22181", "22182"],
+  services: viennaServices,
+  costFactors: [
+    {
+      projectType: "Single-room interior",
+      reviewFactors:
+        "Room type and dimensions, walls, ceilings, trim, doors, closets, ceiling height, repairs, color changes, and occupied or furniture level.",
+    },
+    {
+      projectType: "Multi-room or full interior",
+      reviewFactors:
+        "Each room is reviewed separately, along with shared trim, doors, circulation areas, access, protection, repairs, and sequencing.",
+    },
+    {
+      projectType: "Exterior painting",
+      reviewFactors:
+        "Building height, surface material and condition, access, preparation needs, moisture, repairs, exterior requirements, and an appropriate weather window.",
+    },
+    {
+      projectType: "Kitchen cabinet painting",
+      reviewFactors:
+        "Door and drawer count, existing coating and condition, hardware, access, preparation, color change, and site setup.",
+    },
+  ],
+  regionalFactors: [
+    {
+      title: "Humidity and rain",
+      description:
+        "Vienna has hot, humid summers and precipitation throughout the year. Exterior planning should account for moisture sources, dry surfaces, sound caulk and trim, and suitable application conditions.",
+    },
+    {
+      title: "Historic-home surface conditions",
+      description:
+        "Homes near Windover Heights and other older sections of Vienna can carry original plaster, layered prior coatings, and age-related surface conditions worth reviewing before new coatings are applied.",
+    },
+    {
+      title: "Property-specific exterior review",
+      description:
+        "Some Vienna properties, including those in or near the historic district, carry exterior-change requirements. Property owners should verify the rules that apply before selecting visible exterior work.",
+    },
+  ],
+  faqs: [
+    {
+      question: "How is painting pricing handled in Vienna?",
+      answer:
+        "PaintSwitch does not publish an unsupported citywide price. Submit the project location, service, surfaces, condition, and scope so the request can be reviewed before pricing is confirmed.",
+    },
+    {
+      question: "Does a Vienna city page confirm service for every local ZIP code?",
+      answer:
+        "No. Vienna ZIP codes do not confirm PaintSwitch availability. Every project location receives an individual service-area review.",
+    },
+    {
+      question: "How long does a Vienna painting project take?",
+      answer:
+        "Timing depends on scope, surface condition, preparation, repairs, access, occupied-space needs, drying conditions, and weather for exterior work. PaintSwitch reviews those details before scheduling is confirmed.",
+    },
+  ],
+};
+
 export const cityLandingPages = [
   alexandriaCityPage,
   arlingtonCityPage,
   chevyChaseVillageCityPage,
   mcLeanCityPage,
   potomacCityPage,
+  viennaCityPage,
 ] as const;
 
 export function buildCityJsonLd(page: CityLandingPageData) {
