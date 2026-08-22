@@ -2,9 +2,13 @@
 
 Last repository inspection: 2026-08-22
 
-## D-068 SEO expansion under way: Chevy Chase Village, MD published — 2026-08-22
+## D-068 SEO expansion complete: all eight city pages published — 2026-08-22
 
-Under D-068, `/chevy-chase-village-md` is live in Production (first of eight approved cities, published sequentially per the D-062 pattern rather than all at once). `CityLandingPageData`'s state fields were widened from Virginia-only to `"VA" | "MD"` to support this and the remaining Maryland cities. All 67 tests, lint, and build pass. Remaining order: McLean VA, Potomac MD, Vienna VA, Fairfax Station VA, Bethesda MD, Great Falls VA, Oakton VA. The D-068(E) Maryland MHIC licensing risk remains a knowingly accepted, unresolved open question — not cleared by this or any future page publication.
+Under D-068, all eight approved city pages are live in Production, published sequentially (one commit each, verified before continuing) per the same pattern D-062 established for Alexandria/Arlington: Chevy Chase Village MD, McLean VA, Potomac MD, Vienna VA, Fairfax Station VA, Bethesda MD, Great Falls VA, Oakton VA. Each follows the exact D-062/D-063 pattern — global design reused unmodified, only the four approved services, no license/EPA/pricing/`Top-Rated` claims, `Service`+`FAQPage` JSON-LD matching visible facts with no `areaServed`/address/rating fields — and each city's local content (history, named neighborhoods, ZIP codes) is source-backed via web research to the same depth as Alexandria/Arlington. `CityLandingPageData`'s state fields were widened from Virginia-only to `"VA" | "MD"` to support the Maryland cities. `sitemap.xml` now lists all 11 pages (homepage, terms, privacy, and 8 city pages). All 67 tests, lint, and build pass at each step and at completion.
+
+The D-068(E) Maryland MHIC licensing risk remains a knowingly accepted, unresolved open question — not cleared by these publications. If Maryland leads are ever actually accepted and worked (not just marketed to), that question should go back to counsel before contracting the work, per D-068's original consequences note.
+
+Not yet done under D-068: the content/topical-authority page cluster (service pages, informational pages) and the backlink/citation outreach (Google Business Profile, directories, the identified-but-uncontacted real estate agent candidates) — both approved in scope but not yet built.
 
 ## Owner-notification merge fields fixed; operator rehearsal passed — 2026-08-20
 
