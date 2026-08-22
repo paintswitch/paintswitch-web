@@ -890,6 +890,110 @@ export const bethesdaCityPage: CityLandingPageData = {
   ],
 };
 
+const greatFallsServices: CityService[] = [
+  {
+    title: "Interior Painting",
+    description:
+      "Great Falls ranges from colonial-era homes to Federal-inspired and contemporary estate construction, each bringing different wall systems, trim details, and prior coatings. PaintSwitch reviews room details, existing condition, color changes, repairs, and furniture level before confirming availability or pricing.",
+    icon: "interior",
+  },
+  {
+    title: "Exterior Painting",
+    description:
+      "Exterior requests begin with a consultation review of the building, substrate, access, and preparation needs. Large lots and ample surrounding lawn space are common in Great Falls, so property-specific exterior requirements remain part of the review.",
+    icon: "exterior",
+  },
+  {
+    title: "Cabinet Painting",
+    description:
+      "Cabinet projects are reviewed around door and drawer count, existing finish, condition, access, and the desired color change. PaintSwitch uses that project information to determine the appropriate consultation next step.",
+    icon: "cabinet",
+  },
+  {
+    title: "Commercial Painting",
+    description:
+      "Commercial requests can include offices, retail spaces, and other business interiors or exteriors in and around the Great Falls village area. Tell us about the site, surfaces, access, and operating constraints for consultation review.",
+    icon: "commercial",
+  },
+];
+
+export const greatFallsCityPage: CityLandingPageData = {
+  city: "Great Falls",
+  stateAbbreviation: "VA",
+  stateName: "Virginia",
+  slug: "great-falls-va",
+  title: "Painters in Great Falls, VA | PaintSwitch",
+  description:
+    "Need painters in Great Falls, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+  primaryKeyword: "Painters Great Falls VA",
+  heroSummary:
+    "Looking for painters in Great Falls, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's mix of historic and estate-style homes. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
+  architectureHeading: "Painting plans shaped around Great Falls architecture",
+  architectureParagraphs: [
+    "Great Falls traces to colonial-era homes dating as far back as the 1730s and 1750s, with later 19th- and early-20th-century buildings such as the Great Falls Grange Hall and Forestville School. Today's northern Fairfax County community near the Potomac River mixes that history with Federal-inspired colonials and contemporary construction on large, tree-lined lots.",
+    "A useful painting plan starts with the actual property rather than a citywide assumption. Surface condition, prior coatings, moisture, repairs, occupied space, and any property-specific exterior review should be understood before preparation or scheduling is confirmed.",
+  ],
+  neighborhoods: ["Summer Creek", "Meadows at Great Falls", "Thompson's Grant", "Georgetown Pike corridor", "Springvale Road area"],
+  postalCodes: ["22066"],
+  services: greatFallsServices,
+  costFactors: [
+    {
+      projectType: "Single-room interior",
+      reviewFactors:
+        "Room type and dimensions, walls, ceilings, trim, doors, closets, ceiling height, repairs, color changes, and occupied or furniture level.",
+    },
+    {
+      projectType: "Multi-room or full interior",
+      reviewFactors:
+        "Each room is reviewed separately, along with shared trim, doors, circulation areas, access, protection, repairs, and sequencing.",
+    },
+    {
+      projectType: "Exterior painting",
+      reviewFactors:
+        "Building height, surface material and condition, access, preparation needs, moisture, repairs, exterior requirements, and an appropriate weather window.",
+    },
+    {
+      projectType: "Kitchen cabinet painting",
+      reviewFactors:
+        "Door and drawer count, existing coating and condition, hardware, access, preparation, color change, and site setup.",
+    },
+  ],
+  regionalFactors: [
+    {
+      title: "Humidity and rain",
+      description:
+        "Great Falls has hot, humid summers and precipitation throughout the year. Exterior planning should account for moisture sources, dry surfaces, sound caulk and trim, and suitable application conditions.",
+    },
+    {
+      title: "Large, tree-lined lots",
+      description:
+        "Estate-style homes on large, wooded lots can bring more exterior surface area and site-access considerations, which affect preparation time and staging.",
+    },
+    {
+      title: "Property-specific exterior review",
+      description:
+        "Some Great Falls properties carry homeowner-association or other exterior requirements. Property owners should verify the rules that apply before selecting visible exterior changes.",
+    },
+  ],
+  faqs: [
+    {
+      question: "How is painting pricing handled in Great Falls?",
+      answer:
+        "PaintSwitch does not publish an unsupported citywide price. Submit the project location, service, surfaces, condition, and scope so the request can be reviewed before pricing is confirmed.",
+    },
+    {
+      question: "Does a Great Falls city page confirm service for every local ZIP code?",
+      answer:
+        "No. The Great Falls ZIP code does not confirm PaintSwitch availability. Every project location receives an individual service-area review.",
+    },
+    {
+      question: "How long does a Great Falls painting project take?",
+      answer:
+        "Timing depends on scope, surface condition, preparation, repairs, access, occupied-space needs, drying conditions, and weather for exterior work. PaintSwitch reviews those details before scheduling is confirmed.",
+    },
+  ],
+};
+
 export const cityLandingPages = [
   alexandriaCityPage,
   arlingtonCityPage,
@@ -899,6 +1003,7 @@ export const cityLandingPages = [
   viennaCityPage,
   fairfaxStationCityPage,
   bethesdaCityPage,
+  greatFallsCityPage,
 ] as const;
 
 export function buildCityJsonLd(page: CityLandingPageData) {
