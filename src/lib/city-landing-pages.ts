@@ -682,6 +682,110 @@ export const viennaCityPage: CityLandingPageData = {
   ],
 };
 
+const fairfaxStationServices: CityService[] = [
+  {
+    title: "Interior Painting",
+    description:
+      "Fairfax Station's large estate-sized homes bring a wide range of room sizes, trim details, and prior coatings. PaintSwitch reviews room details, existing condition, color changes, repairs, and furniture level before confirming availability or pricing.",
+    icon: "interior",
+  },
+  {
+    title: "Exterior Painting",
+    description:
+      "Exterior requests begin with a consultation review of the building, substrate, access, and preparation needs. Wooded lots and equestrian properties are common in Fairfax Station, so property-specific exterior requirements remain part of the review.",
+    icon: "exterior",
+  },
+  {
+    title: "Cabinet Painting",
+    description:
+      "Cabinet projects are reviewed around door and drawer count, existing finish, condition, access, and the desired color change. PaintSwitch uses that project information to determine the appropriate consultation next step.",
+    icon: "cabinet",
+  },
+  {
+    title: "Commercial Painting",
+    description:
+      "Commercial requests can include offices, retail spaces, and other business interiors or exteriors in and around Fairfax Station. Tell us about the site, surfaces, access, and operating constraints for consultation review.",
+    icon: "commercial",
+  },
+];
+
+export const fairfaxStationCityPage: CityLandingPageData = {
+  city: "Fairfax Station",
+  stateAbbreviation: "VA",
+  stateName: "Virginia",
+  slug: "fairfax-station-va",
+  title: "Painters in Fairfax Station, VA | PaintSwitch",
+  description:
+    "Need painters in Fairfax Station, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+  primaryKeyword: "Painters Fairfax Station VA",
+  heroSummary:
+    "Looking for painters in Fairfax Station, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's wooded, larger-lot properties. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
+  architectureHeading: "Painting plans shaped around Fairfax Station architecture",
+  architectureParagraphs: [
+    "Fairfax Station grew around a 19th-century railroad station in western Fairfax County, was briefly renamed Swetnam in 1897, and reverted to Fairfax Station in 1921; the area's Civil War-era history is preserved at the Fairfax Station Railroad Museum. Today the community is known for large estate-sized homes, wooded lots, and equestrian properties near Burke Lake Park.",
+    "A useful painting plan starts with the actual property rather than a citywide assumption. Surface condition, prior coatings, moisture, repairs, occupied space, and any property-specific exterior review should be understood before preparation or scheduling is confirmed.",
+  ],
+  neighborhoods: ["Crosspointe", "South Run", "Devereux Station", "English Hills", "Silverbrook Farms"],
+  postalCodes: ["22039"],
+  services: fairfaxStationServices,
+  costFactors: [
+    {
+      projectType: "Single-room interior",
+      reviewFactors:
+        "Room type and dimensions, walls, ceilings, trim, doors, closets, ceiling height, repairs, color changes, and occupied or furniture level.",
+    },
+    {
+      projectType: "Multi-room or full interior",
+      reviewFactors:
+        "Each room is reviewed separately, along with shared trim, doors, circulation areas, access, protection, repairs, and sequencing.",
+    },
+    {
+      projectType: "Exterior painting",
+      reviewFactors:
+        "Building height, surface material and condition, access, preparation needs, moisture, repairs, exterior requirements, and an appropriate weather window.",
+    },
+    {
+      projectType: "Kitchen cabinet painting",
+      reviewFactors:
+        "Door and drawer count, existing coating and condition, hardware, access, preparation, color change, and site setup.",
+    },
+  ],
+  regionalFactors: [
+    {
+      title: "Humidity and rain",
+      description:
+        "Fairfax Station has hot, humid summers and precipitation throughout the year. Exterior planning should account for moisture sources, dry surfaces, sound caulk and trim, and suitable application conditions.",
+    },
+    {
+      title: "Larger, wooded lots",
+      description:
+        "Estate-sized homes on wooded or equestrian properties can bring more exterior surface area and site-access considerations, which affect preparation time and staging.",
+    },
+    {
+      title: "Property-specific exterior review",
+      description:
+        "Some Fairfax Station properties carry homeowner-association or other exterior requirements. Property owners should verify the rules that apply before selecting visible exterior changes.",
+    },
+  ],
+  faqs: [
+    {
+      question: "How is painting pricing handled in Fairfax Station?",
+      answer:
+        "PaintSwitch does not publish an unsupported citywide price. Submit the project location, service, surfaces, condition, and scope so the request can be reviewed before pricing is confirmed.",
+    },
+    {
+      question: "Does a Fairfax Station city page confirm service for every local ZIP code?",
+      answer:
+        "No. The Fairfax Station ZIP code does not confirm PaintSwitch availability. Every project location receives an individual service-area review.",
+    },
+    {
+      question: "How long does a Fairfax Station painting project take?",
+      answer:
+        "Timing depends on scope, surface condition, preparation, repairs, access, occupied-space needs, drying conditions, and weather for exterior work. PaintSwitch reviews those details before scheduling is confirmed.",
+    },
+  ],
+};
+
 export const cityLandingPages = [
   alexandriaCityPage,
   arlingtonCityPage,
@@ -689,6 +793,7 @@ export const cityLandingPages = [
   mcLeanCityPage,
   potomacCityPage,
   viennaCityPage,
+  fairfaxStationCityPage,
 ] as const;
 
 export function buildCityJsonLd(page: CityLandingPageData) {
