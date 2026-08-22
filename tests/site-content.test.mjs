@@ -8,6 +8,7 @@ import {
   buildCityJsonLd,
   chevyChaseVillageCityPage,
   cityLandingPages,
+  mcLeanCityPage,
 } from "../src/lib/city-landing-pages.ts";
 
 function source(path) {
@@ -43,6 +44,7 @@ const cityLandingPageData = source("src/lib/city-landing-pages.ts");
 const alexandriaPage = source("src/app/alexandria-va/page.tsx");
 const arlingtonPage = source("src/app/arlington-va/page.tsx");
 const chevyChaseVillagePage = source("src/app/chevy-chase-village-md/page.tsx");
+const mcLeanPage = source("src/app/mclean-va/page.tsx");
 const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
@@ -67,6 +69,7 @@ const customerFacingSources = {
   "Alexandria page": alexandriaPage,
   "Arlington page": arlingtonPage,
   "Chevy Chase Village page": chevyChaseVillagePage,
+  "McLean page": mcLeanPage,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -256,7 +259,7 @@ test("homepage implements the approved editorial color-transformation direction"
 test("city landing pages use the approved sequence, metadata limits, and canonical routes", () => {
   assert.deepEqual(
     cityLandingPages.map((page) => page.city),
-    ["Alexandria", "Arlington", "Chevy Chase Village"],
+    ["Alexandria", "Arlington", "Chevy Chase Village", "McLean"],
   );
 
   for (const page of cityLandingPages) {
@@ -271,9 +274,11 @@ test("city landing pages use the approved sequence, metadata limits, and canonic
   assert.match(alexandriaPage, /canonical: "https:\/\/paintswitch\.com\/alexandria-va"/u);
   assert.match(arlingtonPage, /canonical: "https:\/\/paintswitch\.com\/arlington-va"/u);
   assert.match(chevyChaseVillagePage, /canonical: "https:\/\/paintswitch\.com\/chevy-chase-village-md"/u);
+  assert.match(mcLeanPage, /canonical: "https:\/\/paintswitch\.com\/mclean-va"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/alexandria-va"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/arlington-va"/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/chevy-chase-village-md"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/mclean-va"/u);
 });
 
 test("city pages preserve the shared design system and working local navigation anchors", () => {
@@ -288,7 +293,7 @@ test("city pages preserve the shared design system and working local navigation 
   assert.equal((cityLandingPageComponent.match(/<h1\b/gu) ?? []).length, 1);
   assert.doesNotMatch(cityLandingPageComponent, /HighLevelChatWidget/u);
   assert.doesNotMatch(
-    `${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}`,
+    `${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}\n${mcLeanPage}`,
     /HighLevelChatWidget/u,
   );
 });
@@ -305,14 +310,14 @@ test("city content uses only approved services and contains no unsupported marke
     assert.match(page.faqs[1].answer, /individual service-area review/u);
   }
 
-  const publicCitySources = `${cityLandingPageComponent}\n${cityLandingPageData}\n${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}`;
+  const publicCitySources = `${cityLandingPageComponent}\n${cityLandingPageData}\n${alexandriaPage}\n${arlingtonPage}\n${chevyChaseVillagePage}\n${mcLeanPage}`;
   assert.doesNotMatch(publicCitySources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
   assert.doesNotMatch(publicCitySources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
   assert.doesNotMatch(publicCitySources, /\bJen(?:\s+Contracting)?\b/iu);
 });
 
 test("city JSON-LD matches the visible service and FAQ data without unsupported fields", () => {
-  for (const page of [alexandriaCityPage, arlingtonCityPage, chevyChaseVillageCityPage]) {
+  for (const page of [alexandriaCityPage, arlingtonCityPage, chevyChaseVillageCityPage, mcLeanCityPage]) {
     const jsonLd = buildCityJsonLd(page);
     const [service, faqPage] = jsonLd["@graph"];
 
