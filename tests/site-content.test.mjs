@@ -449,7 +449,7 @@ test("service pages preserve the shared design system and working section anchor
     assert.match(servicePageComponent, new RegExp(`<${component}\\b`, "u"), `missing shared ${component}`);
   }
 
-  for (const anchor of ["home", "scope", "how-it-works", "quote"]) {
+  for (const anchor of ["home", "services", "how-it-works", "about", "quote"]) {
     assert.match(servicePageComponent, new RegExp(`id="${anchor}"`, "u"), `missing #${anchor}`);
   }
 

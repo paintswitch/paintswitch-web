@@ -47,7 +47,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
                 <PrimaryButton href="#quote">
                   Request a Quote <span aria-hidden="true">→</span>
                 </PrimaryButton>
-                <SecondaryButton href="#scope">
+                <SecondaryButton href="#services">
                   What&apos;s Reviewed
                 </SecondaryButton>
               </div>
@@ -70,7 +70,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
 
         <TrustBar />
 
-        <section id="scope" className="scroll-mt-24 bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28" aria-labelledby={scopeTitleId}>
+        <section className="bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28" aria-labelledby={scopeTitleId}>
           <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-24">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#012765]">{page.scopeHeading}</p>
@@ -88,7 +88,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
           </div>
         </section>
 
-        <section className="border-t border-[#A99D91]/60 bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28">
+        <section id="services" className="scroll-mt-24 border-t border-[#A99D91]/60 bg-[#F5F1E8] px-5 py-20 sm:px-8 lg:py-28">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
               <SectionHeading
@@ -145,7 +145,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
           </div>
         </section>
 
-        <section className="bg-[#253231] px-5 py-20 text-[#F5F1E8] sm:px-8 lg:py-28" aria-labelledby={practicalTitleId}>
+        <section id="about" className="scroll-mt-24 bg-[#253231] px-5 py-20 text-[#F5F1E8] sm:px-8 lg:py-28" aria-labelledby={practicalTitleId}>
           <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D1C4B8]">Practical factors</p>
