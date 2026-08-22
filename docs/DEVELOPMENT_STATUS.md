@@ -2,11 +2,13 @@
 
 Last repository inspection: 2026-08-22
 
-## D-068(A) service pages published; informational guide pages still unbuilt — 2026-08-22
+## D-068(A) fully complete: guide pages published, service-page nav bug fixed — 2026-08-22
 
-Built the commercial-intent half of D-068(A)'s content/topical-authority plan: `/interior-painting`, `/exterior-painting`, `/cabinet-painting`, and `/commercial-painting`, each a dedicated landing page for one of the four already-approved services. A new shared `ServicePage` component (`src/components/service-page.tsx`) and `src/lib/service-pages.ts` data file follow the exact D-063 guardrails already governing city pages: no pricing, no license/EPA/`Top-Rated`/guaranteed-coverage claims, and `Service`+`FAQPage` JSON-LD matching only the visible service/FAQ content with no `areaServed`, address, or rating fields. The existing global design system (Header, Footer, TrustBar, SectionHeading, QuoteRequestForm, color tokens, typography) is reused without modification. Each page cross-links the other three services and the Service Areas hub so the cluster is internally linked rather than orphaned. The footer's Services links now point to these dedicated pages instead of the homepage `#services` anchor. `sitemap.xml` lists all four. All 71 tests, lint, type checking, and build pass.
+Finished D-068(A) by publishing its two remaining non-salesy informational guides: `/how-to-choose-interior-paint-colors` and `/exterior-paint-maintenance-guide`. Rather than reuse the funnel-style `Header`/`ServicePage` pattern, these reuse the existing `LegalPage` article layout (minimal header, no anchor nav, no embedded quote form), which fits the decision's explicit "non-salesy" requirement and avoids duplicating a lead form on an educational page. `LegalPage` gained two small optional props (`eyebrowLabel`, `jsonLd`) to support this without changing Privacy/Terms behavior. Each guide closes with a link to its matching service page rather than a hard sell. A new `/guides` hub page, linked from the footer, lists both so they aren't orphaned. `Article`+`FAQPage` JSON-LD matches only the visible headline, description, publish date, and FAQ content — no unsupported fields.
 
-Not yet done: the non-salesy informational guide pages (e.g., color-selection or maintenance guidance) that D-068(A) also scoped, and D-068(C)'s backlink/citation outreach.
+While building these, found and fixed a real bug introduced in the same-day service-page work: the shared `Header` component's nav links to `#services` and `#about`, but `/interior-painting`, `/exterior-painting`, `/cabinet-painting`, and `/commercial-painting` used a `#scope` anchor and had no `#about` target, so those two nav links silently did nothing on any of the four service pages. Fixed by retargeting the anchors to match the working city-page pattern exactly.
+
+D-068(A) (content/topical-authority plan) is now fully implemented. Only D-068(C)'s backlink/citation outreach remains unbuilt from D-068's original scope.
 
 ## D-069 Google Analytics (GA4) added and disclosed — 2026-08-22
 
