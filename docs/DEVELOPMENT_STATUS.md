@@ -1,6 +1,10 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-08-20
+Last repository inspection: 2026-08-22
+
+## D-068 SEO expansion under way: Chevy Chase Village, MD published — 2026-08-22
+
+Under D-068, `/chevy-chase-village-md` is live in Production (first of eight approved cities, published sequentially per the D-062 pattern rather than all at once). `CityLandingPageData`'s state fields were widened from Virginia-only to `"VA" | "MD"` to support this and the remaining Maryland cities. All 67 tests, lint, and build pass. Remaining order: McLean VA, Potomac MD, Vienna VA, Fairfax Station VA, Bethesda MD, Great Falls VA, Oakton VA. The D-068(E) Maryland MHIC licensing risk remains a knowingly accepted, unresolved open question — not cleared by this or any future page publication.
 
 ## Owner-notification merge fields fixed; operator rehearsal passed — 2026-08-20
 
