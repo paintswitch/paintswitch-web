@@ -11,8 +11,8 @@ export type CityFaq = {
 
 export type CityLandingPageData = {
   city: string;
-  stateAbbreviation: "VA";
-  stateName: "Virginia";
+  stateAbbreviation: "VA" | "MD";
+  stateName: "Virginia" | "Maryland";
   slug: string;
   title: string;
   description: string;
@@ -254,7 +254,116 @@ export const arlingtonCityPage: CityLandingPageData = {
   ],
 };
 
-export const cityLandingPages = [alexandriaCityPage, arlingtonCityPage] as const;
+const chevyChaseVillageServices: CityService[] = [
+  {
+    title: "Interior Painting",
+    description:
+      "Chevy Chase Village's older, larger homes often bring plaster walls, original trim, and multiple past coatings. PaintSwitch reviews room details, existing condition, color changes, repairs, and furniture level before confirming availability or pricing.",
+    icon: "interior",
+  },
+  {
+    title: "Exterior Painting",
+    description:
+      "Exterior requests begin with a consultation review of the building, substrate, access, and preparation needs, including any property-specific requirements that may apply within a designated historic district.",
+    icon: "exterior",
+  },
+  {
+    title: "Cabinet Painting",
+    description:
+      "Cabinet projects are reviewed around door and drawer count, existing finish, condition, access, and the desired color change. PaintSwitch uses that project information to determine the appropriate consultation next step.",
+    icon: "cabinet",
+  },
+  {
+    title: "Commercial Painting",
+    description:
+      "Commercial requests can include offices, retail spaces, and other business interiors or exteriors near Connecticut Avenue and the surrounding area. Tell us about the site, surfaces, access, and operating constraints for consultation review.",
+    icon: "commercial",
+  },
+];
+
+export const chevyChaseVillageCityPage: CityLandingPageData = {
+  city: "Chevy Chase Village",
+  stateAbbreviation: "MD",
+  stateName: "Maryland",
+  slug: "chevy-chase-village-md",
+  title: "Painters in Chevy Chase Village, MD | PaintSwitch",
+  description:
+    "Need painters in Chevy Chase Village, MD? Explore interior, exterior, cabinet, and commercial painting reviewed before PaintSwitch confirms your quote.",
+  primaryKeyword: "Painters Chevy Chase Village MD",
+  heroSummary:
+    "Looking for painters in Chevy Chase Village, MD? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests with the Village's historic housing stock in mind. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
+  architectureHeading: "Painting plans shaped around Chevy Chase Village architecture",
+  architectureParagraphs: [
+    "Chevy Chase Village was platted in 1890 by the Chevy Chase Land Company as one of the original streetcar suburbs of Washington, D.C., and incorporated in 1951. Its roughly 720 homes sit along tree-lined streets and brick sidewalks near Connecticut Avenue and Chevy Chase Circle, with a mix of large early-1900s houses and later infill construction, much of it within a designated historic district.",
+    "A useful painting plan starts with the actual property rather than a citywide assumption. Original plaster, prior coatings, moisture, repairs, occupied space, and any historic-district exterior review should be understood before preparation or scheduling is confirmed.",
+  ],
+  neighborhoods: [
+    "Along Connecticut Avenue near Chevy Chase Circle",
+    "Streets near the Village Hall",
+    "The area bordering Rock Creek Park",
+    "Blocks near the Maryland-D.C. line",
+  ],
+  postalCodes: ["20815"],
+  services: chevyChaseVillageServices,
+  costFactors: [
+    {
+      projectType: "Single-room interior",
+      reviewFactors:
+        "Room type and dimensions, walls, ceilings, trim, doors, closets, ceiling height, repairs, color changes, and occupied or furniture level.",
+    },
+    {
+      projectType: "Multi-room or full interior",
+      reviewFactors:
+        "Each room is reviewed separately, along with shared trim, doors, circulation areas, access, protection, repairs, and sequencing.",
+    },
+    {
+      projectType: "Exterior painting",
+      reviewFactors:
+        "Building height, surface material and condition, access, preparation needs, moisture, repairs, any historic-district exterior requirements, and an appropriate weather window.",
+    },
+    {
+      projectType: "Kitchen cabinet painting",
+      reviewFactors:
+        "Door and drawer count, existing coating and condition, hardware, access, preparation, color change, and site setup.",
+    },
+  ],
+  regionalFactors: [
+    {
+      title: "Humidity and rain",
+      description:
+        "Chevy Chase Village has hot, humid summers and precipitation throughout the year. Exterior planning should account for moisture sources, dry surfaces, sound caulk and trim, and suitable application conditions.",
+    },
+    {
+      title: "Older housing stock",
+      description:
+        "Many Village homes date to the early 1900s, so original plaster, layered prior coatings, and age-related surface conditions are common review points before new coatings are applied.",
+    },
+    {
+      title: "Historic-district exterior review",
+      description:
+        "Chevy Chase Village includes a designated historic district. Property owners should verify any applicable exterior-change requirements before selecting visible exterior work.",
+    },
+  ],
+  faqs: [
+    {
+      question: "How is painting pricing handled in Chevy Chase Village?",
+      answer:
+        "PaintSwitch does not publish an unsupported citywide price. Submit the project location, service, surfaces, condition, and scope so the request can be reviewed before pricing is confirmed.",
+    },
+    {
+      question: "Does a Chevy Chase Village city page confirm service for every local ZIP code?",
+      answer:
+        "No. The 20815 ZIP code is shared across several separate Chevy Chase jurisdictions in Maryland and does not confirm PaintSwitch availability. Every project location receives an individual service-area review.",
+    },
+    {
+      question: "How long does a Chevy Chase Village painting project take?",
+      answer:
+        "Timing depends on scope, surface condition, preparation, repairs, access, occupied-space needs, drying conditions, and weather for exterior work. PaintSwitch reviews those details before scheduling is confirmed.",
+    },
+  ],
+};
+
+export const cityLandingPages = [alexandriaCityPage, arlingtonCityPage, chevyChaseVillageCityPage] as const;
 
 export function buildCityJsonLd(page: CityLandingPageData) {
   const url = `https://paintswitch.com/${page.slug}`;
