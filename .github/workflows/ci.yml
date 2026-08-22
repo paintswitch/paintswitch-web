@@ -42,3 +42,102 @@ jobs:
 
       - name: Build production application
         run: npm run build
+
+  package_exact_logo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify exact production master
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="7d6deac2547cebb9015bb034f2b7f8283aa6be91"
+          actual="$(git hash-object public/images/paintswitch-logo.svg)"
+          echo "Expected blob: $expected"
+          echo "Actual blob:   $actual"
+          test "$actual" = "$expected"
+
+      - name: Install conversion tools
+        run: |
+          python -m pip install --disable-pip-version-check cairosvg pillow
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends inkscape
+
+      - name: Build exact website logo package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p PaintSwitch_Website_Exact
+          cp public/images/paintswitch-logo.svg PaintSwitch_Website_Exact/PaintSwitch_Logo_Website_Exact.svg
+          cp public/favicon.svg PaintSwitch_Website_Exact/favicon.svg
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import cairosvg
+          from PIL import Image
+
+          folder = Path('PaintSwitch_Website_Exact')
+          svg = folder / 'PaintSwitch_Logo_Website_Exact.svg'
+          svg_bytes = svg.read_bytes()
+          git_blob_sha = hashlib.sha1(b'blob ' + str(len(svg_bytes)).encode() + b'\0' + svg_bytes).hexdigest()
+          expected = '7d6deac2547cebb9015bb034f2b7f8283aa6be91'
+          if git_blob_sha != expected:
+              raise SystemExit(f'Production SVG mismatch: {git_blob_sha} != {expected}')
+
+          cairosvg.svg2pdf(bytestring=svg_bytes, write_to=str(folder / 'PaintSwitch_Logo_Website_Exact.pdf'))
+          cairosvg.svg2png(bytestring=svg_bytes, write_to=str(folder / 'PaintSwitch_Logo_Website_Exact_Transparent.png'))
+          cairosvg.svg2png(bytestring=svg_bytes, write_to=str(folder / 'PaintSwitch_Logo_Website_Exact_Transparent_1600px.png'), output_width=1600)
+          cairosvg.svg2png(bytestring=svg_bytes, write_to=str(folder / 'PaintSwitch_Logo_Website_Exact_Transparent_3000px.png'), output_width=3000)
+
+          p = Image.open(folder / 'PaintSwitch_Logo_Website_Exact_Transparent_3000px.png').convert('RGBA')
+          white = Image.new('RGB', p.size, 'white')
+          white.paste(p, mask=p.getchannel('A'))
+          white.save(folder / 'PaintSwitch_Logo_Website_Exact_OnWhite.jpg', quality=95)
+
+          fav_svg = (folder / 'favicon.svg').read_bytes()
+          cairosvg.svg2png(bytestring=fav_svg, write_to=str(folder / 'favicon-512.png'), output_width=512, output_height=512)
+          fav = Image.open(folder / 'favicon-512.png').convert('RGBA')
+          fav.save(folder / 'favicon.ico', sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])
+
+          (folder / 'README.txt').write_text(
+              'PAINTSWITCH - EXACT WEBSITE LOGO PACKAGE\n\n'
+              'Canonical production source: paintswitch/paintswitch-web/public/images/paintswitch-logo.svg\n'
+              f'Git blob SHA: {git_blob_sha}\n'
+              'Original dimensions: 915 x 524\n'
+              'Original viewBox: 170 335 915 524\n'
+              'Production navy: #012765\n'
+              'Production blue: #0658FE\n\n'
+              'PaintSwitch_Logo_Website_Exact.svg is a byte-for-byte copy of the production website master.\n'
+              'PDF/PNG/JPG exports are direct conversions from that exact SVG; no logo geometry was redrawn.\n'
+              'favicon.svg is copied directly from the production website repository.\n',
+              encoding='utf-8'
+          )
+          PY
+
+          inkscape PaintSwitch_Website_Exact/PaintSwitch_Logo_Website_Exact.svg \
+            --export-filename=PaintSwitch_Website_Exact/PaintSwitch_Logo_Website_Exact.eps \
+            --export-type=eps
+
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          folder = Path('PaintSwitch_Website_Exact')
+          rows=[]
+          for f in sorted(folder.iterdir()):
+              if f.is_file():
+                  rows.append(f"{hashlib.sha256(f.read_bytes()).hexdigest()}  {f.name}")
+          (folder/'SHA256SUMS.txt').write_text('\n'.join(rows)+'\n', encoding='utf-8')
+          PY
+
+      - name: Upload exact logo package
+        uses: actions/upload-artifact@v4
+        with:
+          name: PaintSwitch_Website_Exact_Logo_Package_2026-08-22
+          path: PaintSwitch_Website_Exact/*
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 7
