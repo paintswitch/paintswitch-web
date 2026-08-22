@@ -75,6 +75,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: "https://paintswitch.com/interior-painting",
+      lastModified: "2026-08-22",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://paintswitch.com/exterior-painting",
+      lastModified: "2026-08-22",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://paintswitch.com/cabinet-painting",
+      lastModified: "2026-08-22",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://paintswitch.com/commercial-painting",
+      lastModified: "2026-08-22",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: "https://paintswitch.com/privacy",
       lastModified: "2026-08-22",
       changeFrequency: "yearly",

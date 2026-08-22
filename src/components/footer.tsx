@@ -3,7 +3,7 @@ import { BrandLogo } from "./brand-logo";
 
 const groups = [
   { title: "Company", links: [["About", "/#about"], ["How It Works", "/#how-it-works"], ["Service Areas", "/service-areas"], ["Privacy", "/privacy"], ["Terms", "/terms"]] },
-  { title: "Services", links: [["Interior", "/#services"], ["Exterior", "/#services"], ["Cabinet", "/#services"], ["Commercial", "/#services"]] },
+  { title: "Services", links: [["Interior", "/interior-painting"], ["Exterior", "/exterior-painting"], ["Cabinet", "/cabinet-painting"], ["Commercial", "/commercial-painting"]] },
   { title: "Contact", links: [["Request a Quote", "/#quote"], ["hello@paintswitch.com", "mailto:hello@paintswitch.com"], ["(571) 565-9491", "tel:+15715659491"]] },
 ];
 

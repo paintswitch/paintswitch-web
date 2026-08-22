@@ -16,6 +16,14 @@ import {
   greatFallsCityPage,
   oaktonCityPage,
 } from "../src/lib/city-landing-pages.ts";
+import {
+  buildServiceJsonLd,
+  cabinetPaintingServicePage,
+  commercialPaintingServicePage,
+  exteriorPaintingServicePage,
+  interiorPaintingServicePage,
+  servicePages,
+} from "../src/lib/service-pages.ts";
 
 function source(path) {
   return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -57,6 +65,12 @@ const fairfaxStationPage = source("src/app/fairfax-station-va/page.tsx");
 const bethesdaPage = source("src/app/bethesda-md/page.tsx");
 const greatFallsPage = source("src/app/great-falls-va/page.tsx");
 const oaktonPage = source("src/app/oakton-va/page.tsx");
+const servicePageComponent = source("src/components/service-page.tsx");
+const servicePageData = source("src/lib/service-pages.ts");
+const interiorPaintingPage = source("src/app/interior-painting/page.tsx");
+const exteriorPaintingPage = source("src/app/exterior-painting/page.tsx");
+const cabinetPaintingPage = source("src/app/cabinet-painting/page.tsx");
+const commercialPaintingPage = source("src/app/commercial-painting/page.tsx");
 const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
@@ -88,6 +102,12 @@ const customerFacingSources = {
   "Bethesda page": bethesdaPage,
   "Great Falls page": greatFallsPage,
   "Oakton page": oaktonPage,
+  "service page component": servicePageComponent,
+  "service page data": servicePageData,
+  "Interior Painting page": interiorPaintingPage,
+  "Exterior Painting page": exteriorPaintingPage,
+  "Cabinet Painting page": cabinetPaintingPage,
+  "Commercial Painting page": commercialPaintingPage,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -395,4 +415,87 @@ test("city JSON-LD matches the visible service and FAQ data without unsupported 
   }
 
   assert.match(cityLandingPageComponent, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
+});
+
+test("service pages use the approved sequence, metadata limits, and canonical routes", () => {
+  assert.deepEqual(
+    servicePages.map((page) => page.serviceName),
+    ["Interior Painting", "Exterior Painting", "Cabinet Painting", "Commercial Painting"],
+  );
+
+  for (const page of servicePages) {
+    assert.ok(page.title.length < 60, `${page.serviceName} title exceeds 59 characters`);
+    assert.ok(page.description.length < 155, `${page.serviceName} description exceeds 154 characters`);
+    assert.match(page.title, new RegExp(`${page.serviceName} Services \\| PaintSwitch`, "u"));
+  }
+
+  assert.match(interiorPaintingPage, /canonical: "https:\/\/paintswitch\.com\/interior-painting"/u);
+  assert.match(exteriorPaintingPage, /canonical: "https:\/\/paintswitch\.com\/exterior-painting"/u);
+  assert.match(cabinetPaintingPage, /canonical: "https:\/\/paintswitch\.com\/cabinet-painting"/u);
+  assert.match(commercialPaintingPage, /canonical: "https:\/\/paintswitch\.com\/commercial-painting"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/interior-painting"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/exterior-painting"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/cabinet-painting"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/commercial-painting"/u);
+
+  assert.match(footer, /\["Interior", "\/interior-painting"\]/u);
+  assert.match(footer, /\["Exterior", "\/exterior-painting"\]/u);
+  assert.match(footer, /\["Cabinet", "\/cabinet-painting"\]/u);
+  assert.match(footer, /\["Commercial", "\/commercial-painting"\]/u);
+});
+
+test("service pages preserve the shared design system and working section anchors", () => {
+  for (const component of ["Header", "Footer", "PrimaryButton", "SecondaryButton", "QuoteRequestForm", "SectionHeading", "TrustBar"]) {
+    assert.match(servicePageComponent, new RegExp(`<${component}\\b`, "u"), `missing shared ${component}`);
+  }
+
+  for (const anchor of ["home", "scope", "how-it-works", "quote"]) {
+    assert.match(servicePageComponent, new RegExp(`id="${anchor}"`, "u"), `missing #${anchor}`);
+  }
+
+  assert.equal((servicePageComponent.match(/<h1\b/gu) ?? []).length, 1);
+  assert.doesNotMatch(servicePageComponent, /HighLevelChatWidget/u);
+  assert.doesNotMatch(
+    `${interiorPaintingPage}\n${exteriorPaintingPage}\n${cabinetPaintingPage}\n${commercialPaintingPage}`,
+    /HighLevelChatWidget/u,
+  );
+});
+
+test("service page content uses only approved services and contains no unsupported marketing claims", () => {
+  const publicServiceSources = `${servicePageComponent}\n${servicePageData}\n${interiorPaintingPage}\n${exteriorPaintingPage}\n${cabinetPaintingPage}\n${commercialPaintingPage}`;
+  assert.doesNotMatch(publicServiceSources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
+  assert.doesNotMatch(publicServiceSources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
+  assert.doesNotMatch(publicServiceSources, /\bJen(?:\s+Contracting)?\b/iu);
+  assert.doesNotMatch(publicServiceSources, /guarantee[ds]? coverage|guaranteed availability/iu);
+});
+
+test("service JSON-LD matches the visible service and FAQ data without unsupported fields", () => {
+  for (const page of [
+    interiorPaintingServicePage,
+    exteriorPaintingServicePage,
+    cabinetPaintingServicePage,
+    commercialPaintingServicePage,
+  ]) {
+    const jsonLd = buildServiceJsonLd(page);
+    const [service, faqPage] = jsonLd["@graph"];
+
+    assert.equal(service["@type"], "Service");
+    assert.equal(service.url, `https://paintswitch.com/${page.slug}`);
+    assert.equal(service.serviceType, page.serviceName);
+
+    assert.equal(faqPage["@type"], "FAQPage");
+    assert.deepEqual(
+      faqPage.mainEntity.map((question) => ({
+        question: question.name,
+        answer: question.acceptedAnswer.text,
+      })),
+      page.faqs,
+    );
+
+    const serialized = JSON.stringify(jsonLd);
+    assert.doesNotMatch(serialized, /"(?:aggregateRating|areaServed|postalCode|streetAddress|price|license|insurance|offers|hasOfferCatalog)"\s*:/iu);
+    assert.doesNotMatch(serialized, /\bEPA\b/iu);
+  }
+
+  assert.match(servicePageComponent, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
 });
