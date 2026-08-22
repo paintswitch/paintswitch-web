@@ -99,6 +99,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: "https://paintswitch.com/guides",
+      lastModified: "2026-08-22",
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: "https://paintswitch.com/how-to-choose-interior-paint-colors",
+      lastModified: "2026-08-22",
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
+    {
+      url: "https://paintswitch.com/exterior-paint-maintenance-guide",
+      lastModified: "2026-08-22",
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
+    {
       url: "https://paintswitch.com/privacy",
       lastModified: "2026-08-22",
       changeFrequency: "yearly",

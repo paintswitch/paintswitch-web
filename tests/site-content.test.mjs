@@ -24,6 +24,12 @@ import {
   interiorPaintingServicePage,
   servicePages,
 } from "../src/lib/service-pages.ts";
+import {
+  buildGuideJsonLd,
+  exteriorMaintenanceGuide,
+  guidePages,
+  interiorColorGuide,
+} from "../src/lib/guide-pages.ts";
 
 function source(path) {
   return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -71,6 +77,10 @@ const interiorPaintingPage = source("src/app/interior-painting/page.tsx");
 const exteriorPaintingPage = source("src/app/exterior-painting/page.tsx");
 const cabinetPaintingPage = source("src/app/cabinet-painting/page.tsx");
 const commercialPaintingPage = source("src/app/commercial-painting/page.tsx");
+const guidePageData = source("src/lib/guide-pages.ts");
+const guidesHubPage = source("src/app/guides/page.tsx");
+const interiorColorGuidePage = source("src/app/how-to-choose-interior-paint-colors/page.tsx");
+const exteriorMaintenanceGuidePage = source("src/app/exterior-paint-maintenance-guide/page.tsx");
 const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
@@ -108,6 +118,10 @@ const customerFacingSources = {
   "Exterior Painting page": exteriorPaintingPage,
   "Cabinet Painting page": cabinetPaintingPage,
   "Commercial Painting page": commercialPaintingPage,
+  "guide page data": guidePageData,
+  "guides hub page": guidesHubPage,
+  "interior color guide page": interiorColorGuidePage,
+  "exterior maintenance guide page": exteriorMaintenanceGuidePage,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -118,7 +132,7 @@ test("defines distinct, dated PaintSwitch legal routes", () => {
 
   assert.equal((legalPage.match(/<h1\b/gu) ?? []).length, 1);
   assert.match(legalPage, /effectiveDate = "August 4, 2026"/u);
-  assert.match(legalPage, /Effective \{effectiveDate\}/u);
+  assert.match(legalPage, /\{eyebrowLabel\} \{effectiveDate\}/u);
   assert.match(privacyPage, /effectiveDate="August 22, 2026"/u);
   assert.match(termsPage, /effectiveDate="August 9, 2026"/u);
   assert.match(legalPage, /<Footer \/>/u);
@@ -498,4 +512,68 @@ test("service JSON-LD matches the visible service and FAQ data without unsupport
   }
 
   assert.match(servicePageComponent, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
+});
+
+test("guide pages use approved metadata limits, canonical routes, and are linked from the hub and footer", () => {
+  assert.deepEqual(
+    guidePages.map((guide) => guide.slug),
+    ["how-to-choose-interior-paint-colors", "exterior-paint-maintenance-guide"],
+  );
+
+  for (const guide of guidePages) {
+    assert.ok(guide.title.length < 60, `${guide.slug} title exceeds 59 characters`);
+    assert.ok(guide.description.length < 155, `${guide.slug} description exceeds 154 characters`);
+  }
+
+  assert.match(interiorColorGuidePage, /canonical: `https:\/\/paintswitch\.com\/\$\{interiorColorGuide\.slug\}`/u);
+  assert.match(exteriorMaintenanceGuidePage, /canonical: `https:\/\/paintswitch\.com\/\$\{exteriorMaintenanceGuide\.slug\}`/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/guides"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/how-to-choose-interior-paint-colors"/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/exterior-paint-maintenance-guide"/u);
+
+  assert.match(footer, /\["Guides", "\/guides"\]/u);
+  assert.match(guidesHubPage, /href=\{`\/\$\{guide\.slug\}`\}/u);
+  assert.match(guidesHubPage, /guidePages\.map/u);
+});
+
+test("guide pages use the shared non-salesy legal-page layout with no embedded quote form", () => {
+  for (const guidePage of [interiorColorGuidePage, exteriorMaintenanceGuidePage]) {
+    assert.match(guidePage, /<LegalPage/u);
+    assert.match(guidePage, /eyebrowLabel="Published"/u);
+    assert.doesNotMatch(guidePage, /QuoteRequestForm/u);
+    assert.doesNotMatch(guidePage, /<Header\b/u);
+  }
+});
+
+test("guide content contains no unsupported marketing claims and matches its JSON-LD", () => {
+  const publicGuideSources = `${guidePageData}\n${guidesHubPage}\n${interiorColorGuidePage}\n${exteriorMaintenanceGuidePage}`;
+  assert.doesNotMatch(publicGuideSources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
+  assert.doesNotMatch(publicGuideSources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
+  assert.doesNotMatch(publicGuideSources, /\bJen(?:\s+Contracting)?\b/iu);
+  assert.doesNotMatch(publicGuideSources, /every \d+ years|repaint every/iu);
+
+  for (const guide of [interiorColorGuide, exteriorMaintenanceGuide]) {
+    const jsonLd = buildGuideJsonLd(guide);
+    const [article, faqPage] = jsonLd["@graph"];
+
+    assert.equal(article["@type"], "Article");
+    assert.equal(article.url, `https://paintswitch.com/${guide.slug}`);
+    assert.equal(article.datePublished, guide.publishedDateIso);
+    assert.equal(article.headline, guide.headline);
+
+    assert.equal(faqPage["@type"], "FAQPage");
+    assert.deepEqual(
+      faqPage.mainEntity.map((question) => ({
+        question: question.name,
+        answer: question.acceptedAnswer.text,
+      })),
+      guide.faqs,
+    );
+
+    const serialized = JSON.stringify(jsonLd);
+    assert.doesNotMatch(serialized, /"(?:aggregateRating|areaServed|postalCode|streetAddress|price|license|insurance|offers|hasOfferCatalog)"\s*:/iu);
+    assert.doesNotMatch(serialized, /\bEPA\b/iu);
+  }
+
+  assert.match(legalPage, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
 });

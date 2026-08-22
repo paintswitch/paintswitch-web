@@ -7,10 +7,12 @@ type LegalPageProps = {
   title: string;
   intro: string;
   effectiveDate?: string;
+  eyebrowLabel?: string;
+  jsonLd?: object;
   children: ReactNode;
 };
 
-export function LegalPage({ title, intro, effectiveDate = "August 4, 2026", children }: LegalPageProps) {
+export function LegalPage({ title, intro, effectiveDate = "August 4, 2026", eyebrowLabel = "Effective", jsonLd, children }: LegalPageProps) {
   return (
     <>
       <header className="border-b border-[#A99D91]/60 bg-[#F5F1E8] text-[#253231]">
@@ -37,8 +39,16 @@ export function LegalPage({ title, intro, effectiveDate = "August 4, 2026", chil
         </div>
       </header>
       <main id="main-content" tabIndex={-1} className="bg-[#D1C4B8] px-5 py-14 sm:px-8 sm:py-20">
+        {jsonLd && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+            }}
+          />
+        )}
         <article className="mx-auto max-w-3xl border border-[#A99D91] bg-[#F5F1E8] p-7 sm:p-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#012765]">Effective {effectiveDate}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#012765]">{eyebrowLabel} {effectiveDate}</p>
           <h1 className="font-editorial mt-5 text-4xl font-normal tracking-[-0.04em] text-[#253231] sm:text-6xl">{title}</h1>
           <p className="mt-6 text-lg leading-8 text-[#596563]">{intro}</p>
           <div className="mt-10 space-y-10 text-base leading-7 text-[#3D4E4E] [&_a]:font-semibold [&_a]:text-[#012765] [&_a]:underline [&_a]:underline-offset-4 [&_h2]:font-editorial [&_h2]:text-3xl [&_h2]:font-normal [&_h2]:tracking-[-0.03em] [&_h2]:text-[#253231] [&_li]:pl-1 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
