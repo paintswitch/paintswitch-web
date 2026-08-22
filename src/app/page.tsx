@@ -8,6 +8,7 @@ import { QuoteRequestForm } from "@/components/quote-request-form";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard, type ServiceIcon } from "@/components/service-card";
 import { TrustBar } from "@/components/trust-bar";
+import { buildOrganizationJsonLd } from "@/lib/organization-jsonld";
 
 const services: { title: string; description: string; icon: ServiceIcon }[] = [
   { title: "Interior Painting", description: "Share the rooms, surfaces, and project details you would like PaintSwitch to review.", icon: "interior" },
@@ -33,10 +34,18 @@ const benefits = [
 ];
 
 export default function Home() {
+  const jsonLd = buildOrganizationJsonLd();
+
   return (
     <>
       <Header />
       <main id="main-content" tabIndex={-1} className="focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0658FE]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <Hero />
         <TrustBar />
 
