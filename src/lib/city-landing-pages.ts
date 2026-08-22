@@ -474,11 +474,116 @@ export const mcLeanCityPage: CityLandingPageData = {
   ],
 };
 
+const potomacServices: CityService[] = [
+  {
+    title: "Interior Painting",
+    description:
+      "Potomac's mix of mid-century suburban homes, restored farmhouses, and larger newer construction brings a wide range of wall systems and prior coatings. PaintSwitch reviews room details, existing condition, color changes, repairs, and furniture level before confirming availability or pricing.",
+    icon: "interior",
+  },
+  {
+    title: "Exterior Painting",
+    description:
+      "Exterior requests begin with a consultation review of the building, substrate, access, and preparation needs. Wooded, sloping lots are common in Potomac, so site access and property-specific exterior requirements remain part of the review.",
+    icon: "exterior",
+  },
+  {
+    title: "Cabinet Painting",
+    description:
+      "Cabinet projects are reviewed around door and drawer count, existing finish, condition, access, and the desired color change. PaintSwitch uses that project information to determine the appropriate consultation next step.",
+    icon: "cabinet",
+  },
+  {
+    title: "Commercial Painting",
+    description:
+      "Commercial requests can include offices, retail spaces, and other business interiors or exteriors near Potomac Village and the surrounding area. Tell us about the site, surfaces, access, and operating constraints for consultation review.",
+    icon: "commercial",
+  },
+];
+
+export const potomacCityPage: CityLandingPageData = {
+  city: "Potomac",
+  stateAbbreviation: "MD",
+  stateName: "Maryland",
+  slug: "potomac-md",
+  title: "Painters in Potomac, MD | PaintSwitch",
+  description:
+    "Need painters in Potomac, MD? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+  primaryKeyword: "Painters Potomac MD",
+  heroSummary:
+    "Looking for painters in Potomac, MD? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's mix of mid-century and newer homes. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
+  architectureHeading: "Painting plans shaped around Potomac architecture",
+  architectureParagraphs: [
+    "Potomac transformed from a rural Montgomery County farming community into a suburban one from the 1950s through the late 20th century. Some neighborhoods, such as Potomac Overlook, reflect an early planned approach that integrated housing into wooded, sloping topography along secluded cul-de-sac streets, while restored older farmhouses and structures remain scattered among later suburban development.",
+    "A useful painting plan starts with the actual property rather than a citywide assumption. Surface condition, prior coatings, moisture, repairs, occupied space, and any property-specific exterior review should be understood before preparation or scheduling is confirmed.",
+  ],
+  neighborhoods: ["Potomac Village", "Avenel", "Falconhurst", "River Falls", "Falls Road corridor"],
+  postalCodes: ["20854", "20859"],
+  services: potomacServices,
+  costFactors: [
+    {
+      projectType: "Single-room interior",
+      reviewFactors:
+        "Room type and dimensions, walls, ceilings, trim, doors, closets, ceiling height, repairs, color changes, and occupied or furniture level.",
+    },
+    {
+      projectType: "Multi-room or full interior",
+      reviewFactors:
+        "Each room is reviewed separately, along with shared trim, doors, circulation areas, access, protection, repairs, and sequencing.",
+    },
+    {
+      projectType: "Exterior painting",
+      reviewFactors:
+        "Building height, surface material and condition, access, preparation needs, moisture, repairs, exterior requirements, and an appropriate weather window.",
+    },
+    {
+      projectType: "Kitchen cabinet painting",
+      reviewFactors:
+        "Door and drawer count, existing coating and condition, hardware, access, preparation, color change, and site setup.",
+    },
+  ],
+  regionalFactors: [
+    {
+      title: "Humidity and rain",
+      description:
+        "Potomac has hot, humid summers and precipitation throughout the year. Exterior planning should account for moisture sources, dry surfaces, sound caulk and trim, and suitable application conditions.",
+    },
+    {
+      title: "Wooded, sloping lots",
+      description:
+        "Many Potomac properties sit on wooded or sloping lots, which can affect equipment access, staging, and the preparation approach for exterior work.",
+    },
+    {
+      title: "Property-specific exterior review",
+      description:
+        "Some Potomac properties carry homeowner-association or other exterior requirements. Property owners should verify the rules that apply before selecting visible exterior changes.",
+    },
+  ],
+  faqs: [
+    {
+      question: "How is painting pricing handled in Potomac?",
+      answer:
+        "PaintSwitch does not publish an unsupported citywide price. Submit the project location, service, surfaces, condition, and scope so the request can be reviewed before pricing is confirmed.",
+    },
+    {
+      question: "Does a Potomac city page confirm service for every local ZIP code?",
+      answer:
+        "No. Potomac ZIP codes do not confirm PaintSwitch availability. Every project location receives an individual service-area review.",
+    },
+    {
+      question: "How long does a Potomac painting project take?",
+      answer:
+        "Timing depends on scope, surface condition, preparation, repairs, access, occupied-space needs, drying conditions, and weather for exterior work. PaintSwitch reviews those details before scheduling is confirmed.",
+    },
+  ],
+};
+
 export const cityLandingPages = [
   alexandriaCityPage,
   arlingtonCityPage,
   chevyChaseVillageCityPage,
   mcLeanCityPage,
+  potomacCityPage,
 ] as const;
 
 export function buildCityJsonLd(page: CityLandingPageData) {
