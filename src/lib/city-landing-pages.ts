@@ -786,6 +786,110 @@ export const fairfaxStationCityPage: CityLandingPageData = {
   ],
 };
 
+const bethesdaServices: CityService[] = [
+  {
+    title: "Interior Painting",
+    description:
+      "Bethesda's mix of early-1900s subdivision homes, mid-century houses, and newer condos and apartments brings a wide range of wall systems and prior coatings. PaintSwitch reviews room details, existing condition, color changes, repairs, and furniture level before confirming availability or pricing.",
+    icon: "interior",
+  },
+  {
+    title: "Exterior Painting",
+    description:
+      "Exterior requests begin with a consultation review of the building, substrate, access, and preparation needs. Older single-family homes and multifamily buildings both appear throughout Bethesda, so property-specific exterior requirements remain part of the review.",
+    icon: "exterior",
+  },
+  {
+    title: "Cabinet Painting",
+    description:
+      "Cabinet projects are reviewed around door and drawer count, existing finish, condition, access, and the desired color change. PaintSwitch uses that project information to determine the appropriate consultation next step.",
+    icon: "cabinet",
+  },
+  {
+    title: "Commercial Painting",
+    description:
+      "Commercial requests can include offices, retail spaces, and other business interiors or exteriors near Downtown Bethesda and Woodmont Triangle. Tell us about the site, surfaces, access, and operating constraints for consultation review.",
+    icon: "commercial",
+  },
+];
+
+export const bethesdaCityPage: CityLandingPageData = {
+  city: "Bethesda",
+  stateAbbreviation: "MD",
+  stateName: "Maryland",
+  slug: "bethesda-md",
+  title: "Painters in Bethesda, MD | PaintSwitch",
+  description:
+    "Need painters in Bethesda, MD? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+  primaryKeyword: "Painters Bethesda MD",
+  heroSummary:
+    "Looking for painters in Bethesda, MD? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's mix of historic and newer properties. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
+  architectureHeading: "Painting plans shaped around Bethesda architecture",
+  architectureParagraphs: [
+    "Bethesda began as a 19th-century rural village at the intersection of Rockville Pike and Georgetown Road, and grew into a center of residential subdivisions after an electric railway opened in 1891. Early subdivisions such as Edgemoor, Sonoma, and Bradley Hills date to the 1910s, and today's unincorporated Montgomery County community mixes that older housing stock with mid-century homes and newer downtown condominiums and apartments.",
+    "A useful painting plan starts with the actual property rather than a citywide assumption. Surface condition, prior coatings, moisture, repairs, occupied space, and any property-specific exterior review should be understood before preparation or scheduling is confirmed.",
+  ],
+  neighborhoods: ["Edgemoor", "Sonoma", "Bradley Hills", "Woodmont Triangle", "Downtown Bethesda", "West Bethesda"],
+  postalCodes: ["20814", "20816", "20817"],
+  services: bethesdaServices,
+  costFactors: [
+    {
+      projectType: "Single-room interior",
+      reviewFactors:
+        "Room type and dimensions, walls, ceilings, trim, doors, closets, ceiling height, repairs, color changes, and occupied or furniture level.",
+    },
+    {
+      projectType: "Multi-room or full interior",
+      reviewFactors:
+        "Each room is reviewed separately, along with shared trim, doors, circulation areas, access, protection, repairs, and sequencing.",
+    },
+    {
+      projectType: "Exterior painting",
+      reviewFactors:
+        "Building height, surface material and condition, access, preparation needs, moisture, repairs, exterior requirements, and an appropriate weather window.",
+    },
+    {
+      projectType: "Kitchen cabinet painting",
+      reviewFactors:
+        "Door and drawer count, existing coating and condition, hardware, access, preparation, color change, and site setup.",
+    },
+  ],
+  regionalFactors: [
+    {
+      title: "Humidity and rain",
+      description:
+        "Bethesda has hot, humid summers and precipitation throughout the year. Exterior planning should account for moisture sources, dry surfaces, sound caulk and trim, and suitable application conditions.",
+    },
+    {
+      title: "Older subdivision housing stock",
+      description:
+        "Homes in Bethesda's early-1900s subdivisions can carry original plaster, layered prior coatings, and age-related surface conditions worth reviewing before new coatings are applied.",
+    },
+    {
+      title: "Property-specific exterior review",
+      description:
+        "Some Bethesda properties, including those managed by a homeowner association or condominium board, carry exterior-change requirements. Property owners should verify the rules that apply before selecting visible exterior work.",
+    },
+  ],
+  faqs: [
+    {
+      question: "How is painting pricing handled in Bethesda?",
+      answer:
+        "PaintSwitch does not publish an unsupported citywide price. Submit the project location, service, surfaces, condition, and scope so the request can be reviewed before pricing is confirmed.",
+    },
+    {
+      question: "Does a Bethesda city page confirm service for every local ZIP code?",
+      answer:
+        "No. Bethesda ZIP codes do not confirm PaintSwitch availability. Every project location receives an individual service-area review.",
+    },
+    {
+      question: "How long does a Bethesda painting project take?",
+      answer:
+        "Timing depends on scope, surface condition, preparation, repairs, access, occupied-space needs, drying conditions, and weather for exterior work. PaintSwitch reviews those details before scheduling is confirmed.",
+    },
+  ],
+};
+
 export const cityLandingPages = [
   alexandriaCityPage,
   arlingtonCityPage,
@@ -794,6 +898,7 @@ export const cityLandingPages = [
   potomacCityPage,
   viennaCityPage,
   fairfaxStationCityPage,
+  bethesdaCityPage,
 ] as const;
 
 export function buildCityJsonLd(page: CityLandingPageData) {
