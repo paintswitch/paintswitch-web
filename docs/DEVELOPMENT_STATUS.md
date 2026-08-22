@@ -2,6 +2,12 @@
 
 Last repository inspection: 2026-08-22
 
+## D-068(A) service pages published; informational guide pages still unbuilt — 2026-08-22
+
+Built the commercial-intent half of D-068(A)'s content/topical-authority plan: `/interior-painting`, `/exterior-painting`, `/cabinet-painting`, and `/commercial-painting`, each a dedicated landing page for one of the four already-approved services. A new shared `ServicePage` component (`src/components/service-page.tsx`) and `src/lib/service-pages.ts` data file follow the exact D-063 guardrails already governing city pages: no pricing, no license/EPA/`Top-Rated`/guaranteed-coverage claims, and `Service`+`FAQPage` JSON-LD matching only the visible service/FAQ content with no `areaServed`, address, or rating fields. The existing global design system (Header, Footer, TrustBar, SectionHeading, QuoteRequestForm, color tokens, typography) is reused without modification. Each page cross-links the other three services and the Service Areas hub so the cluster is internally linked rather than orphaned. The footer's Services links now point to these dedicated pages instead of the homepage `#services` anchor. `sitemap.xml` lists all four. All 71 tests, lint, type checking, and build pass.
+
+Not yet done: the non-salesy informational guide pages (e.g., color-selection or maintenance guidance) that D-068(A) also scoped, and D-068(C)'s backlink/citation outreach.
+
 ## D-069 Google Analytics (GA4) added and disclosed — 2026-08-22
 
 Per D-069, a GA4 property ("PaintSwitch") and web data stream for `https://paintswitch.com` were created (Measurement ID `G-LEKK2Q0XJ0`), and the standard `gtag.js` snippet was added to `src/app/layout.tsx` via `next/script` (`afterInteractive` strategy) so it loads on every route. No Google Signals, Ads linkage, or PII-bearing custom events were enabled. The Privacy Policy (`src/app/privacy/page.tsx`) was updated to disclose Google Analytics alongside the existing Vercel/GoHighLevel/Upstash/Microsoft 365 vendor list, and its effective date moved to August 22, 2026; `sitemap.xml`'s `/privacy` entry was updated to match. All 67 tests, lint, and the production build pass. This is a routine vendor-disclosure update, not a new attorney review — it extends D-067's approved Privacy Policy rather than reopening it. GA4 data collection may take up to 48 hours to begin appearing in the dashboard.
