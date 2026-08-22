@@ -2,6 +2,14 @@
 
 Last repository inspection: 2026-08-22
 
+## D-069 Google Analytics (GA4) added and disclosed — 2026-08-22
+
+Per D-069, a GA4 property ("PaintSwitch") and web data stream for `https://paintswitch.com` were created (Measurement ID `G-LEKK2Q0XJ0`), and the standard `gtag.js` snippet was added to `src/app/layout.tsx` via `next/script` (`afterInteractive` strategy) so it loads on every route. No Google Signals, Ads linkage, or PII-bearing custom events were enabled. The Privacy Policy (`src/app/privacy/page.tsx`) was updated to disclose Google Analytics alongside the existing Vercel/GoHighLevel/Upstash/Microsoft 365 vendor list, and its effective date moved to August 22, 2026; `sitemap.xml`'s `/privacy` entry was updated to match. All 67 tests, lint, and the production build pass. This is a routine vendor-disclosure update, not a new attorney review — it extends D-067's approved Privacy Policy rather than reopening it. GA4 data collection may take up to 48 hours to begin appearing in the dashboard.
+
+## Service Areas hub page added to fix orphaned city pages — 2026-08-22
+
+All 10 city landing pages (Alexandria, Arlington, and the eight D-068 cities) were discovered to have no internal links anywhere on the site — reachable only via `sitemap.xml`, which search engines treat as a weak signal compared to actual site navigation, hurting crawl and ranking prospects. Fixed by adding `src/app/service-areas/page.tsx`, a hub page listing all `cityLandingPages` entries, linked from the global footer's Company group. No new design elements were introduced; it reuses `Header`, `Footer`, `PrimaryButton`, and `SectionHeading` only. `sitemap.xml` was updated with the new route. All 67 tests, lint, and build pass.
+
 ## D-068 SEO expansion complete: all eight city pages published — 2026-08-22
 
 Under D-068, all eight approved city pages are live in Production, published sequentially (one commit each, verified before continuing) per the same pattern D-062 established for Alexandria/Arlington: Chevy Chase Village MD, McLean VA, Potomac MD, Vienna VA, Fairfax Station VA, Bethesda MD, Great Falls VA, Oakton VA. Each follows the exact D-062/D-063 pattern — global design reused unmodified, only the four approved services, no license/EPA/pricing/`Top-Rated` claims, `Service`+`FAQPage` JSON-LD matching visible facts with no `areaServed`/address/rating fields — and each city's local content (history, named neighborhoods, ZIP codes) is source-backed via web research to the same depth as Alexandria/Arlington. `CityLandingPageData`'s state fields were widened from Virginia-only to `"VA" | "MD"` to support the Maryland cities. `sitemap.xml` now lists all 11 pages (homepage, terms, privacy, and 8 city pages). All 67 tests, lint, and build pass at each step and at completion.

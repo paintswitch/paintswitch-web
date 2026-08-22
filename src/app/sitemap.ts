@@ -76,7 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: "https://paintswitch.com/privacy",
-      lastModified: "2026-08-08",
+      lastModified: "2026-08-22",
       changeFrequency: "yearly",
       priority: 0.2,
     },

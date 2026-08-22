@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
     <LegalPage
       title="Privacy Policy"
       intro="This policy explains how PaintSwitch collects, uses, shares, and retains information through its lead-generation website."
-      effectiveDate="August 8, 2026"
+      effectiveDate="August 22, 2026"
     >
       <section>
         <h2>Information we collect</h2>
@@ -56,6 +56,7 @@ export default function PrivacyPolicy() {
           <li><strong>GoHighLevel/LeadConnector</strong> stores and manages Contact and Opportunity records, operates the internal owner-notification workflow, and processes live-chat messages and AI activity.</li>
           <li><strong>Upstash</strong> provides technical lead-delivery state, duplicate protection, and rate limiting.</li>
           <li><strong>Microsoft 365</strong> supports the PaintSwitch business mailbox and internal notification delivery.</li>
+          <li><strong>Google Analytics</strong> collects aggregated website traffic and usage data to help PaintSwitch understand how visitors use the site.</li>
         </ul>
         <p>These providers process information for PaintSwitch in connection with the services they provide.</p>
       </section>

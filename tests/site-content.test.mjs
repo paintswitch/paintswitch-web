@@ -99,7 +99,7 @@ test("defines distinct, dated PaintSwitch legal routes", () => {
   assert.equal((legalPage.match(/<h1\b/gu) ?? []).length, 1);
   assert.match(legalPage, /effectiveDate = "August 4, 2026"/u);
   assert.match(legalPage, /Effective \{effectiveDate\}/u);
-  assert.match(privacyPage, /effectiveDate="August 8, 2026"/u);
+  assert.match(privacyPage, /effectiveDate="August 22, 2026"/u);
   assert.match(termsPage, /effectiveDate="August 9, 2026"/u);
   assert.match(legalPage, /<Footer \/>/u);
   assert.match(legalPage, /href="\/"/u);
@@ -116,7 +116,7 @@ test("privacy policy matches the approved beta data boundary", () => {
     assert.ok(privacyPage.includes(fieldDescription), `missing privacy field: ${fieldDescription}`);
   }
 
-  for (const provider of ["Vercel", "GoHighLevel/LeadConnector", "Upstash", "Microsoft 365"]) {
+  for (const provider of ["Vercel", "GoHighLevel/LeadConnector", "Upstash", "Microsoft 365", "Google Analytics"]) {
     assert.ok(privacyPage.includes(provider), `missing provider disclosure: ${provider}`);
   }
 
