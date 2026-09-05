@@ -69,6 +69,42 @@ export const exteriorMaintenanceGuide: GuidePageMeta = {
 
 export const guidePages = [interiorColorGuide, exteriorMaintenanceGuide] as const;
 
+export type CityGuidePageMeta = GuidePageMeta & {
+  citySlug: string;
+  cityLabel: string;
+};
+
+export const alexandriaPaintingGuide: CityGuidePageMeta = {
+  slug: "alexandria-va-painting-guide",
+  citySlug: "alexandria-va",
+  cityLabel: "Alexandria, VA",
+  title: "Alexandria, VA Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Alexandria, VA homeowners: older-home prep, historic-district exterior review, and seasonal timing in the DC region.",
+  headline: "A local painting guide for Alexandria, VA homeowners",
+  publishedDateIso: "2026-09-05",
+  publishedDateDisplay: "September 5, 2026",
+  faqs: [
+    {
+      question: "Do older Alexandria homes need different prep work than newer construction?",
+      answer:
+        "Often, yes. Original plaster, multiple layers of prior coatings, and older trim profiles common in Old Town and other established neighborhoods typically need more careful surface assessment than newer drywall construction.",
+    },
+    {
+      question: "When is the best time of year to paint exterior surfaces in Alexandria?",
+      answer:
+        "Exterior paint generally needs a window of moderate temperature and low humidity to cure properly, which in this region usually favors spring and fall over the height of summer humidity or winter cold.",
+    },
+    {
+      question: "Does Old Town's historic district affect exterior color choices?",
+      answer:
+        "Properties within a designated historic district may be subject to exterior-change review. Property owners should verify the specific rules that apply to their address before selecting a visible exterior color.",
+    },
+  ],
+};
+
+export const cityGuidePages: readonly CityGuidePageMeta[] = [alexandriaPaintingGuide];
+
 export function buildGuideJsonLd(meta: GuidePageMeta) {
   const url = `https://paintswitch.com/${meta.slug}`;
 

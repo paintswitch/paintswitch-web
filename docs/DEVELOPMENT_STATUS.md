@@ -1,6 +1,12 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-08-22
+Last repository inspection: 2026-09-05
+
+## First city-specific blog post added (D-068(A) extension): Alexandria, VA — 2026-09-05
+
+At the owner's direct request, added a pilot city-specific blog post at `/alexandria-va-painting-guide`, extending D-068(A)'s already-confirmed content/topical-authority plan to per-city local content (older-home prep, historic-district exterior review, Mid-Atlantic seasonal timing, rowhouse/party-wall access), distinct from the existing citywide interior-color and exterior-maintenance guides. It reuses the same `LegalPage` layout, the same `GuidePageMeta`/`buildGuideJsonLd` shape (extended with a `citySlug`/`cityLabel` pair for the back-link to `/alexandria-va`), and the same D-063 guardrails already governing city pages and guides: no pricing, no license/EPA claims, no `Top-Rated` language, schema matching only visible facts. Linked from a new "City painting guides" section on `/guides` and added to `sitemap.xml`. Per Alexandria-first sequencing (D-062/D-063), this is the first of the ten existing city pages to get a matching blog post; the shared city-page component (`city-landing-page.tsx`) was deliberately left unmodified per the standing city-page-work restriction on shared component layouts. All 75 tests, lint, and the production build pass.
+
+**Not yet done:** the remaining nine cities' blog posts (Arlington first, per the same sequencing), and D-068(C)'s backlink/citation/social-media workstream, which is external account-holder work (see the punch list delivered to the owner alongside this change) rather than something built in this repository.
 
 ## D-068(A) fully complete: guide pages published, service-page nav bug fixed — 2026-08-22
 

@@ -25,7 +25,9 @@ import {
   servicePages,
 } from "../src/lib/service-pages.ts";
 import {
+  alexandriaPaintingGuide,
   buildGuideJsonLd,
+  cityGuidePages,
   exteriorMaintenanceGuide,
   guidePages,
   interiorColorGuide,
@@ -81,6 +83,7 @@ const guidePageData = source("src/lib/guide-pages.ts");
 const guidesHubPage = source("src/app/guides/page.tsx");
 const interiorColorGuidePage = source("src/app/how-to-choose-interior-paint-colors/page.tsx");
 const exteriorMaintenanceGuidePage = source("src/app/exterior-paint-maintenance-guide/page.tsx");
+const alexandriaPaintingGuidePage = source("src/app/alexandria-va-painting-guide/page.tsx");
 const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
@@ -122,6 +125,7 @@ const customerFacingSources = {
   "guides hub page": guidesHubPage,
   "interior color guide page": interiorColorGuidePage,
   "exterior maintenance guide page": exteriorMaintenanceGuidePage,
+  "Alexandria painting guide page": alexandriaPaintingGuidePage,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -545,8 +549,45 @@ test("guide pages use the shared non-salesy legal-page layout with no embedded q
   }
 });
 
+test("city guide pages use approved metadata limits, link to their city page, and are linked from the hub", () => {
+  assert.deepEqual(
+    cityGuidePages.map((guide) => guide.slug),
+    ["alexandria-va-painting-guide"],
+  );
+
+  for (const guide of cityGuidePages) {
+    assert.ok(guide.title.length < 60, `${guide.slug} title exceeds 59 characters`);
+    assert.ok(guide.description.length < 155, `${guide.slug} description exceeds 154 characters`);
+  }
+
+  assert.match(alexandriaPaintingGuidePage, /canonical: `https:\/\/paintswitch\.com\/\$\{alexandriaPaintingGuide\.slug\}`/u);
+  assert.match(alexandriaPaintingGuidePage, /href=\{`\/\$\{alexandriaPaintingGuide\.citySlug\}`\}/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/alexandria-va-painting-guide"/u);
+  assert.match(guidesHubPage, /cityGuidePages\.map/u);
+
+  assert.match(alexandriaPaintingGuidePage, /<LegalPage/u);
+  assert.match(alexandriaPaintingGuidePage, /eyebrowLabel="Published"/u);
+  assert.doesNotMatch(alexandriaPaintingGuidePage, /QuoteRequestForm/u);
+  assert.doesNotMatch(alexandriaPaintingGuidePage, /<Header\b/u);
+
+  const jsonLd = buildGuideJsonLd(alexandriaPaintingGuide);
+  const [article, faqPage] = jsonLd["@graph"];
+  assert.equal(article["@type"], "Article");
+  assert.equal(article.url, `https://paintswitch.com/${alexandriaPaintingGuide.slug}`);
+  assert.deepEqual(
+    faqPage.mainEntity.map((question) => ({
+      question: question.name,
+      answer: question.acceptedAnswer.text,
+    })),
+    alexandriaPaintingGuide.faqs,
+  );
+  const serialized = JSON.stringify(jsonLd);
+  assert.doesNotMatch(serialized, /"(?:aggregateRating|areaServed|postalCode|streetAddress|price|license|insurance|offers|hasOfferCatalog)"\s*:/iu);
+  assert.doesNotMatch(serialized, /\bEPA\b/iu);
+});
+
 test("guide content contains no unsupported marketing claims and matches its JSON-LD", () => {
-  const publicGuideSources = `${guidePageData}\n${guidesHubPage}\n${interiorColorGuidePage}\n${exteriorMaintenanceGuidePage}`;
+  const publicGuideSources = `${guidePageData}\n${guidesHubPage}\n${interiorColorGuidePage}\n${exteriorMaintenanceGuidePage}\n${alexandriaPaintingGuidePage}`;
   assert.doesNotMatch(publicGuideSources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
   assert.doesNotMatch(publicGuideSources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
   assert.doesNotMatch(publicGuideSources, /\bJen(?:\s+Contracting)?\b/iu);

@@ -117,6 +117,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: "https://paintswitch.com/alexandria-va-painting-guide",
+      lastModified: "2026-09-05",
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
+    {
       url: "https://paintswitch.com/privacy",
       lastModified: "2026-08-22",
       changeFrequency: "yearly",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { SectionHeading } from "@/components/section-heading";
-import { guidePages } from "@/lib/guide-pages";
+import { cityGuidePages, guidePages } from "@/lib/guide-pages";
 
 export const metadata: Metadata = {
   title: "Painting Guides | PaintSwitch",
@@ -43,6 +43,31 @@ export default function GuidesPage() {
             <ul className="mt-14 grid gap-x-8 gap-y-1 border-t border-[#A99D91]/60 sm:grid-cols-2">
               {guidePages.map((guide) => (
                 <li key={guide.slug} className="border-b border-[#A99D91]/60 py-6">
+                  <a
+                    href={`/${guide.slug}`}
+                    className="group flex items-center justify-between gap-4 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
+                  >
+                    <span className="font-editorial text-2xl font-normal tracking-[-0.03em] text-[#253231] group-hover:text-[#012765]">
+                      {guide.headline}
+                    </span>
+                    <span aria-hidden="true" className="h-2 w-2 shrink-0 bg-[#0658FE] transition-transform duration-300 group-hover:rotate-45" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="border-t border-[#A99D91]/60 bg-[#D1C4B8] px-5 py-20 sm:px-8 lg:py-28">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="Local guides"
+              title="City painting guides"
+              description="Local factors, like older construction, historic-district review, and regional climate, for specific service areas. More cities will be added over time."
+            />
+            <ul className="mt-14 grid gap-x-8 gap-y-1 border-t border-[#3D4E4E]/45 sm:grid-cols-2">
+              {cityGuidePages.map((guide) => (
+                <li key={guide.slug} className="border-b border-[#3D4E4E]/45 py-6">
                   <a
                     href={`/${guide.slug}`}
                     className="group flex items-center justify-between gap-4 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
