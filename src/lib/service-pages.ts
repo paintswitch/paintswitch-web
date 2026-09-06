@@ -42,7 +42,7 @@ export const interiorPaintingServicePage: ServicePageData = {
   serviceName: "Interior Painting",
   title: "Interior Painting Services | PaintSwitch",
   description:
-    "Interior painting for walls, ceilings, trim, doors, and closets. Request a reviewed quote from PaintSwitch to start an interior painting project.",
+    "Interior painting for walls, ceilings, trim, doors, and closets. Call (571) 565-9491 or request a reviewed quote from PaintSwitch.",
   primaryKeyword: "Interior Painting Services",
   heroHeading: "Interior painting, reviewed room by room.",
   heroSummary:
@@ -139,7 +139,7 @@ export const exteriorPaintingServicePage: ServicePageData = {
   serviceName: "Exterior Painting",
   title: "Exterior Painting Services | PaintSwitch",
   description:
-    "Exterior painting for siding, trim, doors, and shutters. Request a reviewed quote from PaintSwitch to start an exterior painting project.",
+    "Exterior painting for siding, trim, doors, and shutters. Call (571) 565-9491 or request a reviewed quote from PaintSwitch.",
   primaryKeyword: "Exterior Painting Services",
   heroHeading: "Exterior painting, planned around the building.",
   heroSummary:
@@ -236,7 +236,7 @@ export const cabinetPaintingServicePage: ServicePageData = {
   serviceName: "Cabinet Painting",
   title: "Cabinet Painting Services | PaintSwitch",
   description:
-    "Cabinet painting for kitchens, bathrooms, and built-ins. Request a reviewed quote from PaintSwitch to start a cabinet painting project.",
+    "Cabinet painting for kitchens, bathrooms, and built-ins. Call (571) 565-9491 or request a reviewed quote from PaintSwitch.",
   primaryKeyword: "Cabinet Painting Services",
   heroHeading: "Cabinet painting, planned around doors and drawers.",
   heroSummary:
@@ -332,7 +332,7 @@ export const commercialPaintingServicePage: ServicePageData = {
   serviceName: "Commercial Painting",
   title: "Commercial Painting Services | PaintSwitch",
   description:
-    "Commercial painting for offices, retail spaces, and common areas. Request a reviewed quote from PaintSwitch to start a project.",
+    "Commercial painting for offices, retail spaces, and common areas. Call (571) 565-9491 or request a reviewed quote from PaintSwitch.",
   primaryKeyword: "Commercial Painting Services",
   heroHeading: "Commercial painting, coordinated around your business.",
   heroSummary:

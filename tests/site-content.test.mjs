@@ -29,6 +29,10 @@ import {
   cityGuidePages,
   guidePages,
 } from "../src/lib/guide-pages.ts";
+import {
+  buildCityServiceJsonLd,
+  cityServicePages,
+} from "../src/lib/city-service-pages.ts";
 
 function source(path) {
   return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -81,6 +85,11 @@ const guidesHubPage = source("src/app/guides/page.tsx");
 const cityGuidePageSourceByLabel = Object.fromEntries(
   cityGuidePages.map((guide) => [`${guide.cityLabel} painting guide page`, source(`src/app/${guide.slug}/page.tsx`)]),
 );
+const cityServicePageSources = Object.fromEntries(
+  cityServicePages.map((page) => [`${page.slug} page`, source(`src/app/${page.slug}/page.tsx`)]),
+);
+const cityServicePageComponent = source("src/components/city-service-page.tsx");
+const serviceAreasPage = source("src/app/service-areas/page.tsx");
 const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
@@ -122,6 +131,9 @@ const customerFacingSources = {
   "guides hub page": guidesHubPage,
   ...Object.fromEntries(guidePages.map((guide) => [`${guide.slug} guide page`, source(`src/app/${guide.slug}/page.tsx`)])),
   ...cityGuidePageSourceByLabel,
+  ...cityServicePageSources,
+  "city service page component": cityServicePageComponent,
+  "service areas page": serviceAreasPage,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -512,6 +524,64 @@ test("service JSON-LD matches the visible service and FAQ data without unsupport
   }
 
   assert.match(servicePageComponent, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
+});
+
+test("city x service pages use approved metadata limits, canonical routes, and are linked from service areas and the sitemap", () => {
+  assert.deepEqual(
+    cityServicePages.map((page) => page.slug),
+    [
+      "alexandria-va-interior-painting",
+      "alexandria-va-exterior-painting",
+      "alexandria-va-cabinet-painting",
+      "alexandria-va-commercial-painting",
+      "arlington-va-interior-painting",
+      "arlington-va-exterior-painting",
+      "arlington-va-cabinet-painting",
+      "arlington-va-commercial-painting",
+    ],
+  );
+
+  for (const component of ["Header", "Footer", "PrimaryButton", "QuoteRequestForm", "SectionHeading", "TrustBar"]) {
+    assert.match(cityServicePageComponent, new RegExp(`<${component}\\b`, "u"), `missing shared ${component}`);
+  }
+  assert.doesNotMatch(cityServicePageComponent, /HighLevelChatWidget/u);
+
+  for (const page of cityServicePages) {
+    assert.ok(page.title.length < 60, `${page.slug} title exceeds 59 characters`);
+    assert.ok(page.description.length < 155, `${page.slug} description exceeds 154 characters`);
+
+    const source_ = cityServicePageSources[`${page.slug} page`];
+    assert.match(source_, new RegExp(`canonical: \`https://paintswitch\\.com/\\$\\{\\w+\\.slug\\}\``, "u"));
+    assert.match(sitemap, new RegExp(`url: "https://paintswitch\\.com/${page.slug}"`, "u"));
+
+    const jsonLd = buildCityServiceJsonLd(page);
+    const [service, faqPage] = jsonLd["@graph"];
+    assert.equal(service["@type"], "Service");
+    assert.equal(service.url, `https://paintswitch.com/${page.slug}`);
+    assert.equal(service.serviceType, page.serviceName);
+    assert.deepEqual(
+      faqPage.mainEntity.map((question) => ({
+        question: question.name,
+        answer: question.acceptedAnswer.text,
+      })),
+      page.faqs,
+    );
+
+    const serialized = JSON.stringify(jsonLd);
+    assert.doesNotMatch(serialized, /"(?:aggregateRating|areaServed|postalCode|streetAddress|price|license|insurance|offers|hasOfferCatalog)"\s*:/iu);
+    assert.doesNotMatch(serialized, /\bEPA\b/iu);
+  }
+
+  assert.match(cityServicePageComponent, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
+  assert.match(serviceAreasPage, /cityServicePages\.map/u);
+});
+
+test("city x service page content contains no unsupported marketing claims", () => {
+  const publicCityServiceSources = `${cityServicePageComponent}\n${Object.values(cityServicePageSources).join("\n")}`;
+  assert.doesNotMatch(publicCityServiceSources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
+  assert.doesNotMatch(publicCityServiceSources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
+  assert.doesNotMatch(publicCityServiceSources, /\bJen(?:\s+Contracting)?\b/iu);
+  assert.doesNotMatch(publicCityServiceSources, /guarantee[ds]? coverage|guaranteed availability/iu);
 });
 
 test("guide pages use approved metadata limits, canonical routes, and are linked from the hub and footer", () => {

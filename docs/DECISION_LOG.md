@@ -715,6 +715,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
   - **Consequences:** Real project photos may be published to Google Business Profile, the website, and social accounts once the notice is in the proposal/work-order templates. D-058 still governs on-site imagery (real project images labeled as such; no stock or generated imagery passed off as customer work) and D-066 still bars publishing addresses. Wording has not been reviewed by counsel; the D-067 attorney review covered the website Privacy Policy and Terms, not proposal documents.
   - **Supersedes:** The plan's original request for a per-customer photo-permission step (`docs/SEO_BUSINESS_PLAN.md` §9, item 4).
 
+## D-072 — City x service landing pages for Alexandria and Arlington; phone number added to meta descriptions site-wide
+
+- **Date:** 2026-09-06
+- **Status:** Confirmed
+- **Decision:** Following a competitive SEO review (jccustomva.com and other Alexandria-area painters), added eight new pages combining city and service intent for the two highest-priority cities (D-062/D-063): `/alexandria-va-{interior,exterior,cabinet,commercial}-painting` and `/arlington-va-{interior,exterior,cabinet,commercial}-painting`. Each page follows the exact D-063 guardrails already governing city and service pages (no pricing, no license/EPA/insured/top-rated claims, schema matching only visible facts, existing global design reused via a new shared `CityServicePage` component). Content is unique per page, drawn from the same source-backed local facts already used on each city's landing page and guide, applied specifically to the one service in question, plus a full quote-request form. Linked from a new section on `/service-areas` and from each page back to its city page, service page, city guide, and cost guide. Also added the published phone number, `(571) 565-9491`, to the meta description of the homepage, all ten city pages, and all four service pages, matching the "phone number in the meta description" pattern observed on competitor sites and improving name-address-phone consistency for local SEO.
+  - **Reason:** Owner-approved based on the SEO review finding that competing city painters rank city+service combination pages (e.g. CertaPro's `/alexandria/exterior-painting-services/`) that PaintSwitch did not have, and that competitor meta descriptions surface a phone number to improve click-through.
+  - **Consequences:** Adds 8 new indexable, tested routes; `sitemap.xml` and `/service-areas` updated. No shared component used elsewhere (`city-landing-page.tsx`, `service-page.tsx`) was modified. All existing descriptions remain under the 154-character limit used by the test suite. Does not extend this pattern to the other eight cities; that would need its own follow-through pass if wanted.
+  - **Supersedes:** None.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:

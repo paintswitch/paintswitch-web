@@ -2,6 +2,12 @@
 
 Last repository inspection: 2026-09-06
 
+## City x service pages for Alexandria and Arlington; phone number in meta descriptions — 2026-09-06
+
+Per D-072, following a competitive SEO teardown of jccustomva.com and other Alexandria-area painting companies, added 8 new city+service combination pages (`/alexandria-va-interior-painting`, `/alexandria-va-exterior-painting`, `/alexandria-va-cabinet-painting`, `/alexandria-va-commercial-painting`, and the same four for Arlington) via a new `src/lib/city-service-pages.ts` data set and shared `src/components/city-service-page.tsx` component (Header/Footer/TrustBar/SectionHeading/QuoteRequestForm, `Service`+`FAQPage` JSON-LD). Content is unique per page and grounded in each city's already-vetted local facts, applied to one specific service. Linked from a new section on `/service-areas` and cross-linked to each city page, service page, city guide, and cost guide. Also added the published phone number `(571) 565-9491` to the meta description of the homepage, all 10 city pages, and all 4 service pages for NAP consistency, keeping every description under the 154-character test limit. No shared city-page or service-page component was modified. All 77 tests, lint, and the production build (47 routes) pass.
+
+**Not yet done:** the same city x service pattern for the other eight cities (Chevy Chase Village, McLean, Potomac, Vienna, Fairfax Station, Bethesda, Great Falls, Oakton) — deferred since Alexandria and Arlington are the standing priority (D-062/D-063).
+
 ## Three "what affects cost" guides published — 2026-09-06
 
 Per the SEO plan's content recommendation and owner go-ahead, added `/what-affects-interior-painting-cost`, `/what-affects-exterior-painting-cost`, and `/what-affects-cabinet-painting-cost` to the topical `guidePages` set. They target the highest-intent painting queries ("how much does it cost to paint...") while staying inside the D-063 guardrail: they explain the factors that move a quote (size, height, condition, prep, trim, color change, access, weather, door count, wood grain) and publish no prices, ranges, or policy figures. Each links to its service page; the interior, exterior, and cabinet service pages link back via a new optional `costGuideSlug` field. Listed on `/guides` and in `sitemap.xml`. The topical-guide tests were generalized to loop over `guidePages`, so the marketing-claims and JSON-LD checks cover all five automatically. All 75 tests, lint, and the production build (39 routes) pass.
