@@ -89,7 +89,7 @@ export const alexandriaCityPage: CityLandingPageData = {
   slug: "alexandria-va",
   title: "Painters in Alexandria, VA | PaintSwitch",
   description:
-    "Need painters in Alexandria, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Alexandria, VA? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters Alexandria VA",
   heroSummary:
     "Looking for painters in Alexandria, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests with local building context in mind. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -175,7 +175,7 @@ export const arlingtonCityPage: CityLandingPageData = {
   slug: "arlington-va",
   title: "Painters in Arlington, VA | PaintSwitch",
   description:
-    "Need painters in Arlington, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Arlington, VA? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters Arlington VA",
   heroSummary:
     "Looking for painters in Arlington, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the county's varied housing and commercial spaces. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -288,7 +288,7 @@ export const chevyChaseVillageCityPage: CityLandingPageData = {
   slug: "chevy-chase-village-md",
   title: "Painters in Chevy Chase Village, MD | PaintSwitch",
   description:
-    "Need painters in Chevy Chase Village, MD? Explore interior, exterior, cabinet, and commercial painting reviewed before PaintSwitch confirms your quote.",
+    "Need painters in Chevy Chase Village, MD? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for painting services.",
   primaryKeyword: "Painters Chevy Chase Village MD",
   heroSummary:
     "Looking for painters in Chevy Chase Village, MD? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests with the Village's historic housing stock in mind. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -397,7 +397,7 @@ export const mcLeanCityPage: CityLandingPageData = {
   slug: "mclean-va",
   title: "Painters in McLean, VA | PaintSwitch",
   description:
-    "Need painters in McLean, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in McLean, VA? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters McLean VA",
   heroSummary:
     "Looking for painters in McLean, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's mix of estate-style and newer homes. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -508,7 +508,7 @@ export const potomacCityPage: CityLandingPageData = {
   slug: "potomac-md",
   title: "Painters in Potomac, MD | PaintSwitch",
   description:
-    "Need painters in Potomac, MD? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Potomac, MD? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters Potomac MD",
   heroSummary:
     "Looking for painters in Potomac, MD? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's mix of mid-century and newer homes. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -612,7 +612,7 @@ export const viennaCityPage: CityLandingPageData = {
   slug: "vienna-va",
   title: "Painters in Vienna, VA | PaintSwitch",
   description:
-    "Need painters in Vienna, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Vienna, VA? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters Vienna VA",
   heroSummary:
     "Looking for painters in Vienna, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the town's mix of historic and newer homes. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -716,7 +716,7 @@ export const fairfaxStationCityPage: CityLandingPageData = {
   slug: "fairfax-station-va",
   title: "Painters in Fairfax Station, VA | PaintSwitch",
   description:
-    "Need painters in Fairfax Station, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Fairfax Station, VA? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for painting services.",
   primaryKeyword: "Painters Fairfax Station VA",
   heroSummary:
     "Looking for painters in Fairfax Station, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's wooded, larger-lot properties. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -820,7 +820,7 @@ export const bethesdaCityPage: CityLandingPageData = {
   slug: "bethesda-md",
   title: "Painters in Bethesda, MD | PaintSwitch",
   description:
-    "Need painters in Bethesda, MD? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Bethesda, MD? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters Bethesda MD",
   heroSummary:
     "Looking for painters in Bethesda, MD? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's mix of historic and newer properties. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -924,7 +924,7 @@ export const greatFallsCityPage: CityLandingPageData = {
   slug: "great-falls-va",
   title: "Painters in Great Falls, VA | PaintSwitch",
   description:
-    "Need painters in Great Falls, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Great Falls, VA? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters Great Falls VA",
   heroSummary:
     "Looking for painters in Great Falls, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's mix of historic and estate-style homes. Every request receives an individual service-area and project review before availability or pricing is confirmed.",
@@ -1028,7 +1028,7 @@ export const oaktonCityPage: CityLandingPageData = {
   slug: "oakton-va",
   title: "Painters in Oakton, VA | PaintSwitch",
   description:
-    "Need painters in Oakton, VA? Explore interior, exterior, cabinet, and commercial painting, then request a reviewed quote from PaintSwitch.",
+    "Need painters in Oakton, VA? Call (571) 565-9491 or request a reviewed quote from PaintSwitch for interior, exterior, cabinet & commercial painting.",
   primaryKeyword: "Painters Oakton VA",
   heroSummary:
     "Looking for painters in Oakton, VA? PaintSwitch reviews interior, exterior, cabinet, and commercial painting requests across the area's tree-covered, larger-lot properties. Every request receives an individual service-area and project review before availability or pricing is confirmed.",

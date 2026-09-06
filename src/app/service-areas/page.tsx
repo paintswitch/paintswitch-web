@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import { PrimaryButton } from "@/components/buttons";
 import { SectionHeading } from "@/components/section-heading";
 import { cityLandingPages } from "@/lib/city-landing-pages";
+import { cityServicePages } from "@/lib/city-service-pages";
 
 export const metadata: Metadata = {
   title: "Service Areas | PaintSwitch",
@@ -78,6 +79,34 @@ export default function ServiceAreasPage() {
                       <span className="mt-1 block text-sm uppercase tracking-[0.1em] text-[#596563]">
                         {page.stateAbbreviation}
                       </span>
+                    </span>
+                    <span aria-hidden="true" className="h-2 w-2 shrink-0 bg-[#0658FE] transition-transform duration-300 group-hover:rotate-45" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="border-t border-[#A99D91]/60 bg-[#D1C4B8] px-5 py-20 sm:px-8 lg:py-28">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="By service and city"
+              title="Painting services by city"
+              description="Alexandria and Arlington also have dedicated pages for each of the four approved services."
+            />
+            <ul className="mt-14 grid gap-x-8 gap-y-1 border-t border-[#3D4E4E]/45 sm:grid-cols-2 lg:grid-cols-4">
+              {cityServicePages.map((page) => (
+                <li key={page.slug} className="border-b border-[#3D4E4E]/45 py-6">
+                  <a
+                    href={`/${page.slug}`}
+                    className="group flex items-center justify-between gap-4 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
+                  >
+                    <span>
+                      <span className="font-editorial block text-xl font-normal tracking-[-0.03em] text-[#253231] group-hover:text-[#012765]">
+                        {page.serviceName}
+                      </span>
+                      <span className="mt-1 block text-sm text-[#596563]">{page.cityLabel}</span>
                     </span>
                     <span aria-hidden="true" className="h-2 w-2 shrink-0 bg-[#0658FE] transition-transform duration-300 group-hover:rotate-45" />
                   </a>

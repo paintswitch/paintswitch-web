@@ -6,7 +6,7 @@ const GA_MEASUREMENT_ID = "G-LEKK2Q0XJ0";
 
 export const metadata: Metadata = {
   title: "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch",
-  description: "PaintSwitch provides interior, exterior, cabinet, and commercial painting across the DMV. Every project is individually reviewed before availability or pricing is confirmed.",
+  description: "Interior, exterior, cabinet, and commercial painting across the DMV. Call (571) 565-9491 or request a reviewed quote from PaintSwitch.",
   keywords: ["DMV painters", "Virginia painters", "Maryland painters", "interior painting", "exterior painting", "cabinet painting", "commercial painting"],
   verification: {
     google: "sVUjCBFVGJjWrRzky2n58cSi29Paa4UrfBGg8x4L-bo",
