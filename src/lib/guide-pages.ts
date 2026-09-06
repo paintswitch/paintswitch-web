@@ -103,7 +103,279 @@ export const alexandriaPaintingGuide: CityGuidePageMeta = {
   ],
 };
 
-export const cityGuidePages: readonly CityGuidePageMeta[] = [alexandriaPaintingGuide];
+export const arlingtonPaintingGuide: CityGuidePageMeta = {
+  slug: "arlington-va-painting-guide",
+  citySlug: "arlington-va",
+  cityLabel: "Arlington, VA",
+  title: "Arlington, VA Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Arlington, VA homeowners: matching prep to housing era, managed-building rules, and weather-driven exterior timing.",
+  headline: "A local painting guide for Arlington, VA homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Does the same prep approach work for a Cherrydale bungalow and a Rosslyn condo?",
+      answer:
+        "Not usually. Early foursquares and bungalows often carry original plaster and older trim, while newer condo buildings typically have drywall and different common-property access rules, so each calls for its own review.",
+    },
+    {
+      question: "Do condo and garden-apartment buildings have their own exterior rules?",
+      answer:
+        "Many do. Buildings with shared common property, and some individual homeowner associations, can set their own requirements for exterior color or access, separate from any citywide rule.",
+    },
+    {
+      question: "When does Arlington's weather affect exterior painting timing?",
+      answer:
+        "Humid summers and year-round precipitation mean exterior surfaces need to be dry before application, and winter temperature cycling can affect wood and masonry that already has moisture damage.",
+    },
+  ],
+};
+
+export const chevyChaseVillagePaintingGuide: CityGuidePageMeta = {
+  slug: "chevy-chase-village-md-painting-guide",
+  citySlug: "chevy-chase-village-md",
+  cityLabel: "Chevy Chase Village, MD",
+  title: "Chevy Chase Village, MD Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Chevy Chase Village, MD homeowners: early-1900s home prep, historic-district exterior review, and seasonal timing.",
+  headline: "A local painting guide for Chevy Chase Village, MD homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Why do so many Chevy Chase Village homes need extra prep work?",
+      answer:
+        "The Village was platted in 1890 and incorporated in 1951, so many of its roughly 720 homes are early-1900s construction with original plaster and multiple layers of prior coatings that benefit from careful assessment.",
+    },
+    {
+      question: "Does the historic district affect what exterior colors are allowed?",
+      answer:
+        "Chevy Chase Village includes a designated historic district, and properties within it may be subject to exterior-change review. Owners should verify the specific rules for their address before selecting a color.",
+    },
+    {
+      question: "What time of year suits exterior painting in the Village?",
+      answer:
+        "A window of moderate temperature and lower humidity generally cures exterior paint best, which in this region tends to favor spring and fall over peak summer humidity or winter cold.",
+    },
+  ],
+};
+
+export const mcLeanPaintingGuide: CityGuidePageMeta = {
+  slug: "mclean-va-painting-guide",
+  citySlug: "mclean-va",
+  cityLabel: "McLean, VA",
+  title: "McLean, VA Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for McLean, VA homeowners: estate-lot exterior planning, HOA review, and seasonal timing in the DC region.",
+  headline: "A local painting guide for McLean, VA homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Do larger McLean lots take longer to paint?",
+      answer:
+        "Estate-style homes on larger lots often have more exterior surface area and a wider mix of siding and trim materials, which can affect both preparation time and material selection.",
+    },
+    {
+      question: "Does a homeowner association affect exterior color choices in McLean?",
+      answer:
+        "Some McLean properties carry homeowner-association or other exterior requirements. Property owners should verify what applies to their address before selecting a visible exterior change.",
+    },
+    {
+      question: "When is exterior paint most likely to cure properly in McLean?",
+      answer:
+        "A window of moderate temperature and lower humidity works best, which generally favors spring and fall over the height of summer humidity or winter cold in this region.",
+    },
+  ],
+};
+
+export const potomacPaintingGuide: CityGuidePageMeta = {
+  slug: "potomac-md-painting-guide",
+  citySlug: "potomac-md",
+  cityLabel: "Potomac, MD",
+  title: "Potomac, MD Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Potomac, MD homeowners: wooded and sloping lot access, HOA review, and seasonal exterior-paint timing.",
+  headline: "A local painting guide for Potomac, MD homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Do wooded or sloping lots change how an exterior project is planned?",
+      answer:
+        "Yes. Many Potomac properties sit on wooded or sloping lots, which can affect equipment access, staging, and the overall preparation approach for exterior work.",
+    },
+    {
+      question: "Does a homeowner association affect exterior work in Potomac?",
+      answer:
+        "Some Potomac properties carry homeowner-association or other exterior requirements. Property owners should verify what applies to their address before selecting a visible exterior change.",
+    },
+    {
+      question: "What time of year is best for exterior painting in Potomac?",
+      answer:
+        "A window of moderate temperature and lower humidity cures exterior paint best, which in this region tends to favor spring and fall over peak summer humidity or winter cold.",
+    },
+  ],
+};
+
+export const viennaPaintingGuide: CityGuidePageMeta = {
+  slug: "vienna-va-painting-guide",
+  citySlug: "vienna-va",
+  cityLabel: "Vienna, VA",
+  title: "Vienna, VA Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Vienna, VA homeowners: historic-home prep near Windover Heights, semi-rural lots, and seasonal timing.",
+  headline: "A local painting guide for Vienna, VA homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Do homes near Windover Heights need different prep than newer Vienna construction?",
+      answer:
+        "Often, yes. Homes near the Windover Heights Historic District and other older sections of Vienna can carry original plaster, layered prior coatings, and age-related surface conditions worth reviewing first.",
+    },
+    {
+      question: "Does the historic district affect exterior color choices in Vienna?",
+      answer:
+        "Some Vienna properties, including those in or near the historic district, carry exterior-change requirements. Property owners should verify the rules that apply before selecting visible exterior work.",
+    },
+    {
+      question: "When does exterior paint cure best in Vienna?",
+      answer:
+        "A window of moderate temperature and lower humidity works best, which generally favors spring and fall over the height of summer humidity or winter cold in this region.",
+    },
+  ],
+};
+
+export const fairfaxStationPaintingGuide: CityGuidePageMeta = {
+  slug: "fairfax-station-va-painting-guide",
+  citySlug: "fairfax-station-va",
+  cityLabel: "Fairfax Station, VA",
+  title: "Fairfax Station, VA Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Fairfax Station, VA homeowners: estate and equestrian-property exterior planning, access, and seasonal timing.",
+  headline: "A local painting guide for Fairfax Station, VA homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Do wooded or equestrian properties need special exterior planning?",
+      answer:
+        "Estate-sized homes on wooded or equestrian properties often bring more exterior surface area and site-access considerations, which can affect both preparation time and staging.",
+    },
+    {
+      question: "Does a homeowner association affect exterior work in Fairfax Station?",
+      answer:
+        "Some Fairfax Station properties carry homeowner-association or other exterior requirements. Property owners should verify what applies to their address before selecting a visible exterior change.",
+    },
+    {
+      question: "What time of year suits exterior painting in Fairfax Station?",
+      answer:
+        "A window of moderate temperature and lower humidity cures exterior paint best, which in this region tends to favor spring and fall over peak summer humidity or winter cold.",
+    },
+  ],
+};
+
+export const bethesdaPaintingGuide: CityGuidePageMeta = {
+  slug: "bethesda-md-painting-guide",
+  citySlug: "bethesda-md",
+  cityLabel: "Bethesda, MD",
+  title: "Bethesda, MD Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Bethesda, MD homeowners: 1910s-subdivision home prep, condo and HOA rules, and seasonal exterior timing.",
+  headline: "A local painting guide for Bethesda, MD homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Do homes in Bethesda's older subdivisions need different prep?",
+      answer:
+        "Often, yes. Homes in early-1900s subdivisions such as Edgemoor, Sonoma, and Bradley Hills can carry original plaster, layered prior coatings, and age-related surface conditions worth reviewing first.",
+    },
+    {
+      question: "Do Bethesda condo or HOA buildings have their own exterior rules?",
+      answer:
+        "Some Bethesda properties, including those managed by a homeowner association or condominium board, carry exterior-change requirements. Property owners should verify the rules that apply before selecting visible exterior work.",
+    },
+    {
+      question: "When is exterior paint most likely to cure properly in Bethesda?",
+      answer:
+        "A window of moderate temperature and lower humidity works best, which generally favors spring and fall over the height of summer humidity or winter cold in this region.",
+    },
+  ],
+};
+
+export const greatFallsPaintingGuide: CityGuidePageMeta = {
+  slug: "great-falls-va-painting-guide",
+  citySlug: "great-falls-va",
+  cityLabel: "Great Falls, VA",
+  title: "Great Falls, VA Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Great Falls, VA homeowners: colonial and Federal-style home prep, large-lot exterior planning, and timing.",
+  headline: "A local painting guide for Great Falls, VA homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Do Great Falls' older colonial-era homes need special prep?",
+      answer:
+        "Homes tracing to the 1730s and 1750s, alongside later Federal-inspired construction, can carry original plaster, layered prior coatings, and age-related surface conditions worth assessing before new coatings are applied.",
+    },
+    {
+      question: "Do large, tree-lined lots add to an exterior project?",
+      answer:
+        "Estate-style homes on large, wooded lots often bring more exterior surface area and site-access considerations, which can affect preparation time and staging.",
+    },
+    {
+      question: "What time of year is best for exterior painting in Great Falls?",
+      answer:
+        "A window of moderate temperature and lower humidity cures exterior paint best, which in this region tends to favor spring and fall over peak summer humidity or winter cold.",
+    },
+  ],
+};
+
+export const oaktonPaintingGuide: CityGuidePageMeta = {
+  slug: "oakton-va-painting-guide",
+  citySlug: "oakton-va",
+  cityLabel: "Oakton, VA",
+  title: "Oakton, VA Painting Guide | PaintSwitch",
+  description:
+    "A practical guide for Oakton, VA homeowners: 1960s-subdivision home prep, wooded-lot access, and seasonal exterior-paint timing.",
+  headline: "A local painting guide for Oakton, VA homeowners",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Do homes in Oakton's 1960s subdivisions need different prep than newer construction?",
+      answer:
+        "Often, yes. Homes in subdivisions such as Waples Mill Manor can carry original wall surfaces and multiple layers of prior coatings that benefit from a closer look than newer drywall construction.",
+    },
+    {
+      question: "Do wooded lots change how an Oakton exterior project is planned?",
+      answer:
+        "Homes on larger, tree-covered lots often bring more exterior surface area and site-access considerations, which can affect preparation time and staging.",
+    },
+    {
+      question: "When does exterior paint cure best in Oakton?",
+      answer:
+        "A window of moderate temperature and lower humidity works best, which generally favors spring and fall over the height of summer humidity or winter cold in this region.",
+    },
+  ],
+};
+
+export const cityGuidePages: readonly CityGuidePageMeta[] = [
+  alexandriaPaintingGuide,
+  arlingtonPaintingGuide,
+  chevyChaseVillagePaintingGuide,
+  mcLeanPaintingGuide,
+  potomacPaintingGuide,
+  viennaPaintingGuide,
+  fairfaxStationPaintingGuide,
+  bethesdaPaintingGuide,
+  greatFallsPaintingGuide,
+  oaktonPaintingGuide,
+];
 
 export function buildGuideJsonLd(meta: GuidePageMeta) {
   const url = `https://paintswitch.com/${meta.slug}`;
