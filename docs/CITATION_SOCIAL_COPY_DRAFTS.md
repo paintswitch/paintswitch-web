@@ -2,7 +2,7 @@
 
 Drafted copy for the account-holder tasks tracked in `docs/DEVELOPMENT_STATUS.md` under D-068(C) (backlink/citation strategy). None of these accounts have been created — this is text for the owner to paste in when creating each listing. All copy follows the same guardrails as the website itself: no pricing figures, no state license or EPA/Lead-Safe claims, no "Top-Rated" or guaranteed-coverage language, no Jen Contracting name or affiliation (D-001), and no physical address (D-066 — PaintSwitch publishes a service-area listing, not a street address).
 
-**Owner action needed before using this copy:** every listing below assumes a public contact email (`hello@paintswitch.com`, already disclosed on the Privacy Policy) since PaintSwitch has no phone number or A2P registration yet (see `DEVELOPMENT_STATUS.md`). If a phone number is added later, these drafts should be revisited. Service-area radius/city list below matches the ten published city pages — adjust if you want a narrower or broader public-facing area.
+**Contact details to use on every listing:** phone `(571) 565-9491` and email `hello@paintswitch.com` — both are already published in the site footer and the homepage LocalBusiness schema, so listings must match them exactly (consistent NAP is a core local-ranking signal; any variation across directories weakens it). Note: older entries in `DEVELOPMENT_STATUS.md` still say "no phone number" — that predates the footer number and should be treated as superseded by what the live site publishes. Service-area city list below matches the ten published city pages — adjust if you want a narrower or broader public-facing area.
 
 ## Google Business Profile
 
@@ -96,3 +96,43 @@ Candidates already identified in D-068 (not yet contacted): Patricia Ammann, Nic
   > hello@paintswitch.com · paintswitch.com
 
   This keeps the relationship as a referral/link source only, with no shared identity, co-branding, or Jen Contracting mention, per D-068(D).
+
+## Google Business Profile setup checklist
+
+Work through these in order when creating the profile. GBP is the single highest-leverage local-SEO asset for a service business, so completeness matters more here than anywhere else.
+
+1. **Create as a service-area business** — when asked "Do you want to add a location customers can visit?", answer No, then list the ten cities above as the service area. Do not enter a street address (D-066).
+2. **Verification** — Google will require verification (video verification is now the default for new service-area businesses). Have the vehicle, tools, and any signage/business paperwork ready to show on camera. This is the step most new profiles stall on.
+3. **Name, phone, website** — exactly `PaintSwitch`, `(571) 565-9491`, `https://paintswitch.com`. No taglines or cities in the name (Google suspends profiles for this).
+4. **Categories** — primary `Painter`; add `House painter` and `Commercial painter` if available.
+5. **Hours** — set real hours you will answer the phone; a listing that shows Open while calls go unanswered hurts conversion.
+6. **Description** — paste the GBP description above.
+7. **Services** — add the four services, each with the matching guide-page text as its description (Interior → `/interior-painting` intro, etc.). Do not enter prices in the price field.
+8. **Photos (minimum viable set)** — logo (`public/images/paintswitch-logo.svg` exported to PNG, square), cover image, and at least 5 real project photos once available. Until real permissioned photos exist, use only the illustrative color study already on the site and label it as such in the caption — do not present stock or AI imagery as customer work (consistent with D-058's labeling rule).
+9. **Attributes** — enable "Online estimates" if offered; leave license/certification attributes blank (guardrail).
+10. **Q&A** — seed 3 questions yourself using the city-page FAQ pattern (pricing is reviewed per project; service area is reviewed per address; how long projects take).
+11. **Reviews** — after the first completed job, send the review link. Never solicit reviews from non-customers; never mention Jen Contracting past work.
+12. **Posts** — publish the opening post above, then one post per new guide page (10 city guides + 2 topical guides = 12 posts already available).
+13. **Link it back** — once live, add the GBP URL to `sameAs` in `src/lib/organization-jsonld.ts` (see the business plan) and to every other directory listing.
+
+## Paid search ad copy — PROPOSED, not approved
+
+Paid promotion is **not** currently authorized (see `DEVELOPMENT_STATUS.md`: ads and active promotion remain off; homepage CTA phrasing such as "Get My Price" is still Proposed). These drafts exist only so a go/no-go decision can be made on concrete copy. They must not be launched without an explicit owner decision recorded in `DECISION_LOG.md` covering budget, geography, and this exact wording.
+
+**Google Search — Responsive Search Ad (Alexandria/Arlington first, per D-062)**
+
+- Headlines (30-char max): `Painters in Alexandria, VA` · `Interior & Exterior Painting` · `Cabinet Painting Reviewed` · `Every Project Reviewed First` · `Request a Painting Quote` · `Commercial Painting Available` · `PaintSwitch — Northern VA` · `Color That Transforms a Room`
+- Descriptions (90-char max):
+  - `Interior, exterior, cabinet & commercial painting. Each project reviewed before a quote.`
+  - `Tell us about your space. A PaintSwitch team member follows up to discuss next steps.`
+- Final URL: the matching city page (`/alexandria-va`, `/arlington-va`), not the homepage.
+- Negative keywords to add from day one: `jobs`, `hiring`, `salary`, `free`, `DIY`, `paint store`, `sherwin`, `behr`.
+
+**Meta (Facebook/Instagram) — single-image or color-study creative**
+
+- Primary text: `Thinking about a fresh coat? PaintSwitch handles interior, exterior, cabinet, and commercial painting across Northern Virginia and suburban Maryland — every project reviewed individually before we confirm a quote.`
+- Headline: `Request a painting quote`
+- CTA button: `Learn more` (not `Get quote`, which implies instant pricing)
+- Creative: the labeled illustrative color study only, until permissioned real project photos exist.
+
+Wording deliberately avoided in all drafts: any dollar figure, "free estimate", "licensed", "insured", "top-rated", "guaranteed", "same-day", and any Jen Contracting reference.

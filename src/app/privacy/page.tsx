@@ -4,6 +4,9 @@ import { LegalPage } from "@/components/legal-page";
 export const metadata: Metadata = {
   title: "Privacy Policy | PaintSwitch",
   description: "How PaintSwitch handles information submitted through its quote-request website.",
+  alternates: {
+    canonical: "https://paintswitch.com/privacy",
+  },
 };
 
 export default function PrivacyPolicy() {

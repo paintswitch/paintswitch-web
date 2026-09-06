@@ -38,7 +38,7 @@ export function CityLandingPage({ page }: { page: CityLandingPageData }) {
                 {page.primaryKeyword}
               </p>
               <h1 className="font-editorial mt-6 max-w-3xl text-[2.15rem] font-normal leading-[0.94] tracking-[-0.055em] text-[#253231] min-[360px]:text-[2.7rem] sm:text-[4.25rem] lg:text-[clamp(4rem,6.7vw,6.4rem)]">
-                Painting services in <em className="font-normal text-[#012765]">{page.city}, Virginia.</em>
+                Painting services in <em className="font-normal text-[#012765]">{page.city}, {page.stateName}.</em>
               </h1>
               <p className="mt-8 max-w-2xl text-lg leading-8 text-[#3D4E4E] sm:text-xl">
                 {page.heroSummary}
