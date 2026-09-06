@@ -43,13 +43,15 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 - **Ten city guides published** with `Article`+`FAQPage` schema, linked from `/guides` and the sitemap.
 - **Ad, citation, and social copy drafted** with a GBP setup checklist.
 
-### Needs owner approval (visible copy or Proposed items)
+### Approved and shipped under D-070 (2026-09-06)
 
-1. **Homepage `<title>` and description carry no service or place keyword.** Current: "Request a Painting Quote | PaintSwitch." Recommended: "Painters in Northern Virginia & Suburban Maryland | PaintSwitch" with a description naming the four services and the two regions. This is the single most valuable on-page change left; the homepage is the page most likely to earn links and it currently targets nothing.
-2. **City pages do not link to their own guide.** Each guide links back to its city page, but not the reverse, so the guides have only the hub and sitemap pointing at them. One "Read the [City] painting guide" line in the city page component would fix this for all ten pages. It touches the shared city-page component, which the standing rule reserves for owner approval.
-3. **Organization schema `sameAs` and `areaServed`.** Add `sameAs` once GBP/social profiles exist (links Google's knowledge of the entity across properties). `areaServed` listing the ten cities is supportable because `/service-areas` visibly lists them; add it there or on the organization entity, not on individual city pages (their tests deliberately forbid it).
-4. **Real project photography.** The site's only image is a labeled illustrative color study. Real before/after photos are the biggest E-E-A-T and conversion gap on the site and are required for a credible GBP. **Owner decision (2026-09-06):** rather than asking each customer to approve photo use, PaintSwitch will carry a photo-use notice on proposals and work orders so customers know completed work may be photographed for marketing (no name, address, or identifying details published). Draft wording is in `CITATION_SOCIAL_COPY_DRAFTS.md`.
-5. **Homepage CTA wording** ("Get My Price", "No phone call required") remains Proposed; leave as is unless the owner decides.
+1. **Homepage `<title>` and description carried no service or place keyword.** Was "Request a Painting Quote | PaintSwitch"; now "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch" (owner asked for DMV framing rather than state names), with a description naming the four services and the DMV. Open Graph and Twitter titles follow.
+2. **City pages did not link to their own guide.** Each city page now ends its neighborhoods section with "Read the [City] painting guide," so every guide has an in-content link from its city page, not just the hub and sitemap.
+3. **Schema `areaServed` shipped; `sameAs` deferred.** `/service-areas` now carries a `LocalBusiness` block with `areaServed` for the ten cities it visibly lists (not on individual city pages, whose tests forbid it). `sameAs` is added as soon as the GBP and social profile URLs exist.
+
+### Still open
+1. **Real project photography.** The site's only image is a labeled illustrative color study. Real before/after photos are the biggest E-E-A-T and conversion gap on the site and are required for a credible GBP. **Owner decision (2026-09-06):** rather than asking each customer to approve photo use, PaintSwitch will carry a photo-use notice on proposals and work orders so customers know completed work may be photographed for marketing (no name, address, or identifying details published). Draft wording is in `CITATION_SOCIAL_COPY_DRAFTS.md`.
+2. **Homepage CTA wording** ("Get My Price", "No phone call required") remains Proposed; leave as is unless the owner decides.
 
 ### Minor / later
 
@@ -62,7 +64,7 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 
 **Technical (done, keep clean).** Static rendering, canonicals, sitemap, schema. Re-run lint/tests/build on every change; run a Search Console coverage check monthly.
 
-**On-page.** Approve the homepage title/description change. Keep the D-063 guardrails: no prices, no license/EPA/insured/top-rated claims, schema only for visible facts. One primary keyword per page (already true).
+**On-page.** Homepage title now targets the DMV and the four services (D-070). Keep the D-063 guardrails: no prices, no license/EPA/insured/top-rated claims, schema only for visible facts. One primary keyword per page (already true).
 
 **Local (the priority).** GBP first, then Apple Maps, Bing Places, Yelp, Nextdoor, Angi, BBB — all with identical name, phone `(571) 565-9491`, website, and no street address (D-066). Identical NAP across every listing is a direct ranking input; a single mismatch dilutes it.
 
@@ -70,7 +72,7 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 
 **Authority.** Citations above; the five agent referral emails; a Nextdoor presence in Alexandria and Arlington first (D-062 order); one supplier or paint-store relationship for a local link. No paid links (D-068(C)).
 
-**Conversion.** Answer the phone during posted GBP hours; respond to form leads inside the existing 5-minute escalation window; ask every completed customer for a Google review and photo permission.
+**Conversion.** Answer the phone during posted GBP hours; respond to form leads inside the existing 5-minute escalation window; ask every completed customer for a Google review; the proposal/work-order photo notice (D-071) covers photo use.
 
 **Measurement.** GA4 + Search Console (in place); add Bing Webmaster Tools (submit the sitemap; Bing feeds DuckDuckGo and Copilot) and Microsoft Clarity (free session recordings) — both are 15-minute tasks already on the open list.
 
@@ -79,7 +81,6 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 **Weeks 1–2 — Foundation (owner time: ~4 hours total)**
 - Create and verify GBP (video verification; see checklist). Post the opening post.
 - Set up Bing Webmaster Tools and Microsoft Clarity.
-- Approve or decline the homepage title/description change and the city-page → guide link; if approved, both ship the same day.
 - Create Instagram and Facebook with the drafted bios; publish the first post on each.
 
 **Weeks 3–6 — Citations and referrals (~1 hour/day within the D-023 limit)**
@@ -118,8 +119,8 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 
 ## 9. Decisions requested from the owner
 
-1. Approve the homepage title/description change (recommended wording in §4).
-2. Approve the one-line city-page → city-guide link in the shared city-page component.
-3. Approve `sameAs`/`areaServed` schema additions once profiles exist.
-4. ~~Adopt a customer photo-permission step~~ Decided 2026-09-06: photo-use notice on proposals and work orders instead of per-customer approval.
-5. Set a week-8 rule for the paid-search decision (budget ceiling and geography), or decline paid in advance.
+1. ~~Homepage title/description~~ Approved and shipped (D-070) with DMV framing.
+2. ~~City-page → city-guide link~~ Approved and shipped (D-070).
+3. ~~`areaServed` schema~~ Shipped (D-070); send GBP/social URLs when live for `sameAs`.
+4. ~~Photo-permission step~~ Decided (D-071): photo-use notice on proposals and work orders.
+5. **Open:** set a week-8 rule for the paid-search decision (budget ceiling and geography), or decline paid in advance.
