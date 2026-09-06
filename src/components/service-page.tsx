@@ -189,6 +189,11 @@ export function ServicePage({ page }: { page: ServicePageData }) {
             </ul>
             <p className="mt-8 text-sm leading-6 text-[#596563]">
               Looking for a specific city? Browse <a href="/service-areas" className="text-[#012765] underline underline-offset-2">Service Areas</a>.
+              {page.costGuideSlug && (
+                <>
+                  {" "}Wondering what shapes a quote? Read <a href={`/${page.costGuideSlug}`} className="text-[#012765] underline underline-offset-2">what affects {page.serviceName.toLowerCase()} cost</a>.
+                </>
+              )}
             </p>
           </div>
         </section>

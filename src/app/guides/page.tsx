@@ -6,7 +6,7 @@ import { cityGuidePages, guidePages } from "@/lib/guide-pages";
 
 export const metadata: Metadata = {
   title: "Painting Guides | PaintSwitch",
-  description: "Practical, non-salesy guides on color selection and exterior paint maintenance from PaintSwitch.",
+  description: "Practical, non-salesy guides on color selection, exterior paint maintenance, and what affects painting cost, from PaintSwitch.",
   alternates: {
     canonical: "https://paintswitch.com/guides",
   },
@@ -28,7 +28,7 @@ export default function GuidesPage() {
               Practical reading, <em className="font-normal text-[#012765]">not a sales pitch.</em>
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-[#3D4E4E] sm:text-xl">
-              These guides cover the kinds of questions that come up before a painting project starts, like choosing a color or knowing when exterior paint needs attention. They&apos;re informational, not project reviews.
+              These guides cover the kinds of questions that come up before a painting project starts, like choosing a color, knowing when exterior paint needs attention, or understanding what shapes a quote. They&apos;re informational, not project reviews.
             </p>
           </div>
         </section>
@@ -37,7 +37,7 @@ export default function GuidesPage() {
           <div className="mx-auto max-w-7xl">
             <SectionHeading
               eyebrow="Available guides"
-              title="Color and maintenance guides"
+              title="Color, maintenance, and cost guides"
               description="More guides will be added over time."
             />
             <ul className="mt-14 grid gap-x-8 gap-y-1 border-t border-[#A99D91]/60 sm:grid-cols-2">

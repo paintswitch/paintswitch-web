@@ -67,7 +67,88 @@ export const exteriorMaintenanceGuide: GuidePageMeta = {
   ],
 };
 
-export const guidePages = [interiorColorGuide, exteriorMaintenanceGuide] as const;
+export const interiorCostGuide: GuidePageMeta = {
+  slug: "what-affects-interior-painting-cost",
+  title: "What Affects Interior Painting Cost | PaintSwitch",
+  description:
+    "What drives an interior painting quote: room size and ceiling height, surface condition and repairs, trim and doors, color changes, and furnished rooms.",
+  headline: "What affects the cost of interior painting",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Why do two rooms of the same size get different quotes?",
+      answer:
+        "Because the walls are rarely the same. Ceiling height, the number of doors and windows, the condition of the existing surface, and whether the ceiling and trim are included all change the amount of preparation and painting time involved.",
+    },
+    {
+      question: "Does changing from a dark color to a light one cost more?",
+      answer:
+        "It usually takes more work. A strong color change typically needs a primer coat or an extra finish coat to cover evenly, which adds material and time compared to repainting in a similar shade.",
+    },
+    {
+      question: "Is it cheaper to paint several rooms at once?",
+      answer:
+        "Often the per-room effort is lower when rooms are painted together, since setup, protection, and cleanup are shared. The total still depends on each room's surfaces and condition, which is why PaintSwitch reviews the scope before confirming a quote.",
+    },
+  ],
+};
+
+export const exteriorCostGuide: GuidePageMeta = {
+  slug: "what-affects-exterior-painting-cost",
+  title: "What Affects Exterior Painting Cost | PaintSwitch",
+  description:
+    "What drives an exterior painting quote: siding material, surface condition and prep, building height and access, trim and details, and weather timing.",
+  headline: "What affects the cost of exterior painting",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Why is preparation such a large part of an exterior quote?",
+      answer:
+        "Exterior paint only lasts as long as the surface under it. Washing, scraping loose paint, sanding, caulking, priming bare spots, and repairing damaged wood are what keep a new coat from failing early, and they often take longer than the painting itself.",
+    },
+    {
+      question: "Does a two-story house cost more than the square footage suggests?",
+      answer:
+        "Usually, yes. Height adds ladder and staging time, slows every step, and can require extra equipment to reach safely, so the same wall area takes longer on an upper story than at ground level.",
+    },
+    {
+      question: "Does the type of siding change the price?",
+      answer:
+        "Yes. Wood, fiber cement, stucco, brick, and aluminum each absorb paint differently and need different preparation and primers, and heavily textured or weathered surfaces take more material and time to cover.",
+    },
+  ],
+};
+
+export const cabinetCostGuide: GuidePageMeta = {
+  slug: "what-affects-cabinet-painting-cost",
+  title: "What Affects Cabinet Painting Cost | PaintSwitch",
+  description:
+    "What drives a cabinet painting quote: door and drawer count, existing finish, wood type and grain, hardware, color change, and where the work is done.",
+  headline: "What affects the cost of cabinet painting",
+  publishedDateIso: "2026-09-06",
+  publishedDateDisplay: "September 6, 2026",
+  faqs: [
+    {
+      question: "Why are cabinets quoted by door and drawer count instead of kitchen size?",
+      answer:
+        "Because each door and drawer front is prepared, primed, and finished individually on both sides, plus the cabinet boxes and face frames in place. Two kitchens of the same floor area can have very different numbers of pieces.",
+    },
+    {
+      question: "Do oak or other open-grain cabinets cost more to paint?",
+      answer:
+        "They can. Open-grain woods like oak show texture through paint unless the grain is filled first, which is an extra preparation step compared to smooth maple, birch, or previously painted cabinets.",
+    },
+    {
+      question: "Is painting cabinets cheaper than replacing them?",
+      answer:
+        "Painting is generally a fraction of the cost of new cabinets because the boxes, doors, and layout stay in place. PaintSwitch reviews the existing cabinets first, since finishing quality depends on their condition.",
+    },
+  ],
+};
+
+export const guidePages = [interiorColorGuide, exteriorMaintenanceGuide, interiorCostGuide, exteriorCostGuide, cabinetCostGuide] as const;
 
 export type CityGuidePageMeta = GuidePageMeta & {
   citySlug: string;

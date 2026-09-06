@@ -27,9 +27,7 @@ import {
 import {
   buildGuideJsonLd,
   cityGuidePages,
-  exteriorMaintenanceGuide,
   guidePages,
-  interiorColorGuide,
 } from "../src/lib/guide-pages.ts";
 
 function source(path) {
@@ -80,8 +78,6 @@ const cabinetPaintingPage = source("src/app/cabinet-painting/page.tsx");
 const commercialPaintingPage = source("src/app/commercial-painting/page.tsx");
 const guidePageData = source("src/lib/guide-pages.ts");
 const guidesHubPage = source("src/app/guides/page.tsx");
-const interiorColorGuidePage = source("src/app/how-to-choose-interior-paint-colors/page.tsx");
-const exteriorMaintenanceGuidePage = source("src/app/exterior-paint-maintenance-guide/page.tsx");
 const cityGuidePageSourceByLabel = Object.fromEntries(
   cityGuidePages.map((guide) => [`${guide.cityLabel} painting guide page`, source(`src/app/${guide.slug}/page.tsx`)]),
 );
@@ -124,8 +120,7 @@ const customerFacingSources = {
   "Commercial Painting page": commercialPaintingPage,
   "guide page data": guidePageData,
   "guides hub page": guidesHubPage,
-  "interior color guide page": interiorColorGuidePage,
-  "exterior maintenance guide page": exteriorMaintenanceGuidePage,
+  ...Object.fromEntries(guidePages.map((guide) => [`${guide.slug} guide page`, source(`src/app/${guide.slug}/page.tsx`)])),
   ...cityGuidePageSourceByLabel,
 };
 
@@ -522,7 +517,13 @@ test("service JSON-LD matches the visible service and FAQ data without unsupport
 test("guide pages use approved metadata limits, canonical routes, and are linked from the hub and footer", () => {
   assert.deepEqual(
     guidePages.map((guide) => guide.slug),
-    ["how-to-choose-interior-paint-colors", "exterior-paint-maintenance-guide"],
+    [
+      "how-to-choose-interior-paint-colors",
+      "exterior-paint-maintenance-guide",
+      "what-affects-interior-painting-cost",
+      "what-affects-exterior-painting-cost",
+      "what-affects-cabinet-painting-cost",
+    ],
   );
 
   for (const guide of guidePages) {
@@ -530,11 +531,12 @@ test("guide pages use approved metadata limits, canonical routes, and are linked
     assert.ok(guide.description.length < 155, `${guide.slug} description exceeds 154 characters`);
   }
 
-  assert.match(interiorColorGuidePage, /canonical: `https:\/\/paintswitch\.com\/\$\{interiorColorGuide\.slug\}`/u);
-  assert.match(exteriorMaintenanceGuidePage, /canonical: `https:\/\/paintswitch\.com\/\$\{exteriorMaintenanceGuide\.slug\}`/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/guides"/u);
-  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/how-to-choose-interior-paint-colors"/u);
-  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/exterior-paint-maintenance-guide"/u);
+  for (const guide of guidePages) {
+    const page = source(`src/app/${guide.slug}/page.tsx`);
+    assert.match(page, /canonical: `https:\/\/paintswitch\.com\/\$\{\w+\.slug\}`/u);
+    assert.match(sitemap, new RegExp(`url: "https://paintswitch\\.com/${guide.slug}"`, "u"));
+  }
 
   assert.match(footer, /\["Guides", "\/guides"\]/u);
   assert.match(guidesHubPage, /href=\{`\/\$\{guide\.slug\}`\}/u);
@@ -542,7 +544,7 @@ test("guide pages use approved metadata limits, canonical routes, and are linked
 });
 
 test("guide pages use the shared non-salesy legal-page layout with no embedded quote form", () => {
-  for (const guidePage of [interiorColorGuidePage, exteriorMaintenanceGuidePage]) {
+  for (const guidePage of guidePages.map((guide) => source(`src/app/${guide.slug}/page.tsx`))) {
     assert.match(guidePage, /<LegalPage/u);
     assert.match(guidePage, /eyebrowLabel="Published"/u);
     assert.doesNotMatch(guidePage, /QuoteRequestForm/u);
@@ -605,13 +607,16 @@ test("guide content contains no unsupported marketing claims and matches its JSO
   const cityGuidePageSources = cityGuidePages
     .map((guide) => source(`src/app/${guide.slug}/page.tsx`))
     .join("\n");
-  const publicGuideSources = `${guidePageData}\n${guidesHubPage}\n${interiorColorGuidePage}\n${exteriorMaintenanceGuidePage}\n${cityGuidePageSources}`;
+  const topicalGuidePageSources = guidePages
+    .map((guide) => source(`src/app/${guide.slug}/page.tsx`))
+    .join("\n");
+  const publicGuideSources = `${guidePageData}\n${guidesHubPage}\n${topicalGuidePageSources}\n${cityGuidePageSources}`;
   assert.doesNotMatch(publicGuideSources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
   assert.doesNotMatch(publicGuideSources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
   assert.doesNotMatch(publicGuideSources, /\bJen(?:\s+Contracting)?\b/iu);
   assert.doesNotMatch(publicGuideSources, /every \d+ years|repaint every/iu);
 
-  for (const guide of [interiorColorGuide, exteriorMaintenanceGuide]) {
+  for (const guide of guidePages) {
     const jsonLd = buildGuideJsonLd(guide);
     const [article, faqPage] = jsonLd["@graph"];
 
