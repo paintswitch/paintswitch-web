@@ -2,6 +2,10 @@
 
 Last repository inspection: 2026-09-06
 
+## Three "what affects cost" guides published — 2026-09-06
+
+Per the SEO plan's content recommendation and owner go-ahead, added `/what-affects-interior-painting-cost`, `/what-affects-exterior-painting-cost`, and `/what-affects-cabinet-painting-cost` to the topical `guidePages` set. They target the highest-intent painting queries ("how much does it cost to paint...") while staying inside the D-063 guardrail: they explain the factors that move a quote (size, height, condition, prep, trim, color change, access, weather, door count, wood grain) and publish no prices, ranges, or policy figures. Each links to its service page; the interior, exterior, and cabinet service pages link back via a new optional `costGuideSlug` field. Listed on `/guides` and in `sitemap.xml`. The topical-guide tests were generalized to loop over `guidePages`, so the marketing-claims and JSON-LD checks cover all five automatically. All 75 tests, lint, and the production build (39 routes) pass.
+
 ## D-070 SEO fixes shipped; Maryland state-label bug fixed; canonicals completed — 2026-09-06
 
 Per D-070 (owner-approved in session): homepage title/description now target the DMV and the four services; each city page links to its city guide; `/service-areas` carries `areaServed` schema for the ten listed cities (`sameAs` deferred until profiles exist). Two review findings were fixed the same day: the shared city-page component hard-coded "Virginia" in the hero, so Bethesda, Potomac, and Chevy Chase Village rendered the wrong state (now `stateName`); and the homepage, Privacy, and Terms had no canonical URL (added). The owner confirmed `(571) 565-9491` as the real phone number, so older "no phone number" notes below are superseded. `docs/SEO_BUSINESS_PLAN.md` records the full review, roadmap, and remaining owner decisions (photo permission, paid-search rule). All 75 tests, lint, and the production build (36 routes) pass.

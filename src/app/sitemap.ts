@@ -117,6 +117,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: "https://paintswitch.com/what-affects-interior-painting-cost",
+      lastModified: "2026-09-06",
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
+    {
+      url: "https://paintswitch.com/what-affects-exterior-painting-cost",
+      lastModified: "2026-09-06",
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
+    {
+      url: "https://paintswitch.com/what-affects-cabinet-painting-cost",
+      lastModified: "2026-09-06",
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
+    {
       url: "https://paintswitch.com/alexandria-va-painting-guide",
       lastModified: "2026-09-05",
       changeFrequency: "yearly",
