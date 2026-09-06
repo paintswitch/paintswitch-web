@@ -48,7 +48,7 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 1. **Homepage `<title>` and description carry no service or place keyword.** Current: "Request a Painting Quote | PaintSwitch." Recommended: "Painters in Northern Virginia & Suburban Maryland | PaintSwitch" with a description naming the four services and the two regions. This is the single most valuable on-page change left; the homepage is the page most likely to earn links and it currently targets nothing.
 2. **City pages do not link to their own guide.** Each guide links back to its city page, but not the reverse, so the guides have only the hub and sitemap pointing at them. One "Read the [City] painting guide" line in the city page component would fix this for all ten pages. It touches the shared city-page component, which the standing rule reserves for owner approval.
 3. **Organization schema `sameAs` and `areaServed`.** Add `sameAs` once GBP/social profiles exist (links Google's knowledge of the entity across properties). `areaServed` listing the ten cities is supportable because `/service-areas` visibly lists them; add it there or on the organization entity, not on individual city pages (their tests deliberately forbid it).
-4. **Real project photography.** The site's only image is a labeled illustrative color study. Real, permissioned before/after photos are the biggest E-E-A-T and conversion gap on the site and are required for a credible GBP. Needs a customer photo-permission line in the quote/proposal flow (a business decision, not a code change).
+4. **Real project photography.** The site's only image is a labeled illustrative color study. Real before/after photos are the biggest E-E-A-T and conversion gap on the site and are required for a credible GBP. **Owner decision (2026-09-06):** rather than asking each customer to approve photo use, PaintSwitch will carry a photo-use notice on proposals and work orders so customers know completed work may be photographed for marketing (no name, address, or identifying details published). Draft wording is in `CITATION_SOCIAL_COPY_DRAFTS.md`.
 5. **Homepage CTA wording** ("Get My Price", "No phone call required") remains Proposed; leave as is unless the owner decides.
 
 ### Minor / later
@@ -121,5 +121,5 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 1. Approve the homepage title/description change (recommended wording in §4).
 2. Approve the one-line city-page → city-guide link in the shared city-page component.
 3. Approve `sameAs`/`areaServed` schema additions once profiles exist.
-4. Adopt a customer photo-permission step so real project images can be published.
+4. ~~Adopt a customer photo-permission step~~ Decided 2026-09-06: photo-use notice on proposals and work orders instead of per-customer approval.
 5. Set a week-8 rule for the paid-search decision (budget ceiling and geography), or decline paid in advance.

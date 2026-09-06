@@ -136,3 +136,11 @@ Paid promotion is **not** currently authorized (see `DEVELOPMENT_STATUS.md`: ads
 - Creative: the labeled illustrative color study only, until permissioned real project photos exist.
 
 Wording deliberately avoided in all drafts: any dollar figure, "free estimate", "licensed", "insured", "top-rated", "guaranteed", "same-day", and any Jen Contracting reference.
+
+## Photo-use notice for proposals and work orders
+
+Owner decision (2026-09-06): PaintSwitch does not ask customers to approve photo use per job; instead, proposals and work orders carry a standing notice. Suggested wording (add near the signature block or terms section):
+
+> **Project photos.** PaintSwitch may photograph completed work for its portfolio, website, and marketing. Photos show painted surfaces only; no customer name, street address, or other identifying details are published. Let us know before work begins if you prefer your project not be photographed.
+
+The last sentence keeps a simple opt-out available without turning it into an approval step. If proposals are generated in GoHighLevel, this belongs in the document template so it appears on every one. Consistent with D-058 (only real, labeled project images presented as customer work) and D-066 (no addresses published).

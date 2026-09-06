@@ -706,6 +706,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
   - **Consequences:** Visible copy changes only on city pages (one link line) and metadata; D-063 guardrails unchanged. `areaServed` appears only where the cities are visible, not on individual city pages, whose tests still forbid it. Existing test coverage pins the `Virginia painters` keyword and DMV market copy; both retained.
   - **Supersedes:** The "no phone number" statements in `DEVELOPMENT_STATUS.md` dated 2026-08 and earlier, as they relate to the published contact number.
 
+## D-071 — Photo-use notice on proposals and work orders instead of per-customer photo approval
+
+- **Date:** 2026-09-06
+- **Status:** Confirmed
+- **Decision:** PaintSwitch will not ask customers to approve marketing use of project photos job by job. Proposals and work orders will carry a standing notice that completed work may be photographed for the portfolio, website, and marketing, with no customer name, address, or identifying details published, and a plain opt-out available before work begins. Draft wording is in `docs/CITATION_SOCIAL_COPY_DRAFTS.md`.
+  - **Reason:** Owner preference stated in the 2026-09-06 session; a notice is lighter than an approval step and still makes the practice clear to customers before work starts.
+  - **Consequences:** Real project photos may be published to Google Business Profile, the website, and social accounts once the notice is in the proposal/work-order templates. D-058 still governs on-site imagery (real project images labeled as such; no stock or generated imagery passed off as customer work) and D-066 still bars publishing addresses. Wording has not been reviewed by counsel; the D-067 attorney review covered the website Privacy Policy and Terms, not proposal documents.
+  - **Supersedes:** The plan's original request for a per-customer photo-permission step (`docs/SEO_BUSINESS_PLAN.md` §9, item 4).
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:
