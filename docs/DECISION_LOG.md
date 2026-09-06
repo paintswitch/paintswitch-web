@@ -697,6 +697,24 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
   - **Consequences:** GA4 begins collecting standard traffic data (may take up to 48 hours to populate in the dashboard). The Privacy Policy's vendor list and effective date changed — this is a routine disclosure update, not a new legal review; it was not independently re-reviewed by the attorney who approved the policy under D-067. If PaintSwitch later enables Google Signals, Ads linkage, or any feature that shares data for targeted advertising, that would contradict the existing "No sale or targeted advertising" section and would need its own decision and Privacy Policy revision.
   - **Supersedes:** None. Extends D-067 (attorney-approved Privacy Policy) with a vendor-disclosure update; does not reopen or replace that approval.
 
+## D-070 — Homepage DMV title/description, city-page → guide links, and service-areas `areaServed` schema
+
+- **Date:** 2026-09-06
+- **Status:** Confirmed
+- **Decision:** (1) The homepage `<title>` changes from "Request a Painting Quote | PaintSwitch" to "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch", with a matching meta description naming the four services and the DMV; Open Graph and Twitter titles follow. The owner asked that the title capture the DMV area rather than name individual states. (2) The shared city-page component gains one page-local line, "Read the [City] painting guide," linking each city page to its matching city guide. (3) `/service-areas` carries a `LocalBusiness` JSON-LD block with `areaServed` listing the ten cities that page visibly lists; `sameAs` is deferred until GBP/social profile URLs exist. The owner also confirmed `(571) 565-9491` as the real business phone number, superseding older "no phone number" status notes.
+  - **Reason:** Owner approval in the 2026-09-06 session, following the SEO review in `docs/SEO_BUSINESS_PLAN.md`: the homepage previously targeted no service or place keyword, city guides were reachable only from the hub and sitemap, and the ten-city service area had no schema support anywhere.
+  - **Consequences:** Visible copy changes only on city pages (one link line) and metadata; D-063 guardrails unchanged. `areaServed` appears only where the cities are visible, not on individual city pages, whose tests still forbid it. Existing test coverage pins the `Virginia painters` keyword and DMV market copy; both retained.
+  - **Supersedes:** The "no phone number" statements in `DEVELOPMENT_STATUS.md` dated 2026-08 and earlier, as they relate to the published contact number.
+
+## D-071 — Photo-use notice on proposals and work orders instead of per-customer photo approval
+
+- **Date:** 2026-09-06
+- **Status:** Confirmed
+- **Decision:** PaintSwitch will not ask customers to approve marketing use of project photos job by job. Proposals and work orders will carry a standing notice that completed work may be photographed for the portfolio, website, and marketing, with no customer name, address, or identifying details published, and a plain opt-out available before work begins. Draft wording is in `docs/CITATION_SOCIAL_COPY_DRAFTS.md`.
+  - **Reason:** Owner preference stated in the 2026-09-06 session; a notice is lighter than an approval step and still makes the practice clear to customers before work starts.
+  - **Consequences:** Real project photos may be published to Google Business Profile, the website, and social accounts once the notice is in the proposal/work-order templates. D-058 still governs on-site imagery (real project images labeled as such; no stock or generated imagery passed off as customer work) and D-066 still bars publishing addresses. Wording has not been reviewed by counsel; the D-067 attorney review covered the website Privacy Policy and Terms, not proposal documents.
+  - **Supersedes:** The plan's original request for a per-customer photo-permission step (`docs/SEO_BUSINESS_PLAN.md` §9, item 4).
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:

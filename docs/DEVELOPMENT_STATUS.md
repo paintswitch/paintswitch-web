@@ -1,6 +1,20 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-08-22
+Last repository inspection: 2026-09-06
+
+## D-070 SEO fixes shipped; Maryland state-label bug fixed; canonicals completed — 2026-09-06
+
+Per D-070 (owner-approved in session): homepage title/description now target the DMV and the four services; each city page links to its city guide; `/service-areas` carries `areaServed` schema for the ten listed cities (`sameAs` deferred until profiles exist). Two review findings were fixed the same day: the shared city-page component hard-coded "Virginia" in the hero, so Bethesda, Potomac, and Chevy Chase Village rendered the wrong state (now `stateName`); and the homepage, Privacy, and Terms had no canonical URL (added). The owner confirmed `(571) 565-9491` as the real phone number, so older "no phone number" notes below are superseded. `docs/SEO_BUSINESS_PLAN.md` records the full review, roadmap, and remaining owner decisions (photo permission, paid-search rule). All 75 tests, lint, and the production build (36 routes) pass.
+
+## D-068(C) citation and social media copy drafted — 2026-09-06
+
+Drafted copy for the account-holder side of D-068(C) (backlink/citation strategy) in `docs/CITATION_SOCIAL_COPY_DRAFTS.md`: Google Business Profile, Yelp, Angi, Nextdoor, Apple Maps Connect, and BBB listing descriptions, Instagram/Facebook bios and opening posts, and a draft outreach email for the five already-identified real-estate-agent referral candidates. All copy follows the same no-pricing/no-license/no-EPA/no-Jen-Contracting/no-address guardrails as the live site. No accounts were created and nothing was published externally — this is text for the owner to use when creating each listing, which remains account-holder work outside this repository.
+
+## All ten city-specific blog posts published (D-068(A) extension) — 2026-09-06
+
+At the owner's direct request, completed the city-specific blog rollout started with Alexandria on 2026-09-05: all ten existing city pages now have a matching `/<city-slug>-painting-guide` post (Arlington, Chevy Chase Village, McLean, Potomac, Vienna, Fairfax Station, Bethesda, Great Falls, and Oakton added alongside Alexandria). Each post is grounded in the same source-backed local facts already used on that city's landing page (`architectureParagraphs`/`regionalFactors` in `city-landing-pages.ts`) — history, housing stock, and regional climate/HOA/historic-district considerations — rewritten in blog voice rather than duplicated verbatim, and follows the identical guardrails: no pricing, no license/EPA claims, no `Top-Rated` language, schema matching only visible facts, shared `LegalPage` layout, no embedded quote form. All ten are linked from the "City painting guides" section on `/guides` and listed in `sitemap.xml`. The `tests/site-content.test.mjs` city-guide test was generalized to loop over `cityGuidePages` instead of asserting a single hard-coded entry, so future additions to that array are checked automatically. The shared city-page component (`city-landing-page.tsx`) remains unmodified, consistent with the standing city-page-work restriction on shared component layouts. All 75 tests, lint, and the production build (36 routes) pass.
+
+**Not yet done:** D-068(C)'s backlink/citation/social-media workstream is external account-holder work (Google Business Profile, Yelp/Angi/Nextdoor/Apple Maps/BBB listings, social media account creation, real-estate-agent outreach) rather than something built in this repository — see the punch list delivered to the owner, alongside drafted copy for these listings.
 
 ## D-068(A) fully complete: guide pages published, service-page nav bug fixed — 2026-08-22
 

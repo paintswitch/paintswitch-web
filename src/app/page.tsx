@@ -9,6 +9,13 @@ import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard, type ServiceIcon } from "@/components/service-card";
 import { TrustBar } from "@/components/trust-bar";
 import { buildOrganizationJsonLd } from "@/lib/organization-jsonld";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://paintswitch.com",
+  },
+};
 
 const services: { title: string; description: string; icon: ServiceIcon }[] = [
   { title: "Interior Painting", description: "Share the rooms, surfaces, and project details you would like PaintSwitch to review.", icon: "interior" },

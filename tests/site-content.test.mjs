@@ -26,6 +26,7 @@ import {
 } from "../src/lib/service-pages.ts";
 import {
   buildGuideJsonLd,
+  cityGuidePages,
   exteriorMaintenanceGuide,
   guidePages,
   interiorColorGuide,
@@ -81,6 +82,9 @@ const guidePageData = source("src/lib/guide-pages.ts");
 const guidesHubPage = source("src/app/guides/page.tsx");
 const interiorColorGuidePage = source("src/app/how-to-choose-interior-paint-colors/page.tsx");
 const exteriorMaintenanceGuidePage = source("src/app/exterior-paint-maintenance-guide/page.tsx");
+const cityGuidePageSourceByLabel = Object.fromEntries(
+  cityGuidePages.map((guide) => [`${guide.cityLabel} painting guide page`, source(`src/app/${guide.slug}/page.tsx`)]),
+);
 const sitemap = source("src/app/sitemap.ts");
 
 const customerFacingSources = {
@@ -122,6 +126,7 @@ const customerFacingSources = {
   "guides hub page": guidesHubPage,
   "interior color guide page": interiorColorGuidePage,
   "exterior maintenance guide page": exteriorMaintenanceGuidePage,
+  ...cityGuidePageSourceByLabel,
 };
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
@@ -545,8 +550,62 @@ test("guide pages use the shared non-salesy legal-page layout with no embedded q
   }
 });
 
+test("city guide pages use approved metadata limits, link to their city page, and are linked from the hub", () => {
+  assert.deepEqual(
+    cityGuidePages.map((guide) => guide.slug),
+    [
+      "alexandria-va-painting-guide",
+      "arlington-va-painting-guide",
+      "chevy-chase-village-md-painting-guide",
+      "mclean-va-painting-guide",
+      "potomac-md-painting-guide",
+      "vienna-va-painting-guide",
+      "fairfax-station-va-painting-guide",
+      "bethesda-md-painting-guide",
+      "great-falls-va-painting-guide",
+      "oakton-va-painting-guide",
+    ],
+  );
+
+  assert.match(guidesHubPage, /cityGuidePages\.map/u);
+
+  for (const guide of cityGuidePages) {
+    assert.ok(guide.title.length < 60, `${guide.slug} title exceeds 59 characters`);
+    assert.ok(guide.description.length < 155, `${guide.slug} description exceeds 154 characters`);
+
+    const page = source(`src/app/${guide.slug}/page.tsx`);
+    assert.match(page, /canonical: `https:\/\/paintswitch\.com\/\$\{\w+\.slug\}`/u);
+    assert.match(page, /href=\{`\/\$\{\w+\.citySlug\}`\}/u);
+    assert.match(sitemap, new RegExp(`url: "https://paintswitch\\.com/${guide.slug}"`, "u"));
+
+    assert.match(page, /<LegalPage/u);
+    assert.match(page, /eyebrowLabel="Published"/u);
+    assert.doesNotMatch(page, /QuoteRequestForm/u);
+    assert.doesNotMatch(page, /<Header\b/u);
+
+    const jsonLd = buildGuideJsonLd(guide);
+    const [article, faqPage] = jsonLd["@graph"];
+    assert.equal(article["@type"], "Article");
+    assert.equal(article.url, `https://paintswitch.com/${guide.slug}`);
+    assert.deepEqual(
+      faqPage.mainEntity.map((question) => ({
+        question: question.name,
+        answer: question.acceptedAnswer.text,
+      })),
+      guide.faqs,
+    );
+  }
+
+  const serialized = JSON.stringify(cityGuidePages.map((guide) => buildGuideJsonLd(guide)));
+  assert.doesNotMatch(serialized, /"(?:aggregateRating|areaServed|postalCode|streetAddress|price|license|insurance|offers|hasOfferCatalog)"\s*:/iu);
+  assert.doesNotMatch(serialized, /\bEPA\b/iu);
+});
+
 test("guide content contains no unsupported marketing claims and matches its JSON-LD", () => {
-  const publicGuideSources = `${guidePageData}\n${guidesHubPage}\n${interiorColorGuidePage}\n${exteriorMaintenanceGuidePage}`;
+  const cityGuidePageSources = cityGuidePages
+    .map((guide) => source(`src/app/${guide.slug}/page.tsx`))
+    .join("\n");
+  const publicGuideSources = `${guidePageData}\n${guidesHubPage}\n${interiorColorGuidePage}\n${exteriorMaintenanceGuidePage}\n${cityGuidePageSources}`;
   assert.doesNotMatch(publicGuideSources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|deck staining|power washing/iu);
   assert.doesNotMatch(publicGuideSources, /\$\s*\d|\b(?:minimum project|deposit percentage|ceiling surcharge|repair allowance)\b/iu);
   assert.doesNotMatch(publicGuideSources, /\bJen(?:\s+Contracting)?\b/iu);

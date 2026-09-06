@@ -4,6 +4,9 @@ import { LegalPage } from "@/components/legal-page";
 export const metadata: Metadata = {
   title: "Website Terms | PaintSwitch",
   description: "Terms for the PaintSwitch lead-generation quote-request website.",
+  alternates: {
+    canonical: "https://paintswitch.com/terms",
+  },
 };
 
 export default function WebsiteTerms() {

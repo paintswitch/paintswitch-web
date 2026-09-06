@@ -6,9 +6,11 @@ import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { TrustBar } from "@/components/trust-bar";
 import { buildCityJsonLd, type CityLandingPageData } from "@/lib/city-landing-pages";
+import { cityGuidePages } from "@/lib/guide-pages";
 
 export function CityLandingPage({ page }: { page: CityLandingPageData }) {
   const jsonLd = buildCityJsonLd(page);
+  const cityGuide = cityGuidePages.find((guide) => guide.citySlug === page.slug);
   const architectureTitleId = `${page.slug}-architecture-title`;
   const localContextTitleId = `${page.slug}-local-context-title`;
   const faqTitleId = `${page.slug}-faq-title`;
@@ -38,7 +40,7 @@ export function CityLandingPage({ page }: { page: CityLandingPageData }) {
                 {page.primaryKeyword}
               </p>
               <h1 className="font-editorial mt-6 max-w-3xl text-[2.15rem] font-normal leading-[0.94] tracking-[-0.055em] text-[#253231] min-[360px]:text-[2.7rem] sm:text-[4.25rem] lg:text-[clamp(4rem,6.7vw,6.4rem)]">
-                Painting services in <em className="font-normal text-[#012765]">{page.city}, Virginia.</em>
+                Painting services in <em className="font-normal text-[#012765]">{page.city}, {page.stateName}.</em>
               </h1>
               <p className="mt-8 max-w-2xl text-lg leading-8 text-[#3D4E4E] sm:text-xl">
                 {page.heroSummary}
@@ -187,6 +189,16 @@ export function CityLandingPage({ page }: { page: CityLandingPageData }) {
               <p className="mt-8 text-sm leading-7 text-[#596563]">
                 Postal references: {page.postalCodes.join(", ")}. ZIP codes can cross jurisdictional lines and do not confirm PaintSwitch availability for a specific address.
               </p>
+              {cityGuide && (
+                <p className="mt-6 text-[#3D4E4E]">
+                  <a
+                    href={`/${cityGuide.slug}`}
+                    className="font-semibold text-[#012765] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
+                  >
+                    Read the {page.city} painting guide
+                  </a>
+                </p>
+              )}
             </div>
           </div>
         </section>
