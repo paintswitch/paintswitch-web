@@ -13,6 +13,18 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://paintswitch.com/#organization",
+  name: "PaintSwitch",
+  url: "https://paintswitch.com/service-areas",
+  areaServed: cityLandingPages.map((page) => ({
+    "@type": "City",
+    name: `${page.city}, ${page.stateAbbreviation}`,
+  })),
+};
+
 export default function ServiceAreasPage() {
   return (
     <>
@@ -22,6 +34,12 @@ export default function ServiceAreasPage() {
         tabIndex={-1}
         className="focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0658FE]"
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <section className="overflow-hidden bg-[#D1C4B8] px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-24">
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3D4E4E]">Service areas</p>

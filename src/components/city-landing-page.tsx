@@ -6,9 +6,11 @@ import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { TrustBar } from "@/components/trust-bar";
 import { buildCityJsonLd, type CityLandingPageData } from "@/lib/city-landing-pages";
+import { cityGuidePages } from "@/lib/guide-pages";
 
 export function CityLandingPage({ page }: { page: CityLandingPageData }) {
   const jsonLd = buildCityJsonLd(page);
+  const cityGuide = cityGuidePages.find((guide) => guide.citySlug === page.slug);
   const architectureTitleId = `${page.slug}-architecture-title`;
   const localContextTitleId = `${page.slug}-local-context-title`;
   const faqTitleId = `${page.slug}-faq-title`;
@@ -187,6 +189,16 @@ export function CityLandingPage({ page }: { page: CityLandingPageData }) {
               <p className="mt-8 text-sm leading-7 text-[#596563]">
                 Postal references: {page.postalCodes.join(", ")}. ZIP codes can cross jurisdictional lines and do not confirm PaintSwitch availability for a specific address.
               </p>
+              {cityGuide && (
+                <p className="mt-6 text-[#3D4E4E]">
+                  <a
+                    href={`/${cityGuide.slug}`}
+                    className="font-semibold text-[#012765] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0658FE]"
+                  >
+                    Read the {page.city} painting guide
+                  </a>
+                </p>
+              )}
             </div>
           </div>
         </section>

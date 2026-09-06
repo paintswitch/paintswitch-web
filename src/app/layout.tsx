@@ -5,14 +5,14 @@ import "./globals.css";
 const GA_MEASUREMENT_ID = "G-LEKK2Q0XJ0";
 
 export const metadata: Metadata = {
-  title: "Request a Painting Quote | PaintSwitch",
-  description: "Submit a DMV painting-project request for individual service-area review. Service availability and pricing are confirmed after review.",
-  keywords: ["painting services", "residential painting", "commercial painting", "DMV painters", "Virginia painters"],
+  title: "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch",
+  description: "PaintSwitch provides interior, exterior, cabinet, and commercial painting across the DMV. Every project is individually reviewed before availability or pricing is confirmed.",
+  keywords: ["DMV painters", "Virginia painters", "Maryland painters", "interior painting", "exterior painting", "cabinet painting", "commercial painting"],
   verification: {
     google: "sVUjCBFVGJjWrRzky2n58cSi29Paa4UrfBGg8x4L-bo",
   },
   openGraph: {
-    title: "Request a Painting Quote | PaintSwitch",
+    title: "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch",
     description: "Expert color choices and quality craftsmanship for DMV painting projects. Interior, exterior, cabinet, and commercial painting services.",
     url: "https://paintswitch.com",
     siteName: "PaintSwitch",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Request a Painting Quote | PaintSwitch",
+    title: "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch",
     description: "Expert color choices and quality craftsmanship for DMV painting projects.",
     images: ["https://paintswitch.com/images/paintswitch-color-study.png"],
   },

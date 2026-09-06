@@ -2,6 +2,10 @@
 
 Last repository inspection: 2026-09-06
 
+## D-070 SEO fixes shipped; Maryland state-label bug fixed; canonicals completed — 2026-09-06
+
+Per D-070 (owner-approved in session): homepage title/description now target the DMV and the four services; each city page links to its city guide; `/service-areas` carries `areaServed` schema for the ten listed cities (`sameAs` deferred until profiles exist). Two review findings were fixed the same day: the shared city-page component hard-coded "Virginia" in the hero, so Bethesda, Potomac, and Chevy Chase Village rendered the wrong state (now `stateName`); and the homepage, Privacy, and Terms had no canonical URL (added). The owner confirmed `(571) 565-9491` as the real phone number, so older "no phone number" notes below are superseded. `docs/SEO_BUSINESS_PLAN.md` records the full review, roadmap, and remaining owner decisions (photo permission, paid-search rule). All 75 tests, lint, and the production build (36 routes) pass.
+
 ## D-068(C) citation and social media copy drafted — 2026-09-06
 
 Drafted copy for the account-holder side of D-068(C) (backlink/citation strategy) in `docs/CITATION_SOCIAL_COPY_DRAFTS.md`: Google Business Profile, Yelp, Angi, Nextdoor, Apple Maps Connect, and BBB listing descriptions, Instagram/Facebook bios and opening posts, and a draft outreach email for the five already-identified real-estate-agent referral candidates. All copy follows the same no-pricing/no-license/no-EPA/no-Jen-Contracting/no-address guardrails as the live site. No accounts were created and nothing was published externally — this is text for the owner to use when creating each listing, which remains account-holder work outside this repository.
