@@ -1,6 +1,10 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-09-05
+Last repository inspection: 2026-09-06
+
+## D-068(C) citation and social media copy drafted — 2026-09-06
+
+Drafted copy for the account-holder side of D-068(C) (backlink/citation strategy) in `docs/CITATION_SOCIAL_COPY_DRAFTS.md`: Google Business Profile, Yelp, Angi, Nextdoor, Apple Maps Connect, and BBB listing descriptions, Instagram/Facebook bios and opening posts, and a draft outreach email for the five already-identified real-estate-agent referral candidates. All copy follows the same no-pricing/no-license/no-EPA/no-Jen-Contracting/no-address guardrails as the live site. No accounts were created and nothing was published externally — this is text for the owner to use when creating each listing, which remains account-holder work outside this repository.
 
 ## All ten city-specific blog posts published (D-068(A) extension) — 2026-09-06
 
