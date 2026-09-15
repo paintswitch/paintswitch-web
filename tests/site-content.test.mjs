@@ -53,7 +53,6 @@ const homePage = source("src/app/page.tsx");
 const rootLayout = source("src/app/layout.tsx");
 const hero = source("src/components/hero.tsx");
 const trustBar = source("src/components/trust-bar.tsx");
-const chatWidget = source("src/components/highlevel-chat-widget.tsx");
 const globalStyles = source("src/app/globals.css");
 const header = source("src/components/header.tsx");
 const buttons = source("src/components/buttons.tsx");
@@ -102,7 +101,6 @@ const customerFacingSources = {
   "shared legal page": legalPage,
   footer,
   "quote form": quoteForm,
-  "chat widget": chatWidget,
   header,
   buttons,
   "service card": serviceCard,

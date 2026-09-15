@@ -2,6 +2,14 @@
 
 Last repository inspection: 2026-09-06
 
+## Chatbot removed from the website (D-073) — 2026-09-15
+
+At the owner's direction, on cost grounds, the `Switch bot` GoHighLevel Conversation AI widget is removed from the live site. `src/components/highlevel-chat-widget.tsx` and its dedicated test are deleted; the homepage no longer imports or renders it; the Content-Security-Policy in `next.config.ts` no longer conditionally admits the LeadConnector widget/services/static origins, since nothing on the site embeds them anymore. Lead delivery is unaffected — it uses a separate server-side GoHighLevel REST connection (`src/lib/ghl-client.ts`) that never depended on the chat widget or its CSP entries. All 75 tests, lint, and the production build (47 routes) pass.
+
+**Owner action still required to actually stop the charge:** this code change removes the widget from the website; it does not cancel the GoHighLevel "AI Employee Unlimited" add-on that bills separately from the base "HighLevel Starter" subscription (Starter $97/month runs the CRM/lead pipeline and must stay active; AI Employee Unlimited is the additional $97/month chatbot cost — see the 2026-08-06 entry below). The owner needs to cancel or downgrade AI Employee Unlimited inside GoHighLevel directly.
+
+**Not yet done:** the Privacy Policy (`src/app/privacy/page.tsx`) still discloses the "Switch bot" chat by name in two places. That page was part of the D-067 attorney review, so it was intentionally left unedited pending explicit owner direction rather than changed silently in the same pass — see D-073's consequences note.
+
 ## City x service pages for Alexandria and Arlington; phone number in meta descriptions — 2026-09-06
 
 Per D-072, following a competitive SEO teardown of jccustomva.com and other Alexandria-area painting companies, added 8 new city+service combination pages (`/alexandria-va-interior-painting`, `/alexandria-va-exterior-painting`, `/alexandria-va-cabinet-painting`, `/alexandria-va-commercial-painting`, and the same four for Arlington) via a new `src/lib/city-service-pages.ts` data set and shared `src/components/city-service-page.tsx` component (Header/Footer/TrustBar/SectionHeading/QuoteRequestForm, `Service`+`FAQPage` JSON-LD). Content is unique per page and grounded in each city's already-vetted local facts, applied to one specific service. Linked from a new section on `/service-areas` and cross-linked to each city page, service page, city guide, and cost guide. Also added the published phone number `(571) 565-9491` to the meta description of the homepage, all 10 city pages, and all 4 service pages for NAP consistency, keeping every description under the 154-character test limit. No shared city-page or service-page component was modified. All 77 tests, lint, and the production build (47 routes) pass.
