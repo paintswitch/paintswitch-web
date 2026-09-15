@@ -1,21 +1,14 @@
 import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
-const isHighLevelChatEnabled = process.env.HIGHLEVEL_CHAT_WIDGET_ENABLED === "true";
-
-const highLevelWidgetOrigin = "https://widgets.leadconnectorhq.com";
-const highLevelServicesOrigin = "https://services.leadconnectorhq.com";
-const highLevelServicesSocketOrigin = "wss://services.leadconnectorhq.com";
-const highLevelStaticOrigin = "https://stcdn.leadconnectorhq.com";
-const highLevelChatOrigins = `${highLevelWidgetOrigin} ${highLevelServicesOrigin} ${highLevelStaticOrigin}`;
 
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}${isHighLevelChatEnabled ? ` ${highLevelChatOrigins}` : ""}`,
+  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: blob:${isHighLevelChatEnabled ? ` ${highLevelChatOrigins}` : ""}`,
+  "img-src 'self' data: blob:",
   "font-src 'self'",
-  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""}${isHighLevelChatEnabled ? ` ${highLevelChatOrigins} ${highLevelServicesSocketOrigin}` : ""}`,
+  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
