@@ -1,4 +1,4 @@
-export const GOOGLE_BUSINESS_PROFILE_URL = "https://share.google/6LaPtGQuEfdWsDYgI";
+export const GOOGLE_BUSINESS_PROFILE_URL = "https://maps.app.goo.gl/7Ygq9uqAXUi9TFv9A";
 
 export function buildOrganizationJsonLd() {
   return {

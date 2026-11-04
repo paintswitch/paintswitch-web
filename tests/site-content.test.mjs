@@ -136,7 +136,7 @@ const customerFacingSources = {
 
 test("homepage organization schema links the Google Business Profile", () => {
   const organizationJsonLd = source("src/lib/organization-jsonld.ts");
-  assert.match(organizationJsonLd, /GOOGLE_BUSINESS_PROFILE_URL = "https:\/\/share\.google\/[A-Za-z0-9]+"/u);
+  assert.match(organizationJsonLd, /GOOGLE_BUSINESS_PROFILE_URL = "https:\/\/maps\.app\.goo\.gl\/[A-Za-z0-9]+"/u);
   assert.match(organizationJsonLd, /sameAs: \[GOOGLE_BUSINESS_PROFILE_URL\]/u);
   assert.match(organizationJsonLd, /"@id": "https:\/\/paintswitch\.com\/#organization"/u);
   assert.match(homePage, /buildOrganizationJsonLd\(\)/u);
