@@ -134,6 +134,14 @@ const customerFacingSources = {
   "service areas page": serviceAreasPage,
 };
 
+test("homepage organization schema links the Google Business Profile", () => {
+  const organizationJsonLd = source("src/lib/organization-jsonld.ts");
+  assert.match(organizationJsonLd, /GOOGLE_BUSINESS_PROFILE_URL = "https:\/\/share\.google\/[A-Za-z0-9]+"/u);
+  assert.match(organizationJsonLd, /sameAs: \[GOOGLE_BUSINESS_PROFILE_URL\]/u);
+  assert.match(organizationJsonLd, /"@id": "https:\/\/paintswitch\.com\/#organization"/u);
+  assert.match(homePage, /buildOrganizationJsonLd\(\)/u);
+});
+
 test("defines distinct, dated PaintSwitch legal routes", () => {
   assert.match(privacyPage, /title: "Privacy Policy \| PaintSwitch"/u);
   assert.match(privacyPage, /title="Privacy Policy"/u);
