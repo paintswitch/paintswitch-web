@@ -4,7 +4,7 @@ Last repository inspection: 2026-11-04
 
 ## Google Business Profile linked in schema (`sameAs`) — 2026-11-04
 
-The owner supplied the PaintSwitch Google Business Profile share link (`https://share.google/6LaPtGQuEfdWsDYgI`). It is now the `sameAs` value on the homepage `LocalBusiness` schema (`src/lib/organization-jsonld.ts`), closing the `sameAs` item deferred under D-070. **Not independently verified:** the cloud development environment's network policy blocks `share.google`, so the link's destination was not opened here; it is used on the owner's word that it points to the PaintSwitch profile. A canonical Google Maps URL (`https://maps.google.com/?cid=...`) would be a sturdier long-term value than a share short link and can replace it when available. Facebook, Instagram, Yelp, and other profile URLs should be appended to the same array as they go live.
+The homepage `LocalBusiness` schema (`src/lib/organization-jsonld.ts`) now carries the PaintSwitch Google Business Profile as its `sameAs` value, closing the item deferred under D-070. The owner first supplied a `share.google` short link, then the Google Maps link `https://maps.app.goo.gl/7Ygq9uqAXUi9TFv9A`, which replaced it (the iOS `?g_st=ic` share-tracking parameter was dropped). **Not independently verified:** the cloud development environment's network policy blocks both `share.google` and `maps.app.goo.gl`, so the link's destination was not opened here; it is used on the owner's word that it points to the PaintSwitch profile. Facebook, Instagram, Yelp, and other profile URLs should be appended to the same array as they go live.
 
 ## Chatbot removed from the website (D-073) — 2026-09-15
 
