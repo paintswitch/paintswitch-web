@@ -1,3 +1,5 @@
+export const GOOGLE_BUSINESS_PROFILE_URL = "https://share.google/6LaPtGQuEfdWsDYgI";
+
 export function buildOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -9,5 +11,6 @@ export function buildOrganizationJsonLd() {
     email: "hello@paintswitch.com",
     logo: "https://paintswitch.com/images/paintswitch-logo.svg",
     image: "https://paintswitch.com/images/paintswitch-logo.svg",
+    sameAs: [GOOGLE_BUSINESS_PROFILE_URL],
   };
 }
