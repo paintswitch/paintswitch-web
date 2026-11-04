@@ -134,10 +134,12 @@ const customerFacingSources = {
   "service areas page": serviceAreasPage,
 };
 
-test("homepage organization schema links the Google Business Profile", () => {
+test("homepage organization schema links the Google, Yelp, and X profiles", () => {
   const organizationJsonLd = source("src/lib/organization-jsonld.ts");
   assert.match(organizationJsonLd, /GOOGLE_BUSINESS_PROFILE_URL = "https:\/\/maps\.app\.goo\.gl\/[A-Za-z0-9]+"/u);
-  assert.match(organizationJsonLd, /sameAs: \[GOOGLE_BUSINESS_PROFILE_URL\]/u);
+  assert.match(organizationJsonLd, /X_PROFILE_URL = "https:\/\/x\.com\/paintswitchdmv"/u);
+  assert.match(organizationJsonLd, /YELP_PROFILE_URL = "https:\/\/yelp\.to\/[A-Za-z0-9_-]+"/u);
+  assert.match(organizationJsonLd, /sameAs: \[GOOGLE_BUSINESS_PROFILE_URL, YELP_PROFILE_URL, X_PROFILE_URL\]/u);
   assert.match(organizationJsonLd, /"@id": "https:\/\/paintswitch\.com\/#organization"/u);
   assert.match(homePage, /buildOrganizationJsonLd\(\)/u);
 });

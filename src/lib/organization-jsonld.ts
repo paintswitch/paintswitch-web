@@ -1,4 +1,6 @@
 export const GOOGLE_BUSINESS_PROFILE_URL = "https://maps.app.goo.gl/7Ygq9uqAXUi9TFv9A";
+export const X_PROFILE_URL = "https://x.com/paintswitchdmv";
+export const YELP_PROFILE_URL = "https://yelp.to/RIev5IQHa-";
 
 export function buildOrganizationJsonLd() {
   return {
@@ -11,6 +13,6 @@ export function buildOrganizationJsonLd() {
     email: "hello@paintswitch.com",
     logo: "https://paintswitch.com/images/paintswitch-logo.svg",
     image: "https://paintswitch.com/images/paintswitch-logo.svg",
-    sameAs: [GOOGLE_BUSINESS_PROFILE_URL],
+    sameAs: [GOOGLE_BUSINESS_PROFILE_URL, YELP_PROFILE_URL, X_PROFILE_URL],
   };
 }
