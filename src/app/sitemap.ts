@@ -117,6 +117,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: "https://paintswitch.com/about",
+      lastModified: "2026-11-08",
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: "https://paintswitch.com/service-areas",
       lastModified: "2026-08-22",
       changeFrequency: "monthly",

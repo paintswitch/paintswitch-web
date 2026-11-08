@@ -2,6 +2,10 @@
 
 Last repository inspection: 2026-11-04
 
+## Team page added (`/about`) — 2026-11-08
+
+At the owner's request, added an "Our Team" page at `/about` introducing Rene Merino, Crew Lead (title and consent to publish his name and photo confirmed by the owner), with the owner-supplied bio facts only: grew up in the DMV, more than 15 years painting and leading crews. Data lives in `src/lib/team.ts`; the page emits `AboutPage` + `Person` JSON-LD tied to the organization `@id`, using only the visible bio. Linked from the footer ("Our Team") and listed in `sitemap.xml`. No Jen Contracting reference, and the test suite checks for one. The owner-supplied photo of Rene (in a PaintSwitch polo) is at `public/images/team/rene-merino.jpg` (1200×1500) and is also the `Person` schema `image`. All 77 tests, lint, and the production build (48 routes) pass.
+
 ## Google Business Profile linked in schema (`sameAs`) — 2026-11-04
 
 The homepage `LocalBusiness` schema (`src/lib/organization-jsonld.ts`) now carries the PaintSwitch Google Business Profile as its `sameAs` value, closing the item deferred under D-070. The owner first supplied a `share.google` short link, then the Google Maps link `https://maps.app.goo.gl/7Ygq9uqAXUi9TFv9A`, which replaced it (the iOS `?g_st=ic` share-tracking parameter was dropped). **Not independently verified:** the cloud development environment's network policy blocks both `share.google` and `maps.app.goo.gl`, so the link's destination was not opened here; it is used on the owner's word that it points to the PaintSwitch profile. On 2026-11-04 the owner also supplied the X profile (`https://x.com/paintswitchdmv`, iOS `?s=11` share parameter dropped) and a Yelp short link (`https://yelp.to/RIev5IQHa-`); both were appended to `sameAs`. The Yelp short link could not be expanded to its canonical `yelp.com/biz/...` URL from this environment and should be replaced with that URL when available. On 2026-11-05 the Instagram profile (`https://www.instagram.com/paint.switch/`) was appended as well. Facebook and other profile URLs should be appended to the same array as they go live.

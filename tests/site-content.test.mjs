@@ -88,6 +88,8 @@ const cityServicePageSources = Object.fromEntries(
   cityServicePages.map((page) => [`${page.slug} page`, source(`src/app/${page.slug}/page.tsx`)]),
 );
 const cityServicePageComponent = source("src/components/city-service-page.tsx");
+const aboutPage = source("src/app/about/page.tsx");
+const teamData = source("src/lib/team.ts");
 const serviceAreasPage = source("src/app/service-areas/page.tsx");
 const sitemap = source("src/app/sitemap.ts");
 
@@ -132,6 +134,8 @@ const customerFacingSources = {
   ...cityServicePageSources,
   "city service page component": cityServicePageComponent,
   "service areas page": serviceAreasPage,
+  "about page": aboutPage,
+  "team data": teamData,
 };
 
 test("homepage organization schema links the Google, Yelp, Instagram, and X profiles", () => {
@@ -143,6 +147,24 @@ test("homepage organization schema links the Google, Yelp, Instagram, and X prof
   assert.match(organizationJsonLd, /sameAs: \[GOOGLE_BUSINESS_PROFILE_URL, YELP_PROFILE_URL, INSTAGRAM_PROFILE_URL, X_PROFILE_URL\]/u);
   assert.match(organizationJsonLd, /"@id": "https:\/\/paintswitch\.com\/#organization"/u);
   assert.match(homePage, /buildOrganizationJsonLd\(\)/u);
+});
+
+test("team page is canonical, linked from the footer and sitemap, and makes no unsupported claims", () => {
+  assert.match(aboutPage, /canonical: "https:\/\/paintswitch\.com\/about"/u);
+  assert.match(footer, /\["Our Team", "\/about"\]/u);
+  assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/about"/u);
+  assert.match(teamData, /name: "Rene Merino"/u);
+  assert.match(teamData, /role: "Crew Lead"/u);
+  assert.match(teamData, /jobTitle: member\.role/u);
+  assert.match(teamData, /src: "\/images\/team\/rene-merino\.jpg"/u);
+  readFileSync(new URL("../public/images/team/rene-merino.jpg", import.meta.url));
+  assert.equal((aboutPage.match(/<h1\b/gu) ?? []).length, 1);
+
+  const publicTeamSources = `${aboutPage}\n${teamData}`;
+  assert.doesNotMatch(publicTeamSources, /top[- ]rated|state licen[cs]e|lead[- ]safe|\bEPA\b|\binsured\b|\binsurance\b|award/iu);
+  assert.doesNotMatch(publicTeamSources, /\$\s*\d/u);
+  assert.doesNotMatch(publicTeamSources, /\bJen(?:\s+Contracting)?\b/iu);
+  assert.match(aboutPage, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
 });
 
 test("defines distinct, dated PaintSwitch legal routes", () => {
