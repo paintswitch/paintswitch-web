@@ -156,6 +156,8 @@ test("team page is canonical, linked from the footer and sitemap, and makes no u
   assert.match(teamData, /name: "Rene Merino"/u);
   assert.match(teamData, /role: "Crew Lead"/u);
   assert.match(teamData, /jobTitle: member\.role/u);
+  assert.match(teamData, /src: "\/images\/team\/rene-merino\.jpg"/u);
+  readFileSync(new URL("../public/images/team/rene-merino.jpg", import.meta.url));
   assert.equal((aboutPage.match(/<h1\b/gu) ?? []).length, 1);
 
   const publicTeamSources = `${aboutPage}\n${teamData}`;

@@ -17,6 +17,12 @@ export const reneMerino: TeamMember = {
   slug: "rene-merino",
   name: "Rene Merino",
   role: "Crew Lead",
+  photo: {
+    src: "/images/team/rene-merino.jpg",
+    alt: "Rene Merino, PaintSwitch Crew Lead, wearing a PaintSwitch polo",
+    width: 1200,
+    height: 1500,
+  },
   bio: [
     "Rene grew up in the DMV and has spent more than 15 years painting homes and businesses and leading painting crews.",
     "He brings that hands-on experience to PaintSwitch projects across the area.",
