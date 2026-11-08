@@ -70,6 +70,7 @@ export default function AboutPage() {
                 )}
                 <div>
                   <h2 className="font-editorial text-4xl font-normal tracking-[-0.04em] text-[#253231] sm:text-5xl">{member.name}</h2>
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#012765]">{member.role}</p>
                   <div className="mt-6 space-y-4">
                     {member.bio.map((paragraph) => (
                       <p key={paragraph} className="text-lg leading-8 text-[#3D4E4E]">

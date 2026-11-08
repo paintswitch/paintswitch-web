@@ -154,6 +154,8 @@ test("team page is canonical, linked from the footer and sitemap, and makes no u
   assert.match(footer, /\["Our Team", "\/about"\]/u);
   assert.match(sitemap, /url: "https:\/\/paintswitch\.com\/about"/u);
   assert.match(teamData, /name: "Rene Merino"/u);
+  assert.match(teamData, /role: "Crew Lead"/u);
+  assert.match(teamData, /jobTitle: member\.role/u);
   assert.equal((aboutPage.match(/<h1\b/gu) ?? []).length, 1);
 
   const publicTeamSources = `${aboutPage}\n${teamData}`;
