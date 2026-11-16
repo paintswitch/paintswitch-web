@@ -15,7 +15,7 @@ The plan is therefore simple: keep the site technically clean (small fixes below
 | Site | Next.js 16.3, fully static, security headers, robots.txt, sitemap.xml, canonicals on every route (as of today) |
 | Content | Homepage · 4 service pages · 10 city pages (VA/MD) · 10 city painting guides · 2 topical guides · service-areas + guides hubs · privacy/terms |
 | Schema | `LocalBusiness` (homepage), `Service`+`FAQPage` (city + service pages), `Article`+`FAQPage` (guides) |
-| Measurement | GA4 `G-LEKK2Q0XJ0` live; Google Search Console verified; Bing Webmaster Tools and Microsoft Clarity **not** set up (open item) |
+| Measurement | GA4 `G-LEKK2Q0XJ0` live; Google Search Console verified; Bing Webmaster Tools registered and Microsoft Clarity live (2026-11-15, D-074) |
 | Lead capture | Quote form → `/api/leads` → GoHighLevel, enabled in Production since 2026-08-18; owner notification + 5-min escalation verified; phone `(571) 565-9491` in footer and schema |
 | Chat | `Switch bot` (GoHighLevel Conversation AI), homepage only, Live Chat only |
 | Off-site | Nothing: no GBP, Yelp, Angi, Nextdoor, Apple Maps, BBB, Instagram, Facebook, reviews, or backlinks |

@@ -1,6 +1,10 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-11-04
+Last repository inspection: 2026-11-15
+
+## D-074 Microsoft Clarity added and disclosed; Bing Webmaster Tools registered — 2026-11-15
+
+Per D-074, the Microsoft Clarity tag (project `zea0hw61uu`) was added to `src/app/layout.tsx` via `next/script` (`afterInteractive`), loading on every route next to GA4. The Privacy Policy now discloses Microsoft Clarity, its effective date moved to November 15, 2026, and the `/privacy` sitemap entry and site-content tests were updated to match. The owner registered `paintswitch.com` in Bing Webmaster Tools by importing it from Google Search Console. `LC-SEO-008` is complete.
 
 ## Team page added (`/about`) — 2026-11-08
 
