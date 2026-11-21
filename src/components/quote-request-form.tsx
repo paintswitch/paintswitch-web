@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type FormEvent } from "react";
+import { sendMeasurementEvent } from "@/lib/measurement-events";
 import { parseLeadSubmission } from "@/lib/lead-intake";
 
 type SubmitStatus = "idle" | "validation" | "submitting" | "success" | "error";
@@ -114,6 +115,7 @@ export function QuoteRequestForm() {
       form.reset();
       submissionIdRef.current = null;
       setStatus("success");
+      sendMeasurementEvent("generate_lead");
     } catch {
       setStatus("error");
     } finally {

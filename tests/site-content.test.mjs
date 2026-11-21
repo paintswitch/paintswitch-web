@@ -176,7 +176,7 @@ test("defines distinct, dated PaintSwitch legal routes", () => {
   assert.equal((legalPage.match(/<h1\b/gu) ?? []).length, 1);
   assert.match(legalPage, /effectiveDate = "August 4, 2026"/u);
   assert.match(legalPage, /\{eyebrowLabel\} \{effectiveDate\}/u);
-  assert.match(privacyPage, /effectiveDate="August 22, 2026"/u);
+  assert.match(privacyPage, /effectiveDate="November 20, 2026"/u);
   assert.match(termsPage, /effectiveDate="August 9, 2026"/u);
   assert.match(legalPage, /<Footer \/>/u);
   assert.match(legalPage, /href="\/"/u);
@@ -193,11 +193,13 @@ test("privacy policy matches the approved beta data boundary", () => {
     assert.ok(privacyPage.includes(fieldDescription), `missing privacy field: ${fieldDescription}`);
   }
 
-  for (const provider of ["Vercel", "GoHighLevel/LeadConnector", "Upstash", "Microsoft 365", "Google Analytics"]) {
+  for (const provider of ["Vercel", "GoHighLevel/LeadConnector", "Upstash", "Microsoft 365", "Google Analytics", "Google Ads"]) {
     assert.ok(privacyPage.includes(provider), `missing provider disclosure: ${provider}`);
   }
 
   assert.match(privacyPage, /does not sell or rent beta lead information/u);
+  assert.match(privacyPage, /does not share beta lead information for targeted advertising or use it to create advertising audiences/u);
+  assert.match(privacyPage, /does not include the name, phone number, email address, address, or project details you submit/u);
   assert.match(privacyPage, /retained for up to 12 months after the last meaningful interaction/u);
   assert.match(privacyPage, /Upstash technical lead-delivery records expire after 30 days/u);
   assert.match(privacyPage, /rate-limit records expire after the applicable 10-minute window/u);
@@ -741,4 +743,25 @@ test("guide content contains no unsupported marketing claims and matches its JSO
   }
 
   assert.match(legalPage, /JSON\.stringify\(jsonLd\)\.replace\(\/<\/g, "\\\\u003c"\)/u);
+});
+
+test("ad conversion measurement stays inside the D-075 boundary", () => {
+  const measurementEvents = source("src/lib/measurement-events.ts");
+  const phoneClickMeasurement = source("src/components/phone-click-measurement.tsx");
+  const nextConfig = source("next.config.ts");
+
+  // Only the event name is sent: no form values or other personal data.
+  assert.match(measurementEvents, /window\.gtag\("event", event\);/u);
+  assert.doesNotMatch(measurementEvents, /user_data|email|phone_number|enhanced/iu);
+  assert.match(quoteForm, /setStatus\("success"\);\s+sendMeasurementEvent\("generate_lead"\);/u);
+  assert.match(phoneClickMeasurement, /sendMeasurementEvent\("phone_click"\)/u);
+  assert.match(rootLayout, /<PhoneClickMeasurement \/>/u);
+
+  // One Google tag only; the separate Ads container is not installed.
+  assert.equal((rootLayout.match(/googletagmanager\.com/gu) ?? []).length, 1);
+  assert.doesNotMatch(rootLayout, /GTM-/u);
+
+  // The security policy admits the Google tag but keeps frames blocked.
+  assert.match(nextConfig, /https:\/\/www\.googletagmanager\.com/u);
+  assert.match(nextConfig, /"frame-src 'none'"/u);
 });
