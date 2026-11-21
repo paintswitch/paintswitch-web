@@ -117,7 +117,7 @@ Work through these in order when creating the profile. GBP is the single highest
 
 ## Paid search ad copy — PROPOSED, not approved
 
-Paid promotion is **not** currently authorized (see `DEVELOPMENT_STATUS.md`: ads and active promotion remain off; homepage CTA phrasing such as "Get My Price" is still Proposed). These drafts exist only so a go/no-go decision can be made on concrete copy. They must not be launched without an explicit owner decision recorded in `DECISION_LOG.md` covering budget, geography, and this exact wording.
+Paid promotion started on 2026-11-20 under D-074, but only as a Google Ads pay-per-lead campaign whose ads Google assembles from the Business Profile. **The copy below is still Proposed and is not running anywhere.** Homepage CTA phrasing such as "Get My Price" is also still Proposed. These drafts exist only so a go/no-go decision on a Search campaign can be made on concrete copy. They must not be launched without an explicit owner decision recorded in `DECISION_LOG.md` covering budget, geography, and this exact wording.
 
 **Google Search — Responsive Search Ad (Alexandria/Arlington first, per D-062)**
 
