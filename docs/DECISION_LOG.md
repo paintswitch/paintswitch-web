@@ -760,6 +760,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
   - **Consequences:** Google Ads reported that it could not read business hours from the Business Profile, so the schedule was entered as custom hours and must be changed by hand if the published hours change. Auto-applied recommendations were checked and are off (none selected). The `Locally Owned` callout still has to be added to the campaign's assets. **TBD:** the owner asked for the ads to say 10 years in business. That figure was not applied, because PaintSwitch's own documents describe a new business and the site states painting experience differently ("over 25 years of painting experience" on the homepage and more than 15 years for the crew lead on the team page). The owner needs to confirm whether a number describes the business or the crew's experience before any years claim is published; an unsupported years-in-business claim would be an invented trust claim of the kind D-063 rejects. Message leads remain on; whether texts to (571) 565-9491 are read quickly enough to keep them is also **TBD**.
   - **Supersedes:** Nothing. Extends D-074 and D-075.
 
+## D-077 — Experience callout wording settled; sitelinks and callouts added; Ads account switched to Expert Mode
+
+- **Date:** 2026-11-20
+- **Status:** Confirmed
+- **Decision:** (A) The owner clarified that the years figure describes painting experience, not the age of the business, and approved 25 years. The ad callout is `25+ Years Experience`, matching the homepage statement "over 25 years of painting experience". No years-in-business claim is made. (B) The owner approved switching the Google Ads account from Google's simplified mode to Expert Mode so assets and settings can be edited. (C) Account-level callouts added: `Locally Owned`, `25+ Years Experience`, `Free In-Home Estimates`. (D) Account-level sitelinks added: `Free Estimate` (`/#quote`), `Interior Painting` (`/interior-painting`), `How It Works` (`/#how-it-works`), `About PaintSwitch` (`/about`). (E) The owner confirmed texts to (571) 565-9491 are read, so message leads stay on.
+  - **Reason:** Resolves the two items D-076 left **TBD** and applies the callout D-076 approved.
+  - **Consequences:** All seven assets showed `Pending, Under review` in Google Ads when added, so none was verified as serving. The `Free Estimate` sitelink reads "Free and done in person." and makes no response-time promise, consistent with D-059. After the switch, campaign diagnostics showed `Eligible (Learning)` with no issues, and the two pay-per-lead goals showed `Awaiting conversions`. **Not done:** website conversion actions for `generate_lead` and `phone_click` were not created in Google Ads; they are needed for a future Search campaign, not for the pay-per-lead campaign. Account-level negative keywords and page exclusions were not added. If the homepage experience statement changes, the callout must change with it.
+  - **Supersedes:** The **TBD** years claim and message-lead question in D-076.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:

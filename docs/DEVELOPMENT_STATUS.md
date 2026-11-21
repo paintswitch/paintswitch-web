@@ -14,7 +14,7 @@ Last repository inspection: 2026-11-20
 
 **Campaign settings — 2026-11-20 (D-076).** Ad schedule saved as Monday through Saturday, 8:00 AM to 5:30 PM. Auto-applied recommendations are off. The campaign showed `Pending`, with asset groups under review.
 
-**Not yet done.** (1) Connect the existing Google tag to the Ads account and create the two conversion actions; nothing is counted in Google Ads until then. (2) Trigger and confirm the two events in GA4. (3) Add the `Locally Owned` callout. (4) Owner to settle the years claim and whether to keep message leads (D-076). (5) The Privacy Policy still describes the removed chat (D-073). (6) A leftover draft is listed in the Ads account and could not be opened to remove it.
+**Not yet done.** (1) Connect the existing Google tag to the Ads account and create the two conversion actions; nothing is counted in Google Ads until then. (2) Trigger and confirm the two events in GA4. (3) Done under D-077: three callouts and four sitelinks added in Expert Mode, all pending Google review when added. (4) Settled under D-077: experience wording approved and message leads kept. (5) The Privacy Policy still describes the removed chat (D-073). (6) A leftover draft is listed in the Ads account and could not be opened to remove it.
 
 ## Team page added (`/about`) — 2026-11-08
 
