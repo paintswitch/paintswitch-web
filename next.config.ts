@@ -2,13 +2,35 @@ import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
+// D-069 (Google Analytics) and D-075 (Google Ads conversion measurement):
+// the Google tag is loaded from googletagmanager.com and reports to the hosts
+// below. Frames stay blocked; no remarketing or audience features are enabled.
+const googleTagScriptSources = ["https://www.googletagmanager.com"];
+const googleTagImageSources = [
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+  "https://www.google.com",
+  "https://www.googleadservices.com",
+  "https://googleads.g.doubleclick.net",
+];
+const googleTagConnectSources = [
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+  "https://*.google-analytics.com",
+  "https://*.analytics.google.com",
+  "https://www.google.com",
+  "https://www.googleadservices.com",
+  "https://googleads.g.doubleclick.net",
+  "https://pagead2.googlesyndication.com",
+];
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} ${googleTagScriptSources.join(" ")}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob: ${googleTagImageSources.join(" ")}`,
   "font-src 'self'",
-  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""}`,
+  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""} ${googleTagConnectSources.join(" ")}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

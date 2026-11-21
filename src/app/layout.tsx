@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { PhoneClickMeasurement } from "@/components/phone-click-measurement";
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = "G-LEKK2Q0XJ0";
@@ -45,6 +46,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         {children}
+        <PhoneClickMeasurement />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"

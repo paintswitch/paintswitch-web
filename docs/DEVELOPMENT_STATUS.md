@@ -1,6 +1,16 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-11-04
+Last repository inspection: 2026-11-20
+
+## Paid Google Ads started (D-074) and ad conversion measurement added (D-075) — 2026-11-20
+
+**Ads (external, not in this repository).** The owner submitted the first PaintSwitch Google Ads campaign on 2026-11-20 in account `443-423-2109`: pay-per-lead (Performance Max with pay-per-lead goals), $18.00 average daily budget, interior and door painting, Alexandria, Annandale, Arlington, Falls Church, and Springfield, Virginia, with call and message leads to (571) 565-9491. Google's confirmation screen said the ads go live after review; approval and serving were **not** verified. The account's Promotions page showed no available offers.
+
+**Website (this repository).** `src/lib/measurement-events.ts` sends an event name only through the existing Google tag: `generate_lead` from `src/components/quote-request-form.tsx` after a successful submission, and `phone_click` from the new `src/components/phone-click-measurement.tsx`, rendered once in `src/app/layout.tsx`. `next.config.ts` now lists the Google tag's script, image, and connection hosts in the Content-Security-Policy; `frame-src` remains `'none'`. The Privacy Policy lists Google Ads as a service provider, adds one paragraph to the "No sale or targeted advertising" section, and carries the effective date November 20, 2026. Tests cover the event boundary, the single-tag rule, the policy wording, and the new date.
+
+**Finding.** Before this change the Content-Security-Policy contained no Google host, so the site's own policy did not permit the D-069 Google Analytics script to load. Whether GA4 has collected Production data since D-069 was **not verified**.
+
+**Not yet done.** (1) Connect the existing Google tag to the Ads account and create the two conversion actions; nothing is counted in Google Ads until then. (2) After deployment, confirm in a browser that the Google tag loads without security-policy errors and that GA4 receives page views and the two events. (3) Repair the documents that still say ads are off or paid search is Proposed (listed in D-074). (4) Attorney review of the revised Privacy Policy wording, if the owner wants it. (5) The Privacy Policy still describes the removed chat (D-073).
 
 ## Team page added (`/about`) — 2026-11-08
 

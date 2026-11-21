@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
     <LegalPage
       title="Privacy Policy"
       intro="This policy explains how PaintSwitch collects, uses, shares, and retains information through its lead-generation website."
-      effectiveDate="August 22, 2026"
+      effectiveDate="November 20, 2026"
     >
       <section>
         <h2>Information we collect</h2>
@@ -60,6 +60,7 @@ export default function PrivacyPolicy() {
           <li><strong>Upstash</strong> provides technical lead-delivery state, duplicate protection, and rate limiting.</li>
           <li><strong>Microsoft 365</strong> supports the PaintSwitch business mailbox and internal notification delivery.</li>
           <li><strong>Google Analytics</strong> collects aggregated website traffic and usage data to help PaintSwitch understand how visitors use the site.</li>
+          <li><strong>Google Ads</strong> measures whether a visit that began from a PaintSwitch advertisement led to a quote request or a tap on the PaintSwitch phone number.</li>
         </ul>
         <p>These providers process information for PaintSwitch in connection with the services they provide.</p>
       </section>
@@ -81,6 +82,9 @@ export default function PrivacyPolicy() {
         <h2>No sale or targeted advertising</h2>
         <p>
           PaintSwitch does not sell or rent beta lead information. PaintSwitch does not share beta lead information for targeted advertising or use it to create advertising audiences.
+        </p>
+        <p>
+          PaintSwitch advertises on Google and uses Google&apos;s advertising measurement tools to count how many quote requests and phone-number taps follow an advertisement. That measurement relies on cookies or similar identifiers set by Google. It does not include the name, phone number, email address, address, or project details you submit through the Request a Quote form.
         </p>
       </section>
 
