@@ -19,7 +19,7 @@ The plan is therefore simple: keep the site technically clean (small fixes below
 | Lead capture | Quote form → `/api/leads` → GoHighLevel, enabled in Production since 2026-08-18; owner notification + 5-min escalation verified; phone `(571) 565-9491` in footer and schema |
 | Chat | `Switch bot` (GoHighLevel Conversation AI), homepage only, Live Chat only |
 | Off-site | Nothing: no GBP, Yelp, Angi, Nextdoor, Apple Maps, BBB, Instagram, Facebook, reviews, or backlinks |
-| Promotion | Off. Paid ads not approved (Proposed) |
+| Promotion | On since 2026-11-20 (D-074): one Google Ads pay-per-lead campaign, $18.00 a day, interior and door painting, five Northern Virginia cities. A Search campaign is drafted only and not approved |
 | Legal | Attorney review complete (D-067); Virginia DBA filing and Maryland MHIC question still open and knowingly accepted (D-065, D-068(E)) |
 
 ## 3. Goal and the arithmetic behind it
@@ -32,7 +32,7 @@ Service-business quote forms typically convert 2–5% of relevant visitors. At 3
 2. **Referral relationships** — the five real-estate agents already identified in D-068(C), plus every completed job's customer.
 3. **Organic search** — the site's compounding channel; expect it to carry the *second* 10 leads more than the first.
 
-Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafted in `CITATION_SOCIAL_COPY_DRAFTS.md` but launching it is a separate decision.
+Paid advertising started on 2026-11-20 under D-074 as a Google Ads pay-per-lead campaign, whose ads Google assembles from the Business Profile. The paid-search copy drafted in `CITATION_SOCIAL_COPY_DRAFTS.md` is not used by that campaign; launching a Search campaign with it is still a separate decision.
 
 ## 4. SEO review findings
 
@@ -114,7 +114,7 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 - No street address published; service-area listings only (D-066).
 - No license number, EPA/Lead-Safe, insured, top-rated, guaranteed-coverage, or price claims (D-063, AGENTS.md).
 - Maryland leads are marketed to but the MHIC question goes back to counsel before Maryland work is contracted (D-068(E)).
-- Only Confirmed items get implemented; Proposed items (paid ads, CTA wording) need a decision-log entry first.
+- Only Confirmed items get implemented; Proposed items (a Search campaign, CTA wording) need a decision-log entry first. The pay-per-lead campaign is Confirmed under D-074.
 - Owner time is capped at roughly one hour per day (D-023); the roadmap is sized to that.
 
 ## 9. Decisions requested from the owner
@@ -123,4 +123,4 @@ Paid search is the optional accelerator if weeks 4–6 are quiet; copy is drafte
 2. ~~City-page → city-guide link~~ Approved and shipped (D-070).
 3. ~~`areaServed` schema~~ Shipped (D-070); send GBP/social URLs when live for `sameAs`.
 4. ~~Photo-permission step~~ Decided (D-071): photo-use notice on proposals and work orders.
-5. **Open:** set a week-8 rule for the paid-search decision (budget ceiling and geography), or decline paid in advance.
+5. **Resolved in part (D-074, 2026-11-20):** paid advertising started as a pay-per-lead campaign at $18.00 a day in five Northern Virginia cities. **Open:** whether and when to add a Search campaign, with its own budget ceiling and geography.

@@ -10,7 +10,11 @@ Last repository inspection: 2026-11-20
 
 **Finding.** Before this change the Content-Security-Policy contained no Google host, so the site's own policy did not permit the D-069 Google Analytics script to load. Whether GA4 has collected Production data since D-069 was **not verified**.
 
-**Not yet done.** (1) Connect the existing Google tag to the Ads account and create the two conversion actions; nothing is counted in Google Ads until then. (2) After deployment, confirm in a browser that the Google tag loads without security-policy errors and that GA4 receives page views and the two events. (3) Repair the documents that still say ads are off or paid search is Proposed (listed in D-074). (4) Attorney review of the revised Privacy Policy wording, if the owner wants it. (5) The Privacy Policy still describes the removed chat (D-073).
+**Verified after deployment — 2026-11-20.** Pull request #21 was squash-merged to `main` as `e627b44` and the Vercel Production deployment reported success. In a signed-in browser, `https://paintswitch.com/privacy` showed the effective date November 20, 2026, the Google Ads provider line, and the new measurement paragraph; the page requested `https://www.googletagmanager.com/gtag/js?id=G-LEKK2Q0XJ0` (HTTP 200) and sent a GA4 `page_view` to `www.google-analytics.com` (HTTP 204). This proves the tag loads and one page view was sent on that visit. It does not prove the `generate_lead` or `phone_click` events, GA4 reporting, or anything in Google Ads.
+
+**Campaign settings — 2026-11-20 (D-076).** Ad schedule saved as Monday through Saturday, 8:00 AM to 5:30 PM. Auto-applied recommendations are off. The campaign showed `Pending`, with asset groups under review.
+
+**Not yet done.** (1) Connect the existing Google tag to the Ads account and create the two conversion actions; nothing is counted in Google Ads until then. (2) Trigger and confirm the two events in GA4. (3) Add the `Locally Owned` callout. (4) Owner to settle the years claim and whether to keep message leads (D-076). (5) The Privacy Policy still describes the removed chat (D-073). (6) A leftover draft is listed in the Ads account and could not be opened to remove it.
 
 ## Team page added (`/about`) — 2026-11-08
 

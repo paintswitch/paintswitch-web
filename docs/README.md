@@ -1,6 +1,6 @@
 # PaintSwitch canonical documentation
 
-Last updated: 2026-08-14
+Last updated: 2026-11-20
 
 This directory is the permanent source of truth for PaintSwitch business, product, technical, and development decisions. Website copy and application behavior show what is implemented; they do not prove that a business decision was approved.
 
@@ -55,6 +55,9 @@ Only **Confirmed** items are approved for implementation. **Proposed** and **TBD
 18. Treat D-062 as approval to create local SEO landing pages for Alexandria, Virginia first and Arlington, Virginia second. The page targets are marketing priorities, not approved service boundaries; every address still requires individual review and exact cities, counties, ZIP codes, travel zones, and permanent service boundaries remain **TBD**.
 19. Treat D-063 as the city-page content and design boundary: preserve global design and shared layout, place page-specific content only inside the established main-content structure, use only the four approved service categories, and keep visible content and structured data factually aligned. Never request or publish state-license or EPA Lead-Safe claims for these pages, and reject unsupported numeric pricing, `Top-Rated` language, guaranteed coverage, or invented trust claims.
 20. Treat D-064 as authorization and verified completion of the PR #8 Production publication for `/alexandria-va`, `/arlington-va`, and their sitemap entries. Publication does not convert those page targets into service boundaries and is not evidence of form delivery, search indexing, visual/responsive/accessibility quality, browser-console cleanliness, performance, or promoted-traffic readiness.
+21. Treat D-074 as the current paid-advertising authority: one Google Ads pay-per-lead campaign for interior and door painting in Alexandria, Annandale, Arlington, Falls Church, and Springfield, Virginia, at an average of $18.00 a day, with call and message leads to (571) 565-9491. It supersedes the earlier statements that ads and paid promotion are off, including the paid-traffic limit in item 17. It does not approve a Search campaign, Maryland or DC advertising, remarketing, or any new claim. Never place a Jen Contracting name on the Ads payments profile, advertiser verification, or an ad.
+22. Treat D-075 as the measurement boundary: anonymous `generate_lead` and `phone_click` events through the single existing Google tag, with no form data, no remarketing or audiences, no enhanced conversions, and no Google Signals. The Privacy Policy wording added under D-075 was owner-directed and was not re-reviewed by the D-067 attorney; the owner declined that review on 2026-11-20. Anything beyond this boundary needs a new decision and a Privacy Policy revision.
+23. Treat D-076 as the record of the first post-launch campaign settings: ads run Monday through Saturday, 8:00 AM to 5:30 PM Eastern, and `Locally Owned` is an approved callout. A years-in-business figure is **TBD** and must not be published until the owner confirms what the number describes.
 
 ## Update rules
 
