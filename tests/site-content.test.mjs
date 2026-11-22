@@ -753,6 +753,17 @@ test("ad conversion measurement stays inside the D-075 boundary", () => {
   // Only the event name is sent: no form values or other personal data.
   assert.match(measurementEvents, /window\.gtag\("event", event\);/u);
   assert.doesNotMatch(measurementEvents, /user_data|email|phone_number|enhanced/iu);
+
+  // D-078: an accepted quote request also reports the Google Ads conversion
+  // action, carrying nothing but its destination label.
+  assert.match(
+    measurementEvents,
+    /const QUOTE_REQUEST_CONVERSION = "AW-18587255883\/b5Z2CKrui70dEMuIjJ9F";/u,
+  );
+  assert.match(
+    measurementEvents,
+    /if \(event === "generate_lead"\) \{\s+window\.gtag\("event", "conversion", \{ send_to: QUOTE_REQUEST_CONVERSION \}\);/u,
+  );
   assert.match(quoteForm, /setStatus\("success"\);\s+sendMeasurementEvent\("generate_lead"\);/u);
   assert.match(phoneClickMeasurement, /sendMeasurementEvent\("phone_click"\)/u);
   assert.match(rootLayout, /<PhoneClickMeasurement \/>/u);

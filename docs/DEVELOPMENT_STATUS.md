@@ -4,7 +4,7 @@ Last repository inspection: 2026-11-21
 
 ## Google Ads destination added to the existing Google tag (D-078) — 2026-11-21
 
-`src/app/layout.tsx` now configures Google Ads account `443-423-2109` (`AW-18587255883`) as a second destination on the existing Google tag, with ad personalization signals off. No second tag script and no `GTM-` container. Tests assert the single-tag rule and the new line. **Not yet verified:** that the deployed page sends to Google Ads, that Google Ads reports the tag as installed, and that a `generate_lead` conversion action exists and records a test submission. Update this section when those are checked.
+`src/app/layout.tsx` now configures Google Ads account `443-423-2109` (`AW-18587255883`) as a second destination on the existing Google tag, with ad personalization signals off. No second tag script and no `GTM-` container. Tests assert the single-tag rule and the new line. Pull request #24 was merged as `c132dca` and deployed; on 2026-11-21 Google Ads' own installation test reported "Your Google tag was correctly detected on your website" and listed destination `AW-18587255883` as installed on site. The conversion action `Quote request form` was then created in Google Ads, and `src/lib/measurement-events.ts` sends its event snippet after an accepted quote request. **Not yet verified:** that a real or test quote request is recorded by Google Ads. The action shows as primary within the non-default `Submit lead form` goal because Google Ads disabled the secondary option at creation.
 
 ## Paid Google Ads started (D-074) and ad conversion measurement added (D-075) — 2026-11-20
 
