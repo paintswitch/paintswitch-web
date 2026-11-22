@@ -8,7 +8,9 @@ Last repository inspection: 2026-11-21
 
 **Action taken with owner approval.** A new Free Upstash for Redis database, `paintswitch-lead-idempotency-2` (region `iad1`), was created through the Vercel Marketplace. The archived database's project connection was removed and the new database was connected to `paintswitch-web` for Production and Preview with the same `UPSTASH_REDIS_REST` variable prefix, so no code change was needed. The archived database's contents (30-day duplicate and rate-limit records) were not restored. This commit's deployment is the first to load the new values.
 
-**Not yet verified at the time of this commit:** a successful Production submission, GoHighLevel receipt, and the Google Ads `Quote request form` conversion. **Open risk:** a Free Upstash database is archived again after a long quiet period; nothing yet prevents a repeat. A keep-alive or an alert is **Proposed**, not approved.
+**Verified after that deployment, 2026-11-21 about 11:40 PM Eastern.** A labeled test request to Production `/api/leads` returned HTTP 200 `{"success":true}` in about 1.8 seconds. **Not verified:** that the test lead and its notification email arrived in GoHighLevel (the owner was asked to check and delete it), and the Google Ads `Quote request form` conversion, which the direct test did not exercise.
+
+**Keep-alive added (D-079).** `vercel.json` schedules a daily Vercel Cron call to `GET /api/keep-alive`, which writes one timestamp to the database. Tests cover the write, failure handling, the optional `CRON_SECRET` check, and the schedule. **Not yet verified:** that Vercel registered the cron job and that a scheduled run succeeded. No `CRON_SECRET` is set, and nothing alerts on a failed run.
 
 **Also verified 2026-11-21 (D-078).** After pull request #26 the live site's Google requests carried `npa=1`, and the remarketing requests seen earlier that evening were no longer sent.
 
