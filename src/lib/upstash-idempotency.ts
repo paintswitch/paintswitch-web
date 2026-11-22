@@ -334,3 +334,23 @@ export function createLeadStateStore(config: UpstashConfig, dependencies: Upstas
 
   return { claim, complete, get, release, write };
 }
+
+// D-079: one small write a day so the Free Upstash database is never idle long
+// enough to be archived. The value is a timestamp; no lead data is involved.
+export const KEEP_ALIVE_KEY = "ps:keep-alive:v1";
+export const KEEP_ALIVE_TTL_SECONDS = 7 * 24 * 60 * 60;
+
+export async function touchKeepAlive(
+  config: UpstashConfig,
+  dependencies: UpstashFetchDependencies,
+  now: Date = new Date(),
+) {
+  const result = await command(config, dependencies, [
+    "SET",
+    KEEP_ALIVE_KEY,
+    now.toISOString(),
+    "EX",
+    KEEP_ALIVE_TTL_SECONDS,
+  ]);
+  if (result !== "OK") throw new UpstashUnavailableError();
+}
