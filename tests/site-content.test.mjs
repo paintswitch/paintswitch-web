@@ -777,8 +777,9 @@ test("ad conversion measurement stays inside the D-075 boundary", () => {
   assert.match(rootLayout, /const GOOGLE_ADS_TAG_ID = "AW-18587255883";/u);
   assert.match(
     rootLayout,
-    /gtag\('config', '\$\{GOOGLE_ADS_TAG_ID\}', \{ allow_ad_personalization_signals: false \}\);/u,
+    /gtag\('set', 'allow_ad_personalization_signals', false\);\s+gtag\('js', new Date\(\)\);/u,
   );
+  assert.match(rootLayout, /gtag\('config', '\$\{GOOGLE_ADS_TAG_ID\}'\);/u);
 
   // The security policy admits the Google tag but keeps frames blocked.
   assert.match(nextConfig, /https:\/\/www\.googletagmanager\.com/u);
