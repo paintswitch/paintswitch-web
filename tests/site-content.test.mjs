@@ -761,6 +761,14 @@ test("ad conversion measurement stays inside the D-075 boundary", () => {
   assert.equal((rootLayout.match(/googletagmanager\.com/gu) ?? []).length, 1);
   assert.doesNotMatch(rootLayout, /GTM-/u);
 
+  // D-078: the Ads account is a second destination on that same tag, with
+  // ad personalization (remarketing) signals switched off.
+  assert.match(rootLayout, /const GOOGLE_ADS_TAG_ID = "AW-18587255883";/u);
+  assert.match(
+    rootLayout,
+    /gtag\('config', '\$\{GOOGLE_ADS_TAG_ID\}', \{ allow_ad_personalization_signals: false \}\);/u,
+  );
+
   // The security policy admits the Google tag but keeps frames blocked.
   assert.match(nextConfig, /https:\/\/www\.googletagmanager\.com/u);
   assert.match(nextConfig, /"frame-src 'none'"/u);

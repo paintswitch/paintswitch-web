@@ -4,6 +4,8 @@ import { PhoneClickMeasurement } from "@/components/phone-click-measurement";
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = "G-LEKK2Q0XJ0";
+// D-078: Google Ads destination on the same Google tag. Measurement only.
+const GOOGLE_ADS_TAG_ID = "AW-18587255883";
 
 export const metadata: Metadata = {
   title: "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch",
@@ -57,6 +59,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_MEASUREMENT_ID}');
+            gtag('config', '${GOOGLE_ADS_TAG_ID}', { allow_ad_personalization_signals: false });
           `}
         </Script>
       </body>
