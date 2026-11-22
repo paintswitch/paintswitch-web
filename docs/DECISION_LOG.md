@@ -769,6 +769,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
   - **Consequences:** All seven assets showed `Pending, Under review` in Google Ads when added, so none was verified as serving. The `Free Estimate` sitelink reads "Free and done in person." and makes no response-time promise, consistent with D-059. After the switch, campaign diagnostics showed `Eligible (Learning)` with no issues, and the two pay-per-lead goals showed `Awaiting conversions`. **Not done:** website conversion actions for `generate_lead` and `phone_click` were not created in Google Ads; they are needed for a future Search campaign, not for the pay-per-lead campaign. Account-level negative keywords and page exclusions were not added. If the homepage experience statement changes, the callout must change with it.
   - **Supersedes:** The **TBD** years claim and message-lead question in D-076.
 
+## D-078 — Google Ads account added as a second destination on the existing Google tag; quote form to be counted as a secondary lead
+
+- **Date:** 2026-11-21
+- **Status:** Confirmed
+- **Decision:** The owner approved connecting the website's existing Google tag to Google Ads account `443-423-2109` in code, so a quote request can be counted in Google Ads. `src/app/layout.tsx` adds one line to the existing tag snippet, `gtag('config', 'AW-18587255883', { allow_ad_personalization_signals: false })`. No second tag script is loaded and the Ads container `GTM-PTLQ8GJN` is still not installed. The quote form (`generate_lead`) is to be created in Google Ads as a **secondary** conversion action, so it is counted without changing how the pay-per-lead campaign bids or bills.
+  - **Reason:** The Google Ads setup screen on 2026-11-20 showed the Google tag as "Not installed yet" and offered only one Analytics property to link, named for Jen Contracting. Linking that property would be the wrong business and would tie PaintSwitch to Jen Contracting inside the account, so it was not linked. The PaintSwitch Analytics property could not be reached from the Ads login. The owner chose the code route.
+  - **Consequences:** This completes the "connect the existing Google tag to the Ads account" step D-075 left open and stays inside the D-075 boundary: the same two anonymous events, event name only, no form data, no enhanced conversions, no audiences. Ad personalization signals are switched off for the Ads destination so the tag is not used for remarketing; any remarketing or audience use still needs a new decision and a Privacy Policy revision. The Privacy Policy wording from D-075 already describes this measurement and was not changed. Which login owns the PaintSwitch Analytics property (`G-LEKK2Q0XJ0`) is **not verified**. `phone_click` is not being created as a conversion action under this decision.
+  - **Supersedes:** Nothing. Extends D-075.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:

@@ -1,6 +1,10 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-11-20
+Last repository inspection: 2026-11-21
+
+## Google Ads destination added to the existing Google tag (D-078) — 2026-11-21
+
+`src/app/layout.tsx` now configures Google Ads account `443-423-2109` (`AW-18587255883`) as a second destination on the existing Google tag, with ad personalization signals off. No second tag script and no `GTM-` container. Tests assert the single-tag rule and the new line. **Not yet verified:** that the deployed page sends to Google Ads, that Google Ads reports the tag as installed, and that a `generate_lead` conversion action exists and records a test submission. Update this section when those are checked.
 
 ## Paid Google Ads started (D-074) and ad conversion measurement added (D-075) — 2026-11-20
 
