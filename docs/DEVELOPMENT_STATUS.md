@@ -2,6 +2,16 @@
 
 Last repository inspection: 2026-11-21
 
+## Production quote form outage found; lead-state database replaced — 2026-11-21
+
+**Finding.** On 2026-11-21 the owner's test of the live quote form failed in two browsers with "We could not confirm that your request was received." A labeled test request to `/api/leads` returned HTTP 503 `LEAD_DELIVERY_UNAVAILABLE` in under 100 milliseconds. In Vercel, the Upstash for Redis database `paintswitch-lead-idempotency` (Free plan, created 2026-08-03) showed `Uninstalled` with the notice "Your database has been archived due to inactivity." The rate limiter and the durable delivery state both depend on that database, so every submission failed closed. `LEAD_DELIVERY_ENABLED` and the GoHighLevel variables were still present. Lead delivery code has not changed since August. **When the database was archived is not known, so how long Production lead intake was down is not known;** the last recorded passing Production test is 2026-08-18.
+
+**Action taken with owner approval.** A new Free Upstash for Redis database, `paintswitch-lead-idempotency-2` (region `iad1`), was created through the Vercel Marketplace. The archived database's project connection was removed and the new database was connected to `paintswitch-web` for Production and Preview with the same `UPSTASH_REDIS_REST` variable prefix, so no code change was needed. The archived database's contents (30-day duplicate and rate-limit records) were not restored. This commit's deployment is the first to load the new values.
+
+**Not yet verified at the time of this commit:** a successful Production submission, GoHighLevel receipt, and the Google Ads `Quote request form` conversion. **Open risk:** a Free Upstash database is archived again after a long quiet period; nothing yet prevents a repeat. A keep-alive or an alert is **Proposed**, not approved.
+
+**Also verified 2026-11-21 (D-078).** After pull request #26 the live site's Google requests carried `npa=1`, and the remarketing requests seen earlier that evening were no longer sent.
+
 ## Google Ads destination added to the existing Google tag (D-078) — 2026-11-21
 
 `src/app/layout.tsx` now configures Google Ads account `443-423-2109` (`AW-18587255883`) as a second destination on the existing Google tag, with ad personalization signals off. No second tag script and no `GTM-` container. Tests assert the single-tag rule and the new line. Pull request #24 was merged as `c132dca` and deployed; on 2026-11-21 Google Ads' own installation test reported "Your Google tag was correctly detected on your website" and listed destination `AW-18587255883` as installed on site. The conversion action `Quote request form` was then created in Google Ads, and `src/lib/measurement-events.ts` sends its event snippet after an accepted quote request. **Not yet verified:** that a real or test quote request is recorded by Google Ads. The action shows as primary within the non-default `Submit lead form` goal because Google Ads disabled the secondary option at creation.
