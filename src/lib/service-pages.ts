@@ -34,11 +34,13 @@ export type ServicePageData = {
   practicalFactors: ServicePracticalFactor[];
   faqs: ServiceFaq[];
   costGuideSlug?: string;
+  relatedGuide?: { slug: string; label: string };
 };
 
 export const interiorPaintingServicePage: ServicePageData = {
   slug: "interior-painting",
   costGuideSlug: "what-affects-interior-painting-cost",
+  relatedGuide: { slug: "how-to-choose-interior-paint-colors", label: "how to choose interior paint colors" },
   serviceName: "Interior Painting",
   title: "Interior Painting Services | PaintSwitch",
   description:
@@ -136,6 +138,7 @@ export const interiorPaintingServicePage: ServicePageData = {
 export const exteriorPaintingServicePage: ServicePageData = {
   slug: "exterior-painting",
   costGuideSlug: "what-affects-exterior-painting-cost",
+  relatedGuide: { slug: "exterior-paint-maintenance-guide", label: "the exterior paint maintenance guide" },
   serviceName: "Exterior Painting",
   title: "Exterior Painting Services | PaintSwitch",
   description:
