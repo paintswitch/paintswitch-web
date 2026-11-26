@@ -24,13 +24,18 @@ const googleTagConnectSources = [
   "https://pagead2.googlesyndication.com",
 ];
 
+// D-080 (Microsoft Clarity): the Clarity tag loads from clarity.ms and sends
+// session data to *.clarity.ms; c.bing.com is used for Clarity's cookie sync.
+const claritySources = ["https://www.clarity.ms", "https://*.clarity.ms"];
+const clarityImageAndConnectSources = [...claritySources, "https://c.bing.com"];
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} ${googleTagScriptSources.join(" ")}`,
+  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} ${googleTagScriptSources.join(" ")} ${claritySources.join(" ")}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: blob: ${googleTagImageSources.join(" ")}`,
+  `img-src 'self' data: blob: ${googleTagImageSources.join(" ")} ${clarityImageAndConnectSources.join(" ")}`,
   "font-src 'self'",
-  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""} ${googleTagConnectSources.join(" ")}`,
+  `connect-src 'self'${isDevelopment ? " ws: wss:" : ""} ${googleTagConnectSources.join(" ")} ${clarityImageAndConnectSources.join(" ")}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
