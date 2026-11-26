@@ -1,6 +1,10 @@
 # PaintSwitch development status
 
-Last repository inspection: 2026-11-21
+Last repository inspection: 2026-11-26
+
+## Technical SEO audit and internal-link fix — 2026-11-26
+
+At the owner's request (in place of a paid outside SEO engagement), the production build was crawled page by page (43 indexable routes). **Clean:** no broken internal links; every page has exactly one `<h1>`, a self-referencing canonical on `https://paintswitch.com`, a title of 65 characters or fewer, a meta description, and a `sitemap.xml` entry; no duplicate titles; only the 404 page is `noindex`; every content image has alt text (the logo's empty alt is correct because its link carries `aria-label="PaintSwitch home"`). **Fixed:** the eight Alexandria/Arlington city-by-service pages each had only one internal link pointing to them, and the interior color guide had one. Each service page's existing "Looking for a specific city?" line now links to that service's Alexandria and Arlington pages (Alexandria first, per D-062), and the interior and exterior service pages link to their related topical guide. No layout, navigation, or design changes. The four service pages' sitemap `lastModified` moved to 2026-11-26. Lint, all tests, and the build pass. **Not checkable from the repository:** live redirects (`www` vs. apex is configured in Vercel's domain settings, not in code) and real-world Core Web Vitals.
 
 ## Production quote form outage found; lead-state database replaced — 2026-11-21
 

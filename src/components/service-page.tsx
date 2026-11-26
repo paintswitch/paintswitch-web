@@ -4,6 +4,7 @@ import { PrimaryButton, SecondaryButton } from "@/components/buttons";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 import { SectionHeading } from "@/components/section-heading";
 import { TrustBar } from "@/components/trust-bar";
+import { cityServicePages } from "@/lib/city-service-pages";
 import { buildServiceJsonLd, servicePages, type ServicePageData } from "@/lib/service-pages";
 
 export function ServicePage({ page }: { page: ServicePageData }) {
@@ -12,6 +13,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
   const practicalTitleId = `${page.slug}-practical-title`;
   const faqTitleId = `${page.slug}-faq-title`;
   const otherServices = servicePages.filter((service) => service.slug !== page.slug);
+  const localPages = cityServicePages.filter((local) => local.serviceSlug === page.slug);
 
   return (
     <>
@@ -188,10 +190,29 @@ export function ServicePage({ page }: { page: ServicePageData }) {
               ))}
             </ul>
             <p className="mt-8 text-sm leading-6 text-[#596563]">
-              Looking for a specific city? Browse <a href="/service-areas" className="text-[#012765] underline underline-offset-2">Service Areas</a>.
+              Looking for a specific city?{" "}
+              {localPages.length > 0 && (
+                <>
+                  See {page.serviceName.toLowerCase()} in{" "}
+                  {localPages.map((local, index) => (
+                    <span key={local.slug}>
+                      {index > 0 && " and "}
+                      <a href={`/${local.slug}`} className="text-[#012765] underline underline-offset-2">{local.cityLabel}</a>
+                    </span>
+                  ))}
+                  , or browse
+                </>
+              )}
+              {localPages.length === 0 && "Browse"}{" "}
+              <a href="/service-areas" className="text-[#012765] underline underline-offset-2">Service Areas</a>.
               {page.costGuideSlug && (
                 <>
                   {" "}Wondering what shapes a quote? Read <a href={`/${page.costGuideSlug}`} className="text-[#012765] underline underline-offset-2">what affects {page.serviceName.toLowerCase()} cost</a>.
+                </>
+              )}
+              {page.relatedGuide && (
+                <>
+                  {" "}Planning ahead? Read <a href={`/${page.relatedGuide.slug}`} className="text-[#012765] underline underline-offset-2">{page.relatedGuide.label}</a>.
                 </>
               )}
             </p>

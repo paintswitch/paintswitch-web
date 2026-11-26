@@ -785,3 +785,11 @@ test("ad conversion measurement stays inside the D-075 boundary", () => {
   assert.match(nextConfig, /https:\/\/www\.googletagmanager\.com/u);
   assert.match(nextConfig, /"frame-src 'none'"/u);
 });
+
+test("service pages link to their Alexandria and Arlington versions and related guides", () => {
+  assert.match(servicePageComponent, /cityServicePages\.filter\(\(local\) => local\.serviceSlug === page\.slug\)/u);
+  assert.match(servicePageComponent, /href=\{`\/\$\{local\.slug\}`\}/u);
+  assert.match(servicePageComponent, /href=\{`\/\$\{page\.relatedGuide\.slug\}`\}/u);
+  assert.match(servicePageData, /relatedGuide: \{ slug: "how-to-choose-interior-paint-colors"/u);
+  assert.match(servicePageData, /relatedGuide: \{ slug: "exterior-paint-maintenance-guide"/u);
+});
