@@ -787,6 +787,15 @@ Later on 2026-08-10, one fresh no-user-data synthetic conversation tested the li
   - **Consequences:** The route is public unless a `CRON_SECRET` environment variable is added in Vercel; when that variable exists the route accepts only Vercel Cron's matching bearer token. **No `CRON_SECRET` is set as of this decision**, so anyone who finds the address can trigger one small write per request, which is the same kind of cost any request to `/api/leads` already causes. Adding the variable is the owner's step because it is a secret. The keep-alive does not alert anyone when it fails; a failed run appears only in Vercel's cron logs. Where Upstash's warning emails were sent before the archival was **not verified**. Vercel Cron runs on Production deployments only. This does not change the lead form, validation, rate limit, or GoHighLevel delivery.
   - **Supersedes:** Nothing. Resolves the **Proposed** keep-alive noted in `DEVELOPMENT_STATUS.md` on 2026-11-21.
 
+## D-080 — Add Microsoft Clarity to the website; disclose as a service provider; Bing Webmaster Tools registered
+
+- **Date:** 2026-11-26 (owner set up both services 2026-11-15)
+- **Status:** Confirmed
+- **Decision:** Owner created a Microsoft Clarity project for `https://paintswitch.com` (project ID `zea0hw61uu`, masking mode **Balanced**). The standard Clarity tag is loaded in `src/app/layout.tsx` via `next/script` (`afterInteractive`) on every route, next to the Google tag. The Privacy Policy discloses Microsoft Clarity alongside the existing vendors, and its effective date moved to November 26, 2026. Separately, the owner registered the site in Bing Webmaster Tools by importing it from Google Search Console (no code change needed). Together these complete `LC-SEO-008`.
+  - **Reason:** Open measurement item in `SEO_BUSINESS_PLAN.md` and roadmap weeks 1–2; owner requested both on 2026-11-15. Adding a data processor without updating the Privacy Policy's vendor list would make it inaccurate.
+  - **Consequences:** Clarity records heatmaps and session replays. Balanced masking hides quote-form input; switching to a looser masking mode, or enabling Clarity's Microsoft Advertising integration, needs its own decision and Privacy Policy review (it could conflict with the "No sale or targeted advertising" section). Routine vendor-disclosure update like D-069, not a new attorney review.
+  - **Supersedes:** None. Extends D-067, D-069 and D-075.
+
 ## Proposed decision candidates
 
 The following are not decisions. They remain **Proposed** and are tracked in `OPEN_QUESTIONS.md`:

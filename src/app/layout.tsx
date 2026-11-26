@@ -6,6 +6,8 @@ import "./globals.css";
 const GA_MEASUREMENT_ID = "G-LEKK2Q0XJ0";
 // D-078: Google Ads destination on the same Google tag. Measurement only.
 const GOOGLE_ADS_TAG_ID = "AW-18587255883";
+// D-080: Microsoft Clarity heatmaps and session replays. Masking stays on Balanced.
+const CLARITY_PROJECT_ID = "zea0hw61uu";
 
 export const metadata: Metadata = {
   title: "DMV Painters: Interior, Exterior & Cabinet | PaintSwitch",
@@ -61,6 +63,15 @@ export default function RootLayout({
             gtag('js', new Date());
             gtag('config', '${GA_MEASUREMENT_ID}');
             gtag('config', '${GOOGLE_ADS_TAG_ID}');
+          `}
+        </Script>
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
           `}
         </Script>
       </body>
